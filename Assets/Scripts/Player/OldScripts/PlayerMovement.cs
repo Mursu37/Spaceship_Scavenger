@@ -44,6 +44,18 @@ public class PlayerMovement : MonoBehaviour
         // Calculate movement direction relative to camera
         Vector3 moveDirection = (cameraForward * inputKey.z + cameraRight * inputKey.x).normalized;
 
+        // Ascends the player
+        if (Input.GetKey(KeyCode.Space))
+        {
+            moveDirection += cameraTransform.up;
+        }
+
+        // Descends the player
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            moveDirection -= cameraTransform.up;
+        }
+
         // Apply force in the direction of movement
         rb.AddForce(moveDirection * acceleration * Time.fixedDeltaTime);
 
@@ -77,6 +89,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void StopMomentum()
+    {
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.fixedDeltaTime * 2f);
+
+            rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, Vector3.zero, Time.fixedDeltaTime * 2f);
+        }
+    }
+
     // Update is called once per frame
     private void FixedUpdate()
     {
@@ -86,5 +108,6 @@ public class PlayerMovement : MonoBehaviour
 
         MovePlayer();
         RotatePlayer();
+        StopMomentum();
     }
 }
