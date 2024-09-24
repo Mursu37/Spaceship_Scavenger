@@ -10,6 +10,7 @@ public class GravityGun : MonoBehaviour
     private Camera cam;
     private PlayerMovement playerMovement;
     private LineRenderer line;
+    private Vector3 hitPosition;
     private bool isAttracting;
 
     [SerializeField] private GameObject playerObject;
@@ -17,8 +18,7 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private Transform floatPoint;
     [SerializeField] private float range;
     [SerializeField] private float attractAcceleration;
-    [SerializeField] private Transform linePosition1;
-    private Transform linePosition2;
+    [SerializeField] private Transform shootingPoint;
 
     // Start is called before the first frame update
     private void Start()
@@ -26,6 +26,7 @@ public class GravityGun : MonoBehaviour
         cam = Camera.main;
         line = GetComponent<LineRenderer>();
         line.positionCount = 2;
+        line.enabled = false;
         playerMovement = playerObject.GetComponent<PlayerMovement>();
     }
 
@@ -41,7 +42,7 @@ public class GravityGun : MonoBehaviour
             {
                 target = hit.transform.gameObject;
                 targetRb = target.GetComponent<Rigidbody>();
-                linePosition2 = target.transform;
+                hitPosition = hit.point;
             }
         }
 
@@ -75,9 +76,9 @@ public class GravityGun : MonoBehaviour
             playerRb.drag = 1f;
             playerMovement.maxSpeed = 100f;
 
-            Vector3 directionToFloatPoint = (target.transform.position - floatPoint.position).normalized;
+            Vector3 directionToFloatPoint = (hitPosition - floatPoint.position).normalized;
 
-            float distance = Vector3.Distance(target.transform.position, floatPoint.position);
+            float distance = Vector3.Distance(hitPosition, floatPoint.position);
 
             playerRb.AddForce(directionToFloatPoint * 0.02f * distance, ForceMode.VelocityChange);
         }
@@ -110,11 +111,17 @@ public class GravityGun : MonoBehaviour
         }
 
         // Sets a line between the gun and the object
-        if (isAttracting && target != null)
+        if (isAttracting && target != null && targetRb != null)
         {
             line.enabled = true;
-            line.SetPosition(0, linePosition1.position);
+            line.SetPosition(0, shootingPoint.position);
             line.SetPosition(1, target.transform.position);
+        }
+        else if (isAttracting && target != null && targetRb == null)
+        {
+            line.enabled = true;
+            line.SetPosition(0, shootingPoint.position);
+            line.SetPosition(1, hitPosition);
         }
         else
         {
