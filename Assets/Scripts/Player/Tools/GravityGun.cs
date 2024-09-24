@@ -56,19 +56,44 @@ public class GravityGun : MonoBehaviour
                 targetRb.drag = 0.5f;
 
                 // Calculate the direction to the floating point
-                Vector3 directionToFloatPoint = (floatPoint.position - target.transform.position).normalized;
+                Vector3 direction = (floatPoint.position - target.transform.position).normalized;
 
                 // Apply a force in the direction of the floatPoint with intensity decreasing as it gets closer
-                targetRb.AddForce(directionToFloatPoint * attractAcceleration * distance);
+                targetRb.AddForce(direction * attractAcceleration * distance);
             }
             else if (playerRb.mass < targetRb.mass)
             {
                 playerRb.drag = 1f;
                 playerMovement.maxSpeed = 100f;
 
-                Vector3 directionToFloatPoint = (target.transform.position - floatPoint.position).normalized;
+                Vector3 direction = (target.transform.position - floatPoint.position).normalized;
 
-                playerRb.AddForce(directionToFloatPoint * 0.02f * distance, ForceMode.VelocityChange);
+                playerRb.AddForce(direction * 0.02f * distance, ForceMode.VelocityChange);
+
+                // Makes player and the object lose momentum when they're near each other
+                if (distance <= 3f)
+                {
+                    targetRb.velocity = Vector3.Lerp(targetRb.velocity, Vector3.zero, 0.1f);
+                    playerRb.velocity = Vector3.Lerp(playerRb.velocity, Vector3.zero, 0.1f);
+                }
+            }
+            else if (playerRb.mass == targetRb.mass)
+            {
+                playerRb.drag = 0.5f;
+                targetRb.drag = 0.5f;
+                playerMovement.maxSpeed = 100f;
+
+                Vector3 directionToFloatPoint = (floatPoint.position - target.transform.position).normalized;
+                Vector3 directionToFloatPlayer = (target.transform.position - floatPoint.position).normalized;
+
+                targetRb.AddForce(directionToFloatPoint * 0.01f * distance, ForceMode.VelocityChange);
+                playerRb.AddForce(directionToFloatPlayer * 0.01f * distance, ForceMode.VelocityChange);
+
+                if (distance <= 3f)
+                {
+                    targetRb.velocity = Vector3.Lerp(targetRb.velocity, Vector3.zero, 0.1f);
+                    playerRb.velocity = Vector3.Lerp(playerRb.velocity, Vector3.zero, 0.1f);
+                }
             }
         }
         else if (target != null && targetRb == null)
