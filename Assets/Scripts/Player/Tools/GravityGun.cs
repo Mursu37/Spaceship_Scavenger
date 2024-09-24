@@ -9,6 +9,7 @@ public class GravityGun : MonoBehaviour
     private Rigidbody targetRb;
     private Camera cam;
     private PlayerMovement playerMovement;
+    private LineRenderer line;
     private bool isAttracting;
 
     [SerializeField] private GameObject playerObject;
@@ -16,12 +17,15 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private Transform floatPoint;
     [SerializeField] private float range;
     [SerializeField] private float attractAcceleration;
+    [SerializeField] private Transform linePosition1;
+    private Transform linePosition2;
 
     // Start is called before the first frame update
     private void Start()
     {
         cam = Camera.main;
-
+        line = GetComponent<LineRenderer>();
+        line.positionCount = 2;
         playerMovement = playerObject.GetComponent<PlayerMovement>();
     }
 
@@ -37,6 +41,7 @@ public class GravityGun : MonoBehaviour
             {
                 target = hit.transform.gameObject;
                 targetRb = target.GetComponent<Rigidbody>();
+                linePosition2 = target.transform;
             }
         }
 
@@ -102,6 +107,18 @@ public class GravityGun : MonoBehaviour
         else if (Input.GetButtonUp("Fire1"))
         {
             isAttracting = false;
+        }
+
+        // Sets a line between the gun and the object
+        if (isAttracting && target != null)
+        {
+            line.enabled = true;
+            line.SetPosition(0, linePosition1.position);
+            line.SetPosition(1, target.transform.position);
+        }
+        else
+        {
+            line.enabled = false;
         }
     }
 
