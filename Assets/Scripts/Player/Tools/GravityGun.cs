@@ -73,8 +73,7 @@ public class GravityGun : MonoBehaviour
                 // Makes player and the object lose momentum when they're near each other
                 if (distance <= 3f)
                 {
-                    targetRb.velocity = Vector3.Lerp(targetRb.velocity, Vector3.zero, 0.1f);
-                    playerRb.velocity = Vector3.Lerp(playerRb.velocity, Vector3.zero, 0.1f);
+                    Release();
                 }
             }
             else if (playerRb.mass == targetRb.mass)
