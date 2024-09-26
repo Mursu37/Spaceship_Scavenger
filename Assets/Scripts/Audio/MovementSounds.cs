@@ -7,6 +7,7 @@ public class MovementSounds : MonoBehaviour
 [SerializeField] private AudioSource audioSource1; // Assign these in the inspector
 [SerializeField] private AudioSource audioSource2;
 [SerializeField] private AudioSource stoppingSound;
+[SerializeField] private AudioSource thrusterHiss;
 private bool isThrusting = false;
     
 // For Audio Source 1 = player_suit_thruster
@@ -20,6 +21,10 @@ private bool isThrusting = false;
  // Speed threshold for playing stopping sound
  [SerializeField] private float speedThreshold = 1.0f; // Minimum speed to play stopping sound
  private Rigidbody rb; // Reference to the Rigidbody component
+
+ //Continous input time threshold for playing thruster hiss
+ [SerializeField] private float inputTimeThreshold = 2.0f;
+ private float inputTimer = 0.0f; //timer to track continuous input
 
     private void Start()
     {
@@ -38,8 +43,9 @@ private bool isThrusting = false;
     {
         float currentSpeed = rb.velocity.magnitude; // get the speed from rb component
         // Are any movement keys pressed
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Space))
         {
+            inputTimer += Time.deltaTime;
             if (!isThrusting)
             {
                 StartThrusting();
@@ -51,6 +57,14 @@ private bool isThrusting = false;
             {
                 StopThrusting();
             }
+
+            //Play thruster hiss if input has been continuous for enough time
+            if (inputTimer >= inputTimeThreshold)
+            {
+                PlayThrusterHiss();
+            }
+
+            inputTimer = 0f; //reset timer
         }
 
         if (audioSource2.isPlaying && audioSource2.volume < maxVolume)
@@ -97,6 +111,15 @@ private bool isThrusting = false;
         {
             stoppingSound.pitch = Random.Range(minPitch, maxPitch);
             stoppingSound.Play();
+        }
+    }
+
+    //Play thruster hiss
+    private void PlayThrusterHiss()
+    {
+        if (!thrusterHiss.isPlaying)
+        {
+            thrusterHiss.Play();
         }
     }
 }
