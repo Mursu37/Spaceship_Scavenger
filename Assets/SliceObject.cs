@@ -11,7 +11,8 @@ public class SliceObject : MonoBehaviour
     public Transform planeDebug;
     public GameObject target;
     public Material crossSectionMaterial;
-    public float cutForce = 2000;
+    public float cutForce = 500;
+    //public Transform cameraTransform;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,12 @@ public class SliceObject : MonoBehaviour
 
     public void Slice(GameObject target)
     {
+       // Defining the slicing plane based on the camera orientation for a more dynamic experience
+       // Vector3 slicePosition = cameraTransform.position + cameraTransform.forward * 2.0f;
+       // Vector3 sliceDirection = cameraTransform.up;
+       // SlicedHull hull = target.Slice(slicePosition, sliceDirection);
+
+
         SlicedHull hull = target.Slice(planeDebug.position, planeDebug.up);
 
         if (hull != null)
