@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IHealth
 {
     // Inputs
     private float verticalInput;
@@ -11,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     private float mouseInputX;
     private float mouseInputY;
 
+    private float maxHealth;
+    private float currentHealth;
+
     private Rigidbody rb;
 
     [SerializeField] private float speed;
@@ -20,6 +24,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float rollAcceleration;
 
     public float maxSpeed;
+
+
+    private void Awake()
+    {
+        maxHealth = 3f;
+        currentHealth = maxHealth;
+    }
 
     // Start is called before the first frame update
     private void Start()
@@ -76,5 +87,11 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         HandleMovement();
+    }
+    
+    public void Damage(float amount)
+    {
+        currentHealth -= amount;
+        Debug.Log(currentHealth);
     }
 }
