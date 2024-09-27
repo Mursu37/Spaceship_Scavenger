@@ -63,8 +63,6 @@ public class PlayerMovement : MonoBehaviour, IHealth
         {
             rb.velocity = rb.velocity.normalized * maxSpeed;
         }
-
-        // TODO: Add max speed for roll without affecting the mouse inputs
     }
 
     // Update is called once per frame
