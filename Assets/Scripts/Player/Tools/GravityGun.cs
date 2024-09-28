@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class GravityGun : MonoBehaviour
 {
+    // Inputs
+    private float scrollWheelInput;
+
     private GameObject target;
     private Rigidbody targetRb;
     private Camera cam;
@@ -43,6 +46,7 @@ public class GravityGun : MonoBehaviour
                 target = hit.transform.gameObject;
                 targetRb = target.GetComponent<Rigidbody>();
                 hitPosition = hit.point;
+                floatPoint.position = hit.point;
             }
         }
 
@@ -125,6 +129,12 @@ public class GravityGun : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        scrollWheelInput = Input.GetAxis("Mouse ScrollWheel");
+
+        Vector3 floatPointPos = floatPoint.localPosition;
+        floatPointPos.z += 2f * scrollWheelInput;
+        floatPoint.localPosition = floatPointPos;
+
         if (Input.GetButtonDown("Fire1"))
         {
             isAttracting = true;
