@@ -52,12 +52,13 @@ public class GravityGun : MonoBehaviour
 
         if (target != null && targetRb != null)
         {
-            // Calculate the required force based on the distance to floatPoint
-            float distance = Vector3.Distance(target.transform.position, floatPoint.position);
-
             if (playerRb.mass > targetRb.mass)
             {
-                targetRb.drag = 0.5f;
+                targetRb.drag = 1.5f;
+
+                // Calculate the required force based on the distance
+                float distance = Vector3.Distance(target.transform.position, floatPoint.position);
+                float distanceToPlayer = Vector3.Distance(target.transform.position, playerRb.position);
 
                 // Calculate the direction to the floating point
                 Vector3 direction = (floatPoint.position - target.transform.position).normalized;
@@ -70,12 +71,14 @@ public class GravityGun : MonoBehaviour
                 playerRb.drag = 1f;
                 playerMovement.maxSpeed = 100f;
 
-                Vector3 direction = (target.transform.position - floatPoint.position).normalized;
+                float distance = Vector3.Distance(target.transform.position, playerRb.position);
+
+                Vector3 direction = (target.transform.position - playerRb.position).normalized;
 
                 playerRb.AddForce(direction * 0.02f * distance, ForceMode.VelocityChange);
 
                 // Makes player and the object lose momentum when they're near each other
-                if (distance <= 3f)
+                if (distance <= 4f)
                 {
                     Release();
                 }
@@ -86,13 +89,15 @@ public class GravityGun : MonoBehaviour
                 targetRb.drag = 0.5f;
                 playerMovement.maxSpeed = 100f;
 
-                Vector3 directionToFloatPoint = (floatPoint.position - target.transform.position).normalized;
-                Vector3 directionToFloatPlayer = (target.transform.position - floatPoint.position).normalized;
+                float distance = Vector3.Distance(target.transform.position, playerRb.position);
+
+                Vector3 directionToFloatPoint = (playerRb.position - target.transform.position).normalized;
+                Vector3 directionToFloatPlayer = (target.transform.position - playerRb.position).normalized;
 
                 targetRb.AddForce(directionToFloatPoint * 0.01f * distance, ForceMode.VelocityChange);
                 playerRb.AddForce(directionToFloatPlayer * 0.01f * distance, ForceMode.VelocityChange);
 
-                if (distance <= 3f)
+                if (distance <= 6f)
                 {
                     targetRb.velocity = Vector3.Lerp(targetRb.velocity, Vector3.zero, 0.1f);
                     playerRb.velocity = Vector3.Lerp(playerRb.velocity, Vector3.zero, 0.1f);
@@ -104,9 +109,9 @@ public class GravityGun : MonoBehaviour
             playerRb.drag = 1f;
             playerMovement.maxSpeed = 100f;
 
-            Vector3 directionToFloatPoint = (hitPosition - floatPoint.position).normalized;
+            Vector3 directionToFloatPoint = (hitPosition - playerRb.position).normalized;
 
-            float distance = Vector3.Distance(hitPosition, floatPoint.position);
+            float distance = Vector3.Distance(hitPosition, playerRb.position);
 
             playerRb.AddForce(directionToFloatPoint * 0.02f * distance, ForceMode.VelocityChange);
         }
@@ -132,7 +137,16 @@ public class GravityGun : MonoBehaviour
         scrollWheelInput = Input.GetAxis("Mouse ScrollWheel");
 
         Vector3 floatPointPos = floatPoint.localPosition;
-        floatPointPos.z += 2f * scrollWheelInput;
+
+        if (scrollWheelInput > 0f)
+        {
+            floatPointPos.z += 4f * scrollWheelInput;
+        }
+        else if (scrollWheelInput < 0f && Vector3.Distance(floatPoint.position, playerRb.position) > 2f)
+        {
+            floatPointPos.z += 4f * scrollWheelInput;
+        }
+
         floatPoint.localPosition = floatPointPos;
 
         if (Input.GetButtonDown("Fire1"))
