@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -52,8 +53,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = rb.velocity.normalized * maxSpeed;
         }
-
-        // TODO: Add max speed for roll without affecting the mouse inputs
     }
 
     // Update is called once per frame
