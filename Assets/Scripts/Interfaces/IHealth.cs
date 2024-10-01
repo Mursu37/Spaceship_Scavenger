@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IHealth
 {
     private float maxHealth => maxHealth;
-    private float currentHealth => currentHealth;
+    public float currentHealth => currentHealth;
 
     void Damage(float amount);
 }

@@ -47,6 +47,11 @@ public class GravityGun : MonoBehaviour
                 targetRb = target.GetComponent<Rigidbody>();
                 hitPosition = hit.point;
                 floatPoint.position = hit.point;
+
+                if (targetRb != null)
+                {
+                    targetRb.constraints = RigidbodyConstraints.FreezeRotation;
+                }
             }
         }
 
@@ -65,6 +70,10 @@ public class GravityGun : MonoBehaviour
 
                 // Apply a force in the direction of the floatPoint with intensity decreasing as it gets closer
                 targetRb.AddForce(direction * attractAcceleration * distance);
+
+                // Apply the player's rotation to the target
+                target.transform.rotation = Quaternion.Slerp(target.transform.rotation, playerObject.transform.rotation, 0.1f);
+
             }
             else if (playerRb.mass < targetRb.mass)
             {
@@ -123,6 +132,7 @@ public class GravityGun : MonoBehaviour
         if (target != null && targetRb != null)
         {
             targetRb.drag = 0f;
+            targetRb.constraints = RigidbodyConstraints.None;
         }
 
         target = null;
