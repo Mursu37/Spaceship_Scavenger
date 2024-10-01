@@ -11,7 +11,7 @@ public class SliceObject : MonoBehaviour
     public Transform planeDebug;
     public GameObject target;
     public Material crossSectionMaterial;
-    public float cutForce = 100;
+    public float cutForce = 0.0001f;
     //public Transform cameraTransform;
 
     // Start is called before the first frame update
