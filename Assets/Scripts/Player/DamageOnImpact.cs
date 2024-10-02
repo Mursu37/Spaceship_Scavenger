@@ -29,7 +29,7 @@ public class DamageOnImpact : MonoBehaviour
             // Calculate the force of impact using the other object's mass and relative velocity
             collisionForce = relativeVelocity.magnitude * otherRb.mass;
 
-            float amount = Mathf.RoundToInt(collisionForce * 0.5f);
+            float amount = Mathf.RoundToInt(collisionForce * 0.8f);
 
             if (collisionForce > 8)
             {
