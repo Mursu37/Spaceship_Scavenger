@@ -7,8 +7,7 @@ public class CoreTrigger : MonoBehaviour
     {
         if (other.gameObject.tag == "Core")
         {
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            SceneManager.LoadSceneAsync("MainMenu");
         }
     }
 }

@@ -59,7 +59,7 @@ public class GravityGun : MonoBehaviour
         {
             if (playerRb.mass > targetRb.mass)
             {
-                targetRb.drag = 1.5f;
+                targetRb.drag = 0.5f;
 
                 // Calculate the required force based on the distance
                 float distance = Vector3.Distance(target.transform.position, floatPoint.position);
