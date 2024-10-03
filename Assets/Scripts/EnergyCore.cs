@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnergyCore : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class EnergyCore : MonoBehaviour
     private Vector3 relativeVelocity;
     private float collisionForce;
 
-    [SerializeField] private float health;
+    [SerializeField] private float heath;
+    [SerializeField] private float maxHeath;
 
     private void Start()
     {
@@ -17,9 +19,10 @@ public class EnergyCore : MonoBehaviour
 
     private void Update()
     {
-        if (health <= 0)
+        if (heath >= maxHeath)
         {
-            Destroy(gameObject);
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.name);
         }
     }
 
@@ -33,11 +36,7 @@ public class EnergyCore : MonoBehaviour
 
         if (collisionForce > 2)
         {
-            health -= collisionForce * 2f;
+            heath += collisionForce * 2f;
         }
-
-        // Output the object that collided and the force of impact
-        Debug.Log("Collided with: " + collision.gameObject.name);
-        Debug.Log("Collision force: " + collisionForce + " N");
     }
 }
