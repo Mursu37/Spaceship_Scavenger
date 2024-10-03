@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     private float mouseInputY;
 
     private Rigidbody rb;
-    private bool isPlayingAudio;
 
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed;
@@ -30,8 +29,6 @@ public class PlayerMovement : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        isPlayingAudio = false;
     }
 
     private void HandleMovement()
@@ -73,20 +70,6 @@ public class PlayerMovement : MonoBehaviour
         // Gets the current speed
         speed = rb.velocity.magnitude;
         rotationSpeed = rb.angularVelocity.magnitude;
-
-        bool isMoving = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)
-            || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Space);
-
-        if (isMoving && !isPlayingAudio)
-        {
-            SoundManager.PlaySound(0);
-            isPlayingAudio = true;
-        }
-        else if (!isMoving && isPlayingAudio)
-        { 
-            isPlayingAudio = false;
-            SoundManager.StopSound();
-        }
     }
 
     private void FixedUpdate()
