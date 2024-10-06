@@ -4,36 +4,29 @@ using UnityEngine;
 
 public class MovementSounds : MonoBehaviour
 {
-[SerializeField] private AudioSource audioSource1; // Assign these in the inspector
-[SerializeField] private AudioSource audioSource2;
-[SerializeField] private AudioSource stoppingSound;
-[SerializeField] private AudioSource thrusterHiss;
-private bool isThrusting = false;
+    private bool isThrusting = false;
     
-// For Audio Source 1 = player_suit_thruster
- [SerializeField] private float minPitch = 0.8f;
- [SerializeField] private float maxPitch = 1.2f; 
+    // For Audio Source 1 = player_suit_thruster
+    [SerializeField] private float minPitch = 0.8f;
+    [SerializeField] private float maxPitch = 1.2f; 
 
- // For Audio Source 2 = player_suit_thruster_layer
- [SerializeField] private float fadeInSpeed = 0.2f;
- [SerializeField] private float maxVolume = 1.0f;
+    // For Audio Source 2 = player_suit_thruster_layer
+    [SerializeField] private float fadeInSpeed = 0.2f;
+    [SerializeField] private float maxVolume = 1.0f;
 
- // Speed threshold for playing stopping sound
- [SerializeField] private float speedThreshold = 1.0f; // Minimum speed to play stopping sound
- private Rigidbody rb; // Reference to the Rigidbody component
+    // Speed threshold for playing stopping sound
+    [SerializeField] private float speedThreshold = 1.0f; // Minimum speed to play stopping sound
+    private Rigidbody rb; // Reference to the Rigidbody component
 
- //Continous input time threshold for playing thruster hiss
- [SerializeField] private float inputTimeThreshold = 2.0f;
- private float inputTimer = 0.0f; //timer to track continuous input
+    //Continous input time threshold for playing thruster hiss
+    [SerializeField] private float inputTimeThreshold = 2.0f;
+    private float inputTimer = 0.0f; //timer to track continuous input
+
+    private float thrusterLayerVolume;
 
     private void Start()
     {
-        audioSource2.volume = 0f;
-
-        if(audioSource1 == null || audioSource2 == null || stoppingSound == null)
-        {
-            Debug.LogError("Please assign both AudioSources in the Inspector.");
-        }
+        thrusterLayerVolume = 0f;
 
         rb = GetComponentInParent<Rigidbody>(); // Get the Rigidbody component from the parent object
     }
@@ -67,9 +60,10 @@ private bool isThrusting = false;
             inputTimer = 0f; //reset timer
         }
 
-        if (audioSource2.isPlaying && audioSource2.volume < maxVolume)
+        if (AudioManager.IsPlaying("ThrusterLayer") && thrusterLayerVolume < maxVolume)
         {
-            audioSource2.volume += fadeInSpeed * Time.deltaTime;
+            thrusterLayerVolume += fadeInSpeed * Time.deltaTime;
+            AudioManager.SetVolume("ThrusterLayer", thrusterLayerVolume);
         }
 
         // Check if left Ctrl is pressed and if the player's speed is high enough
@@ -84,11 +78,10 @@ private bool isThrusting = false;
     private void StartThrusting()
     {
         isThrusting = true;
-        if (!audioSource1.isPlaying || !audioSource2.isPlaying)
+        if (!AudioManager.IsPlaying("Thruster") || !AudioManager.IsPlaying("ThrusterLayer"))
         {
-            audioSource1.pitch = Random.Range(minPitch, maxPitch);
-            audioSource1.Play();
-            audioSource2.Play();
+            AudioManager.PlayAudio("Thruster", 1, Random.Range(minPitch, maxPitch));
+            AudioManager.PlayAudio("ThrusterLayer");
         }
     }
 
@@ -96,30 +89,30 @@ private bool isThrusting = false;
     private void StopThrusting()
     {
         isThrusting = false;
-        if (audioSource1.isPlaying || audioSource2.isPlaying)
+        if (AudioManager.IsPlaying("Thruster") || AudioManager.IsPlaying("ThrusterLayer"))
         {
-            audioSource1.Stop();
-            audioSource2.Stop();
-            audioSource2.volume = 0f;
+            AudioManager.StopAudio("Thruster");
+            AudioManager.StopAudio("ThrusterLayer");
+
+            thrusterLayerVolume = 0f;
         }
     }
 
     //play stopping sound
     private void PlaystoppingSound()
     {
-        if (!stoppingSound.isPlaying)
+        if (!AudioManager.IsPlaying("ThrusterStop"))
         {
-            stoppingSound.pitch = Random.Range(minPitch, maxPitch);
-            stoppingSound.Play();
+            AudioManager.PlayAudio("ThrusterStop", 1, 1, false);
         }
     }
 
     //Play thruster hiss
     private void PlayThrusterHiss()
     {
-        if (!thrusterHiss.isPlaying)
+        if (!AudioManager.IsPlaying("ThrusterHiss"))
         {
-            thrusterHiss.Play();
+            AudioManager.PlayAudio("ThrusterHiss", 1, 1, false);
         }
     }
 }
