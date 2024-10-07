@@ -14,6 +14,7 @@ public class GravityGun : MonoBehaviour
     private PlayerMovement playerMovement;
     private LineRenderer line;
     private Vector3 hitPosition;
+    private WeaponSwitch weaponSwitch;
     private bool isAttracting;
 
     [SerializeField] private GameObject playerObject;
@@ -22,6 +23,7 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private float range;
     [SerializeField] private float attractAcceleration;
     [SerializeField] private Transform shootingPoint;
+    [SerializeField] private GameObject weaponSwitchObject;
 
     // Start is called before the first frame update
     private void Start()
@@ -31,6 +33,7 @@ public class GravityGun : MonoBehaviour
         line.positionCount = 2;
         line.enabled = false;
         playerMovement = playerObject.GetComponent<PlayerMovement>();
+        weaponSwitch = weaponSwitchObject.GetComponent<WeaponSwitch>();
     }
 
     // Attracts things towards the player
@@ -59,7 +62,7 @@ public class GravityGun : MonoBehaviour
         {
             if (playerRb.mass > targetRb.mass)
             {
-                targetRb.drag = 1.5f;
+                targetRb.drag = 0.5f;
 
                 // Calculate the required force based on the distance
                 float distance = Vector3.Distance(target.transform.position, floatPoint.position);
@@ -191,10 +194,12 @@ public class GravityGun : MonoBehaviour
     {
         if (isAttracting)
         {
+            weaponSwitch.enabled = false;
             Attract();
         }
         else
         {
+            weaponSwitch.enabled = true;
             Release();
         }
     }
