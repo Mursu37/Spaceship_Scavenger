@@ -4,23 +4,17 @@ using UnityEngine;
 
 public class MultitoolSounds : MonoBehaviour
 {
-//Audio Sources multitool gravity mode, assign in inspector
-[SerializeField] private AudioSource gravityTransient1;
-[SerializeField] private AudioSource gravityTransient2;
-[SerializeField] private AudioSource gravityTransient3;
-[SerializeField] private AudioSource gravityHum;
-[SerializeField] private AudioSource gravityEnd1;
-[SerializeField] private AudioSource gravityEnd2;
-[SerializeField] private AudioSource gravityEnd3;
 
 private LineRenderer lineRenderer; 
 
 //Pitch modulation range
-private float minPitch = 0.8f;
-private float maxPitch = 1.2f;
+[SerializeField] private float minPitch = 0.8f;
+[SerializeField] private float maxPitch = 1.2f;
 
-private AudioSource[] transientSounds;
-private AudioSource[] endSounds;
+//names arrays for audio manager
+[SerializeField] private string[] gravityTransients;
+[SerializeField] private string[] gravityEndSounds;
+[SerializeField] private string gravityHumSound;
 
 
     // Start is called before the first frame update
@@ -33,9 +27,11 @@ private AudioSource[] endSounds;
             Debug.LogWarning("No LineRenderer found in the parent object.");
         }
 
-        // Initialize arrays with the transient and end sounds
-        transientSounds = new AudioSource[] { gravityTransient1, gravityTransient2, gravityTransient3 };
-        endSounds = new AudioSource[] { gravityEnd1, gravityEnd2, gravityEnd3 };
+        // Ensure arrays are set
+        if(gravityTransients.Length == 0 || gravityEndSounds.Length == 0)
+        {
+            Debug.LogWarning("Gravity transient or end sounds not set in inspector.");
+        }
 
     }
 
@@ -56,33 +52,33 @@ private AudioSource[] endSounds;
     //Play gravity start sounds and loop
     private void PlayGravityStartSounds()
     {
-        if(!gravityHum.isPlaying)
+        if(!AudioManager.IsPlaying(gravityHumSound))
         {
-            AudioSource selectedTransient = GetRandomSound(transientSounds);
-            selectedTransient.pitch = Random.Range(minPitch, maxPitch); //Pitch modulation
-            selectedTransient.Play();
+            string selectedTransient = GetRandomSoundName(gravityTransients);
+            float randomPitch = Random.Range(minPitch, maxPitch);
 
-            gravityHum.Play();
+            AudioManager.PlayAudio(selectedTransient, 1, randomPitch, false);
+            AudioManager.PlayAudio(gravityHumSound, 1, 1, true);
         }
     }
     //Play end sounds and stop loop
     private void PlayGravityEndSounds()
     {
-        if(gravityHum.isPlaying)
+        if(AudioManager.IsPlaying(gravityHumSound))
         {
-            AudioSource selectedEndSound = GetRandomSound(endSounds);
-            selectedEndSound.pitch = Random.Range(minPitch, maxPitch); // Pitch modulation
-            selectedEndSound.Play();
+            string selectedEndSound = GetRandomSoundName(gravityEndSounds);
+            float randomPitch = Random.Range(minPitch, maxPitch);
 
-            gravityHum.Stop();
+            AudioManager.PlayAudio(selectedEndSound, 1, randomPitch, false);
+            AudioManager.StopAudio(gravityHumSound); 
         }
     }
 
-    // Helper method to select a random sound from an array
-    private AudioSource GetRandomSound(AudioSource[] sounds)
+    // Helper method to select a random sound from a string array
+    private string GetRandomSoundName(string[] soundNames)
     {
-        int randomIndex = Random.Range(0, sounds.Length);
-        return sounds[randomIndex];
+        int randomIndex = Random.Range(0, soundNames.Length);
+        return soundNames[randomIndex];
     }
 
 }
