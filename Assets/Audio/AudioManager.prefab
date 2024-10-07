@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2113613496294778607}
+  - component: {fileID: 2422633703024239703}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -33,6 +34,34 @@ Transform:
   - {fileID: 5523663869426418267}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2422633703024239703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699993029445035752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d34472e6f2a062847ab27536fcca219c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Thruster
+    clip: {fileID: 8300000, guid: 45de3ad615484af4a8d6b577c7113468, type: 3}
+    source: {fileID: 0}
+  - name: ThrusterLayer
+    clip: {fileID: 8300000, guid: 02778e9ec2698fb4bba4939a3f5066c9, type: 3}
+    source: {fileID: 0}
+  - name: ThrusterStop
+    clip: {fileID: 8300000, guid: 5088626b7a8037b4da33ce0f5c042ab4, type: 3}
+    source: {fileID: 0}
+  - name: ThrusterHiss
+    clip: {fileID: 8300000, guid: 229316cb6a535794a9384f486acc0220, type: 3}
+    source: {fileID: 0}
+  - name: ThrusterHiss
+    clip: {fileID: 8300000, guid: 229316cb6a535794a9384f486acc0220, type: 3}
+    source: {fileID: 0}
 --- !u!1 &7788608340621674505
 GameObject:
   m_ObjectHideFlags: 0
