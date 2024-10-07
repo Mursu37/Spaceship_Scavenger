@@ -4,7 +4,7 @@ public class WeaponSwitch : MonoBehaviour
 {
     public int selectedWeapon = 0;
     private GravityGun gravityGun;
-    private SliceObject sliceObject;
+    private Slicer slicer;
     [SerializeField] private GameObject multitool;
 
     // Start is called before the first frame update
@@ -12,10 +12,10 @@ public class WeaponSwitch : MonoBehaviour
     {
         //SelectWeapon();
         gravityGun = GetComponent<GravityGun>();
-        sliceObject = GetComponent<SliceObject>();
+        slicer = GetComponent<Slicer>();
 
         gravityGun = multitool.GetComponent<GravityGun>();
-        sliceObject = multitool.GetComponent<SliceObject>();
+        slicer = multitool.GetComponent<Slicer>();
     }
 
     // Update is called once per frame
@@ -49,12 +49,12 @@ public class WeaponSwitch : MonoBehaviour
         if (selectedWeapon == 0)
         {
             gravityGun.enabled = true;
-            sliceObject.enabled = false;
+            slicer.enabled = false;
         }
         else if (selectedWeapon == 1)
         {
             gravityGun.enabled = false;
-            sliceObject.enabled = true;
+            slicer.enabled = true;
         }
     }
 
