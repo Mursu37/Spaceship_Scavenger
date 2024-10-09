@@ -11,6 +11,7 @@ public class EnergyCore : MonoBehaviour
 
     [SerializeField] private float heath;
     [SerializeField] private float maxHeath;
+    [SerializeField] private GameObject gameState;
 
     private void Start()
     {
@@ -23,6 +24,15 @@ public class EnergyCore : MonoBehaviour
         {
             Scene scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name);
+        }
+    }
+
+    public IEnumerator HeathIncrease()
+    {
+        while (heath < maxHeath)
+        {
+            yield return new WaitForSeconds(2f);
+            heath += 1f;
         }
     }
 

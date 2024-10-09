@@ -7,6 +7,8 @@ public class PlayerRespawn : MonoBehaviour
     private bool canRespawn;
     private Vector3 spawnPosition;
 
+    [SerializeField] private GameObject spawnPoint;
+
     private void Awake()
     {
         canRespawn = true;
@@ -29,8 +31,17 @@ public class PlayerRespawn : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        PlayerPrefs.SetFloat("PlayerPosX", 17.5f);
-        PlayerPrefs.SetFloat("PlayerPosY", -0.884f);
-        PlayerPrefs.SetFloat("PlayerPosZ", 14.3f);
+        if (spawnPoint != null)
+        {
+            PlayerPrefs.SetFloat("PlayerPosX", spawnPoint.transform.position.x);
+            PlayerPrefs.SetFloat("PlayerPosY", spawnPoint.transform.position.y);
+            PlayerPrefs.SetFloat("PlayerPosZ", spawnPoint.transform.position.z);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("PlayerPosX", 0);
+            PlayerPrefs.SetFloat("PlayerPosY", 0);
+            PlayerPrefs.SetFloat("PlayerPosZ", 0);
+        }
     }
 }

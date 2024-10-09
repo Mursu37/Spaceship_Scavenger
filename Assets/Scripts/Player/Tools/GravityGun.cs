@@ -16,6 +16,8 @@ public class GravityGun : MonoBehaviour
     private Vector3 hitPosition;
     private WeaponSwitch weaponSwitch;
     private bool isAttracting;
+    private MeltdownPhase meltdownPhase;
+    private EnergyCore energyCore;
 
     [SerializeField] private GameObject playerObject;
     [SerializeField] private Rigidbody playerRb;
@@ -24,6 +26,7 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private float attractAcceleration;
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private GameObject weaponSwitchObject;
+    [SerializeField] private GameObject gameState;
 
     // Start is called before the first frame update
     private void Start()
@@ -34,6 +37,11 @@ public class GravityGun : MonoBehaviour
         line.enabled = false;
         playerMovement = playerObject.GetComponent<PlayerMovement>();
         weaponSwitch = weaponSwitchObject.GetComponent<WeaponSwitch>();
+
+        if (gameState != null)
+        {
+            meltdownPhase = gameState.GetComponent<MeltdownPhase>();
+        }
     }
 
     // Attracts things towards the player
@@ -62,6 +70,14 @@ public class GravityGun : MonoBehaviour
         {
             if (playerRb.mass > targetRb.mass)
             {
+                if (targetRb.tag == "Core" && !meltdownPhase.enabled)
+                {
+                    meltdownPhase.enabled = true;
+                    targetRb.constraints = RigidbodyConstraints.None;
+                    energyCore = targetRb.GetComponent<EnergyCore>();
+                    StartCoroutine(energyCore.HeathIncrease());
+                }
+
                 targetRb.drag = 0.5f;
 
                 // Calculate the required force based on the distance
