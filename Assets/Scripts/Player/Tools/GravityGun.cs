@@ -17,7 +17,6 @@ public class GravityGun : MonoBehaviour
     private WeaponSwitch weaponSwitch;
     private bool isAttracting;
     private MeltdownPhase meltdownPhase;
-    private EnergyCore energyCore;
 
     [SerializeField] private GameObject playerObject;
     [SerializeField] private Rigidbody playerRb;
@@ -74,8 +73,6 @@ public class GravityGun : MonoBehaviour
                 {
                     meltdownPhase.enabled = true;
                     targetRb.constraints = RigidbodyConstraints.None;
-                    energyCore = targetRb.GetComponent<EnergyCore>();
-                    StartCoroutine(energyCore.HeathIncrease());
                 }
 
                 targetRb.drag = 0.5f;

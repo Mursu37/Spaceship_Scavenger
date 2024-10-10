@@ -3619,6 +3619,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 127034467}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &141723731 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1476825580223116022, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1885316139}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &148935317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25325,9 +25331,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85fa579b67b4b8547a333347f61a288c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heath: 0
+  heathAmount: 0
   maxHeath: 100
   gameState: {fileID: 94192508}
+  meter: {fileID: 1296558780}
 --- !u!54 &939154442
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -29812,6 +29819,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1282955806}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1296558780 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4322531747242951935, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1885316139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1300297330
 GameObject:
   m_ObjectHideFlags: 0
@@ -52291,6 +52310,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1476825580223116022, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3096018546381791354, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
         type: 3}
       propertyPath: playerObject
@@ -52394,6 +52418,11 @@ PrefabInstance:
     - target: {fileID: 3779140804386572351, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4322531747242951935, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+        type: 3}
+      propertyPath: m_FillAmount
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4823294532142040897, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
@@ -54758,6 +54787,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4405109755847793355, guid: 31bdc1e9252499743957aaf4e0bb9826,
+        type: 3}
+      propertyPath: gameStates
+      value: 
+      objectReference: {fileID: 939154438}
+    - target: {fileID: 4405109755847793355, guid: 31bdc1e9252499743957aaf4e0bb9826,
+        type: 3}
+      propertyPath: heathMeter
+      value: 
+      objectReference: {fileID: 141723731}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
