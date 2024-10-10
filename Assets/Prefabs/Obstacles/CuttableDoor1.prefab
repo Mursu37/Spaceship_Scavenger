@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5365222390014234024}
   m_Layer: 0
-  m_Name: ClosedDoorObstacle
+  m_Name: CuttableDoor1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,6 +97,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClosedDoor_L
       objectReference: {fileID: 0}
+    - target: {fileID: 3451118302482216456, guid: a8a684e1cea72eb46b39b0b8ced1fc58,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -141,7 +146,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!114 &8362326520269111760
 MonoBehaviour:
@@ -156,8 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sliceOptions:
-    enableReslicing: 0
-    maxResliceCount: 1
+    enableReslicing: 1
+    maxResliceCount: 2
     detectFloatingFragments: 0
     insideMaterial: {fileID: 0}
     textureScale: {x: 1, y: 1}
@@ -239,6 +244,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClosedDoor_Frame
       objectReference: {fileID: 0}
+    - target: {fileID: 3451118302482216456, guid: 0724c9b3e326d8d4f9206e4e7900a59a,
+        type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -313,6 +323,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClosedDoor_R
       objectReference: {fileID: 0}
+    - target: {fileID: 3451118302482216456, guid: e6d3c0f7f95ccdf48a38387d04337457,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -357,7 +372,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!114 &1810146364407431118
 MonoBehaviour:
@@ -372,8 +387,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sliceOptions:
-    enableReslicing: 0
-    maxResliceCount: 1
+    enableReslicing: 1
+    maxResliceCount: 2
     detectFloatingFragments: 0
     insideMaterial: {fileID: 0}
     textureScale: {x: 1, y: 1}
