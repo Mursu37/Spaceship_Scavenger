@@ -10,8 +10,8 @@ public class EnergyCore : MonoBehaviour
     private Vector3 relativeVelocity;
     private float collisionForce;
 
-    [SerializeField] private float heathAmount;
-    [SerializeField] private float maxHeath;
+    [SerializeField] private float heatAmount;
+    [SerializeField] private float maxHeat;
     [SerializeField] private GameObject gameState;
     [SerializeField] private Image meter;
 
@@ -22,9 +22,9 @@ public class EnergyCore : MonoBehaviour
 
     private void Update()
     {
-        meter.fillAmount = heathAmount / maxHeath;
+        meter.fillAmount = heatAmount / maxHeat;
 
-        float healthPercent = heathAmount / maxHeath;
+        float healthPercent = heatAmount / maxHeat;
         if (healthPercent <= 0.5f)
         {
             meter.color = Color.Lerp(Color.green, Color.yellow, healthPercent * 2);
@@ -34,7 +34,7 @@ public class EnergyCore : MonoBehaviour
             meter.color = Color.Lerp(Color.yellow, Color.red, (healthPercent - 0.5f) * 2);
         }
 
-        if (heathAmount >= maxHeath)
+        if (heatAmount >= maxHeat)
         {
             Scene scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name);
@@ -43,10 +43,10 @@ public class EnergyCore : MonoBehaviour
 
     public IEnumerator HeathIncrease()
     {
-        while (heathAmount < maxHeath)
+        while (heatAmount < maxHeat)
         {
             yield return new WaitForSeconds(3f);
-            heathAmount += 1f;
+            heatAmount += 1f;
         }
     }
 
@@ -60,7 +60,7 @@ public class EnergyCore : MonoBehaviour
 
         if (collisionForce > 2)
         {
-            heathAmount += collisionForce * 2f;
+            heatAmount += collisionForce * 2f;
         }
     }
 }

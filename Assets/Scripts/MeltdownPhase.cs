@@ -5,8 +5,9 @@ public class MeltdownPhase : MonoBehaviour
     private EnergyCore energyCore;
     private bool canSpawn = false;
 
-    [SerializeField] GameObject gameStates;
-    [SerializeField] GameObject heathMeter;
+    [SerializeField] private GameObject gameStates;
+    [SerializeField] private GameObject heatMeter;
+    [SerializeField] private GameObject meltdownObjects;
 
     private void Awake()
     {
@@ -26,15 +27,19 @@ public class MeltdownPhase : MonoBehaviour
             StartCoroutine(energyCore.HeathIncrease());
         }
 
-        if (heathMeter != null)
+        if (heatMeter != null)
         {
-            heathMeter.SetActive(true);
+            heatMeter.SetActive(true);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (canSpawn)
+        {
+            meltdownObjects.SetActive(true);
+            canSpawn = false;
+        }
     }
 }
