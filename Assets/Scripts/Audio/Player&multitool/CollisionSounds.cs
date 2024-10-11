@@ -9,15 +9,21 @@ public class CollisionSounds : MonoBehaviour
     [SerializeField] private string[] heavyImpacts;   // Heavy impact sound names
 
     [SerializeField] private float lightImpactThreshold = 1f;
-    [SerializeField] private float mediumImpactThreshold = 3f;
-    [SerializeField] private float heavyImpactThreshold = 5f;
+    [SerializeField] private float mediumImpactThreshold = 5f;
+    [SerializeField] private float heavyImpactThreshold = 8f;
 
+    private Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponentInParent<Rigidbody>();
+    }
 
     // I'm not sure I know what I'm doing help appreciated
     private void OnCollisionEnter(Collision collision)
     {
         // Collision is detected from the parent object IS IT NOT???!!!
-        if (collision.gameObject == transform.parent.gameObject)
+        if (collision.rigidbody == rb)
         {
             // Get the collision's relative velocity to determine impact strength
             float impactForce = collision.relativeVelocity.magnitude;
