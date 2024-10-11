@@ -17,10 +17,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float acceleration;
-    [SerializeField] private float mouseSensitivity;
     [SerializeField] private float rollAcceleration;
 
     public float maxSpeed;
+    public float mouseSensitivity;
 
     // Start is called before the first frame update
     private void Start()

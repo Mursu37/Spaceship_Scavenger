@@ -45,7 +45,7 @@ public class EnergyCore : MonoBehaviour
     {
         while (heatAmount < maxHeat)
         {
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(8f);
             heatAmount += 1f;
         }
     }
