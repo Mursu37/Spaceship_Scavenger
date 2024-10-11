@@ -25386,8 +25386,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85fa579b67b4b8547a333347f61a288c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heath: 0
-  maxHeath: 100
+  heatAmount: 0
+  maxHeat: 0
+  gameState: {fileID: 0}
+  meter: {fileID: 0}
 --- !u!54 &939154442
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -51956,21 +51958,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2422633703024239703, guid: 4add53ca762cfc84980f30ab517982b7,
-        type: 3}
-      propertyPath: sounds.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2422633703024239703, guid: 4add53ca762cfc84980f30ab517982b7,
-        type: 3}
-      propertyPath: sounds.Array.data[5].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 229316cb6a535794a9384f486acc0220, type: 3}
-    - target: {fileID: 2422633703024239703, guid: 4add53ca762cfc84980f30ab517982b7,
-        type: 3}
-      propertyPath: sounds.Array.data[5].name
-      value: ThrusterHiss
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
