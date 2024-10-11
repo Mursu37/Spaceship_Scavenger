@@ -595,6 +595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2125eb17e9aaf468d1a4a144bafa44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 0}
 --- !u!1001 &8472930037195227117
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -603,6 +604,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8593102349627569041}
     m_Modifications:
+    - target: {fileID: 1624211413691633952, guid: 28b2f6e0b3d165442a21465c3a8b72aa,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1624211413691633952, guid: 28b2f6e0b3d165442a21465c3a8b72aa,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8d972de82839f774aa561f8c59c53af2, type: 2}
     - target: {fileID: 2157372286838254283, guid: 28b2f6e0b3d165442a21465c3a8b72aa,
         type: 3}
       propertyPath: m_Name
