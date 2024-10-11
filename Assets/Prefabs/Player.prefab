@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6462354044337510564}
   - component: {fileID: 8671870782108313482}
+  - component: {fileID: 7027831301172376887}
   m_Layer: 0
   m_Name: PlayerAudio
   m_TagString: Untagged
@@ -50,6 +51,36 @@ MonoBehaviour:
   maxVolume: 1
   speedThreshold: 2.2
   inputTimeThreshold: 2
+--- !u!114 &7027831301172376887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835030043878730190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0272924d7858bf48bdfda132f5e0087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightImpacts:
+  - PlayerImpactLight1
+  - PlayerImpactLight2
+  - PlayerImpactLight3
+  - PlayerImpactLight4
+  mediumImpacts:
+  - PlayerImpactMedium1
+  - PlayerImpactMedium2
+  - PlayerImpactMedium3
+  - PlayerImpactMedium4
+  heavyImpacts:
+  - PlayerImpactHeavy1
+  - PlayerImpactHeavy2
+  - PlayerImpactHeavy3
+  - PlayerImpactHeavy4
+  lightImpactThreshold: 1
+  mediumImpactThreshold: 5
+  heavyImpactThreshold: 10
 --- !u!1 &1858421322868064494
 GameObject:
   m_ObjectHideFlags: 0
