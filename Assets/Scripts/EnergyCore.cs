@@ -41,11 +41,11 @@ public class EnergyCore : MonoBehaviour
         }
     }
 
-    public IEnumerator HeathIncrease()
+    public IEnumerator HeatIncrease()
     {
         while (heatAmount < maxHeat)
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(4f);
             heatAmount += 1f;
         }
     }

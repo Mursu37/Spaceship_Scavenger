@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         // Check if the player's speed exceeds the maxium speed
         if (rb.velocity.magnitude > maxSpeed)
         {
-            rb.velocity = rb.velocity.normalized * maxSpeed;
+            rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, 0.05f);
         }
     }
 

@@ -11,6 +11,6 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadSceneAsync("SecondBuild");
+        SceneManager.LoadSceneAsync("MainGame");
     }
 }
