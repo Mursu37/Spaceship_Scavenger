@@ -16,6 +16,14 @@ public class AudioManager : MonoBehaviour
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
             s.source.outputAudioMixerGroup = s.mixerGroup;
+
+            s.source.spatialBlend = s.spatialBlend;
+            s.source.minDistance = s.minDistance;
+            s.source.maxDistance = s.maxDistance;
+            s.source.rolloffMode = s.rolloffMode;
+
+            s.source.bypassReverbZones = s.bypassReverbZones;
+            s.source.bypassEffects = s.bypassEffects;
         }
     }
 

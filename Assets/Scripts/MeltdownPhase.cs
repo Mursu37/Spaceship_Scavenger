@@ -5,7 +5,7 @@ public class MeltdownPhase : MonoBehaviour
     private EnergyCore energyCore;
     private bool canSpawn = false;
 
-    [SerializeField] private GameObject gameStates;
+    [SerializeField] private GameObject energyCoreObject;
     [SerializeField] private GameObject heatMeter;
     [SerializeField] private GameObject meltdownObjects;
 
@@ -23,7 +23,7 @@ public class MeltdownPhase : MonoBehaviour
 
         if (gameObject != null)
         {
-            energyCore = gameStates.GetComponent<EnergyCore>();
+            energyCore = energyCoreObject.GetComponent<EnergyCore>();
             StartCoroutine(energyCore.HeathIncrease());
         }
 
