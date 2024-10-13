@@ -146,7 +146,7 @@ public class GravityGun : MonoBehaviour
         playerMovement.maxSpeed = 2.5f;
     }
 
-    // Calculates curved line(Bézier Curve) between points
+    // Draws curved line (Bézier Curve) between points
     private void DrawQuadraticBezierCurve(Vector3 point0, Vector3 point1, Vector3 point2)
     {
         lineRenderer.positionCount = 200;

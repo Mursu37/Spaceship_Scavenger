@@ -27,7 +27,6 @@ public class MouseSensitivity : MonoBehaviour
             if (playerMovement != null)
             {
                 slider.value = savedSensitivity;
-                playerMovement.mouseSensitivity = savedSensitivity;
                 valueText.text = slider.value.ToString("0.0");
             }
         }

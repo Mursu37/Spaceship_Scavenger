@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject spawnPoint;
+    [SerializeField] private GameObject settings;
 
     private void Awake()
     {
@@ -18,5 +20,16 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.SetFloat("PlayerPosZ", spawnPoint.transform.position.z);
 
         SceneManager.LoadSceneAsync("MainGame");
+    }
+
+    public void Settings()
+    {
+        settings.SetActive(true);
+        gameObject.SetActive(false);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        mouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity");
     }
 
     private void HandleMovement()
