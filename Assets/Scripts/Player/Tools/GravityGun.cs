@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class GravityGun : MonoBehaviour
     private Rigidbody targetRb;
     private Camera cam;
     private PlayerMovement playerMovement;
-    private LineRenderer line;
+    private LineRenderer lineRenderer;
     private Vector3 hitPosition;
     private WeaponSwitch weaponSwitch;
     private bool isAttracting;
@@ -25,14 +26,14 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private GameObject weaponSwitchObject;
     [SerializeField] private GameObject gameState;
+    [SerializeField] private Transform p1;
 
     // Start is called before the first frame update
     private void Start()
     {
         cam = Camera.main;
-        line = GetComponent<LineRenderer>();
-        line.positionCount = 2;
-        line.enabled = false;
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
         playerMovement = playerObject.GetComponent<PlayerMovement>();
         weaponSwitch = weaponSwitchObject.GetComponent<WeaponSwitch>();
     }
@@ -145,6 +146,20 @@ public class GravityGun : MonoBehaviour
         playerMovement.maxSpeed = 2.5f;
     }
 
+    // Calculates curved line(Bézier Curve) between points
+    private void DrawQuadraticBezierCurve(Vector3 point0, Vector3 point1, Vector3 point2)
+    {
+        lineRenderer.positionCount = 200;
+        float t = 0f;
+        Vector3 B = new Vector3(0, 0, 0);
+        for (int i = 0; i < lineRenderer.positionCount; i++)
+        {
+            B = (1 - t) * (1 - t) * point0 + 2 * (1 - t) * t * point1 + t * t * point2;
+            lineRenderer.SetPosition(i, B);
+            t += (1 / (float)lineRenderer.positionCount);
+        }
+    }
+
     // Update is called once per frame
     private void Update()
     {
@@ -172,22 +187,22 @@ public class GravityGun : MonoBehaviour
             isAttracting = false;
         }
 
-        // Sets a line between the gun and the object
+        // Draws a line between the gun and the object
         if (isAttracting && target != null && targetRb != null)
         {
-            line.enabled = true;
-            line.SetPosition(0, shootingPoint.position);
-            line.SetPosition(1, target.transform.position);
+            lineRenderer.enabled = true;
+            p1.position = shootingPoint.position + cam.transform.forward * 5f;
+            DrawQuadraticBezierCurve(shootingPoint.position, p1.position, target.transform.position);
         }
         else if (isAttracting && target != null && targetRb == null)
         {
-            line.enabled = true;
-            line.SetPosition(0, shootingPoint.position);
-            line.SetPosition(1, hitPosition);
+            lineRenderer.enabled = true;
+            p1.position = shootingPoint.position + cam.transform.forward;
+            DrawQuadraticBezierCurve(shootingPoint.position, p1.position, hitPosition);
         }
         else
         {
-            line.enabled = false;
+            lineRenderer.enabled = false;
         }
     }
 
