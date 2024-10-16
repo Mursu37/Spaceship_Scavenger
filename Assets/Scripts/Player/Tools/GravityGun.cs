@@ -17,6 +17,9 @@ public class GravityGun : MonoBehaviour
     private Vector3 hitPosition;
     private WeaponSwitch weaponSwitch;
     private bool isAttracting;
+    private Quaternion targetInitialRotation;
+    private Quaternion playerInitialRotation;
+    private bool hasInitialRotations;
 
     [SerializeField] private GameObject playerObject;
     [SerializeField] private Rigidbody playerRb;
@@ -56,6 +59,9 @@ public class GravityGun : MonoBehaviour
                 if (targetRb != null)
                 {
                     targetRb.constraints = RigidbodyConstraints.FreezeRotation;
+                    targetInitialRotation = target.transform.rotation;
+                    playerInitialRotation = playerObject.transform.rotation;
+                    hasInitialRotations = true;
                 }
             }
         }
@@ -76,9 +82,14 @@ public class GravityGun : MonoBehaviour
                 // Apply a force in the direction of the floatPoint with intensity decreasing as it gets closer
                 targetRb.AddForce(direction * attractAcceleration * distance);
 
-                // Apply the player's rotation to the target
-                target.transform.rotation = Quaternion.Slerp(target.transform.rotation, playerObject.transform.rotation, 0.1f);
-
+                // Applies the player's rotation to the target object
+                if (hasInitialRotations)
+                {
+                    // Calculate the difference in player rotation from the initial state
+                    Quaternion playerRotationDifference = playerObject.transform.rotation * Quaternion.Inverse(playerInitialRotation);
+                    // Apply this difference to the target's initial rotation
+                    target.transform.rotation = playerRotationDifference * targetInitialRotation;
+                }
             }
             else if (playerRb.mass < targetRb.mass)
             {
