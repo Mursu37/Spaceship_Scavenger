@@ -50,10 +50,17 @@ public class PlayerMovement : MonoBehaviour
         // Makes player lose all momentum
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, acceleration * momentumInput);
 
-        // Check if the player's speed exceeds the maxium speed
-        if (rb.velocity.magnitude > maxSpeed)
+        
+
+        //Check if the player's speed exceeds the maxium speed
+        if (rb.velocity.magnitude > maxSpeed && !GameObject.Find("Multitool").GetComponent<GravityGun>().isGrabbling)
         {
-            rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, 0.05f);
+            // Define the range between maxSpeed and the desired upper limit
+            float speedRatio = Mathf.InverseLerp(maxSpeed, 10f, rb.velocity.magnitude);
+            // Adjust the Lerp factor based on the speed ratio.
+            float dampingFactor = Mathf.Lerp(0.02f, 0.01f, speedRatio);
+            // Apply stronger damping the closer the velocity is to the max speed
+            rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, dampingFactor);
         }
     }
 

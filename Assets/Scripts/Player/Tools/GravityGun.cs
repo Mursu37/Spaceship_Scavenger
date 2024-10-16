@@ -31,6 +31,8 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private GameObject gameState;
     [SerializeField] private Transform p1;
 
+    public bool isGrabbling;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -94,7 +96,7 @@ public class GravityGun : MonoBehaviour
             else if (playerRb.mass < targetRb.mass)
             {
                 playerRb.drag = 1f;
-                playerMovement.maxSpeed = 100f;
+                isGrabbling = true;
 
                 float distance = Vector3.Distance(target.transform.position, playerRb.position);
 
@@ -112,7 +114,7 @@ public class GravityGun : MonoBehaviour
             {
                 playerRb.drag = 0.5f;
                 targetRb.drag = 0.5f;
-                playerMovement.maxSpeed = 100f;
+                isGrabbling = true;
 
                 float distance = Vector3.Distance(target.transform.position, playerRb.position);
 
@@ -132,7 +134,7 @@ public class GravityGun : MonoBehaviour
         else if (target != null && targetRb == null)
         {
             playerRb.drag = 1f;
-            playerMovement.maxSpeed = 100f;
+            isGrabbling = true;
 
             Vector3 directionToFloatPoint = (hitPosition - playerRb.position).normalized;
 
@@ -154,7 +156,7 @@ public class GravityGun : MonoBehaviour
         target = null;
         targetRb = null;
         playerRb.drag = 0f;
-        playerMovement.maxSpeed = 2.5f;
+        isGrabbling = false;
     }
 
     // Draws curved line (Bézier Curve) between points
