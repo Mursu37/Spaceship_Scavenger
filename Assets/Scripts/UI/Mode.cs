@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class Mode : MonoBehaviour
 {
-    private WeaponSwitch weaponSwitch;
+    private ModeSwitch modeSwitch;
     private TextMeshProUGUI modeText;
-    [SerializeField] private GameObject weaponHolder;
+    [SerializeField] private GameObject multiTool;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (weaponHolder != null)
+        if (multiTool != null)
         {
-            weaponSwitch = weaponHolder.GetComponent<WeaponSwitch>();
+            modeSwitch = multiTool.GetComponent<ModeSwitch>();
         }
 
         modeText = GetComponent<TextMeshProUGUI>();
@@ -23,11 +23,11 @@ public class Mode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (weaponSwitch.selectedWeapon == 0)
+        if (modeSwitch.selectedMode == 0)
         {
             modeText.text = "Mode: Grappling";
         }
-        else if (weaponSwitch.selectedWeapon == 1)
+        else if (modeSwitch.selectedMode == 1)
         {
             modeText.text = "Mode: Cutting";
         }

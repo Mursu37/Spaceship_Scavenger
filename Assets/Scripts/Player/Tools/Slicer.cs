@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Slicer : MonoBehaviour
 {
     [SerializeField] private GameObject slicer;
 
+    private void Start()
+    {
+        slicer.transform.forward = Camera.main.transform.forward;
+        slicer.transform.up = Camera.main.transform.up;
+    }
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {

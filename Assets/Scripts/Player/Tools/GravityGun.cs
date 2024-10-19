@@ -15,7 +15,7 @@ public class GravityGun : MonoBehaviour
     private PlayerMovement playerMovement;
     private LineRenderer lineRenderer;
     private Vector3 hitPosition;
-    private WeaponSwitch weaponSwitch;
+    private ModeSwitch modeSwitch;
     private bool isAttracting;
     private Quaternion targetInitialRotation;
     private Quaternion playerInitialRotation;
@@ -27,8 +27,6 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private float range;
     [SerializeField] private float attractAcceleration;
     [SerializeField] private Transform shootingPoint;
-    [SerializeField] private GameObject weaponSwitchObject;
-    [SerializeField] private GameObject gameState;
     [SerializeField] private Transform p1;
 
     public bool isGrabbling;
@@ -40,7 +38,7 @@ public class GravityGun : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
         playerMovement = playerObject.GetComponent<PlayerMovement>();
-        weaponSwitch = weaponSwitchObject.GetComponent<WeaponSwitch>();
+        modeSwitch = GetComponent<ModeSwitch>();
     }
 
     // Attracts things towards the player
@@ -223,12 +221,12 @@ public class GravityGun : MonoBehaviour
     {
         if (isAttracting)
         {
-            weaponSwitch.enabled = false;
+            modeSwitch.enabled = false;
             Attract();
         }
         else
         {
-            weaponSwitch.enabled = true;
+            modeSwitch.enabled = true;
             Release();
         }
     }
