@@ -8,6 +8,7 @@ public class ModeSwitch : MonoBehaviour
     private Slicer slicer;
 
     [SerializeField] private GameObject slicerObject;
+    [SerializeField] private GameObject cuttingLine;
     [SerializeField] private GameObject crosshair;
     [SerializeField] private GameObject cuttingCrosshair;
     public int selectedMode;

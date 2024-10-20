@@ -158,6 +158,7 @@ public class GravityGun : MonoBehaviour
     }
 
     // Draws curved line (Bézier Curve) between points
+    // Source: https://www.codinblack.com/how-to-draw-lines-circles-or-anything-else-using-linerenderer/
     private void DrawQuadraticBezierCurve(Vector3 point0, Vector3 point1, Vector3 point2)
     {
         lineRenderer.positionCount = 200;

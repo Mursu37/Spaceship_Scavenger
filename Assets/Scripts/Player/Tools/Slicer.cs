@@ -10,8 +10,8 @@ public class Slicer : MonoBehaviour
 
     private void Start()
     {
-        slicer.transform.forward = Camera.main.transform.forward;
-        slicer.transform.up = Camera.main.transform.up;
+        //slicer.transform.forward = Camera.main.transform.forward;
+        //slicer.transform.up = Camera.main.transform.up;
     }
 
     // Update is called once per frame
