@@ -3,45 +3,27 @@ using UnityEngine;
 
 public class CuttingLine : MonoBehaviour
 {
-    // List to track objects currently inside the trigger
-    private List<Collider> collidersInsideTrigger = new List<Collider>();
+    private int newLayerMask = 1 << 9;
 
     private void OnTriggerEnter(Collider other)
     {
-        // Add the object to the list of colliders inside the trigger
-        if (!collidersInsideTrigger.Contains(other))
-        {
-            collidersInsideTrigger.Add(other);
-        }
+        MeshRenderer renderer = other.gameObject.GetComponent<MeshRenderer>();
 
-        transform.GetChild(0).gameObject.SetActive(true);
+        if (renderer != null)
+        {
+            // Add the new layer mask to the collideing object
+            renderer.renderingLayerMask |= (uint)newLayerMask;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        // Remove the object from the list when it exits the trigger
-        if (collidersInsideTrigger.Contains(other))
+        MeshRenderer renderer = other.gameObject.GetComponent<MeshRenderer>();
+
+        if (renderer != null)
         {
-            collidersInsideTrigger.Remove(other);
+            // Remove the new layer mask from the object
+            renderer.renderingLayerMask &= (uint)~newLayerMask;
         }
-    }
-
-    private void Update()
-    {
-        // Clean up disabled objects from the list
-        collidersInsideTrigger.RemoveAll(collider => collider == null || !collider.gameObject.activeInHierarchy);
-
-        // Disable the child object if no active colliders are left
-        if (collidersInsideTrigger.Count == 0)
-        {
-            transform.GetChild(0).gameObject.SetActive(false);
-        }
-    }
-
-    private void OnDisable()
-    {
-        // Clear the list when this object is disabled
-        collidersInsideTrigger.Clear();
-        transform.GetChild(0).gameObject.SetActive(false);
     }
 }
