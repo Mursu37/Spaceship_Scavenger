@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,10 +13,13 @@ public class GravityGun : MonoBehaviour
     private Rigidbody targetRb;
     private Camera cam;
     private PlayerMovement playerMovement;
-    private LineRenderer line;
+    private LineRenderer lineRenderer;
     private Vector3 hitPosition;
-    private WeaponSwitch weaponSwitch;
+    private ModeSwitch modeSwitch;
     private bool isAttracting;
+    private Quaternion targetInitialRotation;
+    private Quaternion playerInitialRotation;
+    private bool hasInitialRotations;
 
     [SerializeField] private GameObject playerObject;
     [SerializeField] private Rigidbody playerRb;
@@ -23,17 +27,18 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private float range;
     [SerializeField] private float attractAcceleration;
     [SerializeField] private Transform shootingPoint;
-    [SerializeField] private GameObject weaponSwitchObject;
+    [SerializeField] private Transform p1;
+
+    public bool isGrabbling;
 
     // Start is called before the first frame update
     private void Start()
     {
         cam = Camera.main;
-        line = GetComponent<LineRenderer>();
-        line.positionCount = 2;
-        line.enabled = false;
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
         playerMovement = playerObject.GetComponent<PlayerMovement>();
-        weaponSwitch = weaponSwitchObject.GetComponent<WeaponSwitch>();
+        modeSwitch = GetComponent<ModeSwitch>();
     }
 
     // Attracts things towards the player
@@ -54,11 +59,14 @@ public class GravityGun : MonoBehaviour
                 if (targetRb != null)
                 {
                     targetRb.constraints = RigidbodyConstraints.FreezeRotation;
+                    targetInitialRotation = target.transform.rotation;
+                    playerInitialRotation = playerObject.transform.rotation;
+                    hasInitialRotations = true;
                 }
             }
         }
 
-        if (target != null && targetRb != null)
+        if (target != null && targetRb != null && !targetRb.isKinematic)
         {
             if (playerRb.mass > targetRb.mass)
             {
@@ -74,14 +82,19 @@ public class GravityGun : MonoBehaviour
                 // Apply a force in the direction of the floatPoint with intensity decreasing as it gets closer
                 targetRb.AddForce(direction * attractAcceleration * distance);
 
-                // Apply the player's rotation to the target
-                target.transform.rotation = Quaternion.Slerp(target.transform.rotation, playerObject.transform.rotation, 0.1f);
-
+                // Applies the player's rotation to the target object
+                if (hasInitialRotations)
+                {
+                    // Calculate the difference in player rotation from the initial state
+                    Quaternion playerRotationDifference = playerObject.transform.rotation * Quaternion.Inverse(playerInitialRotation);
+                    // Apply this difference to the target's initial rotation
+                    target.transform.rotation = playerRotationDifference * targetInitialRotation;
+                }
             }
             else if (playerRb.mass < targetRb.mass)
             {
                 playerRb.drag = 1f;
-                playerMovement.maxSpeed = 100f;
+                isGrabbling = true;
 
                 float distance = Vector3.Distance(target.transform.position, playerRb.position);
 
@@ -99,7 +112,7 @@ public class GravityGun : MonoBehaviour
             {
                 playerRb.drag = 0.5f;
                 targetRb.drag = 0.5f;
-                playerMovement.maxSpeed = 100f;
+                isGrabbling = true;
 
                 float distance = Vector3.Distance(target.transform.position, playerRb.position);
 
@@ -119,7 +132,7 @@ public class GravityGun : MonoBehaviour
         else if (target != null && targetRb == null)
         {
             playerRb.drag = 1f;
-            playerMovement.maxSpeed = 100f;
+            isGrabbling = true;
 
             Vector3 directionToFloatPoint = (hitPosition - playerRb.position).normalized;
 
@@ -141,7 +154,22 @@ public class GravityGun : MonoBehaviour
         target = null;
         targetRb = null;
         playerRb.drag = 0f;
-        playerMovement.maxSpeed = 2.5f;
+        isGrabbling = false;
+    }
+
+    // Draws curved line (Bézier Curve) between points
+    // Source: https://www.codinblack.com/how-to-draw-lines-circles-or-anything-else-using-linerenderer/
+    private void DrawQuadraticBezierCurve(Vector3 point0, Vector3 point1, Vector3 point2)
+    {
+        lineRenderer.positionCount = 200;
+        float t = 0f;
+        Vector3 B = new Vector3(0, 0, 0);
+        for (int i = 0; i < lineRenderer.positionCount; i++)
+        {
+            B = (1 - t) * (1 - t) * point0 + 2 * (1 - t) * t * point1 + t * t * point2;
+            lineRenderer.SetPosition(i, B);
+            t += (1 / (float)lineRenderer.positionCount);
+        }
     }
 
     // Update is called once per frame
@@ -171,22 +199,22 @@ public class GravityGun : MonoBehaviour
             isAttracting = false;
         }
 
-        // Sets a line between the gun and the object
+        // Draws a line between the gun and the object
         if (isAttracting && target != null && targetRb != null)
         {
-            line.enabled = true;
-            line.SetPosition(0, shootingPoint.position);
-            line.SetPosition(1, target.transform.position);
+            lineRenderer.enabled = true;
+            p1.position = shootingPoint.position + cam.transform.forward * 5f;
+            DrawQuadraticBezierCurve(shootingPoint.position, p1.position, target.transform.position);
         }
         else if (isAttracting && target != null && targetRb == null)
         {
-            line.enabled = true;
-            line.SetPosition(0, shootingPoint.position);
-            line.SetPosition(1, hitPosition);
+            lineRenderer.enabled = true;
+            p1.position = shootingPoint.position + cam.transform.forward;
+            DrawQuadraticBezierCurve(shootingPoint.position, p1.position, hitPosition);
         }
         else
         {
-            line.enabled = false;
+            lineRenderer.enabled = false;
         }
     }
 
@@ -194,12 +222,12 @@ public class GravityGun : MonoBehaviour
     {
         if (isAttracting)
         {
-            weaponSwitch.enabled = false;
+            modeSwitch.enabled = false;
             Attract();
         }
         else
         {
-            weaponSwitch.enabled = true;
+            modeSwitch.enabled = true;
             Release();
         }
     }

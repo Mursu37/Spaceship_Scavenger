@@ -35,14 +35,6 @@ public class DamageOnImpact : MonoBehaviour
             {
                 rb.GetComponent<IHealth>().Damage(amount);
             }
-
-            // Output the object that collided and the force of impact
-            Debug.Log("Collided with: " + collision.gameObject.name);
-            Debug.Log("Other object's collision force: " + collisionForce + " N");
-        }
-        else
-        {
-            Debug.Log("Collided with: " + collision.gameObject.name + " (No Rigidbody)");
         }
     }
 }
