@@ -129,7 +129,7 @@ public class GravityGun : MonoBehaviour
                 }
             }
         }
-        else if (target != null && targetRb == null)
+        else if (target != null && (targetRb == null || targetRb.isKinematic))
         {
             playerRb.drag = 1f;
             isGrabbling = true;
@@ -203,7 +203,7 @@ public class GravityGun : MonoBehaviour
         if (isAttracting && target != null && targetRb != null)
         {
             lineRenderer.enabled = true;
-            p1.position = shootingPoint.position + cam.transform.forward * 5f;
+            p1.position = shootingPoint.position + cam.transform.forward * 4f;
             DrawQuadraticBezierCurve(shootingPoint.position, p1.position, target.transform.position);
         }
         else if (isAttracting && target != null && targetRb == null)
