@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Rendering;
@@ -39,10 +38,23 @@ class outlineRendering : CustomPass
         // get renderers
         var renderers = Object.FindObjectsByType<Renderer>(FindObjectsSortMode.None);
 
+        
         // Sets properties for outline
         ctx.propertyBlock.SetColor("_OutlineColor", outlineColor);
         ctx.propertyBlock.SetFloat("_Threshold", threshold);
 
+        /*
+        CoreUtils.SetRenderTarget(ctx.cmd, outlineBuffer, ClearFlag.Color);
+        
+        CustomPassUtils.DrawRenderers(ctx, outlineLayer, RenderQueueType.All, replacementMaterial, 0, 
+            default(RenderStateBlock), SortingCriteria.CommonTransparent);
+        
+        ctx.propertyBlock.SetTexture("_OutlineBuffer", outlineBuffer);
+        
+        CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);
+        CoreUtils.DrawFullScreen(ctx.cmd, fullscreenOutline, ctx.propertyBlock, shaderPassId: 0);
+        */
+        
         // Render each objects outline in outlineLayer (layermask) separately to get the object outlines through walls 
         foreach (var obj in renderers)
         {
@@ -58,18 +70,19 @@ class outlineRendering : CustomPass
                 // set texture that shader samples as outline buffer
                 ctx.propertyBlock.SetTexture("_OutlineBuffer", outlineBuffer);
                 
-                // renders objects outline to camera with fullscreen shader
-                // (inefficient, should switch to object shader for better performance.
-                // Requires writing new shader and minor rewrites to rendering)
+                // renders objects outline to camera
                 CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);
                 CoreUtils.DrawFullScreen(ctx.cmd, fullscreenOutline, ctx.propertyBlock, shaderPassId: 0);
             }
+        
         }
 
         // should be redundant now. need to test
+        /*
         ctx.propertyBlock.SetTexture("_OutlineBuffer", outlineBuffer);
         CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);
         CoreUtils.DrawFullScreen(ctx.cmd, fullscreenOutline, ctx.propertyBlock, shaderPassId: 0);
+        */
     }
 
     protected override void Cleanup()
