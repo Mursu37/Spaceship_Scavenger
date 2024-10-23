@@ -2,25 +2,21 @@ using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Rendering;
 using UnityEngine.Experimental.Rendering;
+using Object = UnityEngine.Object;
 
 class outlineRendering : CustomPass
 {
-    public LayerMask    outlineLayer = 0;
+    public LayerMask outlineLayer = 0;
     [ColorUsage(false, true)]
-    public Color        outlineColor = Color.black;
-    public float        threshold = 1;
+    public Color outlineColor = Color.black;
+    [Range(0, 100)] public float threshold = 1;
     public Material replacementMaterial;
     public Shader outlineShader;
     
-    private int framesBeforeRendering;
-    private int framesSinceLastRender;
-    
     [SerializeField, HideInInspector]
-    //Shader                  outlineShader;
-
-    Material                fullscreenOutline;
+    Material fullscreenOutline;
     
-    RTHandle                outlineBuffer;
+    RTHandle outlineBuffer;
     RTHandle finalOutlines;
 
     protected override void Setup(ScriptableRenderContext renderContext, CommandBuffer cmd)
@@ -42,10 +38,23 @@ class outlineRendering : CustomPass
         // get renderers
         var renderers = Object.FindObjectsByType<Renderer>(FindObjectsSortMode.None);
 
+        
         // Sets properties for outline
         ctx.propertyBlock.SetColor("_OutlineColor", outlineColor);
         ctx.propertyBlock.SetFloat("_Threshold", threshold);
 
+        /*
+        CoreUtils.SetRenderTarget(ctx.cmd, outlineBuffer, ClearFlag.Color);
+        
+        CustomPassUtils.DrawRenderers(ctx, outlineLayer, RenderQueueType.All, replacementMaterial, 0, 
+            default(RenderStateBlock), SortingCriteria.CommonTransparent);
+        
+        ctx.propertyBlock.SetTexture("_OutlineBuffer", outlineBuffer);
+        
+        CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);
+        CoreUtils.DrawFullScreen(ctx.cmd, fullscreenOutline, ctx.propertyBlock, shaderPassId: 0);
+        */
+        
         // Render each objects outline in outlineLayer (layermask) separately to get the object outlines through walls 
         foreach (var obj in renderers)
         {
@@ -61,18 +70,19 @@ class outlineRendering : CustomPass
                 // set texture that shader samples as outline buffer
                 ctx.propertyBlock.SetTexture("_OutlineBuffer", outlineBuffer);
                 
-                // renders objects outline to camera with fullscreen shader
-                // (inefficient, should switch to object shader for better performance.
-                // Requires writing new shader and minor rewrites to rendering)
+                // renders objects outline to camera
                 CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);
                 CoreUtils.DrawFullScreen(ctx.cmd, fullscreenOutline, ctx.propertyBlock, shaderPassId: 0);
             }
+        
         }
 
         // should be redundant now. need to test
+        /*
         ctx.propertyBlock.SetTexture("_OutlineBuffer", outlineBuffer);
         CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);
         CoreUtils.DrawFullScreen(ctx.cmd, fullscreenOutline, ctx.propertyBlock, shaderPassId: 0);
+        */
     }
 
     protected override void Cleanup()

@@ -54,22 +54,23 @@ Shader "Hidden/Outline"
         outline.a = 0;
 
       // If this sample is below the threshold
-        if (Luminance(outline.rgb) < luminanceThreshold)
-        {
+        float threshold = Luminance(outline.rgb + luminanceThreshold);
+        //if (Luminance(outline.rgb) < luminanceThreshold)
+        //{
             // Search neighbors
             for (int i = 0; i < MAXSAMPLES; i++)
             {
                 float2 uvN = uv + _ScreenSize.zw * scaling * samplingPositions[i];
                 float4 neighbour = SAMPLE_TEXTURE2D_X_LOD(_OutlineBuffer, s_linear_clamp_sampler, uvN, 0);
 
-                if (Luminance(neighbour) > luminanceThreshold)
+                if (Luminance(neighbour) > threshold)
                 {
                     outline.rgb = _OutlineColor.rgb;
                     outline.a = 1;
                     break;
                 }
             }
-        }
+        //}
 
         return outline;
     }
