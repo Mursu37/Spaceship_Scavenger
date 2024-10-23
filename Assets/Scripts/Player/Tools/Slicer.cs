@@ -37,6 +37,7 @@ public class Slicer : MonoBehaviour
                 if (sliceObj != null)
                 {
                     sliceObj.ComputeSlice(slicer.transform.up, slicer.transform.position);
+                    gameObject.GetComponent<SliceManager>().UpdateList(/*sliceObj.GetComponent<Rigidbody>().isKinematic*/);
                 }
             }
         }
