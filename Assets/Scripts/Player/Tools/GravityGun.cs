@@ -12,14 +12,12 @@ public class GravityGun : MonoBehaviour
     private GameObject target;
     private Rigidbody targetRb;
     private Camera cam;
-    private PlayerMovement playerMovement;
     private LineRenderer lineRenderer;
     private Vector3 hitPosition;
     private ModeSwitch modeSwitch;
     private bool isAttracting;
     private Quaternion targetInitialRotation;
     private Quaternion playerInitialRotation;
-    private bool hasInitialRotations;
 
     [SerializeField] private GameObject playerObject;
     [SerializeField] private Rigidbody playerRb;
@@ -37,7 +35,6 @@ public class GravityGun : MonoBehaviour
         cam = Camera.main;
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
-        playerMovement = playerObject.GetComponent<PlayerMovement>();
         modeSwitch = GetComponent<ModeSwitch>();
     }
 
@@ -61,7 +58,6 @@ public class GravityGun : MonoBehaviour
                     targetRb.constraints = RigidbodyConstraints.FreezeRotation;
                     targetInitialRotation = target.transform.rotation;
                     playerInitialRotation = playerObject.transform.rotation;
-                    hasInitialRotations = true;
                 }
             }
         }
@@ -82,14 +78,10 @@ public class GravityGun : MonoBehaviour
                 // Apply a force in the direction of the floatPoint with intensity decreasing as it gets closer
                 targetRb.AddForce(direction * attractAcceleration * distance);
 
-                // Applies the player's rotation to the target object
-                if (hasInitialRotations)
-                {
-                    // Calculate the difference in player rotation from the initial state
-                    Quaternion playerRotationDifference = playerObject.transform.rotation * Quaternion.Inverse(playerInitialRotation);
-                    // Apply this difference to the target's initial rotation
-                    target.transform.rotation = playerRotationDifference * targetInitialRotation;
-                }
+                // Calculate the difference in player rotation from the initial state
+                Quaternion playerRotationDifference = playerObject.transform.rotation * Quaternion.Inverse(playerInitialRotation);
+                // Apply this difference to the target's initial rotation
+                target.transform.rotation = playerRotationDifference * targetInitialRotation;
             }
             else if (playerRb.mass < targetRb.mass)
             {
