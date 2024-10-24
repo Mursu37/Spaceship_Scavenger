@@ -13,14 +13,17 @@ public class PlayerMovement : MonoBehaviour
     private float mouseInputY;
 
     private Rigidbody rb;
+    private float fov;
+    private float speedRatio;
+    private float dampingFactor;
 
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float acceleration;
-    [SerializeField] private float mouseSensitivity;
     [SerializeField] private float rollAcceleration;
 
     public float maxSpeed;
+    public float mouseSensitivity;
 
     // Start is called before the first frame update
     private void Start()
@@ -29,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        mouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity");
     }
 
     private void HandleMovement()
@@ -48,11 +53,18 @@ public class PlayerMovement : MonoBehaviour
         // Makes player lose all momentum
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, acceleration * momentumInput);
 
-        // Check if the player's speed exceeds the maxium speed
-        if (rb.velocity.magnitude > maxSpeed)
+        //Check if the player's speed exceeds the maxium speed
+        if (rb.velocity.magnitude > maxSpeed && !GameObject.Find("Multitool").GetComponent<GravityGun>().isGrabbling)
         {
-            rb.velocity = rb.velocity.normalized * maxSpeed;
+            // Define the range between maxSpeed and the desired upper limit
+            speedRatio = Mathf.InverseLerp(maxSpeed, 10f, rb.velocity.magnitude);
+            // Adjust the Lerp factor based on the speed ratio.
+            dampingFactor = Mathf.Lerp(0.02f, 0.01f, speedRatio);
+            // Apply stronger damping the closer the velocity is to the max speed
+            rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, dampingFactor);
         }
+
+        
     }
 
     // Update is called once per frame
