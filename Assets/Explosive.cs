@@ -10,19 +10,24 @@ public class Explosive : MonoBehaviour
     {
         if (collision.relativeVelocity.magnitude >= _triggerForce)
         {
-            var surroundingObjects = Physics.OverlapSphere(transform.position, _explosionRadius);
-
-            foreach (var obj in surroundingObjects)
-            {
-                var rb = obj.GetComponent<Rigidbody>();
-                if (rb == null) continue;
-
-                rb.AddExplosionForce(_explosionForce, transform.position, _explosionRadius, 1);
-            }
-
-            Instantiate(_particles, transform.position, Quaternion.identity);
-
-            Destroy(gameObject);
+            Explode();
         }
+    }
+
+    public void Explode()
+    {
+        var surroundingObjects = Physics.OverlapSphere(transform.position, _explosionRadius);
+
+        foreach (var obj in surroundingObjects)
+        {
+            var rb = obj.GetComponent<Rigidbody>();
+            if (rb == null) continue;
+
+            rb.AddExplosionForce(_explosionForce, transform.position, _explosionRadius, 1);
+        }
+
+        Instantiate(_particles, transform.position, Quaternion.identity);
+        Debug.Log("Exposion happened.");
+        Destroy(gameObject);
     }
 }

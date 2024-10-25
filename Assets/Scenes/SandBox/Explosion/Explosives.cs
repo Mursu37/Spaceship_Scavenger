@@ -15,14 +15,19 @@ public class Explosives : MonoBehaviour
 
     void Start()
     {
-        Invoke("EnableCollider", collDelay);
-        Invoke("Explode", explodeDelay);
+        //Invoke("EnableCollider", collDelay);
+        //Invoke("Explode", explodeDelay);
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Explode();
+        }
     }
 
     private void EnableCollider()
@@ -30,8 +35,21 @@ public class Explosives : MonoBehaviour
         GetComponent<SphereCollider>().isTrigger = false;
     }
 
-    private void Explode()
+    private void UnfreezeAll()
     {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Rigidbody rb = transform.GetChild(i).GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.constraints = RigidbodyConstraints.None;
+            }
+        }
+    }
+
+    public void Explode()
+    {
+        UnfreezeAll();
         Collider[] colliderHit = Physics.OverlapSphere(transform.position, explodeRadius);
 
         foreach (Collider collider in colliderHit)
@@ -43,6 +61,7 @@ public class Explosives : MonoBehaviour
             if (player != null) player.Damage(damage);
 
             Instantiate(explodeEffect, transform.position, Quaternion.identity);
+            Debug.Log("Explosion happened.");
             Destroy(gameObject);
         }
     }

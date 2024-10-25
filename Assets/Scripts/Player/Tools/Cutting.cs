@@ -27,7 +27,16 @@ public class Cutting : MonoBehaviour
             }
             Destroy(joint);
         }
-        Destroy(cuttableObject.gameObject);
+
+        Explosives explosives = cuttableObject.GetComponent<Explosives>();
+        if (explosives != null)
+        {
+            explosives.Explode();
+        }
+        else
+        {
+            Destroy(cuttableObject.gameObject);
+        }
     }
 
     // Check if the connected body is used by other joints
