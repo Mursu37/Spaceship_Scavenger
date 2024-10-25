@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 public class SimpleBakedLightSwitcher : MonoBehaviour
 {
 
+    public AlternativeBakedLight[] altBakedLight;
+
     public GameObject[] darkLightPrefab, brightLightPrefab;
 
     public Texture2D[] darkLightmapDir, darkLightmapColor;
@@ -51,12 +53,16 @@ public class SimpleBakedLightSwitcher : MonoBehaviour
     {
          if (Keyboard.current.bKey.isPressed)
          {
-            OnLight1Switched();
+            //OnLight1Switched();
+            foreach (AlternativeBakedLight altLight in altBakedLight)
+            {
+                altLight.ToggleLights();
+            }
          }
 
          if (Keyboard.current.cKey.isPressed)
          {
-            OnLight2Switched();
+            //OnLight2Switched();
          }
     }
 
