@@ -1038,7 +1038,19 @@ MonoBehaviour:
         m_Calls: []
     onCompleted:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 577059674}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   prefractureOptions:
     unfreezeAll: 1
     saveFragmentsToDisk: 0
@@ -1050,7 +1062,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 577059662}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6b25c3077fe6694b87b1507995a89b4, type: 3}
   m_Name: 
@@ -1933,6 +1945,38 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &737328657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737328648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f107ca8335c674ead739431e6a23be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerForce: 0.5
+  _explosionRadius: 5
+  _explosionForce: 500
+  _particles: {fileID: 0}
+--- !u!114 &737328658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737328648}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 175737253033fd448a37eddfe21d5527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 0
+  Force: 0
+  Active: 0
+  ExplosionEffect: {fileID: 0}
 --- !u!1 &818947426
 GameObject:
   m_ObjectHideFlags: 0
@@ -3715,7 +3759,7 @@ MonoBehaviour:
   sliceOptions:
     enableReslicing: 1
     maxResliceCount: 1
-    detectFloatingFragments: 1
+    detectFloatingFragments: 0
     insideMaterial: {fileID: 0}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -4424,6 +4468,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 737328656}
+    - targetCorrespondingSourceObject: {fileID: 3433928720979838499, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 737328658}
+    - targetCorrespondingSourceObject: {fileID: 3433928720979838499, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 737328657}
     - targetCorrespondingSourceObject: {fileID: 2318178324749924283, guid: 54e69294c18a02f43becc7a03172719e,
         type: 3}
       insertIndex: -1
