@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9010799219134982327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7620795523472519492}
+  - component: {fileID: 8769012970951391367}
+  m_Layer: 0
+  m_Name: SimpleBakedLightSwitcher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7620795523472519492
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9010799219134982327}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -65.84818, y: 4.816249, z: 11.7437935}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8769012970951391367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9010799219134982327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6180bb1cc23f52a439d7557ea1aafa2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  darkLightmapDir:
+  - {fileID: 0}
+  darkLightmapColor:
+  - {fileID: 2800000, guid: f0cef0dc501d94c43a6b8b379abe35b5, type: 3}
+  - {fileID: 2800000, guid: e62733ca27e04b5439ccd024e93e361b, type: 3}
+  - {fileID: 2800000, guid: d76fdad431d2f2b48aec87a9d1ba3e62, type: 3}
+  - {fileID: 2800000, guid: 8f228909bbdd14640886347ec2482107, type: 3}
+  - {fileID: 2800000, guid: dccdeb016c95f1149bd56d30e2159b78, type: 3}
+  brightLightmapDir:
+  - {fileID: 0}
+  brightLightmapColor:
+  - {fileID: 2800000, guid: 1701781c4998eeb4ead8de91a7c77e16, type: 3}
+  - {fileID: 2800000, guid: 231ae2b01233dce48aef2aa125349081, type: 3}
+  - {fileID: 2800000, guid: 8e0323176f888994eaaa55d86e786654, type: 3}
+  - {fileID: 2800000, guid: 75d974d3af2b21648a7ab9e2e5dd1c8a, type: 3}
+  - {fileID: 2800000, guid: 4d5e0c65a082cc44b8d6332791ef994f, type: 3}
