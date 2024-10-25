@@ -40451,63 +40451,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &1026974436
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1026974439}
-  - component: {fileID: 1026974438}
-  - component: {fileID: 1026974437}
-  m_Layer: 0
-  m_Name: BakedLightsManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1026974437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026974436}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa5b9f9a3ea28c478aecb16011bb591, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1026974438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026974436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85e0ecc6f3826b044804d764a365f6b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1026974439
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026974436}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -65.84818, y: 4.816249, z: 11.7437935}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1040149045
 Mesh:
   m_ObjectHideFlags: 0
@@ -47302,66 +47245,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1145194978}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1145376790
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1145376791}
-  - component: {fileID: 1145376792}
-  m_Layer: 0
-  m_Name: SimpleBakedLightSwitcher
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1145376791
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1145376790}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -65.84818, y: 4.816249, z: 11.7437935}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1145376792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1145376790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6180bb1cc23f52a439d7557ea1aafa2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  darkLightmapDir:
-  - {fileID: 0}
-  darkLightmapColor:
-  - {fileID: 2800000, guid: f0cef0dc501d94c43a6b8b379abe35b5, type: 3}
-  - {fileID: 2800000, guid: e62733ca27e04b5439ccd024e93e361b, type: 3}
-  - {fileID: 2800000, guid: d76fdad431d2f2b48aec87a9d1ba3e62, type: 3}
-  - {fileID: 2800000, guid: 8f228909bbdd14640886347ec2482107, type: 3}
-  - {fileID: 2800000, guid: dccdeb016c95f1149bd56d30e2159b78, type: 3}
-  brightLightmapDir:
-  - {fileID: 0}
-  brightLightmapColor:
-  - {fileID: 2800000, guid: 1701781c4998eeb4ead8de91a7c77e16, type: 3}
-  - {fileID: 2800000, guid: 231ae2b01233dce48aef2aa125349081, type: 3}
-  - {fileID: 2800000, guid: 8e0323176f888994eaaa55d86e786654, type: 3}
-  - {fileID: 2800000, guid: 75d974d3af2b21648a7ab9e2e5dd1c8a, type: 3}
-  - {fileID: 2800000, guid: 4d5e0c65a082cc44b8d6332791ef994f, type: 3}
 --- !u!1 &1147712788
 GameObject:
   m_ObjectHideFlags: 0
@@ -86808,6 +86691,210 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b80b8dc0285cc5489b1648faed14488, type: 3}
+--- !u!1001 &4751233401817358771
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2435078207440853449, guid: 9dcea04b43ce3ff4d84b288e317c52ad,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -65.84818
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435078207440853449, guid: 9dcea04b43ce3ff4d84b288e317c52ad,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.816249
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435078207440853449, guid: 9dcea04b43ce3ff4d84b288e317c52ad,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.7437935
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435078207440853449, guid: 9dcea04b43ce3ff4d84b288e317c52ad,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435078207440853449, guid: 9dcea04b43ce3ff4d84b288e317c52ad,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435078207440853449, guid: 9dcea04b43ce3ff4d84b288e317c52ad,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435078207440853449, guid: 9dcea04b43ce3ff4d84b288e317c52ad,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435078207440853449, guid: 9dcea04b43ce3ff4d84b288e317c52ad,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435078207440853449, guid: 9dcea04b43ce3ff4d84b288e317c52ad,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435078207440853449, guid: 9dcea04b43ce3ff4d84b288e317c52ad,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8024287631552020474, guid: 9dcea04b43ce3ff4d84b288e317c52ad,
+        type: 3}
+      propertyPath: m_Name
+      value: BakedLightsManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9dcea04b43ce3ff4d84b288e317c52ad, type: 3}
+--- !u!1001 &7800652532570795037
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2427224525841672500, guid: 08a970c60ceb98848b49e87c9f48f178,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -37.68669
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427224525841672500, guid: 08a970c60ceb98848b49e87c9f48f178,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.080587
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427224525841672500, guid: 08a970c60ceb98848b49e87c9f48f178,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.038673088
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427224525841672500, guid: 08a970c60ceb98848b49e87c9f48f178,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427224525841672500, guid: 08a970c60ceb98848b49e87c9f48f178,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427224525841672500, guid: 08a970c60ceb98848b49e87c9f48f178,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427224525841672500, guid: 08a970c60ceb98848b49e87c9f48f178,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427224525841672500, guid: 08a970c60ceb98848b49e87c9f48f178,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427224525841672500, guid: 08a970c60ceb98848b49e87c9f48f178,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427224525841672500, guid: 08a970c60ceb98848b49e87c9f48f178,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5402509727830171503, guid: 08a970c60ceb98848b49e87c9f48f178,
+        type: 3}
+      propertyPath: m_Name
+      value: LampSwitcherManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 08a970c60ceb98848b49e87c9f48f178, type: 3}
+--- !u!1001 &8800786702514916249
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7620795523472519492, guid: 8a1eb968e586f54429cf185d2b8d06d5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -65.84818
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620795523472519492, guid: 8a1eb968e586f54429cf185d2b8d06d5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.816249
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620795523472519492, guid: 8a1eb968e586f54429cf185d2b8d06d5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.7437935
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620795523472519492, guid: 8a1eb968e586f54429cf185d2b8d06d5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620795523472519492, guid: 8a1eb968e586f54429cf185d2b8d06d5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620795523472519492, guid: 8a1eb968e586f54429cf185d2b8d06d5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620795523472519492, guid: 8a1eb968e586f54429cf185d2b8d06d5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620795523472519492, guid: 8a1eb968e586f54429cf185d2b8d06d5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620795523472519492, guid: 8a1eb968e586f54429cf185d2b8d06d5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620795523472519492, guid: 8a1eb968e586f54429cf185d2b8d06d5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010799219134982327, guid: 8a1eb968e586f54429cf185d2b8d06d5,
+        type: 3}
+      propertyPath: m_Name
+      value: SimpleBakedLightSwitcher
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8a1eb968e586f54429cf185d2b8d06d5, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -86837,5 +86924,6 @@ SceneRoots:
   - {fileID: 1537193511}
   - {fileID: 1413315809}
   - {fileID: 321681611}
-  - {fileID: 1026974439}
-  - {fileID: 1145376791}
+  - {fileID: 4751233401817358771}
+  - {fileID: 8800786702514916249}
+  - {fileID: 7800652532570795037}
