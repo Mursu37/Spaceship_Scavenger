@@ -71,16 +71,26 @@ public class Cutting : MonoBehaviour
         float diffZNegative = Mathf.Abs(Mathf.DeltaAngle(angleA.z * -1, angleB.z));
         float diffZRotatedNegative = Mathf.Abs(Mathf.DeltaAngle(angleA.z * -1 + 180f, angleB.z));
 
-        float diffY = Mathf.Abs(Mathf.DeltaAngle(angleA.y + 180f, angleB.y));
+        float diffY = Mathf.Abs(Mathf.DeltaAngle(angleA.y, angleB.y));
 
         bool isZClose = diffZ <= angleTolerance || diffZRotated <= angleTolerance;
         bool isZCloseNegative = diffZNegative <= angleTolerance || diffZRotatedNegative <= angleTolerance;
-        bool isYClose = diffY <= angleTolerance;
 
-        if (isZCloseNegative || isZClose)
+        if (diffY <= 90f)
         {
-            return true;
+            if (isZClose)
+            {
+                return true;
+            }
         }
+        else
+        {
+            if (isZCloseNegative)
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 }
