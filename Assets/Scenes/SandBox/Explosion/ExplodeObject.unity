@@ -970,6 +970,23 @@ MonoBehaviour:
     unfreezeAll: 1
     saveFragmentsToDisk: 0
     saveLocation: Assets/fragments_cache
+--- !u!114 &577059674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577059662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6b25c3077fe6694b87b1507995a89b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+  explodeDelay: 2
+  explodeRadius: 15
+  explosionForce: 15
+  explodeEffect: {fileID: 0}
 --- !u!1 &640057255
 GameObject:
   m_ObjectHideFlags: 0
@@ -1732,6 +1749,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1720132115}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &737328655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737328648}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6b25c3077fe6694b87b1507995a89b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+  explodeDelay: 2
+  explodeRadius: 15
+  explosionForce: 15
+  explodeEffect: {fileID: 0}
 --- !u!1 &818947426
 GameObject:
   m_ObjectHideFlags: 0
@@ -4142,6 +4176,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 737328651}
+    - targetCorrespondingSourceObject: {fileID: 3433928720979838499, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 737328655}
     - targetCorrespondingSourceObject: {fileID: 2590934607749059901, guid: 54e69294c18a02f43becc7a03172719e,
         type: 3}
       insertIndex: -1
@@ -4150,6 +4188,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 577059673}
+    - targetCorrespondingSourceObject: {fileID: 2590934607749059901, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 577059674}
   m_SourcePrefab: {fileID: 100100000, guid: 54e69294c18a02f43becc7a03172719e, type: 3}
 --- !u!1 &1779955491
 GameObject:
