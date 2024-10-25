@@ -898,6 +898,79 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364926143}
   m_Mesh: {fileID: 692317391}
+--- !u!1 &439239068 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2318178324749924283, guid: 54e69294c18a02f43becc7a03172719e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1720132115}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &439239073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439239068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91fc9178a0b0c3d4bb8b6d91b16d9893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!54 &439239074
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439239068}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &577059662 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2590934607749059901, guid: 54e69294c18a02f43becc7a03172719e,
@@ -987,6 +1060,79 @@ MonoBehaviour:
   explodeRadius: 15
   explosionForce: 15
   explodeEffect: {fileID: 0}
+--- !u!1 &619674566 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6473333398313410582, guid: 54e69294c18a02f43becc7a03172719e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1720132115}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &619674571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619674566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91fc9178a0b0c3d4bb8b6d91b16d9893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!54 &619674572
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619674566}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &640057255
 GameObject:
   m_ObjectHideFlags: 0
@@ -1766,6 +1912,27 @@ MonoBehaviour:
   explodeRadius: 15
   explosionForce: 15
   explodeEffect: {fileID: 0}
+--- !u!65 &737328656
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737328648}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &818947426
 GameObject:
   m_ObjectHideFlags: 0
@@ -2082,6 +2249,79 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 826509206}
   m_Mesh: {fileID: 959907904}
+--- !u!1 &842829398 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6789392635297866084, guid: 54e69294c18a02f43becc7a03172719e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1720132115}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &842829403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842829398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91fc9178a0b0c3d4bb8b6d91b16d9893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!54 &842829404
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842829398}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!43 &936472013
 Mesh:
   m_ObjectHideFlags: 0
@@ -4180,6 +4420,34 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 737328655}
+    - targetCorrespondingSourceObject: {fileID: 3433928720979838499, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 737328656}
+    - targetCorrespondingSourceObject: {fileID: 2318178324749924283, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 439239074}
+    - targetCorrespondingSourceObject: {fileID: 2318178324749924283, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 439239073}
+    - targetCorrespondingSourceObject: {fileID: 6789392635297866084, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 842829404}
+    - targetCorrespondingSourceObject: {fileID: 6789392635297866084, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 842829403}
+    - targetCorrespondingSourceObject: {fileID: 6473333398313410582, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 619674572}
+    - targetCorrespondingSourceObject: {fileID: 6473333398313410582, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 619674571}
     - targetCorrespondingSourceObject: {fileID: 2590934607749059901, guid: 54e69294c18a02f43becc7a03172719e,
         type: 3}
       insertIndex: -1
