@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5365222390014234024}
+  - component: {fileID: 3084580938105420390}
+  - component: {fileID: 6961674479608962749}
   m_Layer: 0
   m_Name: CuttableDoor1
   m_TagString: Untagged
@@ -37,6 +39,39 @@ Transform:
   - {fileID: 8711278478875490725}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &3084580938105420390
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295696445650637318}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 700fd621b80bfaf41b1c0b7da1503287, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6961674479608962749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295696445650637318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60daa4bbdbff5c45b077255afaab058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1494556449623326286
 GameObject:
   m_ObjectHideFlags: 0
@@ -53,7 +88,7 @@ GameObject:
   - component: {fileID: 8685096254026634944}
   - component: {fileID: 1697955278113447939}
   m_Layer: 0
-  m_Name: SlicableObject (3)
+  m_Name: CuttingPoint2
   m_TagString: Cuttable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,7 +137,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7bf144e2008c2df42bcce13e6529fed4, type: 2}
+  - {fileID: 2100000, guid: fc092bc3e2ff23841bf1f6f09ce1394c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -179,7 +214,7 @@ FixedJoint:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1494556449623326286}
-  m_ConnectedBody: {fileID: 159078302467744770}
+  m_ConnectedBody: {fileID: 0}
   m_ConnectedArticulationBody: {fileID: 0}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -194,7 +229,7 @@ FixedJoint:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1494556449623326286}
-  m_ConnectedBody: {fileID: 5240016158273083039}
+  m_ConnectedBody: {fileID: 0}
   m_ConnectedArticulationBody: {fileID: 0}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -218,7 +253,7 @@ GameObject:
   - component: {fileID: 1578907863929453366}
   - component: {fileID: 3243370352476582374}
   m_Layer: 0
-  m_Name: SlicableObject (2)
+  m_Name: CuttingPoint3
   m_TagString: Cuttable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -267,7 +302,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7bf144e2008c2df42bcce13e6529fed4, type: 2}
+  - {fileID: 2100000, guid: fc092bc3e2ff23841bf1f6f09ce1394c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -344,7 +379,7 @@ FixedJoint:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3294786351520454418}
-  m_ConnectedBody: {fileID: 159078302467744770}
+  m_ConnectedBody: {fileID: 0}
   m_ConnectedArticulationBody: {fileID: 0}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -359,7 +394,7 @@ FixedJoint:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3294786351520454418}
-  m_ConnectedBody: {fileID: 5240016158273083039}
+  m_ConnectedBody: {fileID: 0}
   m_ConnectedArticulationBody: {fileID: 0}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -383,7 +418,7 @@ GameObject:
   - component: {fileID: 1015676205328041791}
   - component: {fileID: 8766804134701114386}
   m_Layer: 0
-  m_Name: SlicableObject (1)
+  m_Name: CuttingPoint1
   m_TagString: Cuttable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -432,7 +467,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7bf144e2008c2df42bcce13e6529fed4, type: 2}
+  - {fileID: 2100000, guid: fc092bc3e2ff23841bf1f6f09ce1394c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -509,7 +544,7 @@ FixedJoint:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8419638672596286346}
-  m_ConnectedBody: {fileID: 159078302467744770}
+  m_ConnectedBody: {fileID: 0}
   m_ConnectedArticulationBody: {fileID: 0}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -524,7 +559,7 @@ FixedJoint:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8419638672596286346}
-  m_ConnectedBody: {fileID: 5240016158273083039}
+  m_ConnectedBody: {fileID: 0}
   m_ConnectedArticulationBody: {fileID: 0}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -608,45 +643,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a8a684e1cea72eb46b39b0b8ced1fc58,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 159078302467744770}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8a684e1cea72eb46b39b0b8ced1fc58, type: 3}
---- !u!1 &4823830850299525960 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a8a684e1cea72eb46b39b0b8ced1fc58,
-    type: 3}
-  m_PrefabInstance: {fileID: 5634242037715912217}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &159078302467744770
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4823830850299525960}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 1
 --- !u!4 &5312664492698247666 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a8a684e1cea72eb46b39b0b8ced1fc58,
@@ -838,45 +836,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e6d3c0f7f95ccdf48a38387d04337457,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5240016158273083039}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6d3c0f7f95ccdf48a38387d04337457, type: 3}
---- !u!1 &8336019096811381535 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e6d3c0f7f95ccdf48a38387d04337457,
-    type: 3}
-  m_PrefabInstance: {fileID: 9182299652062289486}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &5240016158273083039
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8336019096811381535}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 1
 --- !u!4 &8711278478875490725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e6d3c0f7f95ccdf48a38387d04337457,
