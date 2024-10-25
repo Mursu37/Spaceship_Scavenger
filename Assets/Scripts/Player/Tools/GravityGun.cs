@@ -27,7 +27,12 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private Transform p1;
 
-    public bool isGrabbling;
+    [HideInInspector] public bool isGrabbling;
+
+    // These variables can be used for the UI
+    public float distanceToPlayer;
+    public float objectMass;
+    public float strength;
 
     // Start is called before the first frame update
     private void Start()
@@ -64,13 +69,16 @@ public class GravityGun : MonoBehaviour
 
         if (target != null && targetRb != null && !targetRb.isKinematic)
         {
+            objectMass = Mathf.Round(targetRb.mass * 10f) / 10f;
+
             if (playerRb.mass > targetRb.mass)
             {
                 targetRb.drag = 0.5f;
 
                 // Calculate the required force based on the distance
                 float distance = Vector3.Distance(target.transform.position, floatPoint.position);
-                float distanceToPlayer = Vector3.Distance(target.transform.position, playerRb.position);
+                distanceToPlayer = Mathf.Round(Vector3.Distance(target.transform.position, playerRb.position) * 10f) / 10f;
+                strength = Mathf.Round(attractAcceleration * distance * 10f) / 10f;
 
                 // Calculate the direction to the floating point
                 Vector3 direction = (floatPoint.position - target.transform.position).normalized;
@@ -89,6 +97,8 @@ public class GravityGun : MonoBehaviour
                 isGrabbling = true;
 
                 float distance = Vector3.Distance(target.transform.position, playerRb.position);
+                distanceToPlayer = Mathf.Round(distance * 10f) / 10f;
+                strength = Mathf.Round(attractAcceleration * distance * 10f) / 10f;
 
                 Vector3 direction = (target.transform.position - playerRb.position).normalized;
 
@@ -107,6 +117,8 @@ public class GravityGun : MonoBehaviour
                 isGrabbling = true;
 
                 float distance = Vector3.Distance(target.transform.position, playerRb.position);
+                distanceToPlayer = Mathf.Round(distance * 10f) / 10f;
+                strength = Mathf.Round(attractAcceleration * distance * 10f) / 10f;
 
                 Vector3 directionToFloatPoint = (playerRb.position - target.transform.position).normalized;
                 Vector3 directionToFloatPlayer = (target.transform.position - playerRb.position).normalized;
@@ -129,6 +141,8 @@ public class GravityGun : MonoBehaviour
             Vector3 directionToFloatPoint = (hitPosition - playerRb.position).normalized;
 
             float distance = Vector3.Distance(hitPosition, playerRb.position);
+            distanceToPlayer = Mathf.Round(distance * 10f) / 10f;
+            strength = Mathf.Round(attractAcceleration * distance * 10f) / 10f;
 
             playerRb.AddForce(directionToFloatPoint * 0.02f * distance, ForceMode.VelocityChange);
         }
@@ -147,6 +161,9 @@ public class GravityGun : MonoBehaviour
         targetRb = null;
         playerRb.drag = 0f;
         isGrabbling = false;
+        distanceToPlayer = 0;
+        strength = 0f;
+        objectMass = 0f;
     }
 
     // Draws curved line (Bézier Curve) between points
