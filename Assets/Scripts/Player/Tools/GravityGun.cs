@@ -26,6 +26,7 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private float attractAcceleration;
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private Transform p1;
+    [SerializeField] private LayerMask ignoreLayerMask;
 
     [HideInInspector] public bool isGrabbling;
 
@@ -51,7 +52,7 @@ public class GravityGun : MonoBehaviour
         // If we don't have a target, try to find one
         if (target == null)
         {
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range))
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, ~ignoreLayerMask))
             {
                 target = hit.transform.gameObject;
                 targetRb = target.GetComponent<Rigidbody>();
