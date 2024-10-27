@@ -4,17 +4,71 @@ using UnityEngine;
 
 public class CoreSounds : MonoBehaviour
 {
-    // private EnergyCore energyCore;
-    // [SerializeField] GameObject energyCoreObject
 
-//private void Start()
-//{
-//    energyCore = energyCoreObject.GetComponent<EnergyCore>();
-//}
+    [SerializeField] private string baseLoop;
+    [SerializeField] private string noOverheatLoop;
+    [SerializeField] private string slightOverheatLoop;
+    [SerializeField] private string heavyOverheatLoop;
 
-    private void Awake()
+    [SerializeField] private string[] damageSounds; 
+
+    
+
+    private EnergyCore core;
+    private float previousHeatPercent;
+    private bool isActive = false;
+
+    private void Start()
     {
-        AudioManager.PlayAudio("CoreLoop", 1, 1, true);
-        AudioManager.PlayAudio("CoreNoOverheat", 1, 1, true);
+        this.enabled = false;
+        core = GetComponent<EnergyCore>();
+  
     }
+
+
+    private void Update()
+    {
+        if (!isActive || core == null) return;
+        
+
+        float heatPercent = core.heatAmount / core.maxHeat;
+
+        // Check for heat level thresholds and switch layer sounds accordingly
+        if (heatPercent >= 0.75f && previousHeatPercent < 0.75f)
+        {
+            ChangeLayerLoop(heavyOverheatLoop);
+        }
+        else if (heatPercent >= 0.5f && previousHeatPercent < 0.5f)
+        {
+            ChangeLayerLoop(slightOverheatLoop);
+        }
+        else if (heatPercent < 0.5f && previousHeatPercent >= 0.5f)
+        {
+            ChangeLayerLoop(noOverheatLoop);
+        }
+
+        previousHeatPercent = heatPercent;
+    }
+
+    private void ChangeLayerLoop(string newLayerName)
+    {
+
+        // Stop all overheat layer sounds before starting the new layer
+        AudioManager.StopAudio(noOverheatLoop);
+        AudioManager.StopAudio(slightOverheatLoop);
+        AudioManager.StopAudio(heavyOverheatLoop);
+
+        // Start the new layer loop
+        AudioManager.PlayAudio(newLayerName, 1, 1, true);
+    }
+
+    public void ActivateCoreSounds()
+    {
+        this.enabled = true; 
+        isActive = true;
+        AudioManager.PlayAudio(baseLoop, 1, 1, true);
+        AudioManager.PlayAudio(noOverheatLoop, 1, 1, true);
+        Debug.Log("Playing containment core sounds");
+    }
+
 }

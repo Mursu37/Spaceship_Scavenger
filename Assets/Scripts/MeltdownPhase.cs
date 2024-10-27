@@ -6,6 +6,7 @@ public class MeltdownPhase : MonoBehaviour
 
     [SerializeField] private GameObject energyCoreObject;
     [SerializeField] private GameObject heatMeter;
+    private CoreSounds coreSounds;
 
     private void Start()
     {
@@ -18,6 +19,14 @@ public class MeltdownPhase : MonoBehaviour
         if (heatMeter != null)
         {
             heatMeter.SetActive(true);
+        }
+
+        // Enable the CoreSounds script when MeltdownPhase starts
+        coreSounds = FindObjectOfType<CoreSounds>();
+        if (coreSounds != null)
+        {
+            coreSounds.ActivateCoreSounds();
+            Debug.Log("CoreSounds class enabled");
         }
     }
 
