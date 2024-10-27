@@ -5,6 +5,8 @@ namespace Enviroment.MainTerminal
 {
     public class ShipPowerOn : MonoBehaviour
     {
+        private MeltdownPhase meltdownPhase;
+
         [SerializeField] private GameObject obstacles;
         [SerializeField] private GameObject lights;
 
@@ -12,12 +14,15 @@ namespace Enviroment.MainTerminal
         {
             obstacles.SetActive(false);
             lights.SetActive(false);
+
+            meltdownPhase = GetComponent<MeltdownPhase>();
         }
 
         public void turnShipOn()
         {
             obstacles.SetActive(true);
             lights.SetActive(true);
+            meltdownPhase.enabled = true;
         }
     }
 }

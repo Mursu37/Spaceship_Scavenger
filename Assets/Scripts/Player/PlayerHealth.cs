@@ -17,6 +17,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public void Damage(float amount)
     {
         currentHealth -= amount;
+        Camera.main.GetComponent<CameraShake>().shakeDuration = 0.2f;
     }
 
     private void Update()

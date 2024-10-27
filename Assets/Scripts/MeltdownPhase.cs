@@ -3,28 +3,16 @@ using UnityEngine;
 public class MeltdownPhase : MonoBehaviour
 {
     private EnergyCore energyCore;
-    private bool canSpawn = false;
 
     [SerializeField] private GameObject energyCoreObject;
     [SerializeField] private GameObject heatMeter;
-    [SerializeField] private GameObject meltdownObjects;
-
-    private void Awake()
-    {
-        if (enabled)
-        {
-            enabled = false;
-        }
-    }
 
     private void Start()
     {
-        canSpawn = true;
-
         if (gameObject != null)
         {
             energyCore = energyCoreObject.GetComponent<EnergyCore>();
-            StartCoroutine(energyCore.HeathIncrease());
+            StartCoroutine(energyCore.HeatIncrease());
         }
 
         if (heatMeter != null)
@@ -36,10 +24,5 @@ public class MeltdownPhase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canSpawn)
-        {
-            meltdownObjects.SetActive(true);
-            canSpawn = false;
-        }
     }
 }
