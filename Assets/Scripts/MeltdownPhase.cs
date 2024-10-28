@@ -7,6 +7,7 @@ public class MeltdownPhase : MonoBehaviour
     [SerializeField] private GameObject energyCoreObject;
     [SerializeField] private GameObject heatMeter;
     private CoreSounds coreSounds;
+    private MeltdownMusic meltdownMusic;
 
     private void Start()
     {
@@ -21,12 +22,19 @@ public class MeltdownPhase : MonoBehaviour
             heatMeter.SetActive(true);
         }
 
-        // Enable the CoreSounds script when MeltdownPhase starts
+        // Enable the CoreSounds and MeltdownMusic scripts when MeltdownPhase starts
         coreSounds = FindObjectOfType<CoreSounds>();
         if (coreSounds != null)
         {
             coreSounds.ActivateCoreSounds();
-            Debug.Log("CoreSounds class enabled");
+            Debug.Log("CoreSounds enabled");
+        }
+
+        meltdownMusic = FindObjectOfType<MeltdownMusic>();
+        if (meltdownMusic != null)
+        {
+            meltdownMusic.ActivateMeltdownMusic();
+            Debug.Log("Meltdown music enabled");
         }
     }
 
