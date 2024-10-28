@@ -25,6 +25,11 @@ public class Explosives : MonoBehaviour
             {
                 rb.AddExplosionForce(explosionForce, transform.position, explodeRadius, 1f, ForceMode.Impulse);
             }
+
+            if (collider.CompareTag("Explodable"))
+            {
+                Destroy(collider.gameObject);
+            }
                 
 
             if (collider.transform.parent != null && collider.transform.parent.CompareTag("Player"))

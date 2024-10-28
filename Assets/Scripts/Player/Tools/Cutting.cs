@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Cutting : MonoBehaviour
 {
-    private Collider cuttableObject;
+    private List<Collider> collidingObjects = new List<Collider>();
+    [SerializeField] private Collider cuttableObject;
     private float tolerance = 6f;
 
     private void Update()
@@ -20,25 +22,50 @@ public class Cutting : MonoBehaviour
         if (cuttableObject.CompareTag("Explosive"))
         {
             Explosives explosives = cuttableObject.GetComponent<Explosives>();
-            explosives.Explode();
+            if (explosives != null)
+            {
+                explosives.Explode();
+            }
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        
-        if (other.CompareTag("Cuttable") || other.CompareTag("Explosive"))
+        if (!collidingObjects.Contains(other))
         {
-            cuttableObject = other;
+            collidingObjects.Add(other);
         }
+
+        UpdateCuttableObject();
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (cuttableObject == other)
+        if (collidingObjects.Contains(other))
+        {
+            collidingObjects.Remove(other);
+        }
+
+        UpdateCuttableObject();
+    }
+
+    // Updates and checks the state of the cuttable object
+    private void UpdateCuttableObject()
+    {
+        Collider explosiveObject = collidingObjects.FirstOrDefault(c => c != null && c.CompareTag("Explosive"));
+        if (explosiveObject != null)
+        {
+            cuttableObject = explosiveObject;
+            return;
+        }
+
+        if (collidingObjects.Any(c => c != null && c.CompareTag("Explodable")))
         {
             cuttableObject = null;
+            return;
         }
+
+        cuttableObject = collidingObjects.FirstOrDefault(c => c != null && (c.CompareTag("Cuttable")));
     }
 
     // Function to check if the angles of two objects are close
@@ -73,5 +100,11 @@ public class Cutting : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void OnDisable()
+    {
+        // Clear the list when this object is disabled
+        collidingObjects.Clear();
     }
 }
