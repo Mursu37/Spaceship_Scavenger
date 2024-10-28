@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &34659580
 Transform:
   m_ObjectHideFlags: 0
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerOptions:
-    triggerType: 0
+    triggerType: 1
     minimumCollisionForce: 0
     filterCollisionsByTag: 0
     triggerAllowedTags: []
@@ -789,7 +789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerOptions:
-    triggerType: 0
+    triggerType: 1
     minimumCollisionForce: 0
     filterCollisionsByTag: 0
     triggerAllowedTags: []
@@ -1017,11 +1017,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerOptions:
-    triggerType: 0
+    triggerType: 2
     minimumCollisionForce: 0
     filterCollisionsByTag: 0
     triggerAllowedTags: []
-    triggerKey: 0
+    triggerKey: 282
   fractureOptions:
     fragmentCount: 10
     xAxis: 1
@@ -1040,12 +1040,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 577059674}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
+          m_TargetAssemblyTypeName: Explosives, Assembly-CSharp
+          m_MethodName: Explode
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -1062,7 +1062,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 577059662}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6b25c3077fe6694b87b1507995a89b4, type: 3}
   m_Name: 
@@ -1072,6 +1072,7 @@ MonoBehaviour:
   explodeRadius: 15
   explosionForce: 15
   explodeEffect: {fileID: 0}
+  fragments: {fileID: 0}
 --- !u!1 &619674566 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6473333398313410582, guid: 54e69294c18a02f43becc7a03172719e,
@@ -1818,6 +1819,79 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1001 &727238947
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1126834906468531201, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      propertyPath: m_Name
+      value: Floating_breaching_object_pf (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2590934607749059901, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765219405799612113, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.76968
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765219405799612113, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.204
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765219405799612113, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.6503525
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765219405799612113, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765219405799612113, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765219405799612113, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765219405799612113, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765219405799612113, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765219405799612113, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765219405799612113, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 54e69294c18a02f43becc7a03172719e, type: 3}
 --- !u!1 &737328648 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3433928720979838499, guid: 54e69294c18a02f43becc7a03172719e,
@@ -1914,7 +1988,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737328648}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6b25c3077fe6694b87b1507995a89b4, type: 3}
   m_Name: 
@@ -1924,27 +1998,7 @@ MonoBehaviour:
   explodeRadius: 15
   explosionForce: 15
   explodeEffect: {fileID: 0}
---- !u!65 &737328656
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737328648}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  fragments: {fileID: 0}
 --- !u!114 &737328657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2026,7 +2080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerOptions:
-    triggerType: 0
+    triggerType: 1
     minimumCollisionForce: 0
     filterCollisionsByTag: 0
     triggerAllowedTags: []
@@ -2184,7 +2238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerOptions:
-    triggerType: 0
+    triggerType: 1
     minimumCollisionForce: 0
     filterCollisionsByTag: 0
     triggerAllowedTags: []
@@ -2366,6 +2420,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &926424439 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7522526848673518886, guid: f7706f79e4135f44b84335d3ff8c3212,
+    type: 3}
+  m_PrefabInstance: {fileID: 1041058659}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &936472013
 Mesh:
   m_ObjectHideFlags: 0
@@ -2774,6 +2834,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5533909621443496903, guid: f7706f79e4135f44b84335d3ff8c3212,
+        type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 1632853097}
+    - target: {fileID: 5533909621443496903, guid: f7706f79e4135f44b84335d3ff8c3212,
+        type: 3}
+      propertyPath: cuttingCrosshair
+      value: 
+      objectReference: {fileID: 1779004589}
     - target: {fileID: 8244695801914122926, guid: f7706f79e4135f44b84335d3ff8c3212,
         type: 3}
       propertyPath: m_Name
@@ -2834,7 +2904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerOptions:
-    triggerType: 0
+    triggerType: 1
     minimumCollisionForce: 0
     filterCollisionsByTag: 0
     triggerAllowedTags: []
@@ -2992,7 +3062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerOptions:
-    triggerType: 0
+    triggerType: 1
     minimumCollisionForce: 0
     filterCollisionsByTag: 0
     triggerAllowedTags: []
@@ -3575,6 +3645,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4850230220796602569, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+        type: 3}
+      propertyPath: multiTool
+      value: 
+      objectReference: {fileID: 926424439}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3629,7 +3704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerOptions:
-    triggerType: 0
+    triggerType: 1
     minimumCollisionForce: 0
     filterCollisionsByTag: 0
     triggerAllowedTags: []
@@ -3770,7 +3845,19 @@ MonoBehaviour:
         m_Calls: []
     onCompleted:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 737328657}
+          m_TargetAssemblyTypeName: Explosive, Assembly-CSharp
+          m_MethodName: Explode
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!54 &1549194936
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3848,6 +3935,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549194933}
   m_Mesh: {fileID: 0}
+--- !u!1 &1632853097 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4066982963282052114, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1502838730}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1677917459
 Mesh:
   m_ObjectHideFlags: 0
@@ -4247,7 +4340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerOptions:
-    triggerType: 0
+    triggerType: 1
     minimumCollisionForce: 0
     filterCollisionsByTag: 0
     triggerAllowedTags: []
@@ -4369,10 +4462,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floating_breaching_object_pf
       objectReference: {fileID: 0}
-    - target: {fileID: 2590934607749059901, guid: 54e69294c18a02f43becc7a03172719e,
+    - target: {fileID: 1126834906468531201, guid: 54e69294c18a02f43becc7a03172719e,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2590934607749059901, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727285154697579006, guid: 54e69294c18a02f43becc7a03172719e,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6765219405799612113, guid: 54e69294c18a02f43becc7a03172719e,
         type: 3}
@@ -4467,10 +4570,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3433928720979838499, guid: 54e69294c18a02f43becc7a03172719e,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 737328656}
-    - targetCorrespondingSourceObject: {fileID: 3433928720979838499, guid: 54e69294c18a02f43becc7a03172719e,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 737328658}
     - targetCorrespondingSourceObject: {fileID: 3433928720979838499, guid: 54e69294c18a02f43becc7a03172719e,
         type: 3}
@@ -4513,6 +4612,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 577059674}
   m_SourcePrefab: {fileID: 100100000, guid: 54e69294c18a02f43becc7a03172719e, type: 3}
+--- !u!1 &1779004589 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8766363544925055236, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1502838730}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1779955491
 GameObject:
   m_ObjectHideFlags: 0
@@ -4562,7 +4667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerOptions:
-    triggerType: 0
+    triggerType: 1
     minimumCollisionForce: 0
     filterCollisionsByTag: 0
     triggerAllowedTags: []
@@ -4720,7 +4825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerOptions:
-    triggerType: 0
+    triggerType: 1
     minimumCollisionForce: 0
     filterCollisionsByTag: 0
     triggerAllowedTags: []
@@ -4839,3 +4944,4 @@ SceneRoots:
   - {fileID: 1041058659}
   - {fileID: 1502838730}
   - {fileID: 1720132115}
+  - {fileID: 727238947}

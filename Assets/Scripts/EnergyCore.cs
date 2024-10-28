@@ -10,8 +10,8 @@ public class EnergyCore : MonoBehaviour
     private Vector3 relativeVelocity;
     private float collisionForce;
 
-    [SerializeField] private float heatAmount;
-    [SerializeField] private float maxHeat;
+    [SerializeField] public float heatAmount;
+    [SerializeField] public float maxHeat;
     [SerializeField] private GameObject gameState;
     [SerializeField] private Image meter;
 

@@ -15,8 +15,7 @@ public class DoorController : MonoBehaviour
 
         for (int i = 0; i < transform.childCount; i++)
         {
-            FixedJoint fixedJoint = transform.GetChild(i).GetComponent<FixedJoint>();
-            if (fixedJoint != null)
+            if (transform.GetChild(i).CompareTag("Cuttable"))
             {
                 cuttingPoints[i] = transform.GetChild(i).gameObject;
             }
