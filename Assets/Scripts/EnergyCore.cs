@@ -10,6 +10,8 @@ public class EnergyCore : MonoBehaviour
     private Vector3 relativeVelocity;
     private float collisionForce;
 
+    private CoreSounds coreSounds;
+
     [SerializeField] public float heatAmount;
     [SerializeField] public float maxHeat;
     [SerializeField] private GameObject gameState;
@@ -18,6 +20,7 @@ public class EnergyCore : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        coreSounds = GetComponentInChildren<CoreSounds>();
     }
 
     private void Update()
@@ -47,6 +50,7 @@ public class EnergyCore : MonoBehaviour
         {
             yield return new WaitForSeconds(8f);
             heatAmount += 1f;
+            coreSounds?.PlayRandomDamageSound();
         }
     }
 
@@ -61,6 +65,7 @@ public class EnergyCore : MonoBehaviour
         if (collisionForce > 2)
         {
             heatAmount += collisionForce * 2f;
+            coreSounds?.PlayRandomDamageSound();
         }
     }
 }
