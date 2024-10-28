@@ -23,7 +23,7 @@ public class GasLeakSwitch : MonoBehaviour, IInteractable
         StartCoroutine(TurnOffGas());
     }
 
-    public IEnumerator TurnOffGas()
+    private IEnumerator TurnOffGas()
     {
         while (true)
         {
