@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.Rendering;
+//using UnityEditor.Experimental.Rendering;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
+//using UnityEngine.Experimental.Rendering;
 using UnityEngine.InputSystem;
 
 public class SimpleBakedLightSwitcher : MonoBehaviour

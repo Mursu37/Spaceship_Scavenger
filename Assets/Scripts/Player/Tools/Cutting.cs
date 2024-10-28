@@ -9,44 +9,25 @@ public class Cutting : MonoBehaviour
 
     private void Update()
     {
-        if (cuttableObject == null || !Input.GetButtonDown("Fire1") || !AreAnglesClose(transform, cuttableObject.transform, tolerance))
+        if (cuttableObject == null || !Input.GetButtonDown("Fire1"))
             return; // Early exit for invalid cases
 
-        FixedJoint[] allJoints = FindObjectsOfType<FixedJoint>();
-        FixedJoint[] cuttableJoints = cuttableObject.GetComponents<FixedJoint>();
-
-        foreach (FixedJoint joint in cuttableJoints)
+        if (cuttableObject.CompareTag("Cuttable") && AreAnglesClose(transform, cuttableObject.transform, tolerance))
         {
-            if (joint.connectedBody == null)
-                continue; // Skip joints with no connectedBody
-
-            // Check if any other object is using the same connected body
-            if (!IsBodyUsedByOtherObjects(joint, allJoints))
-            {
-                joint.connectedBody.isKinematic = false;
-            }
-            Destroy(joint);
+            Destroy(cuttableObject.gameObject);
         }
-        Destroy(cuttableObject.gameObject);
-    }
 
-    // Check if the connected body is used by other joints
-    private bool IsBodyUsedByOtherObjects(FixedJoint currentJoint, FixedJoint[] allJoints)
-    {
-        foreach (FixedJoint otherJoint in allJoints)
+        if (cuttableObject.CompareTag("Explosive"))
         {
-            // Skip the current joint and check for the same connected body
-            if (otherJoint != currentJoint && otherJoint.connectedBody == currentJoint.connectedBody)
-            {
-                return true;
-            }
+            Explosives explosives = cuttableObject.GetComponent<Explosives>();
+            explosives.Explode();
         }
-        return false;
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Cuttable"))
+        
+        if (other.CompareTag("Cuttable") || other.CompareTag("Explosive"))
         {
             cuttableObject = other;
         }
