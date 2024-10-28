@@ -20,8 +20,8 @@ public class CoreSounds : MonoBehaviour
 
     private void Start()
     {
+        core = GetComponentInParent<EnergyCore>();
         this.enabled = false;
-        core = GetComponent<EnergyCore>();
   
     }
 
@@ -70,5 +70,16 @@ public class CoreSounds : MonoBehaviour
         AudioManager.PlayAudio(noOverheatLoop, 1, 1, true);
         Debug.Log("Playing containment core sounds");
     }
+
+    public void PlayRandomDamageSound()
+    {
+        if (damageSounds.Length > 0)
+        {
+            int randomIndex = Random.Range(0, damageSounds.Length);
+            string randomSoundName = damageSounds[randomIndex];
+            AudioManager.PlayAudio(randomSoundName, 1, 1, false);  
+        }
+    }
+
 
 }

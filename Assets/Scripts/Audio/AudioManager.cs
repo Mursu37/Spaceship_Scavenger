@@ -13,7 +13,20 @@ public class AudioManager : MonoBehaviour
 
         foreach (Sound s in sounds)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
+            GameObject sourceObject = null;
+
+            if (!string.IsNullOrEmpty(s.sourceObjectName))
+            {
+                // Try to find the specified object by name in the scene or as a child
+                sourceObject = GameObject.Find(s.sourceObjectName);
+            }
+    
+            if (sourceObject == null)
+            {
+                sourceObject = gameObject; // Default to AudioManager if no specific source object is found
+            }
+
+            s.source = sourceObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
             s.source.outputAudioMixerGroup = s.mixerGroup;
 
@@ -24,6 +37,9 @@ public class AudioManager : MonoBehaviour
 
             s.source.bypassReverbZones = s.bypassReverbZones;
             s.source.bypassEffects = s.bypassEffects;
+
+            s.source.playOnAwake = false;
+            s.source.loop = s.shouldLoop;
         }
     }
 
