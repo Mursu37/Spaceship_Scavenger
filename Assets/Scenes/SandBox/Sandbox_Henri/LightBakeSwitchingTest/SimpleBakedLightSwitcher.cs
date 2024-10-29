@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 public class SimpleBakedLightSwitcher : MonoBehaviour
 {
 
+    public AlternativeBakedLightGrouped[] altBakedLight;
+
     public GameObject[] darkLightPrefab, brightLightPrefab;
 
     public Texture2D[] darkLightmapDir, darkLightmapColor;
@@ -47,17 +49,37 @@ public class SimpleBakedLightSwitcher : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-         if (Keyboard.current.bKey.isPressed)
-         {
-            OnLight1Switched();
-         }
+        if (Input.GetButtonDown("Interact"))
+        {
 
-         if (Keyboard.current.cKey.isPressed)
-         {
+            altBakedLight[1].ToggleLights();
+
+            //OnLight1Switched();
+        }
+
+        if (Input.GetButtonDown("Num1"))
+        {
+            //OnLight1Switched();
+            foreach (AlternativeBakedLightGrouped altLight in altBakedLight)
+            {
+                altLight.ToggleLights(0);
+            }
+
             OnLight2Switched();
-         }
+        }
+
+        if (Input.GetButtonDown("Num2"))
+        {
+            //OnLight1Switched();
+            foreach (AlternativeBakedLightGrouped altLight in altBakedLight)
+            {
+                altLight.ToggleLights(1);
+            }
+
+            OnLight1Switched();
+        }
     }
 
     private void EnablePrefabCollection(GameObject[] gameObjectList)
@@ -82,7 +104,7 @@ public class SimpleBakedLightSwitcher : MonoBehaviour
         // LightSensor[0].enabled = !LightSensor[0].enabled;
         DisablePrefabCollection(brightLightPrefab);
         EnablePrefabCollection(darkLightPrefab);
-        LightmapSettings.lightmaps = darkLightmap;
+        //LightmapSettings.lightmaps = darkLightmap;
 
 
     }
@@ -93,7 +115,7 @@ public class SimpleBakedLightSwitcher : MonoBehaviour
         // LightSensor[1].enabled = !LightSensor[1].enabled;
         DisablePrefabCollection(darkLightPrefab);
         EnablePrefabCollection(brightLightPrefab);
-        LightmapSettings.lightmaps = brightLightmap;
+        //LightmapSettings.lightmaps = brightLightmap;
  
     }
 }
