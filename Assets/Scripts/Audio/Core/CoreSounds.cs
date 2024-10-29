@@ -34,15 +34,15 @@ public class CoreSounds : MonoBehaviour
         float heatPercent = core.heatAmount / core.maxHeat;
 
         // Check for heat level thresholds and switch layer sounds accordingly
-        if (heatPercent >= 0.75f && previousHeatPercent < 0.75f)
+        if (heatPercent >= 0.66f && previousHeatPercent < 0.66f)
         {
             ChangeLayerLoop(heavyOverheatLoop);
         }
-        else if (heatPercent >= 0.5f && previousHeatPercent < 0.5f)
+        else if (heatPercent >= 0.33f && previousHeatPercent < 0.33f)
         {
             ChangeLayerLoop(slightOverheatLoop);
         }
-        else if (heatPercent < 0.5f && previousHeatPercent >= 0.5f)
+        else if (heatPercent < 0.33f && previousHeatPercent >= 0.33f)
         {
             ChangeLayerLoop(noOverheatLoop);
         }
