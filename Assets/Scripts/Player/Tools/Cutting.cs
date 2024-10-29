@@ -6,7 +6,7 @@ using UnityEngine;
 public class Cutting : MonoBehaviour
 {
     private List<Collider> collidingObjects = new List<Collider>();
-    [SerializeField] private Collider cuttableObject;
+    private Collider cuttableObject;
     private float tolerance = 6f;
 
     private void Update()
