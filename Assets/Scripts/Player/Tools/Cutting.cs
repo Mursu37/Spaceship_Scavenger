@@ -1,71 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Cutting : MonoBehaviour
 {
-    private List<Collider> collidingObjects = new List<Collider>();
-    private Collider cuttableObject;
     private float tolerance = 6f;
+    private float rayDistance = 2f; // Distance of the raycast
+    private LayerMask layerMask; // Define a LayerMask to specify layers for Cuttable and Explosive
+
+    private void Start()
+    {
+        // You can specify layers for Cuttable and Explosive objects
+        layerMask = LayerMask.GetMask("Ignore Raycast");
+    }
 
     private void Update()
     {
-        if (cuttableObject == null || !Input.GetButtonDown("Fire1"))
-            return; // Early exit for invalid cases
+        // Check if Fire1 is pressed
+        if (!Input.GetButtonDown("Fire1"))
+            return;
 
-        if (cuttableObject.CompareTag("Cuttable") && AreAnglesClose(transform, cuttableObject.transform, tolerance))
-        {
-            Destroy(cuttableObject.gameObject);
-        }
+        // Cast a ray forward from the object's position
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        RaycastHit hit;
 
-        if (cuttableObject.CompareTag("Explosive"))
+        // Check if the ray hit something within specified layers and distance
+        if (Physics.Raycast(ray, out hit, rayDistance, ~layerMask))
         {
-            Explosives explosives = cuttableObject.GetComponent<Explosives>();
-            if (explosives != null)
+            Transform hitTransform = hit.transform;
+            Debug.Log(hitTransform.name);
+
+            if (Input.GetButtonDown("Fire1"))
             {
-                explosives.Explode();
+                if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, tolerance))
+                {
+                    Destroy(hitTransform.gameObject);
+                }
+                else if (hitTransform.CompareTag("Explosive"))
+                {
+                    Explosives explosives = hitTransform.GetComponent<Explosives>();
+                    explosives.Explode();
+                }
             }
         }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (!collidingObjects.Contains(other))
-        {
-            collidingObjects.Add(other);
-        }
-
-        UpdateCuttableObject();
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (collidingObjects.Contains(other))
-        {
-            collidingObjects.Remove(other);
-        }
-
-        UpdateCuttableObject();
-    }
-
-    // Updates and checks the state of the cuttable object
-    private void UpdateCuttableObject()
-    {
-        Collider explosiveObject = collidingObjects.FirstOrDefault(c => c != null && c.CompareTag("Explosive"));
-        if (explosiveObject != null)
-        {
-            cuttableObject = explosiveObject;
-            return;
-        }
-
-        if (collidingObjects.Any(c => c != null && c.CompareTag("Explodable")))
-        {
-            cuttableObject = null;
-            return;
-        }
-
-        cuttableObject = collidingObjects.FirstOrDefault(c => c != null && (c.CompareTag("Cuttable")));
     }
 
     // Function to check if the angles of two objects are close
@@ -100,11 +77,5 @@ public class Cutting : MonoBehaviour
         }
 
         return false;
-    }
-
-    private void OnDisable()
-    {
-        // Clear the list when this object is disabled
-        collidingObjects.Clear();
     }
 }
