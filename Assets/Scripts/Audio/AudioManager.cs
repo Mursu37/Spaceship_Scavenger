@@ -13,7 +13,20 @@ public class AudioManager : MonoBehaviour
 
         foreach (Sound s in sounds)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
+            GameObject sourceObject = null;
+
+            if (!string.IsNullOrEmpty(s.sourceObjectName))
+            {
+                // Try to find the specified object by name in the scene or as a child
+                sourceObject = GameObject.Find(s.sourceObjectName);
+            }
+    
+            if (sourceObject == null)
+            {
+                sourceObject = gameObject; // Default to AudioManager if no specific source object is found
+            }
+
+            s.source = sourceObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
             s.source.outputAudioMixerGroup = s.mixerGroup;
 
@@ -24,10 +37,13 @@ public class AudioManager : MonoBehaviour
 
             s.source.bypassReverbZones = s.bypassReverbZones;
             s.source.bypassEffects = s.bypassEffects;
+
+            s.source.playOnAwake = false;
+            s.source.loop = s.shouldLoop;
         }
     }
 
-    public static void PlayAudio(string name, float volume = 1, float pitch = 1, bool loop = true)
+    public static void PlayAudio(string name, float volume = 1, float pitch = 1, bool loop = true, double? scheduledStartTime = null)
     {
         Sound s = Array.Find(instance.sounds, sound => sound.name == name);
 
@@ -39,7 +55,15 @@ public class AudioManager : MonoBehaviour
         s.source.volume = volume;
         s.source.pitch = pitch;
         s.source.loop = loop;
-        s.source.Play();
+
+        if (scheduledStartTime.HasValue)
+        {
+            s.source.PlayScheduled(scheduledStartTime.Value);
+        }
+        else
+        {
+           s.source.Play(); 
+        }
     }
 
     public static void StopAudio(string name)
@@ -70,5 +94,10 @@ public class AudioManager : MonoBehaviour
             return;
         }
         s.source.volume = volume;
+    }
+
+    public static Sound GetSound(string name)
+    {
+        return Array.Find(instance.sounds, sound => sound.name == name);
     }
 }

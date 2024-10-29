@@ -20,8 +20,8 @@ public class CoreSounds : MonoBehaviour
 
     private void Start()
     {
+        core = GetComponentInParent<EnergyCore>();
         this.enabled = false;
-        core = GetComponent<EnergyCore>();
   
     }
 
@@ -34,15 +34,15 @@ public class CoreSounds : MonoBehaviour
         float heatPercent = core.heatAmount / core.maxHeat;
 
         // Check for heat level thresholds and switch layer sounds accordingly
-        if (heatPercent >= 0.75f && previousHeatPercent < 0.75f)
+        if (heatPercent >= 0.66f && previousHeatPercent < 0.66f)
         {
             ChangeLayerLoop(heavyOverheatLoop);
         }
-        else if (heatPercent >= 0.5f && previousHeatPercent < 0.5f)
+        else if (heatPercent >= 0.33f && previousHeatPercent < 0.33f)
         {
             ChangeLayerLoop(slightOverheatLoop);
         }
-        else if (heatPercent < 0.5f && previousHeatPercent >= 0.5f)
+        else if (heatPercent < 0.33f && previousHeatPercent >= 0.33f)
         {
             ChangeLayerLoop(noOverheatLoop);
         }
@@ -70,5 +70,16 @@ public class CoreSounds : MonoBehaviour
         AudioManager.PlayAudio(noOverheatLoop, 1, 1, true);
         Debug.Log("Playing containment core sounds");
     }
+
+    public void PlayRandomDamageSound()
+    {
+        if (damageSounds.Length > 0)
+        {
+            int randomIndex = Random.Range(0, damageSounds.Length);
+            string randomSoundName = damageSounds[randomIndex];
+            AudioManager.PlayAudio(randomSoundName, 1, 1, false);  
+        }
+    }
+
 
 }

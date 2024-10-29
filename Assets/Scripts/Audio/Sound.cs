@@ -15,6 +15,9 @@ public class Sound
 
     public bool bypassReverbZones = false;
     public bool bypassEffects = false;
+    public bool shouldLoop = true;
+
+    public string sourceObjectName;
 
     [HideInInspector]
     public AudioSource source;
