@@ -450,6 +450,58 @@ MonoBehaviour:
     shouldLoop: 0
     sourceObjectName: CoreAudio
     source: {fileID: 0}
+  - name: AlarmMusicLayer1
+    clip: {fileID: 8300000, guid: 58eb1c8531816124c9ab203ea57e34e9, type: 3}
+    mixerGroup: {fileID: 1158046664623537725, guid: 593f6e12a0383c24c93cf48f8d728fd9,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 50
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 1
+    sourceObjectName: Music
+    source: {fileID: 0}
+  - name: AlarmMusicLayer2
+    clip: {fileID: 8300000, guid: 54a82af86b3263b4bac5a31c73cdd36d, type: 3}
+    mixerGroup: {fileID: 1270121476861267054, guid: 593f6e12a0383c24c93cf48f8d728fd9,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 50
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 1
+    sourceObjectName: Music
+    source: {fileID: 0}
+  - name: AlarmMusicLayer3
+    clip: {fileID: 8300000, guid: 4eeaf42601ac6374d86712f682ddbe66, type: 3}
+    mixerGroup: {fileID: 8880259010079831858, guid: 593f6e12a0383c24c93cf48f8d728fd9,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 50
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 1
+    sourceObjectName: Music
+    source: {fileID: 0}
+  - name: AlarmMusicIntro
+    clip: {fileID: 8300000, guid: cf51c4734be9eac478f21906a1becef4, type: 3}
+    mixerGroup: {fileID: -6966288693222095857, guid: 593f6e12a0383c24c93cf48f8d728fd9,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 50
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObjectName: Music
+    source: {fileID: 0}
 --- !u!1 &7788608340621674505
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,6 +640,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5523663869426418267}
+  - component: {fileID: 661235720918885168}
   m_Layer: 0
   m_Name: Music
   m_TagString: Untagged
@@ -610,3 +663,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2113613496294778607}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &661235720918885168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7902608572272484136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 682285131cefd7d4782f513dcf7398ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlarmMusicIntro: AlarmMusicIntro
+  AlarmMusicLayer1: AlarmMusicLayer1
+  AlarmMusicLayer2: AlarmMusicLayer2
+  AlarmMusicLayer3: AlarmMusicLayer3

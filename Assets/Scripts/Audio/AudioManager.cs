@@ -43,7 +43,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public static void PlayAudio(string name, float volume = 1, float pitch = 1, bool loop = true)
+    public static void PlayAudio(string name, float volume = 1, float pitch = 1, bool loop = true, double? scheduledStartTime = null)
     {
         Sound s = Array.Find(instance.sounds, sound => sound.name == name);
 
@@ -55,7 +55,15 @@ public class AudioManager : MonoBehaviour
         s.source.volume = volume;
         s.source.pitch = pitch;
         s.source.loop = loop;
-        s.source.Play();
+
+        if (scheduledStartTime.HasValue)
+        {
+            s.source.PlayScheduled(scheduledStartTime.Value);
+        }
+        else
+        {
+           s.source.Play(); 
+        }
     }
 
     public static void StopAudio(string name)
@@ -86,5 +94,10 @@ public class AudioManager : MonoBehaviour
             return;
         }
         s.source.volume = volume;
+    }
+
+    public static Sound GetSound(string name)
+    {
+        return Array.Find(instance.sounds, sound => sound.name == name);
     }
 }
