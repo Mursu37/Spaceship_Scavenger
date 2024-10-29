@@ -55,12 +55,12 @@ public class EditorWindow_GetAlternativeLightingData : EditorWindow
                 EditorGUILayout.LabelField(captureTime + " - Captured Scene Data - " + currentSceneProbes.Length + " Light Probes Found", GUILayout.Height(25), GUILayout.Width(position.width - (margin * 2 )));
                 if (GUILayout.Button("Sava scene Data to target?", GUILayout.Width(position.width - (margin * 2 + 10))))
                 {
-                    currentData.lightProbesData = currentSceneProbes;
+                    currentData.setProbes(currentSceneProbes);
                     lastSave = System.DateTime.UtcNow.ToString("HH:mm");
                 }
-                if (currentData.lightProbesData != null)
+                if (currentData.getProbes() != null)
                 {
-                    EditorGUILayout.LabelField(lastSave + " - Stored target Data - " + currentData.lightProbesData.Length + " Light Probes saved", GUILayout.Height(25), GUILayout.Width(position.width - (margin * 2)));
+                    EditorGUILayout.LabelField(lastSave + " - Stored target Data - " + currentData.getProbes().Length + " Light Probes saved", GUILayout.Height(25), GUILayout.Width(position.width - (margin * 2)));
                 }
                 else
                 {
@@ -117,21 +117,21 @@ public class EditorWindow_GetAlternativeLightingData : EditorWindow
             #region Display_SavedLightmaps
             GUILayout.BeginArea(new Rect(position.width / 2 - (margin/2), margin, position.width / 2 - (margin * 3), (position.height * .75f) - (margin * 4)), EditorStyles.helpBox);
 
-            if (currentData.l_Light != null)
+            if (currentData.getLight() != null)
             {
                 EditorGUILayout.BeginHorizontal();
-                for (int i = 0; i < currentData.l_Light.Length; i++)
+                for (int i = 0; i < currentData.getLight().Length; i++)
                 {
-                    Texture2D myTexture = (Texture2D)EditorGUILayout.ObjectField("", currentData.l_Light[i], typeof(Texture2D), false, GUILayout.Height(windowHeight * .475f));
+                    Texture2D myTexture = (Texture2D)EditorGUILayout.ObjectField("", currentData.getLight()[i], typeof(Texture2D), false, GUILayout.Height(windowHeight * .475f));
                 }
                 EditorGUILayout.EndHorizontal();
             }
-            if (currentData.l_Dir != null)
+            if (currentData.getDir() != null)
             {
                 EditorGUILayout.BeginHorizontal();
-                for (int i = 0; i < currentData.l_Dir.Length; i++)
+                for (int i = 0; i < currentData.getDir().Length; i++)
                 {
-                    Texture2D myTexture = (Texture2D)EditorGUILayout.ObjectField("", currentData.l_Dir[i], typeof(Texture2D), false, GUILayout.Height((windowHeight * .475f)));
+                    Texture2D myTexture = (Texture2D)EditorGUILayout.ObjectField("", currentData.getDir()[i], typeof(Texture2D), false, GUILayout.Height((windowHeight * .475f)));
                 }
                 EditorGUILayout.EndHorizontal();
             }
@@ -208,11 +208,11 @@ public class EditorWindow_GetAlternativeLightingData : EditorWindow
     {
         if (currentData.l_DirTemp != null)
         {
-            currentData.l_Dir = currentData.l_DirTemp.ToArray();
+            currentData.setDir(currentData.l_DirTemp.ToArray());
         }
         if (currentData.l_DirTemp != null)
         {
-            currentData.l_Light = currentData.l_LightTemp.ToArray();
+            currentData.setLight(currentData.l_LightTemp.ToArray());
         }
     }
 }

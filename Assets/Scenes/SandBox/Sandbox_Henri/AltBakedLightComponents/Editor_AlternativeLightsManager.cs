@@ -55,13 +55,13 @@ public class Editor_AlternativeLightsManager : Editor
         //Update the temp maps with the maps in the stored data
         for (int i = 0; i < manager.lightStates.Length; i++)
         {
-            for (int l = 0; l < manager.lightStates[i].l_Light.Length; l++)
+            for (int l = 0; l < manager.lightStates[i].getLight().Length; l++)
             {
-                manager.Final_L_Lights.Add(manager.lightStates[i].l_Light[l]);
+                manager.Final_L_Lights.Add(manager.lightStates[i].getLight()[l]);
             }
-            for (int l = 0; l < manager.lightStates[i].l_Dir.Length; l++)
+            for (int l = 0; l < manager.lightStates[i].getDir().Length; l++)
             {
-                manager.Final_L_Dir.Add(manager.lightStates[i].l_Dir[l]);
+                manager.Final_L_Dir.Add(manager.lightStates[i].getDir()[l]);
             }
         }
 

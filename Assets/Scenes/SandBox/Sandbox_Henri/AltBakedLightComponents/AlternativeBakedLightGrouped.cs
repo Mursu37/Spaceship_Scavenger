@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlternativeBakedLight : MonoBehaviour
+public class AlternativeBakedLightGrouped : MonoBehaviour
 {
-    private MeshRenderer rend;
+    private MeshRenderer[] rends;
     [SerializeField]
     public int currentLightState;
     [SerializeField]
@@ -12,18 +12,18 @@ public class AlternativeBakedLight : MonoBehaviour
 
     private AlternativeLightsManager manager;
 
+
     // Start is called before the first frame update
     void Start()
     {
+        rends = GetComponentsInChildren<MeshRenderer>();
         manager = FindObjectOfType<AlternativeLightsManager>();
-        rend = GetComponent<MeshRenderer>();
 
-        //Set lightprobe and lightmap at start of game
-        ChangeLightState(currentLightState);
+        ChangeLightState(currentLightState, rends);
     }
 
     //Call the Manager script to change the linked lightprobes and then changes the objects lightmap texture locally
-    public void ChangeLightState(int Value)
+    public void ChangeLightState(int Value, MeshRenderer[] _rends)
     {
         //Make sure target lightmap texture is in the valid range
         Value = Mathf.Clamp(Value, 0, manager.maxStatesCount);
@@ -32,8 +32,30 @@ public class AlternativeBakedLight : MonoBehaviour
         //Call the manager to change the selected lightprobes settings
         manager.AssignLightProbesSegment(linkedLightProbes, currentLightState);
 
-        //Switch to a diffrent lightmap texture
-        rend.lightmapIndex = currentLightState;
+        foreach (MeshRenderer rend in _rends)
+        {
+            //Set lightprobe and lightmap at start of game
+            //Switch to a diffrent lightmap texture
+            if (rend.gameObject.isStatic)
+            rend.lightmapIndex = currentLightState;
+        }
+    }
+
+        public void ChangeLightState(int Value)
+    {
+        //Make sure target lightmap texture is in the valid range
+        Value = Mathf.Clamp(Value, 0, manager.maxStatesCount);
+        currentLightState = Value;
+
+        //Call the manager to change the selected lightprobes settings
+        manager.AssignLightProbesSegment(linkedLightProbes, currentLightState);
+            foreach (MeshRenderer rend in rends)
+
+            {
+                //Switch to a diffrent lightmap texture
+                if (rend.gameObject.isStatic)
+                rend.lightmapIndex = currentLightState;
+        }
     }
 
     #region Interaction

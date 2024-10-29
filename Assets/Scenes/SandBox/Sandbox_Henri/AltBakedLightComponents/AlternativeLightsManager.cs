@@ -47,7 +47,7 @@ public class AlternativeLightsManager : MonoBehaviour
         {
             int CurrentTarget = TargetProbes[i];
             //Find the lightprobe by it's index number and copys the settings from the stored data to the current scene
-            probes_Current[CurrentTarget] = lightStates[TargetState].lightProbesData[CurrentTarget];
+            probes_Current[CurrentTarget] = lightStates[TargetState].getProbes()[CurrentTarget];
         }
 
         //Apply the changed probe data to the scenes lightmap settings
