@@ -5,6 +5,7 @@ using UnityEngine;
 public class ModeSwitch : MonoBehaviour
 {
     private GravityGun gravityGun;
+    private Cutting cutting;
     private Slicer slicer;
 
     [SerializeField] private GameObject slicerObject;
@@ -16,6 +17,7 @@ public class ModeSwitch : MonoBehaviour
     private void Start()
     {
         gravityGun = GetComponent<GravityGun>();
+        cutting = GetComponent<Cutting>();
         slicer = GetComponent<Slicer>();
         selectedMode = 0;
     }
@@ -63,6 +65,7 @@ public class ModeSwitch : MonoBehaviour
             case 0:
                 slicerObject.SetActive(false);
                 gravityGun.enabled = true;
+                cutting.enabled = false;
                 slicer.enabled = false;
                 crosshair.SetActive(true);
                 cuttingCrosshair.SetActive(false);
@@ -70,6 +73,7 @@ public class ModeSwitch : MonoBehaviour
             case 1:
                 slicerObject.SetActive(true);
                 gravityGun.enabled = false;
+                cutting.enabled = true;
                 slicer.enabled = true;
                 crosshair.SetActive(false);
                 cuttingCrosshair.SetActive(true);

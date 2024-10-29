@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5950558590960945374}
   - component: {fileID: 5529365974256072736}
+  - component: {fileID: 7899709549008401639}
   - component: {fileID: 6098355707473419410}
   - component: {fileID: 4132476524752516138}
   - component: {fileID: 7619085035995208659}
@@ -68,6 +69,21 @@ MonoBehaviour:
   distanceToPlayer: 0
   objectMass: 0
   strength: 0
+--- !u!114 &7899709549008401639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2157372286838254283}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa54cfaf2db3284fa1e38709e4853af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4149360939032682024}
+  isVerticalCut: 0
+  slicerObject: {fileID: 6352255894598140729}
 --- !u!114 &6098355707473419410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +364,6 @@ GameObject:
   - component: {fileID: 5590324336295849832}
   - component: {fileID: 9125429212905605777}
   - component: {fileID: 4532901550131178442}
-  - component: {fileID: 1239942996915969053}
   m_Layer: 0
   m_Name: SlicerObject
   m_TagString: Untagged
@@ -400,7 +415,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4bb57a6416e168440ab4f0004b459b1a, type: 2}
+  - {fileID: 2100000, guid: fc092bc3e2ff23841bf1f6f09ce1394c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -453,18 +468,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 229eff741bcacdf4dbe9a5c2cc00843c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1239942996915969053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6352255894598140729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aa54cfaf2db3284fa1e38709e4853af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8118792497709654955

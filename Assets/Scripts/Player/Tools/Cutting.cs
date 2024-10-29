@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Cutting : MonoBehaviour
@@ -8,18 +10,17 @@ public class Cutting : MonoBehaviour
     private float rayDistance = 2f; // Distance of the raycast
     private LayerMask layerMask; // Define a LayerMask to specify layers for Cuttable and Explosive
 
+    [SerializeField] private Animator animator;
+    [SerializeField] private bool isVerticalCut = false;
+    [SerializeField] private GameObject slicerObject;
+
     private void Start()
     {
-        // You can specify layers for Cuttable and Explosive objects
         layerMask = LayerMask.GetMask("Ignore Raycast");
     }
 
     private void Update()
     {
-        // Check if Fire1 is pressed
-        if (!Input.GetButtonDown("Fire1"))
-            return;
-
         // Cast a ray forward from the object's position
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit;
@@ -29,6 +30,9 @@ public class Cutting : MonoBehaviour
         {
             Transform hitTransform = hit.transform;
             Debug.Log(hitTransform.name);
+
+            Vector3 slicerScale = slicerObject.transform.localScale;
+            slicerObject.transform.localScale = new Vector3(slicerScale.x, slicerScale.y, rayDistance);
 
             if (Input.GetButtonDown("Fire1"))
             {
@@ -43,6 +47,31 @@ public class Cutting : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            isVerticalCut = !isVerticalCut;
+
+            if (isVerticalCut)
+            {
+                slicerObject.transform.localRotation = Quaternion.Euler(0, 0, 90);
+            }
+            else
+            {
+                slicerObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            }
+        }
+
+        if (isVerticalCut)
+        {
+            animator.SetBool("IsVertical", true);
+            animator.SetBool("IsHorizontal", false);
+        }
+        else
+        {
+            animator.SetBool("IsVertical", false);
+            animator.SetBool("IsHorizontal", true);
+        }
     }
 
     // Function to check if the angles of two objects are close
@@ -50,6 +79,11 @@ public class Cutting : MonoBehaviour
     {
         Vector3 angleA = obj1.eulerAngles;
         Vector3 angleB = obj2.eulerAngles;
+
+        if (isVerticalCut)
+        {
+            angleA.z += 90f;
+        }
 
         float diffZ = Mathf.Abs(Mathf.DeltaAngle(angleA.z, angleB.z));
         float diffZRotated = Mathf.Abs(Mathf.DeltaAngle(angleA.z + 180f, angleB.z));
@@ -77,5 +111,11 @@ public class Cutting : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void OnDisable()
+    {
+        animator.SetBool("IsVertical", true);
+        animator.SetBool("IsHorizontal", false);
     }
 }
