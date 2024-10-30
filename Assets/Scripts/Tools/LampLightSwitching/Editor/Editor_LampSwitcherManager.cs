@@ -9,6 +9,7 @@ public class Editor_LampSwitcherManager : Editor
 {
     private LampSwitcherManager lampManager;
 
+
     private void OnEnable()
     {
         lampManager = (LampSwitcherManager)target;
@@ -16,9 +17,8 @@ public class Editor_LampSwitcherManager : Editor
         {
             return;
         }
-
+        Debug.Log("Setupping Lights");
         lampManager.SetupLamps();
-        lampManager.SetupAlarmLamps();
     }
 
     // Update is called once per frame
@@ -40,18 +40,24 @@ public class Editor_LampSwitcherManager : Editor
 
         GUILayout.Space(5);
 
+        if (GUILayout.Button("Sync Lights"))
+        {
+            Debug.Log("Syncing lights");
+            lampManager.SetupLamps();
+        }
+
         //Toggle Button
         if (GUILayout.Button("Toggle Lights On"))
         {
             Debug.Log("toggled lights on");
-            lampManager.ToggleLampsOn();
+            lampManager.ToggleLamps(true);
             EditorUtility.SetDirty(lampManager);
         }
 
         if (GUILayout.Button("Toggle Lights Off"))
         {
             Debug.Log("toggled lights off");
-            lampManager.ToggleLampsOff();
+            lampManager.ToggleLamps(false);
             EditorUtility.SetDirty(lampManager);
         }
 
@@ -60,16 +66,17 @@ public class Editor_LampSwitcherManager : Editor
         if (GUILayout.Button("Set Ordinary Lamp Materials"))
         {
             Debug.Log("toggled Ordinary Lamp Materials");
-            lampManager.SetOrdinaryLampMaterials();
+            lampManager.SetOrdinaryLights();
             EditorUtility.SetDirty(lampManager);
         }
 
         if (GUILayout.Button("Set Alarm Lamp Materials"))
         {
             Debug.Log("toggled Alarm lamp Materials");
-            lampManager.SetAlarmLampMaterials();
+            lampManager.SetAlarmOn();
             EditorUtility.SetDirty(lampManager);
         }
+
 
         GUILayout.Space(25);
 
@@ -79,5 +86,6 @@ public class Editor_LampSwitcherManager : Editor
 
     }
 
+    
 
 }
