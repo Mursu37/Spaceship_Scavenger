@@ -51,7 +51,6 @@ public class Cutting : MonoBehaviour
                 if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, tolerance))
                 {
                     cuttingPoint = hitTransform;
-                    
                 }
                 else if (hitTransform.CompareTag("Explosive"))
                 {
