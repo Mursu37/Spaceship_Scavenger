@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Mode : MonoBehaviour
 {
     private ModeSwitch modeSwitch;
-    private TextMeshProUGUI modeText;
+    private RawImage modeImage;
     [SerializeField] private GameObject multiTool;
+    [SerializeField] private Texture grapplingTexture;
+    [SerializeField] private Texture cuttingTexture;
+   /* [SerializeField] private Texture grapplingInfo;
+    [SerializeField] private Texture cuttingInfo;*/
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +21,7 @@ public class Mode : MonoBehaviour
             modeSwitch = multiTool.GetComponent<ModeSwitch>();
         }
 
-        modeText = GetComponent<TextMeshProUGUI>();
+        modeImage = GetComponent<RawImage>();
     }
 
     // Update is called once per frame
@@ -25,11 +29,13 @@ public class Mode : MonoBehaviour
     {
         if (modeSwitch.selectedMode == 0)
         {
-            modeText.text = "Mode: Grappling";
+            modeImage.texture = grapplingTexture;
+            //modeImage.texture = grapplingInfo;
         }
         else if (modeSwitch.selectedMode == 1)
         {
-            modeText.text = "Mode: Cutting";
+            modeImage.texture = cuttingTexture;
+            //modeImage.texture = cuttingInfo;
         }
     }
 }
