@@ -63,12 +63,6 @@ public class ModeSwitch : MonoBehaviour
             selectedMode = 2;
             SelectMode();
         }
-
-        if (selectedMode == 2 && Input.GetButtonDown("Fire2"))
-        {
-            selectedMode = 1;
-            SelectMode();
-        }
     }
 
     private void SelectMode()

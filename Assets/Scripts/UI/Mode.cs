@@ -9,9 +9,10 @@ public class Mode : MonoBehaviour
     private RawImage modeImage;
     [SerializeField] private GameObject multiTool;
     [SerializeField] private Texture grapplingTexture;
-    [SerializeField] private Texture cuttingTexture;
-   /* [SerializeField] private Texture grapplingInfo;
-    [SerializeField] private Texture cuttingInfo;*/
+    [SerializeField] private Texture cuttingTextureHorizontal;
+    [SerializeField] private Texture cuttingTextureVertical;
+    /* [SerializeField] private Texture grapplingInfo;
+     [SerializeField] private Texture cuttingInfo;*/
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +35,12 @@ public class Mode : MonoBehaviour
         }
         else if (modeSwitch.selectedMode == 1)
         {
-            modeImage.texture = cuttingTexture;
+            modeImage.texture = cuttingTextureHorizontal;
+            //modeImage.texture = cuttingInfo;
+        }
+        else if (modeSwitch.selectedMode == 2)
+        {
+            modeImage.texture = cuttingTextureVertical;
             //modeImage.texture = cuttingInfo;
         }
     }
