@@ -1,71 +1,77 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Cutting : MonoBehaviour
 {
-    private List<Collider> collidingObjects = new List<Collider>();
-    [SerializeField] private Collider cuttableObject;
     private float tolerance = 6f;
+    private float rayDistance = 2f; // Distance of the raycast
+    private LayerMask layerMask; // Define a LayerMask to specify layers for Cuttable and Explosive
+
+    [SerializeField] private Animator animator;
+    [SerializeField] private bool isVerticalCut = false;
+    [SerializeField] private GameObject slicerObject;
+
+    private void Start()
+    {
+        layerMask = LayerMask.GetMask("Ignore Raycast");
+    }
 
     private void Update()
     {
-        if (cuttableObject == null || !Input.GetButtonDown("Fire1"))
-            return; // Early exit for invalid cases
+        // Cast a ray forward from the object's position
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        RaycastHit hit;
 
-        if (cuttableObject.CompareTag("Cuttable") && AreAnglesClose(transform, cuttableObject.transform, tolerance))
+        // Check if the ray hit something within specified layers and distance
+        if (Physics.Raycast(ray, out hit, rayDistance, ~layerMask))
         {
-            Destroy(cuttableObject.gameObject);
-        }
+            Transform hitTransform = hit.transform;
+            Debug.Log(hitTransform.name);
 
-        if (cuttableObject.CompareTag("Explosive"))
-        {
-            Explosives explosives = cuttableObject.GetComponent<Explosives>();
-            if (explosives != null)
+            Vector3 slicerScale = slicerObject.transform.localScale;
+            slicerObject.transform.localScale = new Vector3(slicerScale.x, slicerScale.y, rayDistance);
+
+            if (Input.GetButtonDown("Fire1"))
             {
-                explosives.Explode();
+                if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, tolerance))
+                {
+                    Destroy(hitTransform.gameObject);
+                }
+                else if (hitTransform.CompareTag("Explosive"))
+                {
+                    Explosives explosives = hitTransform.GetComponent<Explosives>();
+                    explosives.Explode();
+                }
             }
         }
-    }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (!collidingObjects.Contains(other))
+        if (Input.GetButtonDown("Fire2"))
         {
-            collidingObjects.Add(other);
+            isVerticalCut = !isVerticalCut;
+
+            if (isVerticalCut)
+            {
+                slicerObject.transform.localRotation = Quaternion.Euler(0, 0, 90);
+            }
+            else
+            {
+                slicerObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            }
         }
 
-        UpdateCuttableObject();
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (collidingObjects.Contains(other))
+        if (isVerticalCut)
         {
-            collidingObjects.Remove(other);
+            animator.SetBool("IsVertical", true);
+            animator.SetBool("IsHorizontal", false);
         }
-
-        UpdateCuttableObject();
-    }
-
-    // Updates and checks the state of the cuttable object
-    private void UpdateCuttableObject()
-    {
-        Collider explosiveObject = collidingObjects.FirstOrDefault(c => c != null && c.CompareTag("Explosive"));
-        if (explosiveObject != null)
+        else
         {
-            cuttableObject = explosiveObject;
-            return;
+            animator.SetBool("IsVertical", false);
+            animator.SetBool("IsHorizontal", true);
         }
-
-        if (collidingObjects.Any(c => c != null && c.CompareTag("Explodable")))
-        {
-            cuttableObject = null;
-            return;
-        }
-
-        cuttableObject = collidingObjects.FirstOrDefault(c => c != null && (c.CompareTag("Cuttable")));
     }
 
     // Function to check if the angles of two objects are close
@@ -73,6 +79,11 @@ public class Cutting : MonoBehaviour
     {
         Vector3 angleA = obj1.eulerAngles;
         Vector3 angleB = obj2.eulerAngles;
+
+        if (isVerticalCut)
+        {
+            angleA.z += 90f;
+        }
 
         float diffZ = Mathf.Abs(Mathf.DeltaAngle(angleA.z, angleB.z));
         float diffZRotated = Mathf.Abs(Mathf.DeltaAngle(angleA.z + 180f, angleB.z));
@@ -104,7 +115,7 @@ public class Cutting : MonoBehaviour
 
     private void OnDisable()
     {
-        // Clear the list when this object is disabled
-        collidingObjects.Clear();
+        animator.SetBool("IsVertical", true);
+        animator.SetBool("IsHorizontal", false);
     }
 }
