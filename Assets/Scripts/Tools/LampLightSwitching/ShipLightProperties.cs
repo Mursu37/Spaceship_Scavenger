@@ -36,6 +36,7 @@ public class ShipLightProperties : MonoBehaviour
         Debug.Log("Setupping Light");
 
         lights = new List<Light>();
+        alarmLights = new List<Light>();
         lights.AddRange(GetComponentsInChildren<Light>());
 
         List<Light> lightsToAlarm = new List<Light>(lights);
