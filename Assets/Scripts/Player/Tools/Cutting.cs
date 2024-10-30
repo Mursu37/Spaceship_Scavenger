@@ -11,6 +11,7 @@ public class Cutting : MonoBehaviour
     private float rayDistance = 2f; // Distance of the raycast
     private LayerMask layerMask; // Define a LayerMask to specify layers for Cuttable and Explosive
     private Transform cuttingPoint;
+    private bool canCut = false;
 
     [SerializeField] private LineRenderer rightmostLaser;
     [SerializeField] private LineRenderer leftmostLaser;
@@ -28,7 +29,7 @@ public class Cutting : MonoBehaviour
 
     private void Update()
     {
-        if (cuttingPoint != null)
+        if (cuttingPoint != null && canCut)
         {
             StartCoroutine(AnimateLasers(cuttingPoint, 1f));
         }
@@ -43,15 +44,12 @@ public class Cutting : MonoBehaviour
             Transform hitTransform = hit.transform;
             Debug.Log(hitTransform.name);
 
-            Vector3 slicerScale = slicerObject.transform.localScale;
-            slicerObject.transform.localScale = new Vector3(slicerScale.x, slicerScale.y, rayDistance);
-
             if (Input.GetButtonDown("Fire1"))
             {
                 if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, tolerance))
                 {
                     cuttingPoint = hitTransform;
-                    
+                    canCut = true;
                 }
                 else if (hitTransform.CompareTag("Explosive"))
                 {
@@ -85,8 +83,6 @@ public class Cutting : MonoBehaviour
             animator.SetBool("IsVertical", false);
             animator.SetBool("IsHorizontal", true);
         }
-
-
     }
 
     private IEnumerator AnimateLasers(Transform point, float duration)
@@ -140,6 +136,7 @@ public class Cutting : MonoBehaviour
 
         rightmostLaser.enabled = false;
         leftmostLaser.enabled = false;
+        canCut = false;
 
         if (cuttingPoint != null)
         {
