@@ -1,3 +1,4 @@
+using EzySlice;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
@@ -9,18 +10,29 @@ public class Cutting : MonoBehaviour
     private float tolerance = 6f;
     private float rayDistance = 2f; // Distance of the raycast
     private LayerMask layerMask; // Define a LayerMask to specify layers for Cuttable and Explosive
+    private Transform cuttingPoint;
 
+    [SerializeField] private LineRenderer rightmostLaser;
+    [SerializeField] private LineRenderer leftmostLaser;
     [SerializeField] private Animator animator;
     [SerializeField] private bool isVerticalCut = false;
     [SerializeField] private GameObject slicerObject;
+    [SerializeField] private Transform shootingPoint;
 
     private void Start()
     {
         layerMask = LayerMask.GetMask("Ignore Raycast");
+        rightmostLaser.enabled = false;
+        leftmostLaser.enabled = false;
     }
 
     private void Update()
     {
+        if (cuttingPoint != null)
+        {
+            StartCoroutine(AnimateLasers(cuttingPoint, 1f));
+        }
+
         // Cast a ray forward from the object's position
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit;
@@ -38,7 +50,8 @@ public class Cutting : MonoBehaviour
             {
                 if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, tolerance))
                 {
-                    Destroy(hitTransform.gameObject);
+                    cuttingPoint = hitTransform;
+                    
                 }
                 else if (hitTransform.CompareTag("Explosive"))
                 {
@@ -71,6 +84,67 @@ public class Cutting : MonoBehaviour
         {
             animator.SetBool("IsVertical", false);
             animator.SetBool("IsHorizontal", true);
+        }
+
+
+    }
+
+    private IEnumerator AnimateLasers(Transform point, float duration)
+    {
+        MeshFilter meshFilter = point.GetComponent<MeshFilter>();
+        if (meshFilter != null)
+        {
+            var mesh = meshFilter.sharedMesh;
+            if (mesh != null)
+            {
+                // Get the center and rightmost / leftmost points in world space
+                Vector3 center = point.TransformPoint(mesh.bounds.center);
+                Vector3 rightmostPoint = point.TransformPoint(
+                    new Vector3(mesh.bounds.max.x, mesh.bounds.center.y, mesh.bounds.center.z));
+                Vector3 leftmostPoint = point.TransformPoint(
+                    new Vector3(mesh.bounds.min.x, mesh.bounds.center.y, mesh.bounds.center.z));
+
+                // Enable the line renderer and set the start position
+                rightmostLaser.enabled = true;
+                rightmostLaser.SetPosition(0, shootingPoint.position); // Start point
+                rightmostLaser.SetPosition(1, center); // Start at the center
+
+                leftmostLaser.enabled = true;
+                leftmostLaser.SetPosition(0, shootingPoint.position); // Start point
+                leftmostLaser.SetPosition(1, center); // Start at the center
+
+                // Animate the line to the rightmost point
+                float elapsedTime = 0f;
+
+                while (elapsedTime < duration)
+                {
+                    // Calculate the progress of the animation
+                    float t = elapsedTime / duration;
+
+                    // Update the end position of the line renderer
+                    Vector3 currentRightPoint = Vector3.Lerp(center, rightmostPoint, t);
+                    rightmostLaser.SetPosition(1, currentRightPoint);
+
+                    Vector3 currentLeftPoint = Vector3.Lerp(center, leftmostPoint, t);
+                    leftmostLaser.SetPosition(1, currentLeftPoint);
+
+                    // Increment the elapsed time
+                    elapsedTime += Time.deltaTime;
+                    yield return null; // Wait for the next frame
+                }
+
+                rightmostLaser.SetPosition(1, rightmostPoint);
+                leftmostLaser.SetPosition(1, leftmostPoint);
+            }
+        }
+
+        rightmostLaser.enabled = false;
+        leftmostLaser.enabled = false;
+
+        if (cuttingPoint != null)
+        {
+            Destroy(point.gameObject);
+            cuttingPoint = null;
         }
     }
 
