@@ -1,71 +1,148 @@
+using EzySlice;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Cutting : MonoBehaviour
 {
-    private List<Collider> collidingObjects = new List<Collider>();
-    [SerializeField] private Collider cuttableObject;
     private float tolerance = 6f;
+    private float rayDistance = 2f; // Distance of the raycast
+    private LayerMask layerMask; // Define a LayerMask to specify layers for Cuttable and Explosive
+    private Transform cuttingPoint;
+    private bool canCut = false;
+
+    [SerializeField] private LineRenderer rightmostLaser;
+    [SerializeField] private LineRenderer leftmostLaser;
+    [SerializeField] private Animator animator;
+    [SerializeField] private bool isVerticalCut = false;
+    [SerializeField] private GameObject slicerObject;
+    [SerializeField] private Transform shootingPoint;
+
+    private void Start()
+    {
+        layerMask = LayerMask.GetMask("Ignore Raycast");
+        rightmostLaser.enabled = false;
+        leftmostLaser.enabled = false;
+    }
 
     private void Update()
     {
-        if (cuttableObject == null || !Input.GetButtonDown("Fire1"))
-            return; // Early exit for invalid cases
-
-        if (cuttableObject.CompareTag("Cuttable") && AreAnglesClose(transform, cuttableObject.transform, tolerance))
+        if (cuttingPoint != null && canCut)
         {
-            Destroy(cuttableObject.gameObject);
+            StartCoroutine(AnimateLasers(cuttingPoint, 1f));
         }
 
-        if (cuttableObject.CompareTag("Explosive"))
+        // Cast a ray forward from the object's position
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        RaycastHit hit;
+
+        // Check if the ray hit something within specified layers and distance
+        if (Physics.Raycast(ray, out hit, rayDistance, ~layerMask))
         {
-            Explosives explosives = cuttableObject.GetComponent<Explosives>();
-            if (explosives != null)
+            Transform hitTransform = hit.transform;
+            Debug.Log(hitTransform.name);
+
+            if (Input.GetButtonDown("Fire1"))
             {
-                explosives.Explode();
+                if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, tolerance))
+                {
+                    cuttingPoint = hitTransform;
+                    canCut = true;
+                }
+                else if (hitTransform.CompareTag("Explosive"))
+                {
+                    Explosives explosives = hitTransform.GetComponent<Explosives>();
+                    explosives.Explode();
+                }
             }
         }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            isVerticalCut = !isVerticalCut;
+
+            if (isVerticalCut)
+            {
+                slicerObject.transform.localRotation = Quaternion.Euler(0, 0, 90);
+            }
+            else
+            {
+                slicerObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            }
+        }
+
+        if (isVerticalCut)
+        {
+            animator.SetBool("IsVertical", true);
+            animator.SetBool("IsHorizontal", false);
+        }
+        else
+        {
+            animator.SetBool("IsVertical", false);
+            animator.SetBool("IsHorizontal", true);
+        }
     }
 
-    private void OnTriggerStay(Collider other)
+    private IEnumerator AnimateLasers(Transform point, float duration)
     {
-        if (!collidingObjects.Contains(other))
+        MeshFilter meshFilter = point.GetComponent<MeshFilter>();
+        if (meshFilter != null)
         {
-            collidingObjects.Add(other);
+            var mesh = meshFilter.sharedMesh;
+            if (mesh != null)
+            {
+                // Get the center and rightmost / leftmost points in world space
+                Vector3 center = point.TransformPoint(mesh.bounds.center);
+                Vector3 rightmostPoint = point.TransformPoint(
+                    new Vector3(mesh.bounds.max.x, mesh.bounds.center.y, mesh.bounds.center.z));
+                Vector3 leftmostPoint = point.TransformPoint(
+                    new Vector3(mesh.bounds.min.x, mesh.bounds.center.y, mesh.bounds.center.z));
+
+                // Enable the line renderer and set the start position
+                rightmostLaser.enabled = true;
+                rightmostLaser.SetPosition(0, shootingPoint.position); // Start point
+                rightmostLaser.SetPosition(1, center); // Start at the center
+
+                leftmostLaser.enabled = true;
+                leftmostLaser.SetPosition(0, shootingPoint.position); // Start point
+                leftmostLaser.SetPosition(1, center); // Start at the center
+
+                // Animate the line to the rightmost point
+                float elapsedTime = 0f;
+
+                while (elapsedTime < duration)
+                {
+                    // Calculate the progress of the animation
+                    float t = elapsedTime / duration;
+
+                    // Update the end position of the line renderer
+                    Vector3 currentRightPoint = Vector3.Lerp(center, rightmostPoint, t);
+                    rightmostLaser.SetPosition(1, currentRightPoint);
+
+                    Vector3 currentLeftPoint = Vector3.Lerp(center, leftmostPoint, t);
+                    leftmostLaser.SetPosition(1, currentLeftPoint);
+
+                    // Increment the elapsed time
+                    elapsedTime += Time.deltaTime;
+                    yield return null; // Wait for the next frame
+                }
+
+                rightmostLaser.SetPosition(1, rightmostPoint);
+                leftmostLaser.SetPosition(1, leftmostPoint);
+            }
         }
 
-        UpdateCuttableObject();
-    }
+        rightmostLaser.enabled = false;
+        leftmostLaser.enabled = false;
+        canCut = false;
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (collidingObjects.Contains(other))
+        if (cuttingPoint != null)
         {
-            collidingObjects.Remove(other);
+            Destroy(point.gameObject);
+            cuttingPoint = null;
         }
-
-        UpdateCuttableObject();
-    }
-
-    // Updates and checks the state of the cuttable object
-    private void UpdateCuttableObject()
-    {
-        Collider explosiveObject = collidingObjects.FirstOrDefault(c => c != null && c.CompareTag("Explosive"));
-        if (explosiveObject != null)
-        {
-            cuttableObject = explosiveObject;
-            return;
-        }
-
-        if (collidingObjects.Any(c => c != null && c.CompareTag("Explodable")))
-        {
-            cuttableObject = null;
-            return;
-        }
-
-        cuttableObject = collidingObjects.FirstOrDefault(c => c != null && (c.CompareTag("Cuttable")));
     }
 
     // Function to check if the angles of two objects are close
@@ -73,6 +150,11 @@ public class Cutting : MonoBehaviour
     {
         Vector3 angleA = obj1.eulerAngles;
         Vector3 angleB = obj2.eulerAngles;
+
+        if (isVerticalCut)
+        {
+            angleA.z += 90f;
+        }
 
         float diffZ = Mathf.Abs(Mathf.DeltaAngle(angleA.z, angleB.z));
         float diffZRotated = Mathf.Abs(Mathf.DeltaAngle(angleA.z + 180f, angleB.z));
@@ -104,7 +186,7 @@ public class Cutting : MonoBehaviour
 
     private void OnDisable()
     {
-        // Clear the list when this object is disabled
-        collidingObjects.Clear();
+        animator.SetBool("IsVertical", true);
+        animator.SetBool("IsHorizontal", false);
     }
 }
