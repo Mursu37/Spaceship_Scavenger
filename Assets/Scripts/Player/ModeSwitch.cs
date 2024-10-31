@@ -5,17 +5,20 @@ using UnityEngine;
 public class ModeSwitch : MonoBehaviour
 {
     private GravityGun gravityGun;
+    private Cutting cutting;
     private Slicer slicer;
 
     [SerializeField] private GameObject slicerObject;
     [SerializeField] private GameObject crosshair;
-    [SerializeField] private GameObject cuttingCrosshair;
+    [SerializeField] private GameObject cuttingCrosshairHorizontal;
+    [SerializeField] private GameObject cuttingCrosshairVertical;
     public int selectedMode;
 
     // Start is called before the first frame update
     private void Start()
     {
         gravityGun = GetComponent<GravityGun>();
+        cutting = GetComponent<Cutting>();
         slicer = GetComponent<Slicer>();
         selectedMode = 0;
     }
@@ -54,6 +57,12 @@ public class ModeSwitch : MonoBehaviour
             selectedMode = 1;
             SelectMode();
         }
+
+        if (selectedMode == 1 && Input.GetButtonDown("Fire2"))
+        {
+            selectedMode = 2;
+            SelectMode();
+        }
     }
 
     private void SelectMode()
@@ -63,16 +72,30 @@ public class ModeSwitch : MonoBehaviour
             case 0:
                 slicerObject.SetActive(false);
                 gravityGun.enabled = true;
+                cutting.enabled = false;
                 slicer.enabled = false;
                 crosshair.SetActive(true);
-                cuttingCrosshair.SetActive(false);
+                cuttingCrosshairHorizontal.SetActive(false);
+                cuttingCrosshairVertical.SetActive(false);
                 break;
             case 1:
                 slicerObject.SetActive(true);
                 gravityGun.enabled = false;
+                cutting.enabled = true;
                 slicer.enabled = true;
                 crosshair.SetActive(false);
-                cuttingCrosshair.SetActive(true);
+                cuttingCrosshairHorizontal.SetActive(true);
+                cuttingCrosshairVertical.SetActive(false);
+                break;
+
+            case 2:
+                slicerObject.SetActive(true);
+                gravityGun.enabled = false;
+                cutting.enabled = true;
+                slicer.enabled = true;
+                crosshair.SetActive(false);
+                cuttingCrosshairHorizontal.SetActive(false);
+                cuttingCrosshairVertical.SetActive(true);
                 break;
         }
     }
