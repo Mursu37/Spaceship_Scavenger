@@ -502,6 +502,83 @@ MonoBehaviour:
     shouldLoop: 0
     sourceObjectName: Music
     source: {fileID: 0}
+  - name: AmbienceDerelict
+    clip: {fileID: 8300000, guid: e0df82afaeef72b4484ae5f96ab74daf, type: 3}
+    mixerGroup: {fileID: -5233355729386470837, guid: c7bd009d8da25ab49b9d8808c14e34ff,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 50
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 1
+    sourceObjectName: Ambience
+    source: {fileID: 0}
+  - name: AmbienceMeltdown
+    clip: {fileID: 8300000, guid: 6900fa3ffd0639b408764d0a41a5b278, type: 3}
+    mixerGroup: {fileID: 8617692348162913475, guid: c7bd009d8da25ab49b9d8808c14e34ff,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 50
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 1
+    sourceObjectName: Ambience
+    source: {fileID: 0}
+  - name: ShipPowerOn
+    clip: {fileID: 8300000, guid: 4df5598fb8ebfc749bc91e3691e3f4ec, type: 3}
+    mixerGroup: {fileID: 24300002, guid: eca3bcb1198dfa444b1cd3b7a577c647, type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObjectName: CoreAudio
+    source: {fileID: 0}
+  - name: MultitoolCutting1
+    clip: {fileID: 8300000, guid: 48c682e5b95dec04bbc647d7b301da28, type: 3}
+    mixerGroup: {fileID: -5040330687356964810, guid: 2555bcc9586c4074a984dfdb80e4e359,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObjectName: 
+    source: {fileID: 0}
+  - name: MultitoolCutting2
+    clip: {fileID: 8300000, guid: 1296047f4da97e74a9a6473a3e09d670, type: 3}
+    mixerGroup: {fileID: -5040330687356964810, guid: 2555bcc9586c4074a984dfdb80e4e359,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObjectName: 
+    source: {fileID: 0}
+  - name: MultitoolCutting3
+    clip: {fileID: 8300000, guid: bd425be789b25d14b858dbe4ef7e5308, type: 3}
+    mixerGroup: {fileID: -5040330687356964810, guid: 2555bcc9586c4074a984dfdb80e4e359,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObjectName: 
+    source: {fileID: 0}
 --- !u!1 &7788608340621674505
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,6 +589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2883637209646423922}
   - component: {fileID: 5750482302786662111}
+  - component: {fileID: 1029008912702485812}
   m_Layer: 0
   m_Name: Ambience
   m_TagString: Untagged
@@ -631,6 +709,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1029008912702485812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7788608340621674505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e1385ef8ad4726459ff11da692792e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  derelictAmbience: AmbienceDerelict
+  meltdownAmbience: AmbienceMeltdown
 --- !u!1 &7902608572272484136
 GameObject:
   m_ObjectHideFlags: 0
