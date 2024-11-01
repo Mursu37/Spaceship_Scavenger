@@ -6,6 +6,7 @@ public class MultitoolSounds : MonoBehaviour
 {
 
 private LineRenderer lineRenderer; 
+private LineRenderer[] laserRenderers;
 
 //Pitch modulation range
 [SerializeField] private float minPitch = 0.8f;
@@ -16,6 +17,9 @@ private LineRenderer lineRenderer;
 [SerializeField] private string[] gravityEndSounds;
 [SerializeField] private string gravityHumSound;
 
+[SerializeField] private string[] cuttingSounds;
+
+private bool isCuttingSoundPlaying = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -33,6 +37,9 @@ private LineRenderer lineRenderer;
             Debug.LogWarning("Gravity transient or end sounds not set in inspector.");
         }
 
+
+        laserRenderers = this.transform.parent.GetComponentsInChildren<LineRenderer>();
+
     }
 
     // Update is called once per frame
@@ -46,6 +53,26 @@ private LineRenderer lineRenderer;
         else
         {
             PlayGravityEndSounds();
+        }
+
+        // Check if any of the laserRenderers are active for cutting sounds
+        bool anyLaserActive = false;
+        foreach (LineRenderer laser in laserRenderers)
+        {
+            if (laser != lineRenderer && laser.enabled)
+            {
+                anyLaserActive = true;
+                break;
+            }
+        }
+
+        if (anyLaserActive)
+        {
+            PlayCuttingSound();
+        }
+        else
+        {
+            isCuttingSoundPlaying = false;  // Reset flag when no laser is active
         }
     }
 
@@ -73,6 +100,20 @@ private LineRenderer lineRenderer;
             AudioManager.StopAudio(gravityHumSound); 
         }
     }
+
+    // Play cutting sound
+    private void PlayCuttingSound()
+    {
+        if (!isCuttingSoundPlaying)
+        {
+            string selectedCuttingSound = GetRandomSoundName(cuttingSounds);
+            ///float randomPitch = Random.Range(minPitch, maxPitch);
+
+            AudioManager.PlayAudio(selectedCuttingSound, 1, 1, false);
+            isCuttingSoundPlaying = true;
+        }
+    }
+
 
     // Helper method to select a random sound from a string array
     private string GetRandomSoundName(string[] soundNames)
