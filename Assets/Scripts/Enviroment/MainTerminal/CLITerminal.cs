@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class CLITerminal : MonoBehaviour, IInteractable
 {
-    [SerializeField] private Canvas CLI;
+    [SerializeField] private GameObject CLI;
     public void Interact()
     {
         Debug.Log("CLI Opened");
-        CLI.gameObject.SetActive(true);
+        CLI.SetActive(true);
     }
 }
