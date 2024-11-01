@@ -7,11 +7,12 @@ public class IconSwitch : MonoBehaviour
 {
     private ModeSwitch modeSwitch;
     private RawImage modeImage;
+    [SerializeField] private Texture GravityGunIconOn;
+    [SerializeField] private Texture GravityGunIconOff;
     [SerializeField] private GameObject multiTool;
-    [SerializeField] private Texture breachingIconOn;
-    [SerializeField] private Texture breachingIconOff;
-    [SerializeField] private Texture multitoolIconOn;
-    [SerializeField] private Texture multitoolIconOff;
+    [SerializeField] private Texture CuttingToolIconOn;
+    [SerializeField] private Texture CuttingToolIconOff;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -29,11 +30,19 @@ public class IconSwitch : MonoBehaviour
     {
         if (modeSwitch.selectedMode == 0)
         {
-            modeImage.texture = multitoolIconOn;
+            modeImage.texture = GravityGunIconOn;
         }
         else if (modeSwitch.selectedMode == 1)
         {
-            modeImage.texture = multitoolIconOff;
+            modeImage.texture = GravityGunIconOff;
         }
+        //if (modeSwitch.selectedMode == 1)
+        //{
+        //    modeImage.texture = CuttingToolIconOn;
+        //}
+        //else if (modeSwitch.selectedMode == 0)
+        //{
+        //    modeImage.texture = CuttingToolIconOff;
+        //}
     }
 }
