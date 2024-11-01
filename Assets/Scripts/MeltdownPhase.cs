@@ -11,11 +11,8 @@ public class MeltdownPhase : MonoBehaviour
 
     private void Start()
     {
-        if (gameObject != null)
-        {
-            energyCore = energyCoreObject.GetComponent<EnergyCore>();
-            StartCoroutine(energyCore.HeatIncrease());
-        }
+        energyCore = energyCoreObject.GetComponent<EnergyCore>();
+        StartCoroutine(energyCore.HeatIncrease());
 
         if (heatMeter != null)
         {
