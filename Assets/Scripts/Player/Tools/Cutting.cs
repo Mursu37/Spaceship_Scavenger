@@ -18,9 +18,11 @@ public class Cutting : MonoBehaviour
     [SerializeField] private LineRenderer rightmostLaser;
     [SerializeField] private LineRenderer leftmostLaser;
     [SerializeField] private Animator animator;
-    [SerializeField] private bool isVerticalCut = false;
+    public bool isVerticalCut = false;
     [SerializeField] private GameObject slicerObject;
     [SerializeField] private Transform shootingPoint;
+    [SerializeField] private GameObject horizontalCrosshair;
+    [SerializeField] private GameObject verticalCrosshair;
     [SerializeField] private TMP_Text stageText; // Arina UI
 
     private void Start()
@@ -87,11 +89,15 @@ public class Cutting : MonoBehaviour
         {
             animator.SetBool("IsVertical", true);
             animator.SetBool("IsHorizontal", false);
+            horizontalCrosshair.SetActive(false);
+            verticalCrosshair.SetActive(true);
         }
         else
         {
             animator.SetBool("IsVertical", false);
             animator.SetBool("IsHorizontal", true);
+            horizontalCrosshair.SetActive(true);
+            verticalCrosshair.SetActive(false);
         }
     }
 

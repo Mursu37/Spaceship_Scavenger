@@ -7,6 +7,7 @@ public class Mode : MonoBehaviour
 {
     private ModeSwitch modeSwitch;
     private RawImage modeImage;
+    private Cutting cutting;
     [SerializeField] private GameObject multiTool;
     [SerializeField] private Texture grapplingTexture;
     [SerializeField] private Texture cuttingTextureHorizontal;
@@ -20,6 +21,7 @@ public class Mode : MonoBehaviour
         if (multiTool != null)
         {
             modeSwitch = multiTool.GetComponent<ModeSwitch>();
+            cutting = multiTool.GetComponent<Cutting>();
         }
 
         modeImage = GetComponent<RawImage>();
@@ -35,12 +37,14 @@ public class Mode : MonoBehaviour
         }
         else if (modeSwitch.selectedMode == 1)
         {
-            modeImage.texture = cuttingTextureHorizontal;
-            //modeImage.texture = cuttingInfo;
-        }
-        else if (modeSwitch.selectedMode == 2)
-        {
-            modeImage.texture = cuttingTextureVertical;
+            if (!cutting.isVerticalCut)
+            {
+                modeImage.texture = cuttingTextureHorizontal;
+            }
+            else
+            {
+                modeImage.texture = cuttingTextureVertical;
+            }
             //modeImage.texture = cuttingInfo;
         }
     }

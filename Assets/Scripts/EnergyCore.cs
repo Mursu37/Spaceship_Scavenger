@@ -17,6 +17,12 @@ public class EnergyCore : MonoBehaviour
     [SerializeField] private GameObject gameState;
     [SerializeField] private Image meter;
 
+    private void OnEnable()
+    {
+        Debug.Log("Enabled");
+        StartCoroutine(HeatIncrease());
+    }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
