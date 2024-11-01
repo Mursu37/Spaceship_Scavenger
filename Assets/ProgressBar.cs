@@ -1,75 +1,33 @@
 using System.Collections;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
-public class ProgressBar : MonoBehaviour
+
+public class PrograssBar : MonoBehaviour
 {
-    [SerializeField]
-    private Image ProgressImage;
-    [SerializeField]
-    private float DefaultSpeed = 1f;
-    [SerializeField]
-    private UnityEvent<float> OnProgress;
-    [SerializeField]
-    private UnityEvent OnCompleted;
+    public GameObject bar;
+    public int time = 10;
 
-    private Coroutine AnimationCoroutine;
+    private Vector3 initialScale;
 
     private void Start()
     {
-        if (ProgressImage.type != Image.Type.Filled)
-        {
-            Debug.LogError($"{name}'s ProgressImage is not of type \"Filled\" so it cannot be used as a progress bar. Disabling this Progress Bar.");
-            enabled = false;
-#if UNITY_EDITOR
-            EditorGUIUtility.PingObject(this.gameObject);
-#endif
-        }
+        initialScale = bar.transform.localScale;
+        StartCoroutine(RunTimer());
     }
 
-    public void SetProgress(float Progress)
+    private IEnumerator RunTimer()
     {
-        SetProgress(Progress, DefaultSpeed);
-    }
+        float elapsedTime = 0;
 
-    public void SetProgress(float Progress, float Speed)
-    {
-        if (Progress < 0 || Progress > 1)
+        while (elapsedTime < time)
         {
-            Debug.LogWarning($"Invalid progress passed, expected value is between 0 and 1, got {Progress}. Clamping.");
-            Progress = Mathf.Clamp01(Progress);
-        }
-        if (Progress != ProgressImage.fillAmount)
-        {
-            if (AnimationCoroutine != null)
-            {
-                StopCoroutine(AnimationCoroutine);
-            }
-
-            AnimationCoroutine = StartCoroutine(AnimateProgress(Progress, Speed));
-        }
-    }
-
-    private IEnumerator AnimateProgress(float Progress, float Speed)
-    {
-        float time = 0;
-        float initialProgress = ProgressImage.fillAmount;
-
-        while (time < 1)
-        {
-            ProgressImage.fillAmount = Mathf.Lerp(initialProgress, Progress, time);
-            time += Time.deltaTime * Speed;
-
-            OnProgress?.Invoke(ProgressImage.fillAmount);
+            float progress = 1 - (elapsedTime / time);
+            bar.transform.localScale = new Vector3(initialScale.x * progress, initialScale.y, initialScale.z);
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        ProgressImage.fillAmount = Progress;
-        OnProgress?.Invoke(Progress);
-        OnCompleted?.Invoke();
+        bar.transform.localScale = new Vector3(0, initialScale.y, initialScale.z);
     }
 }
