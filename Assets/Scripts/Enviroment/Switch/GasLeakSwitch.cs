@@ -8,12 +8,16 @@ public class GasLeakSwitch : MonoBehaviour, IInteractable
     private GasTrigger gasTrigger;
 
     [SerializeField] private GameObject gasLeak;
+    [SerializeField] private GameObject[] gasLeaks;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
-        gasTrigger = gasLeak.GetComponent<GasTrigger>();
-        gasParticle = gasLeak.transform.GetChild(0).GetComponent<ParticleSystem>();
+        if (gasLeak != null)
+        {
+            gasTrigger = gasLeak.GetComponent<GasTrigger>();
+            gasParticle = gasLeak.transform.GetChild(0).GetComponent<ParticleSystem>();
+        }
     }
 
     public void Interact()
