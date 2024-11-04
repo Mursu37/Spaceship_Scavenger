@@ -2,21 +2,12 @@ using UnityEngine;
 
 public class MeltdownPhase : MonoBehaviour
 {
-    private EnergyCore energyCore;
-
-    [SerializeField] private GameObject energyCoreObject;
     [SerializeField] private GameObject heatMeter;
     private CoreSounds coreSounds;
     private MeltdownMusic meltdownMusic;
 
     private void Start()
     {
-        if (gameObject != null)
-        {
-            energyCore = energyCoreObject.GetComponent<EnergyCore>();
-            StartCoroutine(energyCore.HeatIncrease());
-        }
-
         if (heatMeter != null)
         {
             heatMeter.SetActive(true);
@@ -36,10 +27,5 @@ public class MeltdownPhase : MonoBehaviour
             meltdownMusic.ActivateMeltdownMusic();
             Debug.Log("Meltdown music enabled");
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

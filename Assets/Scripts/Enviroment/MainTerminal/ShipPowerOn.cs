@@ -9,6 +9,7 @@ namespace Enviroment.MainTerminal
 
         [SerializeField] private GameObject obstacles;
         [SerializeField] private GameObject lights;
+        [SerializeField] private Animator doorAnimator;
 
         private void Awake()
         {
@@ -23,6 +24,7 @@ namespace Enviroment.MainTerminal
             obstacles.SetActive(true);
             lights.SetActive(true);
             meltdownPhase.enabled = true;
+            doorAnimator.Play("Closing");
         }
     }
 }
