@@ -57,12 +57,6 @@ public class ModeSwitch : MonoBehaviour
             selectedMode = 1;
             SelectMode();
         }
-
-        if (selectedMode == 1 && Input.GetButtonDown("Fire2"))
-        {
-            selectedMode = 2;
-            SelectMode();
-        }
     }
 
     private void SelectMode()
@@ -86,16 +80,6 @@ public class ModeSwitch : MonoBehaviour
                 crosshair.SetActive(false);
                 cuttingCrosshairHorizontal.SetActive(true);
                 cuttingCrosshairVertical.SetActive(false);
-                break;
-
-            case 2:
-                slicerObject.SetActive(true);
-                gravityGun.enabled = false;
-                cutting.enabled = true;
-                slicer.enabled = true;
-                crosshair.SetActive(false);
-                cuttingCrosshairHorizontal.SetActive(false);
-                cuttingCrosshairVertical.SetActive(true);
                 break;
         }
     }
