@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject settings;
+    [SerializeField] private GameObject controls;
 
     private void Update()
     {
@@ -51,6 +52,12 @@ public class PauseMenu : MonoBehaviour
     public void Settings()
     {
         settings.SetActive(true);
+        pauseMenu.SetActive(false);
+    }
+
+    public void Controls()
+    {
+        controls.SetActive(true);
         pauseMenu.SetActive(false);
     }
 
