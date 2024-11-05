@@ -1,20 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
 {
-    public GameObject bar;
-    public int time = 900; // 15 minutes in seconds
+    [SerializeField] private Image bar; // Progress bar GameObject
+    [SerializeField] private TMP_Text stageText; // Text to display the current stage
+    [SerializeField] private int time = 60; // Time for the bar to fill (s)
 
-    private Vector3 initialScale;
-    private Vector3 initialPosition;
+    private float heatLevel;
 
     private void Start()
     {
-        initialScale = bar.transform.localScale;
-        initialPosition = bar.transform.localPosition;
-        StartCoroutine(RunTimer());
+        heatLevel = 0f; // Initialize heat level
+        UpdateStageText(); // Update the stage text on start
+        StartCoroutine(RunTimer()); // Start the progress bar timer
     }
 
     private IEnumerator RunTimer()
@@ -23,18 +24,50 @@ public class ProgressBar : MonoBehaviour
 
         while (elapsedTime < time)
         {
-            float progress = 1 - (elapsedTime / time);
-            bar.transform.localScale = new Vector3(initialScale.x * progress, initialScale.y, initialScale.z);
-            bar.transform.localPosition = new Vector3(
-                initialPosition.x - (initialScale.x - bar.transform.localScale.x) / 2,
-                initialPosition.y,
-                initialPosition.z);
+            float progress = elapsedTime / time;
+            heatLevel = Mathf.Lerp(0, 100, progress);
+
+            if (bar != null && bar.type == Image.Type.Filled)
+            {
+                bar.fillAmount = progress; // Set the fill amount directly
+            }
+
+            UpdateStageText(); // Update the stage text based on the current heat level
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        bar.transform.localScale = new Vector3(0, initialScale.y, initialScale.z);
-        bar.transform.localPosition = initialPosition - new Vector3(initialScale.x / 2, 0, 0);
+        heatLevel = 100f; // Ensure heat level is maxed out at the end
+        if (bar != null)
+        {
+            bar.fillAmount = 1f; // Ensure the fill amount is maxed out
+        }
+        UpdateStageText(); // Update stage text one last time
+    }
+
+    private void UpdateStageText()
+    {
+        if (stageText != null)
+        {
+            if (heatLevel <= 30)
+            {
+                stageText.text = "[ STAGE 1 ]";
+            }
+            else if (heatLevel > 30 && heatLevel <= 60)
+            {
+                stageText.text = "[ STAGE 2 ]";
+            }
+            else
+            {
+                stageText.text = "[ STAGE 3 ]";
+            }
+        }
+    }
+
+    public void SetHeatLevel(float newHeatLevel)
+    {
+        heatLevel = newHeatLevel; // Update the heat level
+        UpdateStageText(); // Update the stage text based on the new heat level
     }
 }
