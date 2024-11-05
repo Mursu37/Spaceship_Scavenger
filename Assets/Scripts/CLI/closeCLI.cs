@@ -8,7 +8,6 @@ public class closeCLI : MonoBehaviour
     [SerializeField] private GameObject CLI;
     private void Start()
     {
-        CLI.gameObject.SetActive(true);
         transform.gameObject.SetActive(false);
     }
 

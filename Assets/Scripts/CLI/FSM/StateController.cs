@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace CLI.FSM
 {
-    public class StateController : MonoBehaviour
+    public abstract class StateController : MonoBehaviour
     {
+        [SerializeField] private GameObject CLI;
+        
         [SerializeField] private TMP_Text commandLineText;
         [SerializeField] private TMP_InputField commandLineInput;
         [SerializeField] private TMP_Text directoryText;
@@ -16,21 +18,21 @@ namespace CLI.FSM
         private State defaultState;
         private string path;
 
-        public StateController()
+        protected StateController()
         {
             defaultState = new MainDriveState(this);
             stateHistory = new List<State> { defaultState };
-            ChangeState(defaultState);
+            currentState = defaultState;
         }
 
-        public void ChangeState(State newState)
+        public virtual void ChangeState(State newState)
         {
             currentState?.OnExit();
             currentState = newState;
             currentState.OnEnter();
         }
 
-        public void BackOne()
+        public virtual void BackOne()
         {
             if (stateHistory.Count <= 1)
             {
@@ -51,7 +53,7 @@ namespace CLI.FSM
             ChangeText("Moved back to " + directoryText.text + " directory");
         }
 
-        public void ChangeDeeper(State newState, string dirName)
+        public virtual void ChangeDeeper(State newState, string dirName)
         {
             stateHistory.Add(newState);
             ChangeState(newState);
@@ -59,7 +61,7 @@ namespace CLI.FSM
             ChangeText("Moved to " + directoryText.text + " directory");
         }
 
-        public void ChangeText(string text)
+        public virtual void ChangeText(string text)
         {
             commandLineText.text = text;
             commandLineInput.text = "";
@@ -80,6 +82,27 @@ namespace CLI.FSM
             string[] userInputs = commandLineInput.text.ToLower().Split(" ");
             // Lets the current state to define behaviours that happen based on it's individual properties
             currentState.Interpret(userInputs);
+        }
+        
+        
+        private void OnEnable()
+        {
+            Time.timeScale = 0;
+            commandLineInput.ActivateInputField();
+        }
+
+        private void OnDisable()
+        {
+            Time.timeScale = 1;
+            CLI.SetActive(false);
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                this.enabled = false;
+            }
         }
     }
 }
