@@ -1,13 +1,19 @@
+using CLI.FSM;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Enviroment.MainTerminal
 {
     public class Terminal : MonoBehaviour, IInteractable
     {
+        [SerializeField] private StateController stateController;
+        [SerializeField] private GameObject CLI;
+        
         public void Interact()
         {
-            Debug.Log("Ship on");
-            GetComponent<ShipPowerOn>().turnShipOn();
+            Debug.Log(true);
+            CLI.SetActive(true);
+            stateController.enabled = true;
         }
     }
 }

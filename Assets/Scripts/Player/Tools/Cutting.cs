@@ -23,7 +23,7 @@ public class Cutting : MonoBehaviour
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private GameObject horizontalCrosshair;
     [SerializeField] private GameObject verticalCrosshair;
-    [SerializeField] private TMP_Text stageText; // Arina UI
+    //[SerializeField] private TMP_Text stageText; // Arina UI
 
     private void Start()
     {
@@ -32,11 +32,11 @@ public class Cutting : MonoBehaviour
         leftmostLaser.enabled = false;
 
 
-        // Display "Stage 2"
-        if (stageText != null)
-        {
-            stageText.text = "[ STAGE 1 ]";
-        }
+        //// Display "Stage 2"
+        //if (stageText != null)
+        //{
+        //    stageText.text = "[ STAGE 1 ]";
+        //}
     }
 
     private void Update()
@@ -160,11 +160,11 @@ public class Cutting : MonoBehaviour
             cuttingPoint = null;
         }
 
-        // Display "Stage 2" after cutting is done
-        if (stageText != null)
-        {
-            stageText.text = "[ STAGE 2 ]"; // Update the UI text to show Stage 2
-        }
+        //// Display "Stage 2" after cutting is done
+        //if (stageText != null)
+        //{
+        //    stageText.text = "[ STAGE 2 ]"; // Update the UI text to show Stage 2
+        //}
     }
 
     // Function to check if the angles of two objects are close

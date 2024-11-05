@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using CLI.FSM;
 using Enviroment.MainTerminal;
 using TMPro;
 using Unity.VisualScripting;
@@ -31,13 +32,15 @@ public class Interpreter : MonoBehaviour
 
     private void Update()
     {
-        commandLineInput.ActivateInputField();
+        //commandLineInput.ActivateInputField();
     }
 
     private void OnInput()
     {
         string[] userInputs = commandLineInput.text.ToLower().Split(" ");
         Debug.Log(commandLineInput.text);
+        Debug.Log(userInputs.Length);
+        /*
         if (commandLineInput.text.ToLower() == "ship on")
         {
             if(GetComponent<ShipPowerOn>() != null) {GetComponent<ShipPowerOn>().turnShipOn();}
@@ -65,6 +68,7 @@ public class Interpreter : MonoBehaviour
         {
             commandLineText.text = "Command not recognised. Try typing help to see available commands";
         }
+        */
         
         commandLineInput.text = "";
         commandLineInput.ActivateInputField();
