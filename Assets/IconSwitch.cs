@@ -10,8 +10,8 @@ public class IconSwitch : MonoBehaviour
     [SerializeField] private Texture GravityGunIconOn;
     [SerializeField] private Texture GravityGunIconOff;
     [SerializeField] private GameObject multiTool;
-    [SerializeField] private Texture CuttingToolIconOn;
-    [SerializeField] private Texture CuttingToolIconOff;
+   // [SerializeField] private Texture CuttingToolIconOn;
+   // [SerializeField] private Texture CuttingToolIconOff;
     
 
     // Start is called before the first frame update
@@ -34,6 +34,7 @@ public class IconSwitch : MonoBehaviour
         }
         else if (modeSwitch.selectedMode == 1)
         {
+            //modeImage.texture = CuttingToolIconOn;
             modeImage.texture = GravityGunIconOff;
         }
         //if (modeSwitch.selectedMode == 1)
