@@ -11,6 +11,8 @@ namespace Enviroment.MainTerminal
         [SerializeField] private GameObject lights;
         [SerializeField] private Animator doorAnimator;
 
+        public bool isPowerOn = false;
+
         private void Awake()
         {
             obstacles.SetActive(false);

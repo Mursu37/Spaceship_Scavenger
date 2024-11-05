@@ -13,9 +13,9 @@ namespace CLI.FSM
         [SerializeField] private TMP_InputField commandLineInput;
         [SerializeField] private TMP_Text directoryText;
         
-        private State currentState;
-        private List<State> stateHistory;
-        private State defaultState;
+        public State currentState;
+        public List<State> stateHistory;
+        public State defaultState;
         private string path;
 
         protected StateController()
