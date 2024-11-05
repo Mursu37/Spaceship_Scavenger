@@ -15,6 +15,7 @@ namespace CLI.FSM
         {
             if (command[0] == "opendoor")
             {
+                Debug.Log("hi");
                 if (command.Length < 2)
                 {
                     stateController.ChangeText("OpenDoor requires a parameter");
