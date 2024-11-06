@@ -22,6 +22,8 @@ namespace Enviroment.MainTerminal
             obstacles.SetActive(true);
             lights.SetActive(true);
             doorAnimator.Play("Closing");
+            isPowerOn = true;
+            AudioManager.PlayAudio("ShipPowerOn", 1, 1, false);
         }
     }
 }

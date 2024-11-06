@@ -11,10 +11,6 @@ namespace CLI.FSM
             defaultState = new MainEngineState(this);
             stateHistory = new List<State> { defaultState };
             currentState = defaultState;
-
-            commandLineText.text = "This computer requires the engine room power to function.";
-
-            ResetState();
         }
     }
 }

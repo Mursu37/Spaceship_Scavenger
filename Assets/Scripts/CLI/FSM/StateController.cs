@@ -10,8 +10,8 @@ namespace CLI.FSM
         [SerializeField] private GameObject CLI;
 
         [SerializeField] protected TMP_Text commandLineText;
-        [SerializeField] private TMP_InputField commandLineInput;
-        [SerializeField] private TMP_Text directoryText;
+        [SerializeField] protected TMP_InputField commandLineInput;
+        [SerializeField] protected TMP_Text directoryText;
 
         protected State currentState;
         protected List<State> stateHistory;
@@ -23,15 +23,6 @@ namespace CLI.FSM
             defaultState = new MainDriveState(this);
             stateHistory = new List<State> { defaultState };
             currentState = defaultState;
-        }
-
-        public void ResetState()
-        {
-            stateHistory.Clear();
-            stateHistory.Add(defaultState);
-            currentState = defaultState;
-
-            directoryText.text = "C:"; 
         }
 
         public virtual void ChangeState(State newState)
@@ -94,7 +85,7 @@ namespace CLI.FSM
         }
         
         
-        private void OnEnable()
+        protected void OnEnable()
         {
             Time.timeScale = 0;
             commandLineInput.ActivateInputField();
@@ -104,6 +95,20 @@ namespace CLI.FSM
         {
             Time.timeScale = 1;
             CLI.SetActive(false);
+
+            // Reset state and state history
+            stateHistory.Clear();
+            stateHistory.Add(defaultState);
+            currentState = defaultState;
+            currentState.OnEnter();
+
+            // Reset UI elements
+            commandLineText.text = "";
+            commandLineInput.text = "";
+            directoryText.text = "C:"; // Assuming "C:" is the starting directory path
+
+            // Reactivate the input field for the next time the CLI is enabled
+            commandLineInput.ActivateInputField();
         }
 
         void Update()

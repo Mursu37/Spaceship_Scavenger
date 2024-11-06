@@ -12,10 +12,6 @@ public class CoreSounds : MonoBehaviour
 
     [SerializeField] private string[] damageSounds; 
 
-    [SerializeField] private string shipPowerOn;
-
-    
-
     private EnergyCore core;
     private float previousHeatPercent;
     private bool isActive = false;
@@ -70,7 +66,6 @@ public class CoreSounds : MonoBehaviour
         isActive = true;
         AudioManager.PlayAudio(baseLoop, 1, 1, true);
         AudioManager.PlayAudio(noOverheatLoop, 1, 1, true);
-        AudioManager.PlayAudio(shipPowerOn,1 ,1, false);
         Debug.Log("Playing containment core sounds");
     }
 
