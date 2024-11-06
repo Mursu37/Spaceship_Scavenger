@@ -96,18 +96,15 @@ namespace CLI.FSM
             Time.timeScale = 1;
             CLI.SetActive(false);
 
-            // Reset state and state history
             stateHistory.Clear();
             stateHistory.Add(defaultState);
             currentState = defaultState;
             currentState.OnEnter();
 
-            // Reset UI elements
             commandLineText.text = "";
             commandLineInput.text = "";
-            directoryText.text = "C:"; // Assuming "C:" is the starting directory path
+            directoryText.text = "C:";
 
-            // Reactivate the input field for the next time the CLI is enabled
             commandLineInput.ActivateInputField();
         }
 
