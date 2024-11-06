@@ -8,14 +8,14 @@ namespace CLI.FSM
     public abstract class StateController : MonoBehaviour
     {
         [SerializeField] private GameObject CLI;
-        
-        [SerializeField] private TMP_Text commandLineText;
+
+        [SerializeField] protected TMP_Text commandLineText;
         [SerializeField] private TMP_InputField commandLineInput;
         [SerializeField] private TMP_Text directoryText;
-        
-        public State currentState;
-        public List<State> stateHistory;
-        public State defaultState;
+
+        protected State currentState;
+        protected List<State> stateHistory;
+        protected State defaultState;
         private string path;
 
         protected StateController()
@@ -23,6 +23,15 @@ namespace CLI.FSM
             defaultState = new MainDriveState(this);
             stateHistory = new List<State> { defaultState };
             currentState = defaultState;
+        }
+
+        public void ResetState()
+        {
+            stateHistory.Clear();
+            stateHistory.Add(defaultState);
+            currentState = defaultState;
+
+            directoryText.text = "C:"; 
         }
 
         public virtual void ChangeState(State newState)

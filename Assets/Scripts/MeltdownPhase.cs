@@ -3,11 +3,14 @@ using UnityEngine;
 public class MeltdownPhase : MonoBehaviour
 {
     [SerializeField] private GameObject heatMeter;
+    [SerializeField] private GameObject coreObject;
     private CoreSounds coreSounds;
     private MeltdownMusic meltdownMusic;
 
     private void Start()
     {
+        coreObject.SetActive(true);
+
         if (heatMeter != null)
         {
             heatMeter.SetActive(true);

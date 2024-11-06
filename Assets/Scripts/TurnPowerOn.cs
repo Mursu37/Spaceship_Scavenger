@@ -6,6 +6,6 @@ public class TurnPowerOn : MonoBehaviour, IInteractable
 {
     public void Interact()
     {
-        PowerOn.isPowerOn = true;
+        
     }
 }
