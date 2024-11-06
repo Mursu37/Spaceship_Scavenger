@@ -9,7 +9,7 @@ class outlineRendering : CustomPass
     public LayerMask outlineLayer = 0;
     [ColorUsage(false, true)]
     public Color outlineColor = Color.black;
-    [Range(0, 100)] public float threshold = 1;
+    [Range(0, 10)] public float threshold = 1;
     public Material replacementMaterial;
     public Shader outlineShader;
     
