@@ -1,35 +1,35 @@
 using System.Collections;
 using UnityEngine;
 
-public class GasLeakSwitch : MonoBehaviour, IInteractable
+public class GasLeakSwitch : Switch
 {
-    private Animator animator;
     private ParticleSystem gasParticle;
     private GasTrigger gasTrigger;
 
-    [SerializeField] private GameObject gasLeak;
+    [SerializeField] private GameObject gasLeaks;
 
-    private void Start()
-    {
-        animator = GetComponent<Animator>();
-        gasTrigger = gasLeak.GetComponent<GasTrigger>();
-        gasParticle = gasLeak.transform.GetChild(0).GetComponent<ParticleSystem>();
-    }
-
-    public void Interact()
-    {
-        Debug.Log("Gas leak off.");
-        animator.Play("TurnOn");
-        StartCoroutine(TurnOffGas());
-    }
-
-    private IEnumerator TurnOffGas()
+    protected override IEnumerator SwitchAction()
     {
         while (true)
         {
             yield return new WaitForSeconds(2f);
-            gasTrigger.enabled = false;
-            gasParticle.Stop();
+            if (gasLeaks != null)
+            {
+                for (int i = 0; i < gasLeaks.transform.childCount; i++)
+                {
+                    GameObject leak = gasLeaks.transform.GetChild(i).gameObject;
+                    if (leak != null)
+                    {
+                        gasTrigger = leak.GetComponent<GasTrigger>();
+                        gasParticle = leak.transform.GetChild(0).GetComponent<ParticleSystem>();
+                        if (gasTrigger != null && gasParticle != null)
+                        {
+                            gasParticle.Stop();
+                            gasTrigger.enabled = false;
+                        } 
+                    }
+                }
+            }
         }
     }
 }
