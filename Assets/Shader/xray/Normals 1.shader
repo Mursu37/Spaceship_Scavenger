@@ -1,4 +1,4 @@
-Shader "Custom/Normal"
+Shader "XRay/OverrideVisualShader"
 {
     Properties
     {
@@ -10,8 +10,12 @@ Shader "Custom/Normal"
         _Opp("Operation", Float) = 0
         
         _MainTex ("Texture", 2D) = "white" {}
-        _Color ("Color", Color) = (1,1,1,1)
         _CheckDistance("Check distance", Range(0, 1)) = 0.001
+        _WallColor ("Wall Color", Color) = (1,1,1,1)
+        _FloorColor ("Floor Color", Color) = (1,1,1,1)
+        _WallAlpha("Wall Alpha", Float) = 1
+        _FloorAlpha("Floor Alpha", Float) = 1
+        _FloorThreshold("Floor Threshold", float) = 0.1
     }
     SubShader
     {
@@ -49,8 +53,13 @@ Shader "Custom/Normal"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            fixed4 _Color;
             float _CheckDistance;
+
+            fixed4 _WallColor;
+            fixed4 _FloorColor;
+            float _WallAlpha;
+            float _FloorAlpha;
+            float _FloorThreshold;
 
             v2f vert (appdata v)
             {
@@ -67,9 +76,14 @@ Shader "Custom/Normal"
                 // sample the texture
                 //fixed4 col = tex2D(_MainTex, i.uv);
                 
-                fixed4 col = fixed4((i.normal.xyz + 1) / 2, 1);
-                
-                return fixed4(col);
+                if (Luminance(i.normal.xyz) < _FloorThreshold)
+                {
+                    return fixed4(_FloorColor);
+                }
+                else
+                {
+                    return fixed4(_WallColor);
+                }
             }
             ENDCG
         }
