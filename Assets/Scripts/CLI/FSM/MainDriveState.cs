@@ -6,6 +6,5 @@ namespace CLI.FSM
         {
             directories.Add("doors" ,new DoorState(controller));
         }
-        
     }
 }

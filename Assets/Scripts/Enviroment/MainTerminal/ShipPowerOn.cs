@@ -5,26 +5,25 @@ namespace Enviroment.MainTerminal
 {
     public class ShipPowerOn : MonoBehaviour
     {
-        private MeltdownPhase meltdownPhase;
-
         [SerializeField] private GameObject obstacles;
         [SerializeField] private GameObject lights;
         [SerializeField] private Animator doorAnimator;
+
+        public bool isPowerOn = false;
 
         private void Awake()
         {
             obstacles.SetActive(false);
             lights.SetActive(false);
-
-            meltdownPhase = GetComponent<MeltdownPhase>();
         }
 
         public void turnShipOn()
         {
             obstacles.SetActive(true);
             lights.SetActive(true);
-            meltdownPhase.enabled = true;
             doorAnimator.Play("Closing");
+            isPowerOn = true;
+            AudioManager.PlayAudio("ShipPowerOn", 1, 1, false);
         }
     }
 }
