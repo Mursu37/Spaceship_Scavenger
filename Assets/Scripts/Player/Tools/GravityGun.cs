@@ -15,7 +15,7 @@ public class GravityGun : MonoBehaviour
     private LineRenderer lineRenderer;
     private Vector3 hitPosition;
     private ModeSwitch modeSwitch;
-    private bool isAttracting;
+    public bool isAttracting;
     private Quaternion targetInitialRotation;
     private Quaternion playerInitialRotation;
 
