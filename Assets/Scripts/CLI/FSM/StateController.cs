@@ -8,14 +8,14 @@ namespace CLI.FSM
     public abstract class StateController : MonoBehaviour
     {
         [SerializeField] private GameObject CLI;
-        
-        [SerializeField] private TMP_Text commandLineText;
-        [SerializeField] private TMP_InputField commandLineInput;
-        [SerializeField] private TMP_Text directoryText;
-        
-        private State currentState;
-        private List<State> stateHistory;
-        private State defaultState;
+
+        [SerializeField] protected TMP_Text commandLineText;
+        [SerializeField] protected TMP_InputField commandLineInput;
+        [SerializeField] protected TMP_Text directoryText;
+
+        protected State currentState;
+        protected List<State> stateHistory;
+        protected State defaultState;
         private string path;
 
         protected StateController()
@@ -85,7 +85,7 @@ namespace CLI.FSM
         }
         
         
-        private void OnEnable()
+        protected void OnEnable()
         {
             Time.timeScale = 0;
             commandLineInput.ActivateInputField();
@@ -95,6 +95,17 @@ namespace CLI.FSM
         {
             Time.timeScale = 1;
             CLI.SetActive(false);
+
+            stateHistory.Clear();
+            stateHistory.Add(defaultState);
+            currentState = defaultState;
+            currentState.OnEnter();
+
+            commandLineText.text = "";
+            commandLineInput.text = "";
+            directoryText.text = "C:";
+
+            commandLineInput.ActivateInputField();
         }
 
         void Update()

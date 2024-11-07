@@ -14,6 +14,7 @@ public class Interpreter : MonoBehaviour
     private void OnEnable()
     {
         commandLineInput.ActivateInputField();
+        commandLineText.text = "Type HELP to get the commands.\r\nPress TAB / Esc to leave.";
     }
     
     private void OnDisable()

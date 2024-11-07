@@ -19,7 +19,6 @@ public class EnergyCore : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("Enabled");
         StartCoroutine(HeatIncrease());
     }
 
