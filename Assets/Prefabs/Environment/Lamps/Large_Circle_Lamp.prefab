@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f60d57677ff644e9735ad96996b7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  materialSlotIndex: 1
+  materialSlotIndex: 0
   isAlarm: 0
   isAlwaysOn: 0
   lightMaterialOrdinary: {fileID: 2100000, guid: 7ba8899bde400964294228d061338ee9,
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 8491649766127276073}
   m_Layer: 0
   m_Name: Spot Light
-  m_TagString: Untagged
+  m_TagString: Alarm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,9 +163,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 464.80832
+  m_Intensity: 467.54065
   m_Range: 15
-  m_SpotAngle: 167.4
+  m_SpotAngle: 166.8
   m_InnerSpotAngle: 2
   m_CookieSize: 10
   m_Shadows:
@@ -211,7 +211,7 @@ Light:
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 10}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
-  m_ShadowRadius: 3.03
+  m_ShadowRadius: 0.36
   m_ShadowAngle: 0
 --- !u!114 &8491649766127276073
 MonoBehaviour:
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Intensity: 2600
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
-  m_InnerSpotPercent: 80.8
+  m_InnerSpotPercent: 40.9
   m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
   m_VolumetricDimmer: 1
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_ShapeWidth: 0.5
   m_ShapeHeight: 0.5
   m_AspectRatio: 1
-  m_ShapeRadius: 3.03
+  m_ShapeRadius: 0.36
   m_SoftnessScale: 1
   m_UseCustomSpotLightShadowCone: 0
   m_CustomSpotLightShadowCone: 2
@@ -380,9 +380,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 464.80832
-  m_Range: 15
-  m_SpotAngle: 167.4
+  m_Intensity: 467.54065
+  m_Range: 27
+  m_SpotAngle: 166.8
   m_InnerSpotAngle: 2
   m_CookieSize: 10
   m_Shadows:
@@ -423,12 +423,12 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 10
-  m_ColorTemperature: 4000
+  m_ColorTemperature: 7600
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 10}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
-  m_ShadowRadius: 3.03
+  m_ShadowRadius: 0.36
   m_ShadowAngle: 0
 --- !u!114 &4701663191778640047
 MonoBehaviour:
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_Intensity: 2600
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
-  m_InnerSpotPercent: 80.8
+  m_InnerSpotPercent: 40.9
   m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
   m_VolumetricDimmer: 1
@@ -458,7 +458,7 @@ MonoBehaviour:
   m_ShapeWidth: 0.5
   m_ShapeHeight: 0.5
   m_AspectRatio: 1
-  m_ShapeRadius: 3.03
+  m_ShapeRadius: 0.36
   m_SoftnessScale: 1
   m_UseCustomSpotLightShadowCone: 0
   m_CustomSpotLightShadowCone: 2
@@ -614,7 +614,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 44ae5636cd9d74d48906fcbc9e2ccf03, type: 2}
+      objectReference: {fileID: 2100000, guid: 7ba8899bde400964294228d061338ee9, type: 2}
     - target: {fileID: -7511558181221131132, guid: 5d612e85e37fdff49bbe141daa51f64f,
         type: 3}
       propertyPath: m_Materials.Array.data[1]

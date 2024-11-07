@@ -261,7 +261,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.9150943, g: 0.07338022, b: 0.07338022, a: 1}
+  m_Color: {r: 0.9137255, g: 0.4256719, b: 0.07450979, a: 1}
   m_Intensity: 527.2213
   m_Range: 10
   m_SpotAngle: 30
@@ -765,7 +765,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.9150943, g: 0.07338022, b: 0.07338022, a: 1}
+  m_Color: {r: 0.9137255, g: 0.4256719, b: 0.07450979, a: 1}
   m_Intensity: 527.2213
   m_Range: 10
   m_SpotAngle: 30
@@ -982,7 +982,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.9150943, g: 0.07338022, b: 0.07338022, a: 1}
+  m_Color: {r: 0.9137255, g: 0.4256719, b: 0.07450979, a: 1}
   m_Intensity: 527.2213
   m_Range: 10
   m_SpotAngle: 30
@@ -1164,6 +1164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1699497861651977816}
+  - component: {fileID: -5668766356276668382}
   m_Layer: 0
   m_Name: Roof_Fan_Lamp
   m_TagString: Untagged
@@ -1189,6 +1190,25 @@ Transform:
   - {fileID: 4114495610729913947}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-5668766356276668382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6729782883564949982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f60d57677ff644e9735ad96996b7e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialSlotIndex: 1
+  isAlarm: 1
+  isAlwaysOn: 0
+  lightMaterialOrdinary: {fileID: 2100000, guid: 7ba8899bde400964294228d061338ee9,
+    type: 2}
+  lightMaterialAlarm: {fileID: 2100000, guid: 0fb9b5fb0bd174a4193b1052d81b612a, type: 2}
+  lightMaterialOff: {fileID: 2100000, guid: 44ae5636cd9d74d48906fcbc9e2ccf03, type: 2}
 --- !u!1 &7672540770209771558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,7 +1687,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.9150943, g: 0.07338022, b: 0.07338022, a: 1}
+  m_Color: {r: 0.9137255, g: 0.4256719, b: 0.07450979, a: 1}
   m_Intensity: 527.2213
   m_Range: 10
   m_SpotAngle: 30
