@@ -29,11 +29,44 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7418099625886198800}
+  - {fileID: 4099034345678671397}
   - {fileID: 3892355179248663525}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2377970621649956587
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7418099625886198800}
+  m_Layer: 0
+  m_Name: Ordinary
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7418099625886198800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2377970621649956587}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -41.323097, y: 8.304, z: 9.840158}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
   - {fileID: 3719932336349490279}
   - {fileID: 5594858818657656746}
   - {fileID: 3382195692024272383}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 8982068018872718834}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3163547001409517249
 GameObject:
@@ -62,11 +95,11 @@ Transform:
   m_GameObject: {fileID: 3163547001409517249}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.70710677, w: 0.7071068}
-  m_LocalPosition: {x: 0.289, y: 0.082, z: 0.0009}
+  m_LocalPosition: {x: 41.6121, y: -8.222, z: -9.839258}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8982068018872718834}
+  m_Father: {fileID: 7418099625886198800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!108 &9073288634394216626
 Light:
@@ -252,6 +285,37 @@ MonoBehaviour:
   m_PointlightHDType: 1
   m_SpotLightShape: 0
   m_AreaLightShape: 1
+--- !u!1 &3835391627538942439
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4099034345678671397}
+  m_Layer: 0
+  m_Name: Alarm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4099034345678671397
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3835391627538942439}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -41.323097, y: 8.304, z: 9.840158}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8982068018872718834}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7378758829574085073
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,11 +343,11 @@ Transform:
   m_GameObject: {fileID: 7378758829574085073}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.70710677, w: 0.7071068}
-  m_LocalPosition: {x: 0.289, y: 0.082, z: 0.099}
+  m_LocalPosition: {x: 41.6121, y: -8.222, z: -9.7411585}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8982068018872718834}
+  m_Father: {fileID: 7418099625886198800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!108 &7664523610633257942
 Light:
@@ -496,11 +560,11 @@ Transform:
   m_GameObject: {fileID: 8642438381082898506}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.70710677, w: 0.7071068}
-  m_LocalPosition: {x: 0.289, y: 0.082, z: -0.1015}
+  m_LocalPosition: {x: 41.6121, y: -8.222, z: -9.941658}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8982068018872718834}
+  m_Father: {fileID: 7418099625886198800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!108 &1249027424757017107
 Light:
