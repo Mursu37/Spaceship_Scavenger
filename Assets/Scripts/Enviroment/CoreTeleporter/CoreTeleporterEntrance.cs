@@ -1,22 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoreTeleporterEntrance : MonoBehaviour
 {
     private Animator animator;
+    private CoreTeleporterExit exit;
     private GravityGun gravityGun;
 
-    [SerializeField] private Transform teleportExit;
+    [SerializeField] private GameObject teleporterExit;
     [SerializeField] private Transform core;
     [SerializeField] private Transform coreHolder;
     [SerializeField] private GameObject multitool;
 
-    private bool isCoreTeleported = false;
-    private bool isTeleporterOpen = false;
-    private bool isTeleporting = false;
-    private bool canGrapple = false;
-    private bool hasOpened = false;
+    private enum TeleporterState
+    {
+        Idle,
+        Opening,
+        CoreApproaching,
+        Teleporting,
+        Closing
+    }
+
+    private TeleporterState currentState = TeleporterState.Idle;
 
     private void Start()
     {
@@ -26,97 +31,83 @@ public class CoreTeleporterEntrance : MonoBehaviour
         {
             gravityGun = multitool.GetComponent<GravityGun>();
         }
+
+        if (teleporterExit != null)
+        {
+            exit = teleporterExit.GetComponent<CoreTeleporterExit>();
+        }
     }
 
     private void Update()
     {
         float distanceToCore = Vector3.Distance(transform.position, core.position);
 
-        if (!isTeleporterOpen)
+        switch (currentState)
         {
-            if (distanceToCore < 4f)
-            {
-                animator.Play("DoorOpen");
-                hasOpened = true;
-            }
-            else if (hasOpened)
-            {
-                animator.Play("DoorClose");
-            }
-        }
+            case TeleporterState.Idle:
+                if (distanceToCore < 4f)
+                {
+                    animator.Play("DoorOpen");
+                    currentState = TeleporterState.Opening;
+                }
+                break;
 
-        if (distanceToCore < 2f && !isTeleporting)
-        {
-            isTeleporterOpen = true;
-            TeleportCoreEntrance();
+            case TeleporterState.Opening:
+                if (distanceToCore < 2f)
+                {
+                    currentState = TeleporterState.CoreApproaching;
+                    gravityGun.isAttracting = false;
+                    core.GetComponent<Collider>().enabled = false;
+                    Rigidbody coreRb = core.GetComponent<Rigidbody>();
+                    if (coreRb != null)
+                    {
+                        coreRb.constraints = RigidbodyConstraints.FreezeAll;
+                    }
+                }
+                break;
+
+            case TeleporterState.CoreApproaching:
+                MoveCoreToHolder();
+                if (HasCoreReachedTarget())
+                {
+                    currentState = TeleporterState.Teleporting;
+                    animator.Play("TeleporterClose");
+                    StartCoroutine(TeleportCoreCoroutine());
+                }
+                break;
+
+            case TeleporterState.Closing:
+                animator.Play("TeleporterOpen");
+                currentState = TeleporterState.Idle;
+                break;
         }
     }
 
-    private void TeleportCoreEntrance()
+    private void MoveCoreToHolder()
     {
-        isTeleporting = true;
-
         core.position = Vector3.MoveTowards(core.position, coreHolder.position, 2f * Time.deltaTime);
-        core.rotation = Quaternion.RotateTowards(core.rotation, coreHolder.rotation, 180 * Time.deltaTime);
-
-        if (!canGrapple)
-        {
-            gravityGun.isAttracting = false;
-            canGrapple = true;
-        }
-
-        Collider coreCollider = core.GetComponent<Collider>();
-        if (coreCollider != null)
-        {
-            coreCollider.enabled = false;
-        }
-        Rigidbody coreRb = core.GetComponent<Rigidbody>();
-        if (coreRb != null)
-        {
-            coreRb.constraints = RigidbodyConstraints.FreezeAll;
-        }
-
-        if (Vector3.Distance(core.position, coreHolder.position) < 0.01f &&
-            Quaternion.Angle(core.rotation, coreHolder.rotation) < 1f && !isCoreTeleported)
-        {
-            isCoreTeleported = true;
-            animator.Play("TeleporterClose");
-            StartCoroutine(TeleportCore());
-        }
-        else
-        {
-            isTeleporting = false;
-        }
+        core.rotation = Quaternion.RotateTowards(core.rotation, coreHolder.rotation, 180f * Time.deltaTime);
     }
 
-    private IEnumerator TeleportCore()
+    private bool HasCoreReachedTarget()
+    {
+        return Vector3.Distance(core.position, coreHolder.position) < 0.01f &&
+               Quaternion.Angle(core.rotation, coreHolder.rotation) < 1f;
+    }
+
+    private IEnumerator TeleportCoreCoroutine()
     {
         yield return new WaitForSeconds(1f);
 
         animator.Play("DoorClose");
         yield return new WaitForSeconds(1f);
 
-        core.position = teleportExit.position;
-        core.rotation = teleportExit.rotation;
+        exit.StartTeleportation();
+        core.position = exit.coreHolder.position;
+        core.rotation = exit.coreHolder.rotation;
 
         yield return new WaitForSeconds(0.5f);
 
-        animator.Play("TeleporterOpen");
-
-        Collider coreCollider = core.GetComponent<Collider>();
-        if (coreCollider != null)
-        {
-            coreCollider.enabled = true;
-        }
-        Rigidbody coreRb = core.GetComponent<Rigidbody>();
-        if (coreRb != null)
-        {
-            coreRb.constraints = RigidbodyConstraints.None;
-        }
-
-        isCoreTeleported = false;
-        isTeleporterOpen = false;
-        isTeleporting = false;
-        canGrapple = false;
+        currentState = TeleporterState.Closing;
     }
 }
