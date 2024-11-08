@@ -39,7 +39,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7366239943124184128}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26d6499a6bd256e47b859377446493a1, type: 3}
   m_Name: 
@@ -48,17 +48,34 @@ MonoBehaviour:
   fadeRadius: 0
   priority: 0
   customPasses:
-  - rid: 3883216788564475904
+  - rid: 1570080753363714048
+  - rid: 1570080773791023104
   injectionPoint: 2
   m_TargetCamera: {fileID: 0}
   useTargetCamera: 0
   references:
     version: 2
     RefIds:
-    - rid: 3883216788564475904
-      type: {class: outlineRendering, ns: , asm: Assembly-CSharp}
+    - rid: 1570080753363714048
+      type: {class: FullScreenCustomPass, ns: UnityEngine.Rendering.HighDefinition,
+        asm: Unity.RenderPipelines.HighDefinition.Runtime}
       data:
-        m_Name: xRayPass
+        m_Name: Darken
+        enabled: 1
+        targetColorBuffer: 0
+        targetDepthBuffer: 0
+        clearFlags: 0
+        passFoldout: 0
+        m_Version: 0
+        fullscreenPassMaterial: {fileID: 2100000, guid: d6e50431315eea446b97f2290da8581c,
+          type: 2}
+        materialPassIndex: 0
+        materialPassName: Custom Pass 0
+        fetchColorBuffer: 0
+    - rid: 1570080773791023104
+      type: {class: outlineRendering1, ns: , asm: Assembly-CSharp}
+      data:
+        m_Name: XRayCorridor
         enabled: 1
         targetColorBuffer: 0
         targetDepthBuffer: 0
@@ -67,10 +84,15 @@ MonoBehaviour:
         m_Version: 0
         outlineLayer:
           serializedVersion: 2
-          m_Bits: 256
-        outlineColor: {r: 0, g: 0, b: 0, a: 1}
-        threshold: 3.6
-        replacementMaterial: {fileID: 2100000, guid: c1072ee959f034a4da1fa7149aaa385a,
+          m_Bits: 512
+        outlineColor: {r: 0, g: 1, b: 0.06607723, a: 1}
+        fadeCheck: {r: 0, g: 0, b: 0.489, a: 1}
+        threshold: 0.18
+        range: 1
+        nearPlane: 0.89
+        replacementMaterial: {fileID: 2100000, guid: c01724b41324fd24691a4a2429423a8c,
+          type: 2}
+        visualMaterial: {fileID: 2100000, guid: 48e9f961b8faeee4e81ebc2230420e4a,
           type: 2}
         outlineShader: {fileID: 4800000, guid: dab1ae183861fb949962e1f3e36563ad, type: 3}
         fullscreenOutline: {fileID: 0}
