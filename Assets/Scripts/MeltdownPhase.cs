@@ -7,6 +7,8 @@ public class MeltdownPhase : MonoBehaviour
     private CoreSounds coreSounds;
     private MeltdownMusic meltdownMusic;
 
+    private AmbientMusic ambientMusic;
+
     private void Start()
     {
         coreObject.SetActive(true);
@@ -29,6 +31,12 @@ public class MeltdownPhase : MonoBehaviour
         {
             meltdownMusic.ActivateMeltdownMusic();
             Debug.Log("Meltdown music enabled");
+        }
+
+        ambientMusic = FindObjectOfType<AmbientMusic>();
+        if (ambientMusic != null)
+        {
+            ambientMusic.StopAmbientMusic();
         }
     }
 }
