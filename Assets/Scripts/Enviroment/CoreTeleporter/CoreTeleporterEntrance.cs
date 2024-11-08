@@ -85,8 +85,8 @@ public class CoreTeleporterEntrance : MonoBehaviour
 
     private void MoveCoreToHolder()
     {
-        core.position = Vector3.MoveTowards(core.position, coreHolder.position, 2f * Time.deltaTime);
-        core.rotation = Quaternion.RotateTowards(core.rotation, coreHolder.rotation, 180f * Time.deltaTime);
+        core.position = Vector3.Lerp(core.position, coreHolder.position, 4f * Time.deltaTime);
+        core.rotation = Quaternion.Lerp(core.rotation, coreHolder.rotation, 10f * Time.deltaTime);
     }
 
     private bool HasCoreReachedTarget()

@@ -46,7 +46,7 @@ public class CoreTeleporterExit : MonoBehaviour
             case TeleporterState.CoreMoving:
                 if (Vector3.Distance(core.transform.position, targetPosition) > 0.01f)
                 {
-                    core.transform.position = Vector3.MoveTowards(core.transform.position, targetPosition, 2f * Time.deltaTime);
+                    core.transform.position = Vector3.Lerp(core.transform.position, targetPosition, 4f * Time.deltaTime);
                 }
                 else
                 {
