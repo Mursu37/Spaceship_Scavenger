@@ -7,6 +7,7 @@ public class CoreTeleporterExit : MonoBehaviour
     [SerializeField] private GameObject core;
     public Transform coreHolder;
     private Vector3 targetPosition;
+    private bool canMove = false;
 
     private enum TeleporterState
     {
@@ -46,10 +47,11 @@ public class CoreTeleporterExit : MonoBehaviour
             case TeleporterState.CoreMoving:
                 if (Vector3.Distance(core.transform.position, targetPosition) > 0.01f)
                 {
-                    core.transform.position = Vector3.Lerp(core.transform.position, targetPosition, 4f * Time.deltaTime);
+                    canMove = true;
                 }
                 else
                 {
+                    canMove = false;
                     currentState = TeleporterState.Closing;
                 }
                 break;
@@ -67,6 +69,14 @@ public class CoreTeleporterExit : MonoBehaviour
 
             default:
                 break;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (canMove)
+        {
+            core.transform.position = Vector3.Lerp(core.transform.position, targetPosition, 2f * Time.fixedDeltaTime);
         }
     }
 
