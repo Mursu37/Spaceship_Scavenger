@@ -14,7 +14,7 @@ namespace CLI.FSM
         {
             if (command[0] == "disconnect")
             {
-                if (GameObject.Find("EngineComputer").GetComponent<ShipPowerOn>().isPowerOn)
+                if (GameObject.Find("PowerOnSwitch").gameObject.transform.GetChild(0).GetComponent<ShipPowerOn>().isPowerOn)
                 {
                     GameObject.Find("CoreComputer").GetComponent<MeltdownPhase>().enabled = true;
                     

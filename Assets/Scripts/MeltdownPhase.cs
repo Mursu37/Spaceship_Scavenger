@@ -4,13 +4,22 @@ public class MeltdownPhase : MonoBehaviour
 {
     [SerializeField] private GameObject heatMeter;
     [SerializeField] private GameObject coreObject;
+    [SerializeField] private GameObject lightManager;
     private CoreSounds coreSounds;
     private MeltdownMusic meltdownMusic;
+    private LampSwitcherManager lampSwitcherManager;
 
     private AmbientMusic ambientMusic;
 
-    private void Start()
+    private void OnEnable()
     {
+        if (lightManager != null)
+        {
+            lampSwitcherManager = lightManager.GetComponent<LampSwitcherManager>();
+        }
+
+        lampSwitcherManager.SetAlarmOn();
+
         coreObject.SetActive(true);
 
         if (heatMeter != null)
