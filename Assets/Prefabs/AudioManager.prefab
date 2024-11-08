@@ -538,7 +538,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: CoreAudio
+    sourceObjectName: 
     source: {fileID: 0}
   - name: MultitoolCutting1
     clip: {fileID: 8300000, guid: 48c682e5b95dec04bbc647d7b301da28, type: 3}
@@ -578,6 +578,82 @@ MonoBehaviour:
     bypassEffects: 0
     shouldLoop: 0
     sourceObjectName: 
+    source: {fileID: 0}
+  - name: AmbientMusic1
+    clip: {fileID: 8300000, guid: fc95c24e69e3a0a4e9650b18f9f78dcc, type: 3}
+    mixerGroup: {fileID: 3192342637259892725, guid: 593f6e12a0383c24c93cf48f8d728fd9,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObjectName: Music
+    source: {fileID: 0}
+  - name: AmbientMusic2
+    clip: {fileID: 8300000, guid: bcb28971f9f13894f89709092c54b4c7, type: 3}
+    mixerGroup: {fileID: 3192342637259892725, guid: 593f6e12a0383c24c93cf48f8d728fd9,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObjectName: Music
+    source: {fileID: 0}
+  - name: AmbientMusic3
+    clip: {fileID: 8300000, guid: 17216f4bfb8d1ec45aa5d43aa6bf2067, type: 3}
+    mixerGroup: {fileID: 3192342637259892725, guid: 593f6e12a0383c24c93cf48f8d728fd9,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObjectName: Music
+    source: {fileID: 0}
+  - name: AmbientMusic4
+    clip: {fileID: 8300000, guid: 862a6cb20e269d143aed4abe9aead1fd, type: 3}
+    mixerGroup: {fileID: 3192342637259892725, guid: 593f6e12a0383c24c93cf48f8d728fd9,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObjectName: Music
+    source: {fileID: 0}
+  - name: MainMenuMusic
+    clip: {fileID: 8300000, guid: 52644662cb819f249ad10f7776794e27, type: 3}
+    mixerGroup: {fileID: 24300002, guid: d3ff09dec4119ae41940007921b2ea5c, type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObjectName: Music
+    source: {fileID: 0}
+  - name: MainMenuAmbience
+    clip: {fileID: 8300000, guid: 34c30b184901ecc4d8ccb0bc25744ada, type: 3}
+    mixerGroup: {fileID: 24300002, guid: d3ff09dec4119ae41940007921b2ea5c, type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 1
+    sourceObjectName: Ambience
     source: {fileID: 0}
 --- !u!1 &7788608340621674505
 GameObject:
@@ -733,6 +809,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5523663869426418267}
   - component: {fileID: 661235720918885168}
+  - component: {fileID: 6211794030285199260}
+  - component: {fileID: 1963143199848350424}
   m_Layer: 0
   m_Name: Music
   m_TagString: Untagged
@@ -771,3 +849,34 @@ MonoBehaviour:
   AlarmMusicLayer1: AlarmMusicLayer1
   AlarmMusicLayer2: AlarmMusicLayer2
   AlarmMusicLayer3: AlarmMusicLayer3
+--- !u!114 &6211794030285199260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7902608572272484136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a98bdef559b0bb4597f8fa9d67e4d2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ambientMusicTracks:
+  - AmbientMusic1
+  - AmbientMusic2
+  - AmbientMusic3
+  - AmbientMusic4
+--- !u!114 &1963143199848350424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7902608572272484136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1c7a33b7c344d43a87271d03f4bb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenuMusic: MainMenuMusic
+  mainMenuAmbience: MainMenuAmbience

@@ -27,7 +27,7 @@ public class Cutting : MonoBehaviour
 
     private void Start()
     {
-        layerMask = LayerMask.GetMask("Ignore Raycast");
+        layerMask = LayerMask.GetMask("Player");
         rightmostLaser.enabled = false;
         leftmostLaser.enabled = false;
 

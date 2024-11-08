@@ -5,56 +5,43 @@ using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
 {
+    private EnergyCore core;
     [SerializeField] private Image bar; // Progress bar GameObject
     [SerializeField] private TMP_Text stageText; // Text to display the current stage
-    [SerializeField] private int time = 60; // Time for the bar to fill (s)
-
-    private float heatLevel;
+    [SerializeField] private GameObject coreObject;
 
     private void Start()
     {
-        heatLevel = 0f; // Initialize heat level
         UpdateStageText(); // Update the stage text on start
-        StartCoroutine(RunTimer()); // Start the progress bar timer
+
+        if (coreObject != null )
+        {
+            core = coreObject.GetComponent<EnergyCore>();
+        }
     }
 
-    private IEnumerator RunTimer()
+    private void Update()
     {
-        float elapsedTime = 0;
-
-        while (elapsedTime < time)
+        if (core != null)
         {
-            float progress = elapsedTime / time;
-            heatLevel = Mathf.Lerp(0, 100, progress);
-
-            if (bar != null && bar.type == Image.Type.Filled)
-            {
-                bar.fillAmount = progress; // Set the fill amount directly
-            }
-
-            UpdateStageText(); // Update the stage text based on the current heat level
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            bar.fillAmount = core.heatAmount / core.maxHeat;
+            UpdateStageText();
         }
-
-        heatLevel = 100f; // Ensure heat level is maxed out at the end
-        if (bar != null)
-        {
-            bar.fillAmount = 1f; // Ensure the fill amount is maxed out
-        }
-        UpdateStageText(); // Update stage text one last time
     }
 
     private void UpdateStageText()
     {
+        if (core == null)
+            return;
+
+        float heatPercent = core.heatAmount / core.maxHeat;
         if (stageText != null)
         {
-            if (heatLevel <= 30)
+            if (heatPercent <= 0.33f)
             {
                 stageText.text = "[ STAGE 1 ]";
             }
-            else if (heatLevel > 30 && heatLevel <= 60)
+            else if (heatPercent > 0.33f && heatPercent <= 0.66f)
             {
                 stageText.text = "[ STAGE 2 ]";
             }
@@ -63,11 +50,5 @@ public class ProgressBar : MonoBehaviour
                 stageText.text = "[ STAGE 3 ]";
             }
         }
-    }
-
-    public void SetHeatLevel(float newHeatLevel)
-    {
-        heatLevel = newHeatLevel; // Update the heat level
-        UpdateStageText(); // Update the stage text based on the new heat level
     }
 }

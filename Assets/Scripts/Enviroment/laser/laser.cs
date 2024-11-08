@@ -32,7 +32,7 @@ public class laser : MonoBehaviour
                     hit.rigidbody.GetComponent<IHealth>().Damage(1f);
                     Vector3 currentVelocity = hit.rigidbody.velocity;
                     Debug.Log(currentVelocity);
-                    hit.rigidbody.AddForce(currentVelocity.x * -2f, 0, currentVelocity.z * -2f,
+                    hit.rigidbody.AddForce(currentVelocity.x * -5f, 0, currentVelocity.z * -5f,
                         ForceMode.VelocityChange);
                     damageCooldownTimer = damageCooldown;
                 }

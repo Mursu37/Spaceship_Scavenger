@@ -6,48 +6,23 @@ using UnityEngine.UI;
 
 public class EnergyCore : MonoBehaviour
 {
-    private Rigidbody rb;
     private Vector3 relativeVelocity;
     private float collisionForce;
 
     private CoreSounds coreSounds;
 
-    [SerializeField] public float heatAmount;
-    [SerializeField] public float maxHeat;
-    [SerializeField] private GameObject gameState;
-    [SerializeField] private Image meter;
+    public float heatAmount;
+    public float maxHeat;
 
     private void OnEnable()
     {
-        Debug.Log("Enabled");
         StartCoroutine(HeatIncrease());
     }
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
         coreSounds = GetComponentInChildren<CoreSounds>();
-    }
-
-    private void Update()
-    {
-        meter.fillAmount = heatAmount / maxHeat;
-
-        float healthPercent = heatAmount / maxHeat;
-        if (healthPercent <= 0.5f)
-        {
-            meter.color = Color.Lerp(Color.green, Color.yellow, healthPercent * 2);
-        }
-        else
-        {
-            meter.color = Color.Lerp(Color.yellow, Color.red, (healthPercent - 0.5f) * 2);
-        }
-
-        if (heatAmount >= maxHeat)
-        {
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
-        }
+        gameObject.SetActive(false);
     }
 
     public IEnumerator HeatIncrease()

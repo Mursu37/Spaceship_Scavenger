@@ -15,7 +15,7 @@ public class GravityGun : MonoBehaviour
     private LineRenderer lineRenderer;
     private Vector3 hitPosition;
     private ModeSwitch modeSwitch;
-    private bool isAttracting;
+    public bool isAttracting;
     private Quaternion targetInitialRotation;
     private Quaternion playerInitialRotation;
 
@@ -59,7 +59,7 @@ public class GravityGun : MonoBehaviour
                 hitPosition = hit.point;
                 floatPoint.position = hit.point;
 
-                if (targetRb != null)
+                if (targetRb != null && !target.CompareTag("Unmovable"))
                 {
                     targetRb.constraints = RigidbodyConstraints.FreezeRotation;
                     targetInitialRotation = target.transform.rotation;
@@ -68,7 +68,7 @@ public class GravityGun : MonoBehaviour
             }
         }
 
-        if (target != null && targetRb != null && !targetRb.isKinematic)
+        if (target != null && targetRb != null && !target.CompareTag("Unmovable"))
         {
             objectMass = Mathf.Round(targetRb.mass * 10f) / 10f;
 
@@ -87,10 +87,18 @@ public class GravityGun : MonoBehaviour
                 // Apply a force in the direction of the floatPoint with intensity decreasing as it gets closer
                 targetRb.AddForce(direction * attractAcceleration * distance);
 
-                // Calculate the difference in player rotation from the initial state
-                Quaternion playerRotationDifference = playerObject.transform.rotation * Quaternion.Inverse(playerInitialRotation);
-                // Apply this difference to the target's initial rotation
-                target.transform.rotation = playerRotationDifference * targetInitialRotation;
+                FixedJoint fixedJoint = target.GetComponent<FixedJoint>();
+                if (fixedJoint == null)
+                {
+                    // Calculate the difference in player rotation from the initial state
+                    Quaternion playerRotationDifference = playerObject.transform.rotation * Quaternion.Inverse(playerInitialRotation);
+                    // Apply this difference to the target's initial rotation
+                    target.transform.rotation = playerRotationDifference * targetInitialRotation;
+                }
+                else
+                {
+                    fixedJoint.breakForce = 3f;
+                }
             }
             else if (playerRb.mass < targetRb.mass)
             {
@@ -134,7 +142,7 @@ public class GravityGun : MonoBehaviour
                 }
             }
         }
-        else if (target != null && (targetRb == null || targetRb.isKinematic))
+        else if (target != null && (targetRb == null || target.CompareTag("Unmovable")))
         {
             playerRb.drag = 1f;
             isGrabbling = true;
@@ -152,10 +160,27 @@ public class GravityGun : MonoBehaviour
     // Releases the object
     private void Release()
     {
-        if (target != null && targetRb != null)
+        if (target == null)
+        {
+            targetRb = null;
+            playerRb.drag = 0f;
+            isGrabbling = false;
+            distanceToPlayer = 0;
+            strength = 0f;
+            objectMass = 0f;
+            return;
+        }
+
+        if (targetRb != null && !target.CompareTag("Unmovable"))
         {
             targetRb.drag = 0f;
             targetRb.constraints = RigidbodyConstraints.None;
+        }
+
+        FixedJoint joint = target.GetComponent<FixedJoint>();
+        if (joint != null)
+        {
+            joint.breakForce = Mathf.Infinity;
         }
 
         target = null;

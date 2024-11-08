@@ -3,11 +3,25 @@ using UnityEngine;
 public class MeltdownPhase : MonoBehaviour
 {
     [SerializeField] private GameObject heatMeter;
+    [SerializeField] private GameObject coreObject;
+    [SerializeField] private GameObject lightManager;
     private CoreSounds coreSounds;
     private MeltdownMusic meltdownMusic;
+    private LampSwitcherManager lampSwitcherManager;
 
-    private void Start()
+    private AmbientMusic ambientMusic;
+
+    private void OnEnable()
     {
+        if (lightManager != null)
+        {
+            lampSwitcherManager = lightManager.GetComponent<LampSwitcherManager>();
+        }
+
+        lampSwitcherManager.SetAlarmOn();
+
+        coreObject.SetActive(true);
+
         if (heatMeter != null)
         {
             heatMeter.SetActive(true);
@@ -26,6 +40,12 @@ public class MeltdownPhase : MonoBehaviour
         {
             meltdownMusic.ActivateMeltdownMusic();
             Debug.Log("Meltdown music enabled");
+        }
+
+        ambientMusic = FindObjectOfType<AmbientMusic>();
+        if (ambientMusic != null)
+        {
+            ambientMusic.StopAmbientMusic();
         }
     }
 }
