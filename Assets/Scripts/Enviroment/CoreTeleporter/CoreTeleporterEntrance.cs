@@ -6,6 +6,7 @@ public class CoreTeleporterEntrance : MonoBehaviour
     private Animator animator;
     private CoreTeleporterExit exit;
     private GravityGun gravityGun;
+    private bool canMove = false;
 
     [SerializeField] private GameObject teleporterExit;
     [SerializeField] private Transform core;
@@ -67,11 +68,13 @@ public class CoreTeleporterEntrance : MonoBehaviour
                 break;
 
             case TeleporterState.CoreApproaching:
-                MoveCoreToHolder();
+                canMove = true;
+                
                 if (HasCoreReachedTarget())
                 {
                     currentState = TeleporterState.Teleporting;
                     animator.Play("TeleporterClose");
+                    canMove = false;
                     StartCoroutine(TeleportCoreCoroutine());
                 }
                 break;
@@ -83,10 +86,18 @@ public class CoreTeleporterEntrance : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (canMove)
+        {
+            MoveCoreToHolder();
+        }
+    }
+
     private void MoveCoreToHolder()
     {
-        core.position = Vector3.Lerp(core.position, coreHolder.position, 4f * Time.deltaTime);
-        core.rotation = Quaternion.Lerp(core.rotation, coreHolder.rotation, 10f * Time.deltaTime);
+        core.position = Vector3.Lerp(core.position, coreHolder.position, 2f * Time.fixedDeltaTime);
+        core.rotation = Quaternion.Lerp(core.rotation, coreHolder.rotation, 5f * Time.fixedDeltaTime);
     }
 
     private bool HasCoreReachedTarget()
