@@ -4,16 +4,17 @@ using UnityEngine;
 
 namespace CLI.FSM
 {
-    public class MainCoreState : State
+    public class BPAMainState : State
     {
-        public MainCoreState(StateController controller) : base(controller)
+        public BPAMainState(StateController controller) : base(controller)
         {
-            directories.Add("core", new CoreState(controller));
+            directories.Add("ship_blueprints_a", new BPADownloadState(controller));
         }
 
         public override void OnEnter()
         {
-            stateController.AddText("System directories:<BR><BR>--- core");
+
+            stateController.ChangeText("System directories:<BR><BR>--- ship_blueprints_a");
             base.OnEnter();
         }
 
