@@ -6,17 +6,16 @@ using UnityEngine.SceneManagement;
 public class AmbientMusic : MonoBehaviour
 {
     [SerializeField] private string[] ambientMusicTracks;
-    private string lastPlayedTrackName; 
+    private string lastPlayedTrackName;
     private const float defaultTrackLength = 120f;
-
     private string selectedTrackName;
-
+    private Coroutine musicCoroutine; // Store reference to the coroutine
 
     // Start is called before the first frame update
     private void Start()
     {
-     string activeSceneName = SceneManager.GetActiveScene().name;
-    
+        string activeSceneName = SceneManager.GetActiveScene().name;
+
         if (activeSceneName == "MainGame")
         {
             PlayAmbientMusic();
@@ -27,23 +26,16 @@ public class AmbientMusic : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        
-    }
-
     private void PlayAmbientMusic()
     {
-        if(ambientMusicTracks.Length > 0)
+        if (ambientMusicTracks.Length > 0)
         {
             selectedTrackName = SelectRandomTrackName();
-
             AudioManager.PlayAudio(selectedTrackName, 1f, 1f, false);
-
             lastPlayedTrackName = selectedTrackName;
 
-            StartCoroutine(PlayNextAmbientTrackAfterDelay());
+            // Start the coroutine and save its reference
+            musicCoroutine = StartCoroutine(PlayNextAmbientTrackAfterDelay());
         }
     }
 
@@ -73,12 +65,19 @@ public class AmbientMusic : MonoBehaviour
 
     public void StopAmbientMusic()
     {
+        // Stop the audio if currently playing
         if (!string.IsNullOrEmpty(selectedTrackName))
         {
-            AudioManager.StopAudio(selectedTrackName); // Stop any currently playing music
+            AudioManager.StopAudio(selectedTrackName);
+        }
+
+        // Stop the coroutine if it's running
+        if (musicCoroutine != null)
+        {
+            StopCoroutine(musicCoroutine);
+            musicCoroutine = null;
         }
 
         this.enabled = false; // Disable this script
     }
-
 }

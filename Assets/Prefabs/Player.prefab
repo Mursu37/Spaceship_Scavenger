@@ -707,7 +707,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 10
   m_Drag: 0
-  m_AngularDrag: 2
+  m_AngularDrag: 4
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -739,9 +739,9 @@ MonoBehaviour:
   speed: 0
   rotationSpeed: 0
   acceleration: 0.05
-  rollAcceleration: 0.05
+  rollAcceleration: 0.1
   maxSpeed: 2.5
-  mouseSensitivity: 0.2781225
+  mouseSensitivity: 0.3388765
 --- !u!114 &2792919604547166165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -939,6 +939,11 @@ PrefabInstance:
       propertyPath: playerObject
       value: 
       objectReference: {fileID: 8244695801914122926}
+    - target: {fileID: 5529365974256072736, guid: 28b2f6e0b3d165442a21465c3a8b72aa,
+        type: 3}
+      propertyPath: attractAcceleration
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 5553292165000808917, guid: 28b2f6e0b3d165442a21465c3a8b72aa,
         type: 3}
       propertyPath: m_Layer
