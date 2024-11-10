@@ -10,6 +10,12 @@ namespace CLI.FSM
         {
         }
 
+        public override void OnEnter()
+        {
+            stateController.AddText("Core Systems Directory. <BR> Auxiliary power mode on <BR> Please connect power coupling with the main Reactor.");
+            base.OnEnter();
+        }
+
         public override void Interpret(string[] command)
         {
             if (command[0] == "disconnect")
