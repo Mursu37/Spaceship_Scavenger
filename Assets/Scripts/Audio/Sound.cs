@@ -17,7 +17,7 @@ public class Sound
     public bool bypassEffects = false;
     public bool shouldLoop = true;
 
-    public string sourceObjectName;
+    public GameObject sourceObject;
 
     [HideInInspector]
     public AudioSource source;
