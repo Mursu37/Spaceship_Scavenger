@@ -11,13 +11,30 @@ public class DoorController : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        FindCuttableObjects(transform);
+    }
 
-        for (int i = 0; i < transform.childCount; i++)
+    public void HackOpen()
+    {
+        if (animator != null)
         {
-            if (transform.GetChild(i).CompareTag("Cuttable"))
+            animator.Play("DoorOpening");
+        }
+    }
+
+    private void FindCuttableObjects(Transform parent)
+    {
+        for (int i = 0; i < parent.childCount; i++)
+        {
+            Transform child = parent.GetChild(i);
+
+            if (child.CompareTag("Cuttable"))
             {
-                cuttingPoints.Add(transform.GetChild(i).gameObject);
+                cuttingPoints.Add(child.gameObject);
+
             }
+
+            FindCuttableObjects(child);
         }
     }
 
