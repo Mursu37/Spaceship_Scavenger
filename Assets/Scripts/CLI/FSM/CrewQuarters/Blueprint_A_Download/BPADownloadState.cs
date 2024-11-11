@@ -14,7 +14,7 @@ namespace CLI.FSM
         public override void OnEnter()
         {
 
-            stateController.AddText("System directories:<BR><BR>--- ship_blueprints_a.obpp");
+            stateController.AddText("Downloadable files:<BR><BR>--- ventilation");
             base.OnEnter();
         }
 
@@ -22,16 +22,20 @@ namespace CLI.FSM
         {
             if (command[0] == "help")
             {
-                stateController.AddText("Available commands: <BR> cd [directory_name] --- change directory <BR> download [file_name] --- download selected file");
+                stateController.AddText("Available commands: <BR> cd [directory_name] --- change directory <BR> dl [file_name] --- download file");
             }
 
-            else if (command[0] == "download")
+            else if (command[0] == "dl")
             {
                 if (command.Length > 1)
                 {
-                    if (command[1] == "ship_blueprint_a.obpp")
+                    if (command[1] == "ventilation")
                     {
-                        stateController.AddText("downloading ship_blueprint_a.obpp");
+                        EventDispatcher dispatcher;
+                        dispatcher = stateController.gameObject.GetComponent<EventDispatcher>();
+                        dispatcher.TriggerEvent();
+
+                        stateController.AddText("downloading ventilation schematics");
                     }
 
                     else
