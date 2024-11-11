@@ -2,14 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.HighDefinition.CameraSettings;
+using TMPro;
+
 
 public class Toolinfo : MonoBehaviour
 {
     private ModeSwitch modeSwitch;
     private RawImage modeImage;
+    private Cutting cutting;
+    private GravityGun gravityGun;
     [SerializeField] private GameObject multiTool;
     [SerializeField] private Texture grapplingInfo;
-    [SerializeField] private Texture cuttingInfo;
+    [SerializeField] private Texture verticalcuttingInfo;
+    [SerializeField] private Texture horizontalcuttingInfo;
+    [SerializeField] private TMP_Text infoText;
+
 
     // Start is called before the first frame update
     void Start()
@@ -17,21 +25,41 @@ public class Toolinfo : MonoBehaviour
         if (multiTool != null)
         {
             modeSwitch = multiTool.GetComponent<ModeSwitch>();
+            cutting = multiTool.GetComponent<Cutting>();
+            gravityGun = multiTool.GetComponent<GravityGun>();
         }
 
         modeImage = GetComponent<RawImage>();
     }
 
     // Update is called once per frame
+  
     void Update()
     {
-        if (modeSwitch.selectedMode == 0)
-        {
-            modeImage.texture = grapplingInfo;
-        }
+        if (modeSwitch != null && gravityGun != null)
+        { 
+            if (modeSwitch.selectedMode == 0)
+            {
+                modeImage.texture = grapplingInfo;
+
+                infoText.text =     $"OBJ WEIGHT {gravityGun.objectMass:F1}\n" +
+                                    $"OBJ STRENGTH {gravityGun.strength:F1}\n" +
+                                    $"OBJ DISTANCE {gravityGun.distanceToPlayer:F1}";
+            }
         else if (modeSwitch.selectedMode == 1)
         {
-           modeImage.texture = cuttingInfo;
+            if (!cutting.isVerticalCut)
+            {
+                modeImage.texture = horizontalcuttingInfo;
+                infoText.text = "CUTTING ALIGHNED\nCUTTABLE OBJ\nSCANNING OBJS";
+            }
+            else
+            {
+                modeImage.texture = verticalcuttingInfo;
+                infoText.text = "CUTTING ALIGHNED\nCUTTABLE OBJ\nSCANNING OBJS";
+                }
+            }
         }
     }
 }
+
