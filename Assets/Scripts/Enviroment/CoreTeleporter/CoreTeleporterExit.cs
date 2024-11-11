@@ -9,6 +9,8 @@ public class CoreTeleporterExit : MonoBehaviour
     private Vector3 targetPosition;
     private bool canMove = false;
 
+    private MixerController mixerController;
+
     private enum TeleporterState
     {
         Idle,
@@ -23,6 +25,8 @@ public class CoreTeleporterExit : MonoBehaviour
     private void Start()
     {
         animator = transform.GetChild(0).GetComponent<Animator>();
+
+        mixerController = FindObjectOfType<MixerController>(); //For changing audio mixer snapshots
     }
 
     private void Update()
@@ -64,6 +68,9 @@ public class CoreTeleporterExit : MonoBehaviour
                 {
                     coreRbFinal.constraints = RigidbodyConstraints.None;
                 }
+
+                mixerController?.NormalMusicTransition();
+
                 currentState = TeleporterState.Idle;
                 break;
 
