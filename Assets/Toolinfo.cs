@@ -17,7 +17,7 @@ public class Toolinfo : MonoBehaviour
     [SerializeField] private Texture verticalcuttingInfo;
     [SerializeField] private Texture horizontalcuttingInfo;
     [SerializeField] private TMP_Text infoText;
-
+    [SerializeField] private float maxStrength = 100f;
 
     // Start is called before the first frame update
     void Start()
@@ -42,8 +42,10 @@ public class Toolinfo : MonoBehaviour
             {
                 modeImage.texture = grapplingInfo;
 
+                float strengthPercentage = Mathf.Clamp((gravityGun.strength / maxStrength) * 100f, 0, 100f);
+
                 infoText.text =     $"OBJ WEIGHT {gravityGun.objectMass:F1}\n" +
-                                    $"OBJ STRENGTH {gravityGun.strength:F1}\n" +
+                                    $"OBJ STRENGTH {gravityGun.strength:F0}%\n" +
                                     $"OBJ DISTANCE {gravityGun.distanceToPlayer:F1}";
             }
         else if (modeSwitch.selectedMode == 1)
