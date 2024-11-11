@@ -73,7 +73,7 @@ public class GravityGun : MonoBehaviour
 
         if (target != null && targetRb != null && !target.CompareTag("Unmovable"))
         {
-            objectMass = Mathf.Round(targetRb.mass * 10f) / 10f;
+            objectMass = Mathf.Round(targetRb.mass * 10f) / 10f * 10f;
 
             if (playerRb.mass > targetRb.mass)
             {
