@@ -34,7 +34,13 @@ public class TogglexRay : MonoBehaviour
             customPassVolume.enabled = true;
         }
     }
-    
+
+    public void ActivateXraypulse()
+    {
+        xRayActive = true;
+        customPassVolume.enabled = true;
+    }
+
     private void FixedUpdate()
     {
         if (!xRayActive) return;

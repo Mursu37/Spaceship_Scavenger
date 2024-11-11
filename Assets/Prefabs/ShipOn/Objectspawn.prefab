@@ -333,6 +333,39 @@ Transform:
   - {fileID: 6864015705330063394}
   m_Father: {fileID: 8079483212370141730}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8003957404049415317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4832565965375799303}
+  m_Layer: 0
+  m_Name: LaserCeilings_Canteen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4832565965375799303
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8003957404049415317}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.3684945, y: 36.09369, z: 64.63598}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6224743131176657016}
+  - {fileID: 8160820828767833641}
+  m_Father: {fileID: 8079483212370141730}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8717475582902602393
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +492,7 @@ Transform:
   - {fileID: 3499606366105945411}
   - {fileID: 4086234512899748482}
   - {fileID: 8669797428424125820}
+  - {fileID: 4832565965375799303}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &84090024180557940
@@ -2676,6 +2710,85 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4415371319866423724}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5051393028416526032
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4832565965375799303}
+    m_Modifications:
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -79.972
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -27.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -73.15547
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295162622297029115, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665796376092923123, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_Name
+      value: LaserCeiling
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b29208215534a1e4db127030a06ad64b, type: 3}
+--- !u!4 &6224743131176657016 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5051393028416526032}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5535663373055097691
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3428,6 +3541,85 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 021fef44596fd264a8383d2f09ef5f64,
     type: 3}
   m_PrefabInstance: {fileID: 6937879121257997672}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7005791883966314625
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4832565965375799303}
+    m_Modifications:
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -83.02777
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -34.698
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -75.88968
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295162622297029115, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665796376092923123, guid: b29208215534a1e4db127030a06ad64b,
+        type: 3}
+      propertyPath: m_Name
+      value: LaserCeiling (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b29208215534a1e4db127030a06ad64b, type: 3}
+--- !u!4 &8160820828767833641 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1186872052455356072, guid: b29208215534a1e4db127030a06ad64b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7005791883966314625}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7186826676821506621
 PrefabInstance:
