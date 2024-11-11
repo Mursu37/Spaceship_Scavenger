@@ -18,6 +18,14 @@ namespace CLI.FSM
         protected State defaultState;
         private string path;
 
+        // for changing the music mixer snapshot on CLI enable
+        private MixerController mixerController;
+        
+        private void Start()
+        {
+            mixerController = FindObjectOfType<MixerController>();
+        }
+
         protected StateController()
         {
             defaultState = new MainDriveState(this);
@@ -99,6 +107,9 @@ namespace CLI.FSM
             Time.timeScale = 0.01f;
             commandLineInput.ActivateInputField();
             currentState?.OnEnter();
+
+            //Change mixer snapshot
+            mixerController?.LowPassMusicTransition();
         }
 
         private void OnDisable()
@@ -116,6 +127,9 @@ namespace CLI.FSM
             directoryText.text = "C:";
 
             commandLineInput.ActivateInputField();
+
+            //Change mixer snapshot
+            mixerController?.NormalMusicTransition();
         }
 
         void Update()

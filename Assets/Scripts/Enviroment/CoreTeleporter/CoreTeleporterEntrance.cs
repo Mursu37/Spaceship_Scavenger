@@ -8,6 +8,8 @@ public class CoreTeleporterEntrance : MonoBehaviour
     private GravityGun gravityGun;
     private bool canMove = false;
 
+    private MixerController mixerController;
+
     [SerializeField] private GameObject teleporterExit;
     [SerializeField] private Transform core;
     [SerializeField] private Transform coreHolder;
@@ -27,6 +29,8 @@ public class CoreTeleporterEntrance : MonoBehaviour
     private void Start()
     {
         animator = transform.GetChild(0).GetComponent<Animator>();
+
+        mixerController = FindObjectOfType<MixerController>(); //For changing audio mixer snapshots
 
         if (multitool != null)
         {
@@ -75,6 +79,7 @@ public class CoreTeleporterEntrance : MonoBehaviour
                     currentState = TeleporterState.Teleporting;
                     animator.Play("TeleporterClose");
                     canMove = false;
+                    mixerController?.LowPassMusicTransition(); //Change music when core is in teleporter
                     StartCoroutine(TeleportCoreCoroutine());
                 }
                 break;
