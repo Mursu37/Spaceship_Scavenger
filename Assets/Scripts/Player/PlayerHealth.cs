@@ -31,6 +31,16 @@ public class PlayerHealth : MonoBehaviour, IHealth
         }
     }
 
+    public void Heal(float amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth) currentHealth = maxHealth;
+        if (healthImage25 != null && healthImage50 != null)
+        {
+            UpdateHealthUI();
+        }
+    }
+
     private void Update()
     {
         // Reload the scene when health goes zero or below

@@ -11,6 +11,8 @@ public class laser : MonoBehaviour
     private float damageCooldown;
     private float damageCooldownTimer;
 
+    [SerializeField] private float damageAmount = 2f;
+
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -29,11 +31,15 @@ public class laser : MonoBehaviour
             {
                 if (hit.rigidbody.GetComponent<IHealth>() != null && damageCooldownTimer <= 0)
                 {
-                    hit.rigidbody.GetComponent<IHealth>().Damage(1f);
+                    hit.rigidbody.GetComponent<IHealth>().Damage(damageAmount);
                     Vector3 currentVelocity = hit.rigidbody.velocity;
                     Debug.Log(currentVelocity);
+                    float scale = 0.75f;
+                    float x = (currentVelocity.x < 0) ? scale : -scale;
+                    float y = (currentVelocity.y < 0) ? scale : -scale;
+                    float z = (currentVelocity.z < 0) ? scale : -scale;
                     //hit.rigidbody.AddExplosionForce(500, hit.point, 10);
-                    hit.rigidbody.AddForce(currentVelocity.x * -2f, currentVelocity.y * -2f, currentVelocity.z * -2f,
+                    hit.rigidbody.AddForce(currentVelocity.x * -1.25f + x, currentVelocity.y * -1.25f + y, currentVelocity.z * -1.25f + z,
                         ForceMode.VelocityChange);
                     damageCooldownTimer = damageCooldown;
                 }
