@@ -8,4 +8,5 @@ public interface IHealth
     public float currentHealth => currentHealth;
 
     void Damage(float amount);
+    void Heal(float amount);
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class EnergyCore : MonoBehaviour
+public class EnergyCore : MonoBehaviour, IHealth
 {
     private Vector3 relativeVelocity;
     private float collisionForce;
@@ -48,5 +48,16 @@ public class EnergyCore : MonoBehaviour
             heatAmount += collisionForce * 2f;
             coreSounds?.PlayRandomDamageSound();
         }
+    }
+
+    public void Damage(float amount)
+    {
+        heatAmount += amount;
+        coreSounds?.PlayRandomDamageSound();
+    }
+
+    public void Heal(float amount)
+    {
+        return;
     }
 }
