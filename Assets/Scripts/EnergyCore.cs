@@ -25,6 +25,15 @@ public class EnergyCore : MonoBehaviour, IHealth
         gameObject.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (heatAmount >= maxHeat)
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.name);
+        }
+    }
+
     public IEnumerator HeatIncrease()
     {
         while (heatAmount < maxHeat)

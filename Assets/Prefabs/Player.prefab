@@ -199,9 +199,9 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.2794144, g: 0.8584906, b: 0.3755792, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 3139.1826
-  m_Range: 10
+  m_Range: 25
   m_SpotAngle: 54.4
   m_InnerSpotAngle: 1
   m_CookieSize: 10
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 2181.1584
+  m_Intensity: 75
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 70.1
@@ -707,7 +707,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 10
   m_Drag: 0
-  m_AngularDrag: 2
+  m_AngularDrag: 4
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -739,9 +739,9 @@ MonoBehaviour:
   speed: 0
   rotationSpeed: 0
   acceleration: 0.05
-  rollAcceleration: 0.05
+  rollAcceleration: 0.1
   maxSpeed: 2.5
-  mouseSensitivity: 0.2781225
+  mouseSensitivity: 0.3388765
 --- !u!114 &2792919604547166165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -939,6 +939,11 @@ PrefabInstance:
       propertyPath: playerObject
       value: 
       objectReference: {fileID: 8244695801914122926}
+    - target: {fileID: 5529365974256072736, guid: 28b2f6e0b3d165442a21465c3a8b72aa,
+        type: 3}
+      propertyPath: attractAcceleration
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 5553292165000808917, guid: 28b2f6e0b3d165442a21465c3a8b72aa,
         type: 3}
       propertyPath: m_Layer

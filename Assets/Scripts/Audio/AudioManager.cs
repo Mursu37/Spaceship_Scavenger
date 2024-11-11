@@ -15,10 +15,10 @@ public class AudioManager : MonoBehaviour
         {
             GameObject sourceObject = null;
 
-            if (!string.IsNullOrEmpty(s.sourceObjectName))
+            if (s.sourceObject != null)
             {
                 // Try to find the specified object by name in the scene or as a child
-                sourceObject = GameObject.Find(s.sourceObjectName);
+                sourceObject = s.sourceObject;
             }
     
             if (sourceObject == null)
