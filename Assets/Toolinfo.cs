@@ -44,9 +44,9 @@ public class Toolinfo : MonoBehaviour
 
                 float strengthPercentage = Mathf.Clamp((gravityGun.strength / maxStrength) * 100f, 0, 100f);
 
-                infoText.text =     $"OBJ WEIGHT {gravityGun.objectMass:F1}\n" +
-                                    $"OBJ STRENGTH {gravityGun.strength:F0}%\n" +
-                                    $"OBJ DISTANCE {gravityGun.distanceToPlayer:F1}";
+                infoText.text =     $"OBJ WEIGHT {gravityGun.objectMass:F1}KG\n" +
+                                    $"GRAPL STRENGTH {gravityGun.strength:F0}%\n" +
+                                    $"OBJ DISTANCE {gravityGun.distanceToPlayer:F1}M";
             }
         else if (modeSwitch.selectedMode == 1)
         {
