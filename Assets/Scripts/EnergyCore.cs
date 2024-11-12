@@ -4,18 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class EnergyCore : MonoBehaviour
+public class EnergyCore : MonoBehaviour, IHealth
 {
-    private Rigidbody rb;
     private Vector3 relativeVelocity;
     private float collisionForce;
 
     private CoreSounds coreSounds;
 
-    [SerializeField] public float heatAmount;
-    [SerializeField] public float maxHeat;
-    [SerializeField] private GameObject gameState;
-    [SerializeField] private Image meter;
+    public float heatAmount;
+    public float maxHeat;
 
     private void OnEnable()
     {
@@ -24,24 +21,12 @@ public class EnergyCore : MonoBehaviour
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
         coreSounds = GetComponentInChildren<CoreSounds>();
+        gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        meter.fillAmount = heatAmount / maxHeat;
-
-        float healthPercent = heatAmount / maxHeat;
-        if (healthPercent <= 0.5f)
-        {
-            meter.color = Color.Lerp(Color.green, Color.yellow, healthPercent * 2);
-        }
-        else
-        {
-            meter.color = Color.Lerp(Color.yellow, Color.red, (healthPercent - 0.5f) * 2);
-        }
-
         if (heatAmount >= maxHeat)
         {
             Scene scene = SceneManager.GetActiveScene();
@@ -72,5 +57,16 @@ public class EnergyCore : MonoBehaviour
             heatAmount += collisionForce * 2f;
             coreSounds?.PlayRandomDamageSound();
         }
+    }
+
+    public void Damage(float amount)
+    {
+        heatAmount += amount;
+        coreSounds?.PlayRandomDamageSound();
+    }
+
+    public void Heal(float amount)
+    {
+        return;
     }
 }

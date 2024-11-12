@@ -15,14 +15,30 @@ public class PlayerHealth : MonoBehaviour, IHealth
     private void Awake()
     {
         currentHealth = maxHealth;
-        UpdateHealthUI(); // UI
+        if (healthImage25 != null && healthImage50 != null)
+        {
+            UpdateHealthUI(); // UI
+        }
     }
 
     public void Damage(float amount)
     {
         currentHealth -= amount;
         Camera.main.GetComponent<CameraShake>().shakeDuration = 0.2f;
-        UpdateHealthUI();
+        if (healthImage25 != null && healthImage50 != null)
+        {
+            UpdateHealthUI();
+        }
+    }
+
+    public void Heal(float amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth) currentHealth = maxHealth;
+        if (healthImage25 != null && healthImage50 != null)
+        {
+            UpdateHealthUI();
+        }
     }
 
     private void Update()

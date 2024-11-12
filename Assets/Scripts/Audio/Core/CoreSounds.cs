@@ -19,7 +19,7 @@ public class CoreSounds : MonoBehaviour
     private void Start()
     {
         core = GetComponentInParent<EnergyCore>();
-        this.enabled = false;
+        //this.enabled = false;
   
     }
 

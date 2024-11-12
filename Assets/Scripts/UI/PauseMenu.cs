@@ -4,9 +4,16 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     private bool isPaused;
+    private MixerController mixerController;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject settings;
+    [SerializeField] private GameObject controls;
+
+    private void Start()
+    {
+        mixerController = FindObjectOfType<MixerController>();
+    }
 
     private void Update()
     {
@@ -30,6 +37,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+        mixerController?.PauseMixerTransition();
     }
 
     public void Resume()
@@ -39,6 +47,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        mixerController?.UnpauseMixerTransition();
     }
 
     public void Retry()
@@ -46,6 +55,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+        mixerController?.UnpauseMixerTransition();
     }
 
     public void Settings()
@@ -54,9 +64,16 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
     }
 
+    public void Controls()
+    {
+        controls.SetActive(true);
+        pauseMenu.SetActive(false);
+    }
+
     public void Quit()
     {
         Time.timeScale = 1f;
         SceneManager.LoadSceneAsync("MainMenu");
+        mixerController?.UnpauseMixerTransition();
     }
 }

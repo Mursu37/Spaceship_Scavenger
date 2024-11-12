@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2113613496294778607}
   - component: {fileID: 2422633703024239703}
+  - component: {fileID: 323105513251090686}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -58,7 +59,7 @@ MonoBehaviour:
     bypassReverbZones: 1
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: ThrusterLayer
     clip: {fileID: 8300000, guid: 0f13857caaefa6642bcdef52cf128ab9, type: 3}
@@ -71,7 +72,7 @@ MonoBehaviour:
     bypassReverbZones: 1
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: ThrusterStop
     clip: {fileID: 8300000, guid: 5088626b7a8037b4da33ce0f5c042ab4, type: 3}
@@ -84,7 +85,7 @@ MonoBehaviour:
     bypassReverbZones: 1
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: ThrusterHiss
     clip: {fileID: 8300000, guid: 229316cb6a535794a9384f486acc0220, type: 3}
@@ -97,7 +98,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: MultitoolGravityTransient1
     clip: {fileID: 8300000, guid: 257cb85c14eb61944a5934b559aebc86, type: 3}
@@ -110,7 +111,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: MultitoolGravityTransient2
     clip: {fileID: 8300000, guid: 0bc4a9a93844e8b44ae21822ccfab1df, type: 3}
@@ -123,7 +124,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: MultitoolGravityTransient3
     clip: {fileID: 8300000, guid: fa4a11abad97ca4419b5fefea6deb3b6, type: 3}
@@ -136,7 +137,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: MultitoolGravityHum
     clip: {fileID: 8300000, guid: 11007d4762395ff43b5a92e4e300ee39, type: 3}
@@ -149,7 +150,7 @@ MonoBehaviour:
     bypassReverbZones: 1
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: MultitoolGravityEnd1
     clip: {fileID: 8300000, guid: 0434896b810e80e4cb67e229df150372, type: 3}
@@ -162,7 +163,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: MultitoolGravityEnd2
     clip: {fileID: 8300000, guid: 168a8c5e745f3004dba4647c4aaeda45, type: 3}
@@ -175,7 +176,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: MultitoolGravityEnd3
     clip: {fileID: 8300000, guid: 1c0817375c86c7e4198e85e81f55e5fd, type: 3}
@@ -188,7 +189,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: PlayerImpactLight1
     clip: {fileID: 8300000, guid: 8173840f21cb8ef4aa8a5026e98ce07f, type: 3}
@@ -201,7 +202,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: PlayerImpactLight2
     clip: {fileID: 8300000, guid: bcb55577b30d6f74086b755f0ffdefaa, type: 3}
@@ -214,7 +215,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: PlayerImpactLight3
     clip: {fileID: 8300000, guid: 562d0da311662c343a31d6b9a23475f8, type: 3}
@@ -227,7 +228,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: PlayerImpactLight4
     clip: {fileID: 8300000, guid: f4cf67ed225cd514989686aa454c765f, type: 3}
@@ -240,7 +241,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: PlayerImpactMedium1
     clip: {fileID: 8300000, guid: fc878634d8840b846a7a4261694d5e58, type: 3}
@@ -253,7 +254,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: PlayerImpactMedium2
     clip: {fileID: 8300000, guid: 733989d0cfc2af14a8e0ecf2f38114f0, type: 3}
@@ -266,7 +267,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: PlayerImpactMedium3
     clip: {fileID: 8300000, guid: d0d034f044b833f4e942bcd1b9504e34, type: 3}
@@ -279,7 +280,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: PlayerImpactMedium4
     clip: {fileID: 8300000, guid: b9f4a9c31eef4ee4295f95dfb1a49925, type: 3}
@@ -292,7 +293,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: PlayerImpactHeavy1
     clip: {fileID: 8300000, guid: 8554e7c6a87934c47b9a231321e95b4c, type: 3}
@@ -305,7 +306,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: PlayerImpactHeavy2
     clip: {fileID: 8300000, guid: 9d8cbd509ace24e4badeed1e9b735ad8, type: 3}
@@ -318,7 +319,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: PlayerImpactHeavy3
     clip: {fileID: 8300000, guid: c8902bc97469b8e47a8e31a72e21d98a, type: 3}
@@ -331,7 +332,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: PlayerImpactHeavy4
     clip: {fileID: 8300000, guid: 5f46d051b3978774ca8a1e543e941798, type: 3}
@@ -344,7 +345,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: PlayerDamage
     clip: {fileID: 8300000, guid: 688bfa2c3638cdb4f8ece12e52fa12f9, type: 3}
@@ -357,7 +358,7 @@ MonoBehaviour:
     bypassReverbZones: 1
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: CoreLoop
     clip: {fileID: 8300000, guid: 1ffc470b481db8c4c834a7ec0f97f336, type: 3}
@@ -370,7 +371,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: CoreAudio
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: CoreNoOverheat
     clip: {fileID: 8300000, guid: d4d371bbe8ebef045aea50f22c949360, type: 3}
@@ -383,7 +384,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: CoreAudio
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: CoreSlightOverheat
     clip: {fileID: 8300000, guid: dda66f79365163447a6cf2eec4978936, type: 3}
@@ -396,7 +397,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: CoreAudio
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: CoreHeavyOverheat
     clip: {fileID: 8300000, guid: a0eb3e82b81dd4d4bbaab11b7681b5a2, type: 3}
@@ -409,7 +410,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: CoreAudio
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: CoreDamage1
     clip: {fileID: 8300000, guid: 822cf13ec11b86c429757ae51e833535, type: 3}
@@ -422,7 +423,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: CoreAudio
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: CoreDamage2
     clip: {fileID: 8300000, guid: ce86d90e1b5e3c24ea86ad6edfcab882, type: 3}
@@ -435,7 +436,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: CoreAudio
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: CoreDamage3
     clip: {fileID: 8300000, guid: 401670fbdcc8bc34badaec37e9bc935a, type: 3}
@@ -448,7 +449,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: CoreAudio
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: AlarmMusicLayer1
     clip: {fileID: 8300000, guid: 58eb1c8531816124c9ab203ea57e34e9, type: 3}
@@ -461,7 +462,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: Music
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: AlarmMusicLayer2
     clip: {fileID: 8300000, guid: 54a82af86b3263b4bac5a31c73cdd36d, type: 3}
@@ -474,7 +475,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: Music
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: AlarmMusicLayer3
     clip: {fileID: 8300000, guid: 4eeaf42601ac6374d86712f682ddbe66, type: 3}
@@ -487,7 +488,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: Music
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: AlarmMusicIntro
     clip: {fileID: 8300000, guid: cf51c4734be9eac478f21906a1becef4, type: 3}
@@ -500,7 +501,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: Music
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: AmbienceDerelict
     clip: {fileID: 8300000, guid: e0df82afaeef72b4484ae5f96ab74daf, type: 3}
@@ -513,7 +514,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: Ambience
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: AmbienceMeltdown
     clip: {fileID: 8300000, guid: 6900fa3ffd0639b408764d0a41a5b278, type: 3}
@@ -526,7 +527,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 1
-    sourceObjectName: Ambience
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: ShipPowerOn
     clip: {fileID: 8300000, guid: 4df5598fb8ebfc749bc91e3691e3f4ec, type: 3}
@@ -538,7 +539,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: CoreAudio
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: MultitoolCutting1
     clip: {fileID: 8300000, guid: 48c682e5b95dec04bbc647d7b301da28, type: 3}
@@ -551,7 +552,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: MultitoolCutting2
     clip: {fileID: 8300000, guid: 1296047f4da97e74a9a6473a3e09d670, type: 3}
@@ -564,7 +565,7 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: MultitoolCutting3
     clip: {fileID: 8300000, guid: bd425be789b25d14b858dbe4ef7e5308, type: 3}
@@ -577,8 +578,104 @@ MonoBehaviour:
     bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
-    sourceObjectName: 
+    sourceObject: {fileID: 0}
     source: {fileID: 0}
+  - name: AmbientMusic1
+    clip: {fileID: 8300000, guid: fc95c24e69e3a0a4e9650b18f9f78dcc, type: 3}
+    mixerGroup: {fileID: 3192342637259892725, guid: 593f6e12a0383c24c93cf48f8d728fd9,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: AmbientMusic2
+    clip: {fileID: 8300000, guid: bcb28971f9f13894f89709092c54b4c7, type: 3}
+    mixerGroup: {fileID: 3192342637259892725, guid: 593f6e12a0383c24c93cf48f8d728fd9,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: AmbientMusic3
+    clip: {fileID: 8300000, guid: 17216f4bfb8d1ec45aa5d43aa6bf2067, type: 3}
+    mixerGroup: {fileID: 3192342637259892725, guid: 593f6e12a0383c24c93cf48f8d728fd9,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: AmbientMusic4
+    clip: {fileID: 8300000, guid: 862a6cb20e269d143aed4abe9aead1fd, type: 3}
+    mixerGroup: {fileID: 3192342637259892725, guid: 593f6e12a0383c24c93cf48f8d728fd9,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: MainMenuMusic
+    clip: {fileID: 8300000, guid: 52644662cb819f249ad10f7776794e27, type: 3}
+    mixerGroup: {fileID: 24300002, guid: d3ff09dec4119ae41940007921b2ea5c, type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: MainMenuAmbience
+    clip: {fileID: 8300000, guid: 34c30b184901ecc4d8ccb0bc25744ada, type: 3}
+    mixerGroup: {fileID: 24300002, guid: d3ff09dec4119ae41940007921b2ea5c, type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 100
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 1
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+--- !u!114 &323105513251090686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699993029445035752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9989bce6f65692844b08838be06c1cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterMixer: {fileID: 24100000, guid: d3ff09dec4119ae41940007921b2ea5c, type: 2}
+  pausedSnapshot: {fileID: 4634488299930520936, guid: d3ff09dec4119ae41940007921b2ea5c,
+    type: 2}
+  unpausedSnapshot: {fileID: 24500006, guid: d3ff09dec4119ae41940007921b2ea5c, type: 2}
+  musicMixer: {fileID: 24100000, guid: 593f6e12a0383c24c93cf48f8d728fd9, type: 2}
+  musicLowPass: {fileID: 6735765389750778426, guid: 593f6e12a0383c24c93cf48f8d728fd9,
+    type: 2}
+  musicNormal: {fileID: 24500006, guid: 593f6e12a0383c24c93cf48f8d728fd9, type: 2}
 --- !u!1 &7788608340621674505
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,6 +830,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5523663869426418267}
   - component: {fileID: 661235720918885168}
+  - component: {fileID: 6211794030285199260}
+  - component: {fileID: 1963143199848350424}
   m_Layer: 0
   m_Name: Music
   m_TagString: Untagged
@@ -771,3 +870,34 @@ MonoBehaviour:
   AlarmMusicLayer1: AlarmMusicLayer1
   AlarmMusicLayer2: AlarmMusicLayer2
   AlarmMusicLayer3: AlarmMusicLayer3
+--- !u!114 &6211794030285199260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7902608572272484136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a98bdef559b0bb4597f8fa9d67e4d2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ambientMusicTracks:
+  - AmbientMusic1
+  - AmbientMusic2
+  - AmbientMusic3
+  - AmbientMusic4
+--- !u!114 &1963143199848350424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7902608572272484136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1c7a33b7c344d43a87271d03f4bb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenuMusic: MainMenuMusic
+  mainMenuAmbience: MainMenuAmbience

@@ -10,14 +10,26 @@ namespace CLI.FSM
         {
         }
 
+        public override void OnEnter()
+        {
+            stateController.AddText("Core Systems Directory. <BR> Auxiliary power mode on <BR> Please connect power coupling with the main Reactor.");
+            base.OnEnter();
+        }
+
         public override void Interpret(string[] command)
         {
             if (command[0] == "disconnect")
             {
-                if (GameObject.Find("EngineComputer").GetComponent<ShipPowerOn>().isPowerOn)
+                if (GameObject.Find("PowerOnSwitch").gameObject.transform.GetChild(0).GetComponent<ShipPowerOn>().isPowerOn)
                 {
                     GameObject.Find("CoreComputer").GetComponent<MeltdownPhase>().enabled = true;
-                    
+
+                    EventDispatcher[] dispatcher;
+                    dispatcher = stateController.gameObject.GetComponents<EventDispatcher>();
+                    dispatcher[1].TriggerEvent();
+
+                    stateController.AddText("Containment Core disconnected.<BR> Containment Core released<BR><BR>>Downloaded System data to scanner<BR>---<BR>UNAUTHORIZED ACCESS DETECTED<BR>---<BR>CAUTION: Security systems activated. Alarm State raised. Containment Core meltdown imminent. Threat assessment lockdown in progress.");
+
                 }
                 else
                 {

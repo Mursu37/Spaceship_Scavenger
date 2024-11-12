@@ -12,6 +12,7 @@ Shader "XRay/Outline2"
     TEXTURE2D_X(_OutlineBuffer);
     float4 _OutlineColor;
     float _Threshold;
+    float4 _fadeColor;
 
     #define v2 1.41421
     #define c45 0.707107
@@ -53,42 +54,29 @@ Shader "XRay/Outline2"
         float4 outline = SAMPLE_TEXTURE2D_X_LOD(_OutlineBuffer, s_linear_clamp_sampler, uv, 0);
         outline.a = 0;
 
-      // If this sample is below the threshold
-        float threshold = Luminance(outline.rgb + luminanceThreshold);
-        //if (Luminance(outline.rgb) < luminanceThreshold)
-        //{
-            // Search neighbors
-            bool edge = false;
-            for (int i = 0; i < MAXSAMPLES; i++)
-            {
-                float2 uvN = uv + _ScreenSize.zw * scaling * samplingPositions[i];
-                float4 neighbour = SAMPLE_TEXTURE2D_X_LOD(_OutlineBuffer, s_linear_clamp_sampler, uvN, 0);
+     
+        float threshold = Luminance(float3(outline.rg, 0) + luminanceThreshold);
+        if (outline.b > 0.2)
+        {
+            return float4(0,0,0,0);
+        } 
+        for (int i = 0; i < MAXSAMPLES; i++)
+        {
+            float2 uvN = uv + _ScreenSize.zw * scaling * samplingPositions[i];
+            float4 neighbour = SAMPLE_TEXTURE2D_X_LOD(_OutlineBuffer, s_linear_clamp_sampler, uvN, 0);
 
-                if (Luminance(neighbour) > threshold)
-                {
-                    outline.rgb = _OutlineColor.rgb;
-                    outline.a = 1;
-                    edge = true;
-                    break;
-                }
-            }
-        /*
-            if (!edge && Luminance(outline) > 0.001)
+            
+            if (neighbour.b > 0.2)
             {
-                if (Luminance(outline) > 0.055)
-                {
-                    outline.rgb = float3(0, 0, 1);
-                    outline.a = 0.02;
-                }
-                else
-                {
-                    outline.rgb = float3(0, 1, 0);
-                    outline.a = 0.1;
-                }
+                continue;
             }
-          */  
-        //}
-
+            if (Luminance(float3(neighbour.rg, 0)) > threshold)
+            {
+                outline.rgb = _OutlineColor.rgb;
+                outline.a = 1;
+                break;
+            }
+        }
         return outline;
     }
 

@@ -18,6 +18,14 @@ namespace CLI.FSM
         protected State defaultState;
         private string path;
 
+        // for changing the music mixer snapshot on CLI enable
+        private MixerController mixerController;
+        
+        private void Start()
+        {
+            mixerController = FindObjectOfType<MixerController>();
+        }
+
         protected StateController()
         {
             defaultState = new MainDriveState(this);
@@ -40,6 +48,9 @@ namespace CLI.FSM
                 return;
             }
             stateHistory.Remove(stateHistory.Last());
+
+            ChangeText("Moved back to " + directoryText.text + " directory");
+            
             ChangeState(stateHistory.Last());
             
             // loop through current directories to update the directoryText
@@ -50,15 +61,14 @@ namespace CLI.FSM
                 directoryText.text += "\\" + currentDirectories[i];
             }
             
-            ChangeText("Moved back to " + directoryText.text + " directory");
         }
 
         public virtual void ChangeDeeper(State newState, string dirName)
         {
             stateHistory.Add(newState);
-            ChangeState(newState);
             directoryText.text += "\\" + dirName;
             ChangeText("Moved to " + directoryText.text + " directory");
+            ChangeState(newState);
         }
 
         public virtual void ChangeText(string text)
@@ -67,7 +77,14 @@ namespace CLI.FSM
             commandLineInput.text = "";
             commandLineInput.ActivateInputField();
         }
-        
+
+        public virtual void AddText(string text)
+        {
+            commandLineText.text = commandLineText.text + "<BR><BR>" + text;
+            commandLineInput.text = "";
+            commandLineInput.ActivateInputField();
+        }
+
         private void OnGUI()
         {
             // Detects a new string of text being sent from commandLine
@@ -87,8 +104,12 @@ namespace CLI.FSM
         
         protected void OnEnable()
         {
-            Time.timeScale = 0;
+            Time.timeScale = 0.01f;
             commandLineInput.ActivateInputField();
+            currentState?.OnEnter();
+
+            //Change mixer snapshot
+            mixerController?.LowPassMusicTransition();
         }
 
         private void OnDisable()
@@ -106,6 +127,9 @@ namespace CLI.FSM
             directoryText.text = "C:";
 
             commandLineInput.ActivateInputField();
+
+            //Change mixer snapshot
+            mixerController?.NormalMusicTransition();
         }
 
         void Update()

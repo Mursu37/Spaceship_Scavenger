@@ -14,6 +14,8 @@ public class Cutting : MonoBehaviour
     private LayerMask layerMask; // Define a LayerMask to specify layers for Cuttable and Explosive
     private Transform cuttingPoint;
     private bool canCut = false;
+    private ModeSwitch modeSwitch;
+    private PlayerMovement playerMovement;
 
     [SerializeField] private LineRenderer rightmostLaser;
     [SerializeField] private LineRenderer leftmostLaser;
@@ -23,20 +25,13 @@ public class Cutting : MonoBehaviour
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private GameObject horizontalCrosshair;
     [SerializeField] private GameObject verticalCrosshair;
-    //[SerializeField] private TMP_Text stageText; // Arina UI
+    [SerializeField] private GameObject playerObject;
 
     private void Start()
     {
-        layerMask = LayerMask.GetMask("Ignore Raycast");
+        layerMask = LayerMask.GetMask("Player");
         rightmostLaser.enabled = false;
         leftmostLaser.enabled = false;
-
-
-        //// Display "Stage 2"
-        //if (stageText != null)
-        //{
-        //    stageText.text = "[ STAGE 1 ]";
-        //}
     }
 
     private void Update()
@@ -159,12 +154,6 @@ public class Cutting : MonoBehaviour
             Destroy(point.gameObject);
             cuttingPoint = null;
         }
-
-        //// Display "Stage 2" after cutting is done
-        //if (stageText != null)
-        //{
-        //    stageText.text = "[ STAGE 2 ]"; // Update the UI text to show Stage 2
-        //}
     }
 
     // Function to check if the angles of two objects are close
