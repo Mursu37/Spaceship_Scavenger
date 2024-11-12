@@ -52,11 +52,10 @@ Shader "Hidden/Outline"
         float2 uv = posInput.positionNDC.xy * scaling;
         float4 outline = SAMPLE_TEXTURE2D_X_LOD(_OutlineBuffer, s_linear_clamp_sampler, uv, 0);
         outline.a = 0;
-
-      // If this sample is below the threshold
+        
         float threshold = Luminance(outline.rgb + luminanceThreshold);
-        //if (Luminance(outline.rgb) < luminanceThreshold)
-        //{
+        if (Luminance(outline.rgb) < luminanceThreshold)
+        {
             // Search neighbors
             for (int i = 0; i < MAXSAMPLES; i++)
             {
@@ -70,7 +69,7 @@ Shader "Hidden/Outline"
                     break;
                 }
             }
-        //}
+        }
 
         return outline;
     }
