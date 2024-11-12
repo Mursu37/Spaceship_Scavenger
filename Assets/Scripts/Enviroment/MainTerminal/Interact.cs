@@ -8,6 +8,7 @@ public class Interact : MonoBehaviour
 
     [SerializeField] private LayerMask interactableLayerMask;
     private Camera camera;
+    public GameObject currentlyHighlighted;
     
     private void Start()
     {
@@ -30,6 +31,16 @@ public class Interact : MonoBehaviour
                     hit.transform.GetComponent<IInteractable>().Interact();
                 }
             }
+        }
+
+        if (Physics.Raycast(camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out RaycastHit hit2, 10f,
+                interactableLayerMask))
+        {
+            currentlyHighlighted = hit2.transform.gameObject;
+        }
+        else
+        {
+            currentlyHighlighted = null;
         }
     }
 }
