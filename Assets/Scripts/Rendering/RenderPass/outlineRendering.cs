@@ -12,6 +12,7 @@ class outlineRendering : CustomPass
     [Range(0, 10)] public float threshold = 1;
     public Material replacementMaterial;
     public Shader outlineShader;
+    [SerializeField] private Interact interact;
     
     [SerializeField, HideInInspector]
     Material fullscreenOutline;
@@ -34,55 +35,23 @@ class outlineRendering : CustomPass
 
     protected override void Execute(CustomPassContext ctx)
     {
-        
-        // get renderers
-        var renderers = Object.FindObjectsByType<Renderer>(FindObjectsSortMode.None);
-
-        
         // Sets properties for outline
         ctx.propertyBlock.SetColor("_OutlineColor", outlineColor);
         ctx.propertyBlock.SetFloat("_Threshold", threshold);
 
-        /*
+        if (interact.currentlyHighlighted == null) return;
+        var renderers = interact.currentlyHighlighted.GetComponentsInChildren<Renderer>();
+        // set outlineBuffer as render target
         CoreUtils.SetRenderTarget(ctx.cmd, outlineBuffer, ClearFlag.Color);
-        
-        CustomPassUtils.DrawRenderers(ctx, outlineLayer, RenderQueueType.All, replacementMaterial, 0, 
-            default(RenderStateBlock), SortingCriteria.CommonTransparent);
-        
-        ctx.propertyBlock.SetTexture("_OutlineBuffer", outlineBuffer);
-        
-        CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);
-        CoreUtils.DrawFullScreen(ctx.cmd, fullscreenOutline, ctx.propertyBlock, shaderPassId: 0);
-        */
-        
-        // Render each objects outline in outlineLayer (layermask) separately to get the object outlines through walls 
         foreach (var obj in renderers)
         {
-            // checks if layer is in layermask
-            if ((outlineLayer & (1 << obj.gameObject.layer)) != 0)
-            {
-                // set outlineBuffer as render target
-                CoreUtils.SetRenderTarget(ctx.cmd, outlineBuffer, ClearFlag.Color);
-                
-                // add draw renderer command to command buffer
-                ctx.cmd.DrawRenderer(obj, replacementMaterial);
-                
-                // set texture that shader samples as outline buffer
-                ctx.propertyBlock.SetTexture("_OutlineBuffer", outlineBuffer);
-                
-                // renders objects outline to camera
-                CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);
-                CoreUtils.DrawFullScreen(ctx.cmd, fullscreenOutline, ctx.propertyBlock, shaderPassId: 0);
-            }
-        
+            // add draw renderer command to command buffer
+            ctx.cmd.DrawRenderer(obj, replacementMaterial);
         }
-
-        // should be redundant now. need to test
-        /*
+        // set texture that shader samples as outline buffer
         ctx.propertyBlock.SetTexture("_OutlineBuffer", outlineBuffer);
         CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);
         CoreUtils.DrawFullScreen(ctx.cmd, fullscreenOutline, ctx.propertyBlock, shaderPassId: 0);
-        */
     }
 
     protected override void Cleanup()
