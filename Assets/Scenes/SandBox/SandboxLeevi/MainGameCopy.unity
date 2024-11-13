@@ -730,6 +730,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5346a7531f051d48abb3b2f9d9d1e14, type: 3}
+--- !u!225 &45469366 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 665380765554608477, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1090603759}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &51042197
 Mesh:
   m_ObjectHideFlags: 0
@@ -9533,6 +9539,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fff40104fad635e4e9f964501910cf3c, type: 3}
+--- !u!1 &478584960 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2466313176236870170, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1090603759}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &478905370 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c33868ee45d762148a132aae03602698,
@@ -12290,6 +12302,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2792919604547166165, guid: f7706f79e4135f44b84335d3ff8c3212,
+        type: 3}
+      propertyPath: gameOver
+      value: 
+      objectReference: {fileID: 478584960}
     - target: {fileID: 3764621723550051840, guid: f7706f79e4135f44b84335d3ff8c3212,
         type: 3}
       propertyPath: spawnPoint
@@ -14684,6 +14701,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!225 &735589292 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 2122358862818060028, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1090603759}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &741216544 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2572504564319406086, guid: 84867af06ffc96746a148457e558796c,
@@ -16125,12 +16148,12 @@ PrefabInstance:
     - target: {fileID: 8240356739133988897, guid: ec678b3000fd17e4f92bb401f3138524,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0001562358
+      value: 0.00015631756
       objectReference: {fileID: 0}
     - target: {fileID: 8240356739133988897, guid: ec678b3000fd17e4f92bb401f3138524,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.005215778
+      value: 0.0057040597
       objectReference: {fileID: 0}
     - target: {fileID: 8243710975112532153, guid: ec678b3000fd17e4f92bb401f3138524,
         type: 3}
@@ -31058,6 +31081,26 @@ PrefabInstance:
       propertyPath: multiTool
       value: 
       objectReference: {fileID: 1991281728}
+    - target: {fileID: 351540661684592475, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+        type: 3}
+      propertyPath: fadeTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 351540661684592475, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+        type: 3}
+      propertyPath: groups.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 351540661684592475, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+        type: 3}
+      propertyPath: groups.Array.data[0]
+      value: 
+      objectReference: {fileID: 735589292}
+    - target: {fileID: 351540661684592475, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+        type: 3}
+      propertyPath: groups.Array.data[1]
+      value: 
+      objectReference: {fileID: 45469366}
     - target: {fileID: 465880202828275016, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
         type: 3}
       propertyPath: m_IsActive
@@ -31221,7 +31264,7 @@ PrefabInstance:
     - target: {fileID: 4823294532142040897, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
         type: 3}
       propertyPath: m_Name
-      value: Canvas
+      value: HUDCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 4850230220796602569, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
         type: 3}
@@ -31283,7 +31326,8 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 660902984}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 351540661684592475, guid: 31836cb65f2cdcf42af5c814b65ea0d8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3779140804386572351, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
