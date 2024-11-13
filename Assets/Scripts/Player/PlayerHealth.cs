@@ -21,10 +21,11 @@ public class PlayerHealth : MonoBehaviour, IHealth
         }
     }
 
-    public void Damage(float amount)
+    public void Damage(float amount, float shakeAmount = 0.04f)
     {
         currentHealth -= amount;
         Camera.main.GetComponent<CameraShake>().shakeDuration = 0.2f;
+        Camera.main.GetComponent<CameraShake>().shakeAmount = shakeAmount;
         if (healthImage25 != null && healthImage50 != null)
         {
             UpdateHealthUI();

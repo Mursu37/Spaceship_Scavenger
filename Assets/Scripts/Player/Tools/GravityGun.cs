@@ -45,7 +45,7 @@ public class GravityGun : MonoBehaviour
         modeSwitch = GetComponent<ModeSwitch>();
     }
 
-    // Attracts things towards the player
+    // Attracts things towards to defined point
     private void Attract()
     {
         RaycastHit hit;
