@@ -51,7 +51,7 @@ public class Cutting : MonoBehaviour
             Transform hitTransform = hit.transform;
             Debug.Log(hitTransform.name);
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !PauseGame.isPaused)
             {
                 if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, tolerance))
                 {
@@ -66,7 +66,7 @@ public class Cutting : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && !PauseGame.isPaused)
         {
             isVerticalCut = !isVerticalCut;
 
@@ -98,47 +98,51 @@ public class Cutting : MonoBehaviour
 
     private IEnumerator AnimateLasers(Transform point, float duration)
     {
-        Collider collider = point.GetComponent<Collider>();
-        if (collider != null)
+        MeshFilter meshFilter = point.GetComponent<MeshFilter>();
+        if (meshFilter != null)
         {
-            var bounds = collider.bounds;
-
-            // Get the center and rightmost / leftmost points in world space
-            Vector3 center = bounds.center;
-            Vector3 rightmostPoint = new Vector3(bounds.max.x, bounds.center.y, bounds.center.z);
-            Vector3 leftmostPoint = new Vector3(bounds.min.x, bounds.center.y, bounds.center.z);
-
-            // Enable the line renderer and set the start position
-            rightmostLaser.enabled = true;
-            rightmostLaser.SetPosition(0, shootingPoint.position); // Start point
-            rightmostLaser.SetPosition(1, center); // Start at the center
-
-            leftmostLaser.enabled = true;
-            leftmostLaser.SetPosition(0, shootingPoint.position); // Start point
-            leftmostLaser.SetPosition(1, center); // Start at the center
-
-            // Animate the line to the rightmost point
-            float elapsedTime = 0f;
-
-            while (elapsedTime < duration)
+            var mesh = meshFilter.sharedMesh;
+            if (mesh != null)
             {
-                // Calculate the progress of the animation
-                float t = elapsedTime / duration;
+                // Get the center and rightmost / leftmost points in world space
+                Vector3 center = point.TransformPoint(mesh.bounds.center);
+                Vector3 rightmostPoint = point.TransformPoint(
+                    new Vector3(mesh.bounds.max.x, mesh.bounds.center.y, mesh.bounds.center.z));
+                Vector3 leftmostPoint = point.TransformPoint(
+                    new Vector3(mesh.bounds.min.x, mesh.bounds.center.y, mesh.bounds.center.z));
 
-                // Update the end position of the line renderer
-                Vector3 currentRightPoint = Vector3.Lerp(center, rightmostPoint, t);
-                rightmostLaser.SetPosition(1, currentRightPoint);
+                // Enable the line renderer and set the start position
+                rightmostLaser.enabled = true;
+                rightmostLaser.SetPosition(0, shootingPoint.position); // Start point
+                rightmostLaser.SetPosition(1, center); // Start at the center
 
-                Vector3 currentLeftPoint = Vector3.Lerp(center, leftmostPoint, t);
-                leftmostLaser.SetPosition(1, currentLeftPoint);
+                leftmostLaser.enabled = true;
+                leftmostLaser.SetPosition(0, shootingPoint.position); // Start point
+                leftmostLaser.SetPosition(1, center); // Start at the center
 
-                // Increment the elapsed time
-                elapsedTime += Time.deltaTime;
-                yield return null; // Wait for the next frame
+                // Animate the line to the rightmost point
+                float elapsedTime = 0f;
+
+                while (elapsedTime < duration)
+                {
+                    // Calculate the progress of the animation
+                    float t = elapsedTime / duration;
+
+                    // Update the end position of the line renderer
+                    Vector3 currentRightPoint = Vector3.Lerp(center, rightmostPoint, t);
+                    rightmostLaser.SetPosition(1, currentRightPoint);
+
+                    Vector3 currentLeftPoint = Vector3.Lerp(center, leftmostPoint, t);
+                    leftmostLaser.SetPosition(1, currentLeftPoint);
+
+                    // Increment the elapsed time
+                    elapsedTime += Time.deltaTime;
+                    yield return null; // Wait for the next frame
+                }
+
+                rightmostLaser.SetPosition(1, rightmostPoint);
+                leftmostLaser.SetPosition(1, leftmostPoint);
             }
-
-            rightmostLaser.SetPosition(1, rightmostPoint);
-            leftmostLaser.SetPosition(1, leftmostPoint);
         }
 
         rightmostLaser.enabled = false;

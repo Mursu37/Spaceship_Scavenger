@@ -17,7 +17,7 @@ public class Interact : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Interact"))
+        if (Input.GetButtonDown("Interact") && !PauseGame.isPaused)
         {
             if (Physics.Raycast(camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out RaycastHit hit, 2f,
                     interactableLayerMask))

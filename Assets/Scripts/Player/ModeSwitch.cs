@@ -26,7 +26,7 @@ public class ModeSwitch : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f && !PauseGame.isPaused)
         {
             selectedMode++;
             if (selectedMode > 1)
@@ -36,7 +36,7 @@ public class ModeSwitch : MonoBehaviour
             SelectMode();
         }
 
-        if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f && !PauseGame.isPaused)
         {
             selectedMode--;
             if (selectedMode < 0)
@@ -46,13 +46,13 @@ public class ModeSwitch : MonoBehaviour
             SelectMode();
         }
 
-        if (Input.GetButtonDown("Num1"))
+        if (Input.GetButtonDown("Num1") && !PauseGame.isPaused)
         {
             selectedMode = 0;
             SelectMode();
         }
 
-        if (Input.GetButtonDown("Num2"))
+        if (Input.GetButtonDown("Num2") && !PauseGame.isPaused)
         {
             selectedMode = 1;
             SelectMode();
