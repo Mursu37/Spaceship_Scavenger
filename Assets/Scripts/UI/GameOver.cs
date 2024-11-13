@@ -5,16 +5,52 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
+    private FadeOut fadeOut;
+    private bool hasFadedOut = false;
+    private GameOverAction currentAction = GameOverAction.None;
+
+    private enum GameOverAction
+    {
+        None,
+        Retry,
+        Return
+    }
+
+    private void Awake()
+    {
+        fadeOut = GetComponent<FadeOut>();
+    }
+
     public void Retry()
     {
-        PauseGame.Resume();
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
+        Time.timeScale = 1f;
+        currentAction = GameOverAction.Retry;
+        fadeOut.StartFadeOut();
     }
 
     public void ReturnToMainMenu()
     {
-        PauseGame.Resume();
-        SceneManager.LoadSceneAsync("MainMenu");
+        Time.timeScale = 1f;
+        currentAction = GameOverAction.Return;
+        fadeOut.StartFadeOut();
+    }
+
+    private void Update()
+    {
+        if (fadeOut.allFadedOut && !hasFadedOut)
+        {
+            PauseGame.Resume();
+            hasFadedOut = true;
+
+            if (currentAction == GameOverAction.Retry)
+            {
+                Scene scene = SceneManager.GetActiveScene();
+                SceneManager.LoadScene(scene.name);
+            }
+            else if (currentAction == GameOverAction.Return)
+            {
+                SceneManager.LoadSceneAsync("MainMenu");
+            }
+        }
     }
 }

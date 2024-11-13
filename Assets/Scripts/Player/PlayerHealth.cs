@@ -9,7 +9,8 @@ public class PlayerHealth : MonoBehaviour, IHealth
 {
     private FadeIn fadeIn;
     private AmbientMusic ambientMusic;
-    private bool hasPlayedSound = false;
+    private bool hasDied = false;
+    private bool hasFadeIn = false;
 
     public float currentHealth;
     [SerializeField] private float maxHealth = 5f;
@@ -54,29 +55,28 @@ public class PlayerHealth : MonoBehaviour, IHealth
         // Reload the scene when health goes zero or below
         if (currentHealth <= 0)
         {
-            if (!hasPlayedSound)
+            if (!hasDied)
             {
                 AudioManager.PlayAudio("GameOverSound", 1, 1, false, null, true);
-                hasPlayedSound = true;
-            }
-            
-            AudioListener.pause = true;
-            PauseGame.isPaused = true;
-            GetComponent<PlayerMovement>().enabled = false;
-            gameOver.SetActive(true);
-            fadeIn.StartFadeIn();
+                AudioListener.pause = true;
+                PauseGame.isPaused = true;
+                GetComponent<PlayerMovement>().enabled = false;
+                gameOver.SetActive(true);
+                fadeIn.StartFadeIn();
 
+                ambientMusic = FindObjectOfType<AmbientMusic>();
+                if (ambientMusic != null)
+                {
+                    ambientMusic.StopAmbientMusic();
+                }
 
-
-            ambientMusic = FindObjectOfType<AmbientMusic>();
-            if (ambientMusic != null)
-            {
-                ambientMusic.StopAmbientMusic();
+                hasDied = true;
             }
 
-            if (fadeIn.allFadedIn)
+            if (fadeIn.allFadedIn && !hasFadeIn)
             {
                 PauseGame.Pause();
+                hasFadeIn = true;
             }
         }
     }
