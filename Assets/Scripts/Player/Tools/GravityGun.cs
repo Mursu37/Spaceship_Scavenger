@@ -18,6 +18,7 @@ public class GravityGun : MonoBehaviour
     public bool isAttracting;
     private Quaternion targetInitialRotation;
     private Quaternion playerInitialRotation;
+    private Vector3 localHitOffset;
 
     [SerializeField] private GameObject playerObject;
     [SerializeField] private Rigidbody playerRb;
@@ -44,7 +45,7 @@ public class GravityGun : MonoBehaviour
         modeSwitch = GetComponent<ModeSwitch>();
     }
 
-    // Attracts things towards the player
+    // Attracts things towards to defined point
     private void Attract()
     {
         RaycastHit hit;
@@ -64,25 +65,29 @@ public class GravityGun : MonoBehaviour
                     targetRb.constraints = RigidbodyConstraints.FreezeRotation;
                     targetInitialRotation = target.transform.rotation;
                     playerInitialRotation = playerObject.transform.rotation;
+
+                    localHitOffset = target.transform.InverseTransformPoint(hit.point);
                 }
             }
         }
 
         if (target != null && targetRb != null && !target.CompareTag("Unmovable"))
         {
-            objectMass = Mathf.Round(targetRb.mass * 10f) / 10f;
+            objectMass = Mathf.Round(targetRb.mass * 10f) / 10f * 10f;
 
             if (playerRb.mass > targetRb.mass)
             {
                 targetRb.drag = 2f;
 
+                Vector3 grapplePoint = target.transform.TransformPoint(localHitOffset);
+
                 // Calculate the required force based on the distance
-                float distance = Vector3.Distance(target.transform.position, floatPoint.position);
-                distanceToPlayer = Mathf.Round(Vector3.Distance(target.transform.position, playerRb.position) * 10f) / 10f;
+                float distance = Vector3.Distance(grapplePoint, floatPoint.position);
+                distanceToPlayer = Mathf.Round(Vector3.Distance(grapplePoint, playerRb.position) * 10f) / 10f;
                 strength = Mathf.Round(attractAcceleration * distance * 10f) / 10f;
 
                 // Calculate the direction to the floating point
-                Vector3 direction = (floatPoint.position - target.transform.position).normalized;
+                Vector3 direction = (floatPoint.position - grapplePoint).normalized;
 
                 // Apply a force in the direction of the floatPoint with intensity decreasing as it gets closer
                 targetRb.AddForce(direction * attractAcceleration * distance);
@@ -105,11 +110,13 @@ public class GravityGun : MonoBehaviour
                 playerRb.drag = 1f;
                 isGrabbling = true;
 
-                float distance = Vector3.Distance(target.transform.position, playerRb.position);
+                Vector3 grapplePoint = target.transform.TransformPoint(localHitOffset);
+
+                float distance = Vector3.Distance(grapplePoint, playerRb.position);
                 distanceToPlayer = Mathf.Round(distance * 10f) / 10f;
                 strength = Mathf.Round(attractAcceleration * distance * 10f) / 10f;
 
-                Vector3 direction = (target.transform.position - playerRb.position).normalized;
+                Vector3 direction = (grapplePoint - playerRb.position).normalized;
 
                 playerRb.AddForce(direction * 0.02f * distance, ForceMode.VelocityChange);
 
@@ -125,12 +132,14 @@ public class GravityGun : MonoBehaviour
                 targetRb.drag = 0.5f;
                 isGrabbling = true;
 
-                float distance = Vector3.Distance(target.transform.position, playerRb.position);
+                Vector3 grapplePoint = target.transform.TransformPoint(localHitOffset);
+
+                float distance = Vector3.Distance(grapplePoint, playerRb.position);
                 distanceToPlayer = Mathf.Round(distance * 10f) / 10f;
                 strength = Mathf.Round(attractAcceleration * distance * 10f) / 10f;
 
-                Vector3 directionToFloatPoint = (playerRb.position - target.transform.position).normalized;
-                Vector3 directionToFloatPlayer = (target.transform.position - playerRb.position).normalized;
+                Vector3 directionToFloatPoint = (playerRb.position - grapplePoint).normalized;
+                Vector3 directionToFloatPlayer = (grapplePoint - playerRb.position).normalized;
 
                 targetRb.AddForce(directionToFloatPoint * 0.01f * distance, ForceMode.VelocityChange);
                 playerRb.AddForce(directionToFloatPlayer * 0.01f * distance, ForceMode.VelocityChange);
@@ -214,22 +223,22 @@ public class GravityGun : MonoBehaviour
 
         Vector3 floatPointPos = floatPoint.localPosition;
 
-        if (scrollWheelInput > 0f)
+        if (scrollWheelInput > 0f && !PauseGame.isPaused)
         {
             floatPointPos.z += 4f * scrollWheelInput;
         }
-        else if (scrollWheelInput < 0f && Vector3.Distance(floatPoint.position, playerRb.position) > 2f)
+        else if (scrollWheelInput < 0f && Vector3.Distance(floatPoint.position, playerRb.position) > 2f && !PauseGame.isPaused)
         {
             floatPointPos.z += 4f * scrollWheelInput;
         }
 
         floatPoint.localPosition = floatPointPos;
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && !PauseGame.isPaused)
         {
             isAttracting = true;
         }
-        else if (Input.GetButtonUp("Fire1"))
+        else if (Input.GetButtonUp("Fire1") && !PauseGame.isPaused)
         {
             isAttracting = false;
         }
@@ -239,7 +248,8 @@ public class GravityGun : MonoBehaviour
         {
             lineRenderer.enabled = true;
             p1.position = shootingPoint.position + cam.transform.forward * 4f;
-            DrawQuadraticBezierCurve(shootingPoint.position, p1.position, target.transform.position);
+            Vector3 grapplePointWorldPosition = target.transform.TransformPoint(localHitOffset);
+            DrawQuadraticBezierCurve(shootingPoint.position, p1.position, grapplePointWorldPosition);
         }
         else if (isAttracting && target != null && targetRb == null)
         {

@@ -23,7 +23,7 @@ public class TogglexRay : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetButtonDown("Scan") && !PauseGame.isPaused)
         {
             if (xRayActive)
             {
@@ -34,7 +34,13 @@ public class TogglexRay : MonoBehaviour
             customPassVolume.enabled = true;
         }
     }
-    
+
+    public void ActivateXraypulse()
+    {
+        xRayActive = true;
+        customPassVolume.enabled = true;
+    }
+
     private void FixedUpdate()
     {
         if (!xRayActive) return;

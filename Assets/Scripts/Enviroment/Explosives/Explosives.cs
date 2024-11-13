@@ -14,7 +14,11 @@ public class Explosives : MonoBehaviour
 
     public void Explode()
     {
-        gameObject.GetComponent<Collider>().enabled = false;
+        if (gameObject.GetComponent<Collider>() != null)
+        {
+            gameObject.GetComponent<Collider>().enabled = false;
+        }
+
         Instantiate(fragments, transform.position, Quaternion.identity);
         Collider[] colliderHit = Physics.OverlapSphere(transform.position, explodeRadius);
 
@@ -38,12 +42,19 @@ public class Explosives : MonoBehaviour
                 Rigidbody playerRb = collider.transform.parent.GetComponent<Rigidbody>();
                 if (player != null)
                 {
-                    player.Damage(damage);
+                    if (damage <= 20f)
+                    {
+                        player.Damage(damage, 0.1f);
+                    }
+                    else
+                    {
+                        player.Damage(damage, 0.4f);
+                    }
                 }
 
                 if (playerRb != null)
                 {
-                    playerRb.AddExplosionForce(5, transform.position, explodeRadius, 1f, ForceMode.Impulse);
+                    playerRb.AddExplosionForce(10, transform.position, explodeRadius, 1f, ForceMode.Impulse);
                 }
             }
         }

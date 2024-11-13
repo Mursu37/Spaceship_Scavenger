@@ -23,7 +23,13 @@ namespace CLI.FSM
                 if (GameObject.Find("PowerOnSwitch").gameObject.transform.GetChild(0).GetComponent<ShipPowerOn>().isPowerOn)
                 {
                     GameObject.Find("CoreComputer").GetComponent<MeltdownPhase>().enabled = true;
-                    
+
+                    EventDispatcher[] dispatcher;
+                    dispatcher = stateController.gameObject.GetComponents<EventDispatcher>();
+                    dispatcher[1].TriggerEvent();
+
+                    stateController.AddText("Containment Core disconnected.<BR> Containment Core released<BR><BR>>Downloaded System data to scanner<BR>---<BR>UNAUTHORIZED ACCESS DETECTED<BR>---<BR>CAUTION: Security systems activated. Alarm State raised. Containment Core meltdown imminent. Threat assessment lockdown in progress.");
+
                 }
                 else
                 {
