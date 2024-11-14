@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,18 +7,36 @@ public class HealthUi : MonoBehaviour
     private PlayerHealth playerHealth;
     private float healthCount;
 
-    [SerializeField] private Image meter;
+    [SerializeField] private Image currentHealthMeter; 
+    [SerializeField] private Image delayedHealthMeter; 
     [SerializeField] private GameObject playerObject;
+    [SerializeField] private float delaySpeed = 0.5f; 
 
     private void Awake()
     {
         playerHealth = playerObject.GetComponent<PlayerHealth>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
+        
         healthCount = playerHealth.currentHealth;
-        meter.fillAmount = healthCount / 100f;
+        currentHealthMeter.fillAmount = healthCount / 100f;
+
+        
+        if (delayedHealthMeter.fillAmount > currentHealthMeter.fillAmount)
+        {
+            
+            delayedHealthMeter.fillAmount = Mathf.MoveTowards(
+                delayedHealthMeter.fillAmount,
+                currentHealthMeter.fillAmount,
+                delaySpeed * Time.deltaTime
+            );
+        }
+        else
+        {
+            delayedHealthMeter.fillAmount = currentHealthMeter.fillAmount;
+        }
     }
 }
+
