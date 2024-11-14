@@ -43,7 +43,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public static void PlayAudio(string name, float volume = 1, float pitch = 1, bool loop = true, double? scheduledStartTime = null)
+    public static void PlayAudio(string name, float volume = 1, float pitch = 1, bool loop = true, double? scheduledStartTime = null, bool ignorePause = false)
     {
         Sound s = Array.Find(instance.sounds, sound => sound.name == name);
 
@@ -55,6 +55,7 @@ public class AudioManager : MonoBehaviour
         s.source.volume = volume;
         s.source.pitch = pitch;
         s.source.loop = loop;
+        s.source.ignoreListenerPause = ignorePause;
 
         if (scheduledStartTime.HasValue)
         {
@@ -64,6 +65,39 @@ public class AudioManager : MonoBehaviour
         {
            s.source.Play(); 
         }
+    }
+
+    //Create a temp GameObject for a sound in space, good for one shot sounds that don't need to be moved
+    public static void PlayModifiedClipAtPoint(string clipName, Vector3 position, float volume = 1f, float spatialBlend = 1f, float minDistance = 1f, float maxDistance = 500f)
+    {
+        Sound s = Array.Find(instance.sounds, sound => sound.name == clipName);
+
+        if (s == null || s.clip == null)
+        {
+            Debug.LogWarning($"Sound {clipName} not found!");
+            return;
+        }
+
+        // Create a new GameObject to play the sound
+        GameObject tempAudioObject = new GameObject("TempAudio_" + clipName);
+        AudioSource tempAudioSource = tempAudioObject.AddComponent<AudioSource>();
+
+        tempAudioSource.clip = s.clip;
+        tempAudioSource.volume = volume;
+        tempAudioSource.spatialBlend = spatialBlend;
+        tempAudioSource.minDistance = minDistance;
+        tempAudioSource.maxDistance = maxDistance;
+        tempAudioSource.rolloffMode = s.rolloffMode; 
+        tempAudioSource.loop = false;
+        tempAudioSource.outputAudioMixerGroup = s.mixerGroup;
+
+        // Position the GameObject at the desired location
+        tempAudioObject.transform.position = position;
+
+        tempAudioSource.Play();
+
+        // Destroy the GameObject after the clip has finished playing
+        UnityEngine.Object.Destroy(tempAudioObject, s.clip.length / tempAudioSource.pitch);
     }
 
     public static void StopAudio(string name)

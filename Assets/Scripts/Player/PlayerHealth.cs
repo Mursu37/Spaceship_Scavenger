@@ -7,8 +7,13 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour, IHealth
 {
+    private FadeIn fadeIn;
+    private AmbientMusic ambientMusic;
+    private bool hasPlayedSound = false;
+
     public float currentHealth;
     [SerializeField] private float maxHealth = 5f;
+    [SerializeField] private GameObject gameOver;
     [SerializeField] private GameObject healthImage50; // for UI
     [SerializeField] private GameObject healthImage25;
 
@@ -19,12 +24,15 @@ public class PlayerHealth : MonoBehaviour, IHealth
         {
             UpdateHealthUI(); // UI
         }
+
+        fadeIn = gameOver.GetComponent<FadeIn>();
     }
 
-    public void Damage(float amount)
+    public void Damage(float amount, float shakeAmount = 0.04f)
     {
         currentHealth -= amount;
         Camera.main.GetComponent<CameraShake>().shakeDuration = 0.2f;
+        Camera.main.GetComponent<CameraShake>().shakeAmount = shakeAmount;
         if (healthImage25 != null && healthImage50 != null)
         {
             UpdateHealthUI();
@@ -46,8 +54,30 @@ public class PlayerHealth : MonoBehaviour, IHealth
         // Reload the scene when health goes zero or below
         if (currentHealth <= 0)
         {
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            if (!hasPlayedSound)
+            {
+                AudioManager.PlayAudio("GameOverSound", 1, 1, false, null, true);
+                hasPlayedSound = true;
+            }
+            
+            AudioListener.pause = true;
+            PauseGame.isPaused = true;
+            GetComponent<PlayerMovement>().enabled = false;
+            gameOver.SetActive(true);
+            fadeIn.StartFadeIn();
+
+
+
+            ambientMusic = FindObjectOfType<AmbientMusic>();
+            if (ambientMusic != null)
+            {
+                ambientMusic.StopAmbientMusic();
+            }
+
+            if (fadeIn.allFadedIn)
+            {
+                PauseGame.Pause();
+            }
         }
     }
 
