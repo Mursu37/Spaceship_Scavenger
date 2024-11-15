@@ -9,19 +9,24 @@ public class PlayerHealth : MonoBehaviour, IHealth
 {
     private FadeIn fadeIn;
     private AmbientMusic ambientMusic;
+    private float previousHealth;
     private bool hasDied = false;
     private bool hasFadeIn = false;
 
     public float currentHealth;
     [SerializeField] private float maxHealth = 5f;
     [SerializeField] private GameObject gameOver;
-    [SerializeField] private GameObject healthImage50; // for UI
-    [SerializeField] private GameObject healthImage25;
+    [SerializeField] private GameObject visor;
+    [SerializeField] private Sprite visorImage100;
+    [SerializeField] private Sprite visorImage50;
+    [SerializeField] private Sprite visorImage25;
 
     private void Awake()
     {
         currentHealth = maxHealth;
-        if (healthImage25 != null && healthImage50 != null)
+        previousHealth = currentHealth;
+
+        if (visorImage25 != null && visorImage50 != null)
         {
             UpdateHealthUI(); // UI
         }
@@ -34,20 +39,12 @@ public class PlayerHealth : MonoBehaviour, IHealth
         currentHealth -= amount;
         Camera.main.GetComponent<CameraShake>().shakeDuration = 0.2f;
         Camera.main.GetComponent<CameraShake>().shakeAmount = shakeAmount;
-        if (healthImage25 != null && healthImage50 != null)
-        {
-            UpdateHealthUI();
-        }
     }
 
     public void Heal(float amount)
     {
         currentHealth += amount;
         if (currentHealth > maxHealth) currentHealth = maxHealth;
-        if (healthImage25 != null && healthImage50 != null)
-        {
-            UpdateHealthUI();
-        }
     }
 
     private void Update()
@@ -79,6 +76,12 @@ public class PlayerHealth : MonoBehaviour, IHealth
                 hasFadeIn = true;
             }
         }
+        
+        if (previousHealth != currentHealth)
+        {
+            UpdateHealthUI();
+            previousHealth = currentHealth;
+        }
     }
 
     private void UpdateHealthUI()
@@ -86,18 +89,15 @@ public class PlayerHealth : MonoBehaviour, IHealth
         // Showing the appropriate health UI images based on the current health
         if (currentHealth <= maxHealth * 0.25f)
         {
-            healthImage25.SetActive(true);
-            healthImage50.SetActive(false);
+            visor.GetComponent<Image>().sprite = visorImage25;
         }
         else if (currentHealth <= maxHealth * 0.50f)
         {
-            healthImage25.SetActive(false);
-            healthImage50.SetActive(true);
+            visor.GetComponent<Image>().sprite = visorImage50;
         }
         else
         {
-            healthImage25.SetActive(false);
-            healthImage50.SetActive(false);
+            visor.GetComponent<Image>().sprite = visorImage100;
         }
     }
 }
