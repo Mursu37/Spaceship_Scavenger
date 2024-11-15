@@ -23,7 +23,7 @@ namespace Enviroment.MainTerminal
         {
             lampSwitcherManager.ToggleLamps(true);
             obstacles.SetActive(true);
-            doorAnimator.Play("Closing");
+            //doorAnimator.Play("Closing");
             isPowerOn = true;
             AudioManager.PlayAudio("ShipPowerOn", 1, 1, false);
         }

@@ -16,20 +16,11 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public float currentHealth;
     [SerializeField] private float maxHealth = 5f;
     [SerializeField] private GameObject gameOver;
-    [SerializeField] private GameObject visor;
-    [SerializeField] private Sprite visorImage100;
-    [SerializeField] private Sprite visorImage50;
-    [SerializeField] private Sprite visorImage25;
 
     private void Awake()
     {
         currentHealth = maxHealth;
         previousHealth = currentHealth;
-
-        if (visorImage25 != null && visorImage50 != null)
-        {
-            UpdateHealthUI(); // UI
-        }
 
         fadeIn = gameOver.GetComponent<FadeIn>();
     }
@@ -89,15 +80,15 @@ public class PlayerHealth : MonoBehaviour, IHealth
         // Showing the appropriate health UI images based on the current health
         if (currentHealth <= maxHealth * 0.25f)
         {
-            visor.GetComponent<Image>().sprite = visorImage25;
+            VisorChange.UpdateVisor(VisorChange.Visor.BadlyDamaged);
         }
         else if (currentHealth <= maxHealth * 0.50f)
         {
-            visor.GetComponent<Image>().sprite = visorImage50;
+            VisorChange.UpdateVisor(VisorChange.Visor.MildlyDamaged);
         }
         else
         {
-            visor.GetComponent<Image>().sprite = visorImage100;
+            VisorChange.UpdateVisor(VisorChange.Visor.Default);
         }
     }
 }
