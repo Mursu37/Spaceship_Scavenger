@@ -49,13 +49,22 @@ public class PauseMenu : MonoBehaviour
     public void Settings()
     {
         settings.SetActive(true);
+        controls.SetActive(false);
         pauseMenu.SetActive(false);
     }
 
     public void Controls()
     {
         controls.SetActive(true);
+        settings.SetActive(false);
         pauseMenu.SetActive(false);
+    }
+
+    public void Back()
+    {
+        settings.SetActive(false);
+        controls.SetActive(false);
+        pauseMenu.SetActive(true);
     }
 
     public void Quit()

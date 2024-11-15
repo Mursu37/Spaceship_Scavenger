@@ -158,7 +158,7 @@ public class Cutting : MonoBehaviour
 
 
     // Function to check if the angles of two objects are close
-    bool AreAnglesClose(Transform obj1, Transform obj2, float angleTolerance)
+    public bool AreAnglesClose(Transform obj1, Transform obj2, float angleTolerance)
     {
         Vector3 angleA = obj1.eulerAngles;
         Vector3 angleB = obj2.eulerAngles;
@@ -195,6 +195,8 @@ public class Cutting : MonoBehaviour
 
         return false;
     }
+    public float Tolerance => tolerance;
+    public float RayDistance => rayDistance;
 
     private void OnDisable()
     {
