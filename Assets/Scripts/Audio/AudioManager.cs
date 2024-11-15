@@ -25,8 +25,8 @@ public class AudioManager : MonoBehaviour
             {
                 sourceObject = gameObject; // Default to AudioManager if no specific source object is found
             }
-
             s.source = sourceObject.AddComponent<AudioSource>();
+            
             s.source.clip = s.clip;
             s.source.outputAudioMixerGroup = s.mixerGroup;
 
@@ -45,11 +45,22 @@ public class AudioManager : MonoBehaviour
 
     public static void PlayAudio(string name, float volume = 1, float pitch = 1, bool loop = true, double? scheduledStartTime = null, bool ignorePause = false)
     {
+        if (instance == null)
+        {
+            Debug.LogWarning("AudioManager instance is not set!");
+            return;
+        }
+
         Sound s = Array.Find(instance.sounds, sound => sound.name == name);
 
         if (s == null)
         {
             Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+        if (s.source == null)
+        {
+            Debug.LogWarning("AudioSource for sound: " + name + " is not assigned!");
             return;
         }
         s.source.volume = volume;
@@ -67,8 +78,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    //Create a temp GameObject for a sound in space, good for one shot sounds that don't need to be moved
-    public static void PlayModifiedClipAtPoint(string clipName, Vector3 position, float volume = 1f, float spatialBlend = 1f, float minDistance = 1f, float maxDistance = 500f)
+    //Create a temp GameObject for a sound in space, good for one shot sounds that don't need to be moved. //Use with AudioManager.PlayModifiedClipAtPoint(); in a script attached  to a gameobject or child.
+    public static void PlayModifiedClipAtPoint(string clipName, Vector3 position, float volume = 1f, float spatialBlend = 1f, float minDistance = 1f, float maxDistance = 500f, bool loop = false)
     {
         Sound s = Array.Find(instance.sounds, sound => sound.name == clipName);
 
@@ -91,13 +102,53 @@ public class AudioManager : MonoBehaviour
         tempAudioSource.loop = false;
         tempAudioSource.outputAudioMixerGroup = s.mixerGroup;
 
-        // Position the GameObject at the desired location
+        // Position the GameObject at the desired location and play
         tempAudioObject.transform.position = position;
 
         tempAudioSource.Play();
 
-        // Destroy the GameObject after the clip has finished playing
-        UnityEngine.Object.Destroy(tempAudioObject, s.clip.length / tempAudioSource.pitch);
+        // If the sound is not looping, destroy IT!!
+        if (!loop)
+        {
+            UnityEngine.Object.Destroy(tempAudioObject, s.clip.length / tempAudioSource.pitch);
+        }
+    }
+
+    //Creates a temp object for sound playback that follows the parent //Use with AudioManager.PlayFollowedAudio(); in a script attached to a gameobject or child
+    public static void PlayFollowedAudio(string clipName, GameObject parentObject, float volume = 1f, float spatialBlend = 1f, bool loop = false)
+    {
+        Sound s = Array.Find(instance.sounds, sound => sound.name == clipName);
+
+        if (s == null || s.clip == null)
+        {
+            Debug.LogWarning($"Sound {clipName} not found!");
+            return;
+        }
+
+        // Create a temporary GameObject for the audio and set its parent
+        GameObject tempAudioObject = new GameObject("TempAudio_" + clipName);
+        tempAudioObject.transform.SetParent(parentObject.transform);
+    
+        tempAudioObject.transform.localPosition = Vector3.zero;
+
+        AudioSource tempAudioSource = tempAudioObject.AddComponent<AudioSource>();
+
+        tempAudioSource.clip = s.clip;
+        tempAudioSource.volume = volume;
+        tempAudioSource.spatialBlend = spatialBlend;
+        tempAudioSource.minDistance = s.minDistance;
+        tempAudioSource.maxDistance = s.maxDistance;
+        tempAudioSource.rolloffMode = s.rolloffMode;
+        tempAudioSource.loop = loop;
+        tempAudioSource.outputAudioMixerGroup = s.mixerGroup;
+
+        tempAudioSource.Play();
+
+        // If the sound is not looping, destroy IT!!
+        if (!loop)
+        {
+            UnityEngine.Object.Destroy(tempAudioObject, s.clip.length / tempAudioSource.pitch);
+        }
     }
 
     public static void StopAudio(string name)
