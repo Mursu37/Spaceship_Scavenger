@@ -51,7 +51,7 @@ public class Cutting : MonoBehaviour
             Transform hitTransform = hit.transform;
             Debug.Log(hitTransform.name);
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !PauseGame.isPaused)
             {
                 if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, tolerance))
                 {
@@ -66,7 +66,7 @@ public class Cutting : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && !PauseGame.isPaused)
         {
             isVerticalCut = !isVerticalCut;
 
@@ -155,6 +155,7 @@ public class Cutting : MonoBehaviour
             cuttingPoint = null;
         }
     }
+
 
     // Function to check if the angles of two objects are close
     public bool AreAnglesClose(Transform obj1, Transform obj2, float angleTolerance)

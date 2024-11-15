@@ -31,7 +31,7 @@ public class AmbientMusic : MonoBehaviour
         if (ambientMusicTracks.Length > 0)
         {
             selectedTrackName = SelectRandomTrackName();
-            AudioManager.PlayAudio(selectedTrackName, 1f, 1f, false);
+            AudioManager.PlayAudio(selectedTrackName, 1f, 1f, false, null, true);
             lastPlayedTrackName = selectedTrackName;
 
             // Start the coroutine and save its reference

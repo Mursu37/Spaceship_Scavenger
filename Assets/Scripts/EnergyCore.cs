@@ -59,7 +59,7 @@ public class EnergyCore : MonoBehaviour, IHealth
         }
     }
 
-    public void Damage(float amount)
+    public void Damage(float amount, float shakeAmount)
     {
         heatAmount += amount;
         coreSounds?.PlayRandomDamageSound();

@@ -34,11 +34,11 @@ public class DispenserController : MonoBehaviour, IInteractable
     {
         if (currentState == DispenserState.Idle && canDispense)
         {
-            StartDispnese();
+            StartDispense();
         }
     }
 
-    private void StartDispnese()
+    private void StartDispense()
     {
         canDispense = false;
         newCanister = Instantiate(canister, holder.position, holder.rotation, holder);

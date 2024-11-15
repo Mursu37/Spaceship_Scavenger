@@ -69,7 +69,6 @@ public class CoreTeleporterExit : MonoBehaviour
                     coreRbFinal.constraints = RigidbodyConstraints.None;
                 }
 
-                mixerController?.NormalMusicTransition();
 
                 currentState = TeleporterState.Idle;
                 break;
