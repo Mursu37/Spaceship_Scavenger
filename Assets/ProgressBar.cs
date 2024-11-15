@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,15 +5,18 @@ using UnityEngine.UI;
 public class ProgressBar : MonoBehaviour
 {
     private EnergyCore core;
-    [SerializeField] private Image bar; // Progress bar GameObject
+
+    [SerializeField] private Image bar; // Current meltdown bar
+    [SerializeField] private Image delayedBar; // Another meltdown bar
     [SerializeField] private TMP_Text stageText; // Text to display the current stage
     [SerializeField] private GameObject coreObject;
+    [SerializeField] private float delaySpeed = 0.01f; 
 
     private void Start()
     {
-        UpdateStageText(); // Update the stage text on start
+        UpdateStageText();
 
-        if (coreObject != null )
+        if (coreObject != null)
         {
             core = coreObject.GetComponent<EnergyCore>();
         }
@@ -24,7 +26,22 @@ public class ProgressBar : MonoBehaviour
     {
         if (core != null)
         {
-            bar.fillAmount = core.heatAmount / core.maxHeat;
+            float fillAmount = core.heatAmount / core.maxHeat;
+            bar.fillAmount = fillAmount;
+
+            if (delayedBar.fillAmount < bar.fillAmount)
+            {
+                delayedBar.fillAmount = Mathf.MoveTowards(
+                    delayedBar.fillAmount,
+                    bar.fillAmount,
+                    delaySpeed * Time.deltaTime
+                );
+            }
+            else
+            {
+                delayedBar.fillAmount = bar.fillAmount;
+            }
+
             UpdateStageText();
         }
     }
