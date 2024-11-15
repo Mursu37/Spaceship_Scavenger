@@ -17,7 +17,7 @@ public class Flashlight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Interact2"))
+        if (Input.GetButtonDown("Flashlight") && !PauseGame.isPaused)
         {
             if (FlashlightActive == false)
             {

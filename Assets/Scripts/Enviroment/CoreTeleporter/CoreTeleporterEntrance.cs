@@ -79,7 +79,6 @@ public class CoreTeleporterEntrance : MonoBehaviour
                     currentState = TeleporterState.Teleporting;
                     animator.Play("TeleporterClose");
                     canMove = false;
-                    mixerController?.LowPassMusicTransition(); //Change music when core is in teleporter
                     StartCoroutine(TeleportCoreCoroutine());
                 }
                 break;

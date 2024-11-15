@@ -671,6 +671,7 @@ GameObject:
   - component: {fileID: 3764621723550051840}
   - component: {fileID: 2172737549924825204}
   - component: {fileID: 1603011079082815318}
+  - component: {fileID: 4902974004474213070}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -756,6 +757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 100
+  gameOver: {fileID: 0}
   healthImage50: {fileID: 0}
   healthImage25: {fileID: 0}
 --- !u!114 &647105502607586090
@@ -798,6 +800,7 @@ MonoBehaviour:
   interactableLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  currentlyHighlighted: {fileID: 0}
 --- !u!114 &1603011079082815318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -811,6 +814,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FlashlightToggle: {fileID: 2410537165542054180}
+--- !u!114 &4902974004474213070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8244695801914122926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a1646b399ffa2744bb9184476978c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8472930037195227117
 PrefabInstance:
   m_ObjectHideFlags: 0

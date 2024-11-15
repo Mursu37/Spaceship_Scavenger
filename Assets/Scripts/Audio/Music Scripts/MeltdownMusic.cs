@@ -82,13 +82,13 @@ public class MeltdownMusic : MonoBehaviour
 
     private void ControlMeltdownMusic()
     {
-        AudioManager.PlayAudio(AlarmMusicIntro, 1, 1, false);
+        AudioManager.PlayAudio(AlarmMusicIntro, 1, 1, false, null, true);
 
         double scheduledStartTime = AudioSettings.dspTime + introLength;
 
-        AudioManager.PlayAudio(AlarmMusicLayer1, 1, 1, true, scheduledStartTime);
-        AudioManager.PlayAudio(AlarmMusicLayer2, 0, 1, true, scheduledStartTime);
-        AudioManager.PlayAudio(AlarmMusicLayer3, 0, 1, true, scheduledStartTime);
+        AudioManager.PlayAudio(AlarmMusicLayer1, 1, 1, true, scheduledStartTime, true);
+        AudioManager.PlayAudio(AlarmMusicLayer2, 0, 1, true, scheduledStartTime, true);
+        AudioManager.PlayAudio(AlarmMusicLayer3, 0, 1, true, scheduledStartTime, true);
 
     }
 

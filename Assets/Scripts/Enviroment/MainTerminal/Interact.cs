@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Interact : MonoBehaviour
 {
 
     [SerializeField] private LayerMask interactableLayerMask;
+    [SerializeField] private GameObject interactionTextObject;
+    private GameObject currentTextObject;
     private Camera camera;
     public GameObject currentlyHighlighted;
     
@@ -17,7 +20,7 @@ public class Interact : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Interact"))
+        if (Input.GetButtonDown("Interact") && !PauseGame.isPaused)
         {
             if (Physics.Raycast(camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out RaycastHit hit, 2f,
                     interactableLayerMask))
@@ -32,11 +35,15 @@ public class Interact : MonoBehaviour
                 }
             }
         }
-
+        if (currentTextObject != null) Destroy(currentTextObject);
         if (Physics.Raycast(camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out RaycastHit hit2, 10f,
                 interactableLayerMask))
         {
             currentlyHighlighted = hit2.transform.gameObject;
+            if (interactionTextObject == null) return;
+            Vector3 point = hit2.collider.bounds.center;
+            point.y = point.y + hit2.collider.bounds.extents.y + 1f;
+            currentTextObject = Instantiate(interactionTextObject, point, quaternion.identity);
         }
         else
         {

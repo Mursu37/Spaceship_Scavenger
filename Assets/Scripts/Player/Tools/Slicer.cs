@@ -17,7 +17,7 @@ public class Slicer : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && !PauseGame.isPaused)
         {
             var mesh = slicer.GetComponent<MeshFilter>().sharedMesh;
             var center = mesh.bounds.center;

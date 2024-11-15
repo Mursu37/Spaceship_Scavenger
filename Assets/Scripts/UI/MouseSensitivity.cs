@@ -14,6 +14,7 @@ public class MouseSensitivity : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject settingsMenu;
+    [SerializeField] private GameObject controlsMenu;
 
     void Start()
     {
@@ -48,5 +49,6 @@ public class MouseSensitivity : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         settingsMenu.SetActive(false);
+        controlsMenu.SetActive(false);
     }
 }

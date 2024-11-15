@@ -1,19 +1,14 @@
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
     private bool isPaused;
-    private MixerController mixerController;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject settings;
     [SerializeField] private GameObject controls;
-
-    private void Start()
-    {
-        mixerController = FindObjectOfType<MixerController>();
-    }
 
     private void Update()
     {
@@ -34,46 +29,49 @@ public class PauseMenu : MonoBehaviour
     {
         isPaused = true;
         pausePanel.SetActive(true);
-        Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
-        mixerController?.PauseMixerTransition();
+        PauseGame.Pause(PauseGame.TransitionType.PauseMixer);
     }
 
     public void Resume()
     {
         isPaused = false;
         pausePanel.SetActive(false);
-        Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        mixerController?.UnpauseMixerTransition();
+        PauseGame.Resume(PauseGame.TransitionType.UnpauseMixer);
     }
 
     public void Retry()
     {
-        Time.timeScale = 1f;
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
-        mixerController?.UnpauseMixerTransition();
+        PauseGame.Resume(PauseGame.TransitionType.UnpauseMixer);
     }
 
     public void Settings()
     {
         settings.SetActive(true);
+        controls.SetActive(false);
         pauseMenu.SetActive(false);
     }
 
     public void Controls()
     {
         controls.SetActive(true);
+        settings.SetActive(false);
         pauseMenu.SetActive(false);
+    }
+
+    public void Back()
+    {
+        settings.SetActive(false);
+        controls.SetActive(false);
+        pauseMenu.SetActive(true);
     }
 
     public void Quit()
     {
-        Time.timeScale = 1f;
         SceneManager.LoadSceneAsync("MainMenu");
-        mixerController?.UnpauseMixerTransition();
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+        PauseGame.Resume(PauseGame.TransitionType.UnpauseMixer);
     }
 }
