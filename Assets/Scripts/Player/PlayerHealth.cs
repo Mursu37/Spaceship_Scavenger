@@ -9,21 +9,18 @@ public class PlayerHealth : MonoBehaviour, IHealth
 {
     private FadeIn fadeIn;
     private AmbientMusic ambientMusic;
-    private bool hasPlayedSound = false;
+    private float previousHealth;
+    private bool hasDied = false;
+    private bool hasFadeIn = false;
 
     public float currentHealth;
     [SerializeField] private float maxHealth = 5f;
     [SerializeField] private GameObject gameOver;
-    [SerializeField] private GameObject healthImage50; // for UI
-    [SerializeField] private GameObject healthImage25;
 
     private void Awake()
     {
         currentHealth = maxHealth;
-        if (healthImage25 != null && healthImage50 != null)
-        {
-            UpdateHealthUI(); // UI
-        }
+        previousHealth = currentHealth;
 
         fadeIn = gameOver.GetComponent<FadeIn>();
     }
@@ -33,20 +30,12 @@ public class PlayerHealth : MonoBehaviour, IHealth
         currentHealth -= amount;
         Camera.main.GetComponent<CameraShake>().shakeDuration = 0.2f;
         Camera.main.GetComponent<CameraShake>().shakeAmount = shakeAmount;
-        if (healthImage25 != null && healthImage50 != null)
-        {
-            UpdateHealthUI();
-        }
     }
 
     public void Heal(float amount)
     {
         currentHealth += amount;
         if (currentHealth > maxHealth) currentHealth = maxHealth;
-        if (healthImage25 != null && healthImage50 != null)
-        {
-            UpdateHealthUI();
-        }
     }
 
     private void Update()
@@ -54,30 +43,35 @@ public class PlayerHealth : MonoBehaviour, IHealth
         // Reload the scene when health goes zero or below
         if (currentHealth <= 0)
         {
-            if (!hasPlayedSound)
+            if (!hasDied)
             {
                 AudioManager.PlayAudio("GameOverSound", 1, 1, false, null, true);
-                hasPlayedSound = true;
-            }
-            
-            AudioListener.pause = true;
-            PauseGame.isPaused = true;
-            GetComponent<PlayerMovement>().enabled = false;
-            gameOver.SetActive(true);
-            fadeIn.StartFadeIn();
+                AudioListener.pause = true;
+                PauseGame.isPaused = true;
+                GetComponent<PlayerMovement>().enabled = false;
+                gameOver.SetActive(true);
+                fadeIn.StartFadeIn();
 
+                ambientMusic = FindObjectOfType<AmbientMusic>();
+                if (ambientMusic != null)
+                {
+                    ambientMusic.StopAmbientMusic();
+                }
 
-
-            ambientMusic = FindObjectOfType<AmbientMusic>();
-            if (ambientMusic != null)
-            {
-                ambientMusic.StopAmbientMusic();
+                hasDied = true;
             }
 
-            if (fadeIn.allFadedIn)
+            if (fadeIn.allFadedIn && !hasFadeIn)
             {
                 PauseGame.Pause();
+                hasFadeIn = true;
             }
+        }
+        
+        if (previousHealth != currentHealth)
+        {
+            UpdateHealthUI();
+            previousHealth = currentHealth;
         }
     }
 
@@ -86,18 +80,15 @@ public class PlayerHealth : MonoBehaviour, IHealth
         // Showing the appropriate health UI images based on the current health
         if (currentHealth <= maxHealth * 0.25f)
         {
-            healthImage25.SetActive(true);
-            healthImage50.SetActive(false);
+            VisorChange.UpdateVisor(VisorChange.Visor.BadlyDamaged);
         }
         else if (currentHealth <= maxHealth * 0.50f)
         {
-            healthImage25.SetActive(false);
-            healthImage50.SetActive(true);
+            VisorChange.UpdateVisor(VisorChange.Visor.MildlyDamaged);
         }
         else
         {
-            healthImage25.SetActive(false);
-            healthImage50.SetActive(false);
+            VisorChange.UpdateVisor(VisorChange.Visor.Default);
         }
     }
 }

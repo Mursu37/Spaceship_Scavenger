@@ -33,21 +33,24 @@ public class ProgressBar : MonoBehaviour
 
             bar.fillAmount = fillAmount;
 
-            delayTimer += Time.deltaTime;
-            if (delayTimer >= delayInterval)
+            if (delayedBar != null)
             {
-                delayTimer = 0f; 
+                delayTimer += Time.deltaTime;
+                if (delayTimer >= delayInterval)
+                {
+                    delayTimer = 0f;
 
-                delayedBar.fillAmount = Mathf.Lerp(
-                    delayedBar.fillAmount,
-                    bar.fillAmount,
-                    lerpSpeed
-                );
-            }
+                    delayedBar.fillAmount = Mathf.Lerp(
+                        delayedBar.fillAmount,
+                        bar.fillAmount,
+                        lerpSpeed
+                    );
+                }
 
-            if (delayedBar.fillAmount > bar.fillAmount)
-            {
-                delayedBar.fillAmount = bar.fillAmount;
+                if (delayedBar.fillAmount > bar.fillAmount)
+                {
+                    delayedBar.fillAmount = bar.fillAmount;
+                }
             }
 
             UpdateStageText();

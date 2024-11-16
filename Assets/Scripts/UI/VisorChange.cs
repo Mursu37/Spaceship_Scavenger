@@ -1,0 +1,58 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class VisorChange : MonoBehaviour
+{
+    public static VisorChange instance;
+
+    [SerializeField] GameObject visorObject;
+
+    [Header("Visor Sprites")]
+    [SerializeField] Sprite defaultVisor;
+    [SerializeField] Sprite mildlyDamagedVisor;
+    [SerializeField] Sprite badlyDamagedVisor;
+    [SerializeField] Sprite hackingVisor;
+
+    public enum Visor
+    {
+        Default,
+        MildlyDamaged,
+        BadlyDamaged,
+        Hacking
+    }
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    public static void UpdateVisor(Visor visor)
+    {
+        switch(visor)
+        {
+            case Visor.Default:
+                instance.visorObject.GetComponent<Image>().sprite = instance.defaultVisor;
+                break;
+            case Visor.MildlyDamaged:
+                instance.visorObject.GetComponent<Image>().sprite = instance.mildlyDamagedVisor;
+                break;
+            case Visor.BadlyDamaged:
+                instance.visorObject.GetComponent<Image>().sprite = instance.badlyDamagedVisor;
+                break;
+            case Visor.Hacking:
+                instance.visorObject.GetComponent<Image>().sprite = instance.hackingVisor;
+                instance.visorObject.GetComponent<Canvas>().sortingOrder = 1;
+                break;
+        }
+    }
+
+    private void Update()
+    {
+        if (instance.visorObject.GetComponent<Canvas>().sortingOrder != 0 && instance.visorObject.GetComponent<Image>().sprite != instance.hackingVisor)
+        {
+            instance.visorObject.GetComponent<Canvas>().sortingOrder = 0;
+        }
+    }
+}

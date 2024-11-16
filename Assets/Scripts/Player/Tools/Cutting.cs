@@ -13,9 +13,8 @@ public class Cutting : MonoBehaviour
     private float rayDistance = 2f; // Distance of the raycast
     private LayerMask layerMask; // Define a LayerMask to specify layers for Cuttable and Explosive
     private Transform cuttingPoint;
-    private bool canCut = false;
-    private ModeSwitch modeSwitch;
-    private PlayerMovement playerMovement;
+    private Vector3 hitPoint;
+    private CuttableType currentType = CuttableType.None;
 
     [SerializeField] private LineRenderer rightmostLaser;
     [SerializeField] private LineRenderer leftmostLaser;
@@ -27,6 +26,13 @@ public class Cutting : MonoBehaviour
     [SerializeField] private GameObject verticalCrosshair;
     [SerializeField] private GameObject playerObject;
 
+    private enum CuttableType
+    {
+        None,
+        Normal,
+        Explosive
+    }
+
     private void Start()
     {
         layerMask = LayerMask.GetMask("Player");
@@ -36,9 +42,20 @@ public class Cutting : MonoBehaviour
 
     private void Update()
     {
-        if (cuttingPoint != null && canCut)
+        switch(currentType)
         {
-            StartCoroutine(AnimateLasers(cuttingPoint, 1f));
+            case CuttableType.Normal:
+                if (cuttingPoint != null)
+                {
+                    StartCoroutine(AnimateLasers(cuttingPoint, 1f));
+                }
+                break;
+            case CuttableType.Explosive:
+                if (cuttingPoint != null)
+                {
+                    StartCoroutine(ExplodeObject(cuttingPoint, hitPoint));
+                }
+                break;
         }
 
         // Cast a ray forward from the object's position
@@ -56,12 +73,13 @@ public class Cutting : MonoBehaviour
                 if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, tolerance))
                 {
                     cuttingPoint = hitTransform;
-                    canCut = true;
+                    currentType = CuttableType.Normal;
                 }
                 else if (hitTransform.CompareTag("Explosive"))
                 {
-                    Explosives explosives = hitTransform.GetComponent<Explosives>();
-                    explosives.Explode();
+                    cuttingPoint = hitTransform;
+                    hitPoint = hit.point;
+                    currentType = CuttableType.Explosive;
                 }
             }
         }
@@ -94,6 +112,11 @@ public class Cutting : MonoBehaviour
             horizontalCrosshair.SetActive(true);
             verticalCrosshair.SetActive(false);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        FaceToCuttingPoint();
     }
 
     private IEnumerator AnimateLasers(Transform point, float duration)
@@ -147,15 +170,41 @@ public class Cutting : MonoBehaviour
 
         rightmostLaser.enabled = false;
         leftmostLaser.enabled = false;
-        canCut = false;
+        currentType = CuttableType.None;
 
         if (cuttingPoint != null)
         {
-            Destroy(point.gameObject);
+            if (point != null)
+            {
+                Destroy(point.gameObject);
+            }
             cuttingPoint = null;
         }
     }
 
+    private IEnumerator ExplodeObject(Transform hitTransform, Vector3 hitPoint)
+    {
+        // Animate the laser
+        rightmostLaser.enabled = true;
+        rightmostLaser.SetPosition(0, shootingPoint.position);
+        rightmostLaser.SetPosition(1, hitPoint);
+
+        yield return new WaitForSeconds(0.5f);
+
+        rightmostLaser.enabled = false;
+
+        if (hitTransform != null)
+        {
+            // Ensure the object has the Explosives component
+            Explosives explosives = hitTransform.GetComponent<Explosives>();
+            if (explosives != null)
+            {
+                explosives.Explode(); // Execute the explosion logic
+            }
+
+            currentType = CuttableType.None;
+        }
+    }
 
     // Function to check if the angles of two objects are close
     public bool AreAnglesClose(Transform obj1, Transform obj2, float angleTolerance)
@@ -195,6 +244,21 @@ public class Cutting : MonoBehaviour
 
         return false;
     }
+
+    private void FaceToCuttingPoint()
+    {
+        if (cuttingPoint == null || playerObject == null) return;
+
+        // Determine the direction vector to the cutting point
+        Vector3 directionToTarget = (cuttingPoint.position - playerObject.transform.position).normalized;
+
+        // Calculate the rotation to face the target
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
+
+        // Smoothly rotate the player to face the target
+        playerObject.transform.rotation = Quaternion.Lerp(playerObject.transform.rotation, targetRotation, Time.deltaTime * 10f);
+    }
+
     public float Tolerance => tolerance;
     public float RayDistance => rayDistance;
 

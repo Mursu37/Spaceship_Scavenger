@@ -98,6 +98,7 @@ namespace CLI.FSM
         {
             PauseGame.Pause(PauseGame.TransitionType.LowPassMusic);
             FindObjectOfType<PauseMenu>().enabled = false;
+            VisorChange.UpdateVisor(VisorChange.Visor.Hacking);
             commandLineInput.ActivateInputField();
             currentState?.OnEnter();
         }
@@ -106,6 +107,7 @@ namespace CLI.FSM
         {
             PauseGame.Resume(PauseGame.TransitionType.NormalMusic);
             FindObjectOfType<PauseMenu>().enabled = true;
+            VisorChange.UpdateVisor(VisorChange.Visor.Default);
 
             CLI.SetActive(false);
 
