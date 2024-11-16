@@ -6,13 +6,8 @@ public class MovementSounds : MonoBehaviour
 {
     private bool isThrusting = false;
     
-    // For Audio Source 1 = player_suit_thruster
     [SerializeField] private float minPitch = 0.8f;
     [SerializeField] private float maxPitch = 1.2f; 
-
-    // For Audio Source 2 = player_suit_thruster_layer
-    [SerializeField] private float fadeInSpeed = 0.2f;
-    [SerializeField] private float maxVolume = 1.0f;
 
     // Speed threshold for playing stopping sound
     [SerializeField] private float speedThreshold = 1.0f; // Minimum speed to play stopping sound
@@ -60,12 +55,6 @@ public class MovementSounds : MonoBehaviour
             inputTimer = 0f; //reset timer
         }
 
-        if (AudioManager.IsPlaying("ThrusterLayer") && thrusterLayerVolume < maxVolume)
-        {
-            thrusterLayerVolume += fadeInSpeed * Time.deltaTime;
-            AudioManager.SetVolume("ThrusterLayer", thrusterLayerVolume);
-        }
-
         // Check if left Ctrl is pressed and if the player's speed is high enough
         if (Input.GetKeyDown(KeyCode.LeftControl) && currentSpeed > speedThreshold)
         {
@@ -78,10 +67,10 @@ public class MovementSounds : MonoBehaviour
     private void StartThrusting()
     {
         isThrusting = true;
-        if (!AudioManager.IsPlaying("Thruster") || !AudioManager.IsPlaying("ThrusterLayer"))
+        if (!AudioManager.IsPlaying("Thruster"))
         {
             AudioManager.PlayAudio("Thruster", 1, Random.Range(minPitch, maxPitch));
-            AudioManager.PlayAudio("ThrusterLayer");
+
         }
     }
 
@@ -89,10 +78,9 @@ public class MovementSounds : MonoBehaviour
     private void StopThrusting()
     {
         isThrusting = false;
-        if (AudioManager.IsPlaying("Thruster") || AudioManager.IsPlaying("ThrusterLayer"))
+        if (AudioManager.IsPlaying("Thruster"))
         {
             AudioManager.StopAudio("Thruster");
-            AudioManager.StopAudio("ThrusterLayer");
 
             thrusterLayerVolume = 0f;
         }

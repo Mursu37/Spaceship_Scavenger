@@ -27,6 +27,10 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
     public void Damage(float amount, float shakeAmount = 0.04f)
     {
+        if (!AudioManager.IsPlaying("PlayerDamageAlarm"))
+        {
+            AudioManager.PlayAudio("PlayerDamageAlarm", 1, 1, false);
+        }
         currentHealth -= amount;
         Camera.main.GetComponent<CameraShake>().shakeDuration = 0.2f;
         Camera.main.GetComponent<CameraShake>().shakeAmount = shakeAmount;

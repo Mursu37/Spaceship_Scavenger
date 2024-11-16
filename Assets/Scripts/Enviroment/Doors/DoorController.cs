@@ -6,6 +6,8 @@ public class DoorController : CuttingPointManager
 {
     private Animator animator;
 
+    private bool doorOpened = false;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -18,6 +20,11 @@ public class DoorController : CuttingPointManager
         if (animator != null)
         {
             animator.Play("DoorOpening");
+            if (!AudioManager.IsPlaying("DoorOpen"))
+            {
+                AudioManager.PlayModifiedClipAtPoint("DoorOpen", transform.position, 1, 1, 1, 500);
+            }
+            
         }
     }
 
@@ -28,6 +35,12 @@ public class DoorController : CuttingPointManager
             if (animator != null)
             {
                 animator.Play("DoorOpening");
+                if (!AudioManager.IsPlaying("DoorOpen") && !doorOpened)
+                {
+                    AudioManager.PlayModifiedClipAtPoint("DoorOpen", transform.position, 1, 1, 1, 500);
+                }
+
+                doorOpened = true;
             }
         }
     }

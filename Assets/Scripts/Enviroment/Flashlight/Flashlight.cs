@@ -23,11 +23,13 @@ public class Flashlight : MonoBehaviour
             {
                 FlashlightToggle.gameObject.SetActive(true);
                 FlashlightActive = true;
+                AudioManager.PlayModifiedClipAtPoint("FlashLightOn", transform.position, 1, 1, 1, 500);
             }
             else
             {
                 FlashlightToggle.gameObject.SetActive(false);
                 FlashlightActive = false;
+                AudioManager.PlayModifiedClipAtPoint("FlashLightOff", transform.position, 1, 1, 1, 500);
             }
         }
     }

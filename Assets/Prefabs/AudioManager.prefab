@@ -683,7 +683,7 @@ MonoBehaviour:
     sourceObject: {fileID: 0}
     source: {fileID: 0}
   - name: GameOverSound
-    clip: {fileID: 8300000, guid: 894432994b273de4e884c668a5e4ab99, type: 3}
+    clip: {fileID: 8300000, guid: b7a2b03bb91fcfa4bb7a125a4b53f86f, type: 3}
     mixerGroup: {fileID: 0}
     spatialBlend: 0
     minDistance: 1
@@ -714,6 +714,136 @@ MonoBehaviour:
     spatialBlend: 1
     minDistance: 1
     maxDistance: 500
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: PlayerDamageAlarm
+    clip: {fileID: 8300000, guid: 4246f2703ccaea64289d42e2c68317d3, type: 3}
+    mixerGroup: {fileID: -6610049738808593153, guid: 194dfac42a819894f98fa5a5acc6e94a,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 500
+    rolloffMode: 0
+    bypassReverbZones: 1
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: FlashLightOn
+    clip: {fileID: 8300000, guid: 56e5a8a885c4efd41b404a6c0ad03b45, type: 3}
+    mixerGroup: {fileID: 4726414708439554003, guid: 194dfac42a819894f98fa5a5acc6e94a,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 500
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: FlashLightOff
+    clip: {fileID: 8300000, guid: 125210d72a2753d4da954fd6a449bb96, type: 3}
+    mixerGroup: {fileID: 4726414708439554003, guid: 194dfac42a819894f98fa5a5acc6e94a,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 500
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: XrayOn
+    clip: {fileID: 8300000, guid: ce239ac05140af44eb6d8d0b56e05872, type: 3}
+    mixerGroup: {fileID: 2252680096779241263, guid: 194dfac42a819894f98fa5a5acc6e94a,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 500
+    rolloffMode: 0
+    bypassReverbZones: 1
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: DoorOpen
+    clip: {fileID: 8300000, guid: 1fec11cbcc4795946953b646b2e9dea9, type: 3}
+    mixerGroup: {fileID: 6148585017486417529, guid: eca3bcb1198dfa444b1cd3b7a577c647,
+      type: 2}
+    spatialBlend: 1
+    minDistance: 1
+    maxDistance: 500
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: TeleporterOpen
+    clip: {fileID: 8300000, guid: 2f84e5bbe0e5b294a815c4ef9ac1d242, type: 3}
+    mixerGroup: {fileID: 9105493110141501793, guid: eca3bcb1198dfa444b1cd3b7a577c647,
+      type: 2}
+    spatialBlend: 1
+    minDistance: 1
+    maxDistance: 1000
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: TeleporterCoreIn
+    clip: {fileID: 8300000, guid: 79eb6dcbc496f3d47a9209b1a5cf8c3a, type: 3}
+    mixerGroup: {fileID: 9105493110141501793, guid: eca3bcb1198dfa444b1cd3b7a577c647,
+      type: 2}
+    spatialBlend: 1
+    minDistance: 1
+    maxDistance: 1000
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: TeleporterClose
+    clip: {fileID: 8300000, guid: a6878fd6fb549da49a2f01960bf5e94c, type: 3}
+    mixerGroup: {fileID: 9105493110141501793, guid: eca3bcb1198dfa444b1cd3b7a577c647,
+      type: 2}
+    spatialBlend: 1
+    minDistance: 1
+    maxDistance: 1000
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: TeleporterActiveHum
+    clip: {fileID: 8300000, guid: 2170e43413cfecf4996c25a369917c87, type: 3}
+    mixerGroup: {fileID: 9105493110141501793, guid: eca3bcb1198dfa444b1cd3b7a577c647,
+      type: 2}
+    spatialBlend: 1
+    minDistance: 1
+    maxDistance: 1000
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: LeverPull
+    clip: {fileID: 8300000, guid: e84152b624525ce48bf9f3055da0ad2c, type: 3}
+    mixerGroup: {fileID: 2776218484618861342, guid: eca3bcb1198dfa444b1cd3b7a577c647,
+      type: 2}
+    spatialBlend: 1
+    minDistance: 1
+    maxDistance: 1000
     rolloffMode: 0
     bypassReverbZones: 0
     bypassEffects: 0

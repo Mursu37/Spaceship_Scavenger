@@ -43,6 +43,10 @@ public class CoreTeleporterExit : MonoBehaviour
                 if (Vector3.Distance(transform.position, player.position) < 5f)
                 {
                     animator.Play("TeleporterOpen");
+                    if (!AudioManager.IsPlaying("TeleporterOpen"))
+                    {
+                        AudioManager.PlayModifiedClipAtPoint("TeleporterOpen", transform.position, 1, 1, 1, 1000);
+                    }
                     targetPosition = core.transform.position + core.transform.right * -2f;
                     currentState = TeleporterState.CoreMoving;
                 }
@@ -62,6 +66,10 @@ public class CoreTeleporterExit : MonoBehaviour
 
             case TeleporterState.Closing:
                 animator.Play("DoorClose");
+                if (!AudioManager.IsPlaying("TeleporterClose"))
+                {
+                    AudioManager.PlayModifiedClipAtPoint("TeleporterClose", transform.position, 1, 1, 1, 1000);
+                }
                 core.GetComponent<Collider>().enabled = true;
                 Rigidbody coreRbFinal = core.GetComponent<Rigidbody>();
                 if (coreRbFinal != null)
