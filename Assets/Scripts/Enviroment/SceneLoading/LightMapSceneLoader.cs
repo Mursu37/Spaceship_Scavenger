@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LightMapSceneLoader : MonoBehaviour
 {
+    [SerializeField]
     private LightMapSceneManager lm_sceneManager;
     public ScenePool pool;
 

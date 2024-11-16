@@ -90,21 +90,24 @@ public class ShipLightProperties : MonoBehaviour
         {
             if (!isAlwaysOn)
             {
-                //Toggle Light Off
+                    //Toggle Light Off
+                    if (mRenderer != null && mRenderer.sharedMaterials != null)
+                    {
 
-                Material[] materials = mRenderer.sharedMaterials;
+                        Material[] materials = mRenderer.sharedMaterials;
 
-                if (materialSlotIndex < materials.Length)
-                {
-                    materials[materialSlotIndex] = lightMaterialOff;
+                        if (materialSlotIndex < materials.Length)
+                        {
+                            materials[materialSlotIndex] = lightMaterialOff;
+                        }
+
+                        // Apply the copy of sharedMaterials to the MeshRenderer
+                        mRenderer.sharedMaterials = materials;
+                    }
                 }
 
-                // Apply the copy of sharedMaterials to the MeshRenderer
-                mRenderer.sharedMaterials = materials;
-            }
-
 #if UNITY_EDITOR
-            EditorUtility.SetDirty(this.gameObject);
+                EditorUtility.SetDirty(this.gameObject);
 #endif
 
             if (!isAlwaysOn)
@@ -121,15 +124,19 @@ public class ShipLightProperties : MonoBehaviour
     {
         // Set the ordinary Light materials on here
 
-        Material[] materials = mRenderer.sharedMaterials;
-
-        if (materialSlotIndex < materials.Length)
+        if (mRenderer != null && mRenderer.sharedMaterials != null)
         {
-            materials[materialSlotIndex] = lightMaterialOrdinary;
-        }
+            Material[] materials = mRenderer.sharedMaterials;
 
-        // Apply the copy of sharedMaterials to the MeshRenderer
-        mRenderer.sharedMaterials = materials;
+            if (materialSlotIndex < materials.Length)
+            {
+                materials[materialSlotIndex] = lightMaterialOrdinary;
+            }
+
+            // Apply the copy of sharedMaterials to the MeshRenderer
+            mRenderer.sharedMaterials = materials;
+        }
+       
 
 #if UNITY_EDITOR
         EditorUtility.SetDirty(this.gameObject);
@@ -145,15 +152,18 @@ public class ShipLightProperties : MonoBehaviour
         // Set alarm materials on here
         if (isAlarm)
         {
-            Material[] materials = mRenderer.sharedMaterials;
-
-            if (materialSlotIndex < materials.Length)
+            if (mRenderer != null && mRenderer.sharedMaterials != null)
             {
-                materials[materialSlotIndex] = lightMaterialAlarm;
-            }
+                Material[] materials = mRenderer.sharedMaterials;
 
-            // Apply the copy of sharedMaterials to the MeshRenderer
-            mRenderer.sharedMaterials = materials;
+                if (materialSlotIndex < materials.Length)
+                {
+                    materials[materialSlotIndex] = lightMaterialAlarm;
+                }
+
+                // Apply the copy of sharedMaterials to the MeshRenderer
+                mRenderer.sharedMaterials = materials;
+            }
 
 #if UNITY_EDITOR
             EditorUtility.SetDirty(this.gameObject);
@@ -172,17 +182,29 @@ public class ShipLightProperties : MonoBehaviour
 
     public void ToggleLightComponents_Alarm(bool _bool)
     {
-        for (int i = 0; i < alarmLights.Count; i++)
+        if (alarmLights != null)
         {
-            alarmLights[i].enabled = _bool;
+            for (int i = 0; i < alarmLights.Count; i++)
+            {
+                if (alarmLights[i].gameObject.activeInHierarchy)
+                {
+                    alarmLights[i].enabled = _bool;
+                }
+            }
         }
     }
 
     public void ToggleLightComponents_Ordinary(bool _bool)
     {
-        for (int i = 0; i < lights.Count; i++)
+        if (lights != null)
         {
-            lights[i].enabled = _bool;
+            for (int i = 0; i < lights.Count; i++)
+            {
+                if (lights[i].gameObject.activeInHierarchy)
+                {
+                    lights[i].enabled = _bool;
+                }
+            }
         }
     }
 }
