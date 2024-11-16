@@ -5,6 +5,7 @@ public class MeltdownPhase : MonoBehaviour
     [SerializeField] private GameObject heatMeter;
     [SerializeField] private GameObject coreObject;
     [SerializeField] private GameObject lightManager;
+    [SerializeField] private GameObject objectiveMarker;
     private CoreSounds coreSounds;
     private MeltdownMusic meltdownMusic;
     private LampSwitcherManager lampSwitcherManager;
@@ -47,5 +48,7 @@ public class MeltdownPhase : MonoBehaviour
         {
             ambientMusic.StopAmbientMusic();
         }
+        
+        if (objectiveMarker != null) objectiveMarker.SetActive(true);
     }
 }
