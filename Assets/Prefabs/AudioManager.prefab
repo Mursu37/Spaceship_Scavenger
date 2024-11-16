@@ -728,7 +728,7 @@ MonoBehaviour:
     minDistance: 1
     maxDistance: 500
     rolloffMode: 0
-    bypassReverbZones: 1
+    bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
     sourceObject: {fileID: 0}
@@ -737,7 +737,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 56e5a8a885c4efd41b404a6c0ad03b45, type: 3}
     mixerGroup: {fileID: 4726414708439554003, guid: 194dfac42a819894f98fa5a5acc6e94a,
       type: 2}
-    spatialBlend: 0
+    spatialBlend: 1
     minDistance: 1
     maxDistance: 500
     rolloffMode: 0
@@ -750,7 +750,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 125210d72a2753d4da954fd6a449bb96, type: 3}
     mixerGroup: {fileID: 4726414708439554003, guid: 194dfac42a819894f98fa5a5acc6e94a,
       type: 2}
-    spatialBlend: 0
+    spatialBlend: 1
     minDistance: 1
     maxDistance: 500
     rolloffMode: 0
@@ -767,7 +767,7 @@ MonoBehaviour:
     minDistance: 1
     maxDistance: 500
     rolloffMode: 0
-    bypassReverbZones: 1
+    bypassReverbZones: 0
     bypassEffects: 0
     shouldLoop: 0
     sourceObject: {fileID: 0}
@@ -779,6 +779,19 @@ MonoBehaviour:
     spatialBlend: 1
     minDistance: 1
     maxDistance: 500
+    rolloffMode: 0
+    bypassReverbZones: 0
+    bypassEffects: 0
+    shouldLoop: 0
+    sourceObject: {fileID: 0}
+    source: {fileID: 0}
+  - name: LeverPull
+    clip: {fileID: 8300000, guid: e84152b624525ce48bf9f3055da0ad2c, type: 3}
+    mixerGroup: {fileID: 2776218484618861342, guid: eca3bcb1198dfa444b1cd3b7a577c647,
+      type: 2}
+    spatialBlend: 1
+    minDistance: 1
+    maxDistance: 1000
     rolloffMode: 0
     bypassReverbZones: 0
     bypassEffects: 0
@@ -827,19 +840,6 @@ MonoBehaviour:
   - name: TeleporterActiveHum
     clip: {fileID: 8300000, guid: 2170e43413cfecf4996c25a369917c87, type: 3}
     mixerGroup: {fileID: 9105493110141501793, guid: eca3bcb1198dfa444b1cd3b7a577c647,
-      type: 2}
-    spatialBlend: 1
-    minDistance: 1
-    maxDistance: 1000
-    rolloffMode: 0
-    bypassReverbZones: 0
-    bypassEffects: 0
-    shouldLoop: 0
-    sourceObject: {fileID: 0}
-    source: {fileID: 0}
-  - name: LeverPull
-    clip: {fileID: 8300000, guid: e84152b624525ce48bf9f3055da0ad2c, type: 3}
-    mixerGroup: {fileID: 2776218484618861342, guid: eca3bcb1198dfa444b1cd3b7a577c647,
       type: 2}
     spatialBlend: 1
     minDistance: 1
