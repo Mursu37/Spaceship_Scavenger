@@ -32,12 +32,7 @@ public class MovementSounds : MonoBehaviour
         float currentSpeed = rb.velocity.magnitude; // get the speed from rb component
         // Are any movement keys pressed
 
-        if (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical") )
-        {
-
-        }
-
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Space))
+        if (Input.GetButton("Horizontal") || Input.GetButton("Vertical") || Input.GetButton("Roll") || Input.GetButton("Ascend"))
         {
             inputTimer += Time.deltaTime;
             if (!isThrusting)
@@ -62,7 +57,7 @@ public class MovementSounds : MonoBehaviour
         }
 
         // Check if left Ctrl is pressed and if the player's speed is high enough
-        if (Input.GetKeyDown(KeyCode.LeftControl) && currentSpeed > speedThreshold)
+        if (Input.GetButton("Stabilize") && currentSpeed > speedThreshold)
         {
             PlaystoppingSound();
         }
