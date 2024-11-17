@@ -7,9 +7,6 @@ using System.Linq;
 public class LightMapSceneManager : MonoBehaviour
 {
     private string currentScene;
-    private List<string> previousScenes = new List<string>();
-    [SerializeField]
-    private string path;
 
     [SerializeField]
     private string startScene;
