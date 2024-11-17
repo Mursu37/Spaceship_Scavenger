@@ -31,6 +31,12 @@ public class MovementSounds : MonoBehaviour
     {
         float currentSpeed = rb.velocity.magnitude; // get the speed from rb component
         // Are any movement keys pressed
+
+        if (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical") )
+        {
+
+        }
+
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Space))
         {
             inputTimer += Time.deltaTime;
