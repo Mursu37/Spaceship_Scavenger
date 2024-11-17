@@ -84,14 +84,24 @@ public class DispenserController : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (currentState == DispenserState.Dispensing && newCanister != null)
+        if (currentState == DispenserState.Dispensing)
         {
-            if (Vector3.Distance(newCanister.transform.GetChild(0).transform.position, holder.position) >= 0.5f)
+            if (newCanister != null)
+            {
+                if (Vector3.Distance(newCanister.transform.GetChild(0).transform.position, holder.position) >= 0.5f)
+                {
+                    if (currentState != DispenserState.Reloading)
+                    {
+                        StartCoroutine(ReloadDispenser());
+                    }
+                }
+            }
+            else
             {
                 if (currentState != DispenserState.Reloading)
-                {
-                    StartCoroutine(ReloadDispenser());
-                }
+                    {
+                        StartCoroutine(ReloadDispenser());
+                    }
             }
         }
     }

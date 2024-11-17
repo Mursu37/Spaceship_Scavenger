@@ -19,7 +19,7 @@ private bool ambienceChanged = false;
             Debug.LogWarning("MeldownPhase not found");
         }
 
-        AudioManager.PlayAudio(derelictAmbience, 1, 1, true);
+        AudioManager.PlayAudio(derelictAmbience, 1, 1, true, null, true);
     }
 
     // Update is called once per frame
@@ -35,7 +35,12 @@ private bool ambienceChanged = false;
     private void ChangeAmbience()
     {
         AudioManager.StopAudio(derelictAmbience);
-        AudioManager.PlayAudio(meltdownAmbience, 1, 1, true);
+        AudioManager.PlayAudio(meltdownAmbience, 1, 1, true, null, true);
     }
 
+    public void StopAmbience()
+    {
+        AudioManager.StopAudio(derelictAmbience);
+        AudioManager.StopAudio(meltdownAmbience);
+    }
 }
