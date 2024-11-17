@@ -40,7 +40,7 @@ public class CoreTeleporterExit : MonoBehaviour
                 break;
 
             case TeleporterState.PlayerNear:
-                if (Vector3.Distance(transform.position, player.position) < 5f)
+                if (Vector3.Distance(transform.position, player.position) < 4f)
                 {
                     animator.Play("TeleporterOpen");
                     if (!AudioManager.IsPlaying("TeleporterOpen"))
@@ -77,6 +77,7 @@ public class CoreTeleporterExit : MonoBehaviour
                     coreRbFinal.constraints = RigidbodyConstraints.None;
                 }
 
+                core.GetComponent<EnergyCore>().heatIncreaseTime = 8f;
 
                 currentState = TeleporterState.Idle;
                 break;
@@ -99,6 +100,7 @@ public class CoreTeleporterExit : MonoBehaviour
         if (currentState == TeleporterState.Idle)
         {
             currentState = TeleporterState.Teleporting;
+            core.GetComponent<EnergyCore>().heatIncreaseTime = 16f;
         }
     }
 }
