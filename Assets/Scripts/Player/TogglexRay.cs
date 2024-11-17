@@ -32,6 +32,7 @@ public class TogglexRay : MonoBehaviour
             }
             xRayActive = true;
             customPassVolume.enabled = true;
+            AudioManager.PlayAudio("XrayOn", 1, 1, false);
         }
     }
 
