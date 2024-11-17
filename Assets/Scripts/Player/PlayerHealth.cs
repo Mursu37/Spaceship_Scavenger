@@ -9,6 +9,8 @@ public class PlayerHealth : MonoBehaviour, IHealth
 {
     private FadeIn fadeIn;
     private AmbientMusic ambientMusic;
+    private MeltdownMusic meltdownMusic;
+    private AmbienceManager ambienceManager;
     private float previousHealth;
     private bool hasDied = false;
     private bool hasFadeIn = false;
@@ -60,6 +62,18 @@ public class PlayerHealth : MonoBehaviour, IHealth
                 if (ambientMusic != null)
                 {
                     ambientMusic.StopAmbientMusic();
+                }
+
+                meltdownMusic = FindObjectOfType<MeltdownMusic>();
+                if (meltdownMusic != null)
+                {
+                    meltdownMusic.StopMeltdownMusic();
+                }
+
+                ambienceManager = FindObjectOfType<AmbienceManager>();
+                if (ambienceManager != null)
+                {
+                    ambienceManager.StopAmbience();
                 }
 
                 hasDied = true;

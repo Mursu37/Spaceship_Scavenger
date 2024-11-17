@@ -9,13 +9,14 @@ using TMPro;
 
 public class Cutting : MonoBehaviour
 {
-    private float tolerance = 6f;
+    
     private float rayDistance = 2f; // Distance of the raycast
     private LayerMask layerMask; // Define a LayerMask to specify layers for Cuttable and Explosive
     private Transform cuttingPoint;
     private Vector3 hitPoint;
     private CuttableType currentType = CuttableType.None;
 
+    [SerializeField] private float angleTolerance = 6f;
     [SerializeField] private LineRenderer rightmostLaser;
     [SerializeField] private LineRenderer leftmostLaser;
     [SerializeField] private Animator animator;
@@ -70,7 +71,7 @@ public class Cutting : MonoBehaviour
 
             if (Input.GetButtonDown("Fire1") && !PauseGame.isPaused)
             {
-                if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, tolerance))
+                if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, angleTolerance))
                 {
                     cuttingPoint = hitTransform;
                     currentType = CuttableType.Normal;
@@ -259,7 +260,7 @@ public class Cutting : MonoBehaviour
         playerObject.transform.rotation = Quaternion.Lerp(playerObject.transform.rotation, targetRotation, Time.deltaTime * 10f);
     }
 
-    public float Tolerance => tolerance;
+    public float Tolerance => angleTolerance;
     public float RayDistance => rayDistance;
 
     private void OnDisable()

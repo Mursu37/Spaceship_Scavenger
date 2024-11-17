@@ -115,5 +115,13 @@ public class MeltdownMusic : MonoBehaviour
 
         layerSource.volume = targetVolume;  // Ensure volume reaches target value
     }
+
+    public void StopMeltdownMusic()
+    {
+        AudioManager.StopAudio(AlarmMusicIntro);
+        AudioManager.StopAudio(AlarmMusicLayer1);
+        AudioManager.StopAudio(AlarmMusicLayer2);
+        AudioManager.StopAudio(AlarmMusicLayer3);
+    }
 }
 
