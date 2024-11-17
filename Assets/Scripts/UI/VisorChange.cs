@@ -52,7 +52,7 @@ public class VisorChange : MonoBehaviour
     {
         if (instance.visorObject.GetComponent<Canvas>().sortingOrder != 0 && instance.visorObject.GetComponent<Image>().sprite != instance.hackingVisor)
         {
-            instance.visorObject.GetComponent<Canvas>().sortingOrder = 0;
+            instance.visorObject.GetComponent<Canvas>().sortingOrder = -1;
         }
     }
 }
