@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4481773241098727513}
-  m_Layer: 0
+  - component: {fileID: 7474062060984500941}
+  m_Layer: 6
   m_Name: Suit_repair_kit_pf
-  m_TagString: Untagged
+  m_TagString: RepairKit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,6 +33,27 @@ Transform:
   - {fileID: 4855734139814567148}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7474062060984500941
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4750528674182089135}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.44518402, y: 0.5538142, z: 0.18489891}
+  m_Center: {x: 0, y: -3.8065872e-17, z: 0.09244946}
 --- !u!1001 &4965694696264252167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -105,16 +127,36 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 272fafc1710643f4f9fd954d62dcba1c, type: 2}
+    - target: {fileID: -4737762763501572053, guid: 65c1ad88ba225c249bf71d1aac49fb65,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -3444503175310901151, guid: 65c1ad88ba225c249bf71d1aac49fb65,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 65c1ad88ba225c249bf71d1aac49fb65,
         type: 3}
       propertyPath: m_Name
       value: suit_repair_kit
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 65c1ad88ba225c249bf71d1aac49fb65,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3086669929783703669, guid: 65c1ad88ba225c249bf71d1aac49fb65,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 272fafc1710643f4f9fd954d62dcba1c, type: 2}
+    - target: {fileID: 6219256062554885154, guid: 65c1ad88ba225c249bf71d1aac49fb65,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
