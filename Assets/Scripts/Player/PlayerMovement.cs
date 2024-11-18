@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private float speedRatio;
     private float dampingFactor;
-    private bool isStabilized = false;
 
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed;
@@ -24,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float maxSpeed;
     public float mouseSensitivity;
+    public bool isStabilized = false;
 
     [HideInInspector] public float currentDrag;
 
