@@ -15,6 +15,13 @@ public class LampSwitcherManager : MonoBehaviour
 
     private bool isAlarmState;
 
+    [SerializeField]
+    private int poolIndex_dark;
+    [SerializeField]
+    private int poolIndex_ordinary;
+    [SerializeField]
+    private int poolIndex_alarm;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +56,11 @@ public class LampSwitcherManager : MonoBehaviour
             lights[i].ToggleLight(_bool, isAlarmState);
         }
 
+        if (_bool == false)
+        {
+            GetComponent<LightMapSceneLoader>()?.LoadLightMapScene(poolIndex_dark);
+        }
+
     }
 
     public void SetAlarmOn()
@@ -64,6 +76,8 @@ public class LampSwitcherManager : MonoBehaviour
         {
             lights[i].SetAlarmLights();
         }
+
+        GetComponent<LightMapSceneLoader>()?.LoadLightMapScene(poolIndex_alarm);
     }
 
     public void SetOrdinaryLights()
@@ -74,6 +88,8 @@ public class LampSwitcherManager : MonoBehaviour
         {
             lights[i].SetOrdinaryLights();
         }
+
+        GetComponent<LightMapSceneLoader>()?.LoadLightMapScene(poolIndex_ordinary);
 
     }
 

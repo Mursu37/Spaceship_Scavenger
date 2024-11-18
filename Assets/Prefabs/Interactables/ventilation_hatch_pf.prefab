@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2512083655777437270}
+  - component: {fileID: 6213364370329643571}
+  - component: {fileID: 4124906062202011967}
+  - component: {fileID: 2449883204050080256}
   m_Layer: 0
   m_Name: ventilation_hatch_pf
   m_TagString: Untagged
@@ -32,6 +35,69 @@ Transform:
   - {fileID: 4910813174962064300}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &6213364370329643571
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6484277839043977351}
+  serializedVersion: 4
+  m_Mass: 1.5
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!138 &4124906062202011967
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6484277839043977351}
+  m_ConnectedBody: {fileID: 0}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: 250
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
+--- !u!65 &2449883204050080256
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6484277839043977351}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.18434906, y: 1.5089906, z: 1.6519766}
+  m_Center: {x: 0.31362534, y: 1.4456286, z: -1.4651971}
 --- !u!1001 &4876290007608945735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -89,6 +155,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8180025464627557456, guid: 40aedb984ed21db4a8a5f0ec5a300dbd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.4710017
+      objectReference: {fileID: 0}
+    - target: {fileID: -8180025464627557456, guid: 40aedb984ed21db4a8a5f0ec5a300dbd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.4980041
+      objectReference: {fileID: 0}
+    - target: {fileID: -1856265524830581582, guid: 40aedb984ed21db4a8a5f0ec5a300dbd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.471
+      objectReference: {fileID: 0}
+    - target: {fileID: -1856265524830581582, guid: 40aedb984ed21db4a8a5f0ec5a300dbd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.498
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 40aedb984ed21db4a8a5f0ec5a300dbd,
         type: 3}

@@ -15,6 +15,8 @@ public class VisorChange : MonoBehaviour
     [SerializeField] Sprite badlyDamagedVisor;
     [SerializeField] Sprite hackingVisor;
 
+    public static Visor currentDamageState = Visor.Default;
+
     public enum Visor
     {
         Default,
@@ -34,12 +36,15 @@ public class VisorChange : MonoBehaviour
         {
             case Visor.Default:
                 instance.visorObject.GetComponent<Image>().sprite = instance.defaultVisor;
+                currentDamageState = Visor.Default;
                 break;
             case Visor.MildlyDamaged:
                 instance.visorObject.GetComponent<Image>().sprite = instance.mildlyDamagedVisor;
+                currentDamageState = Visor.MildlyDamaged;
                 break;
             case Visor.BadlyDamaged:
                 instance.visorObject.GetComponent<Image>().sprite = instance.badlyDamagedVisor;
+                currentDamageState = Visor.BadlyDamaged;
                 break;
             case Visor.Hacking:
                 instance.visorObject.GetComponent<Image>().sprite = instance.hackingVisor;
@@ -50,9 +55,9 @@ public class VisorChange : MonoBehaviour
 
     private void Update()
     {
-        if (instance.visorObject.GetComponent<Canvas>().sortingOrder != 0 && instance.visorObject.GetComponent<Image>().sprite != instance.hackingVisor)
+        if (instance.visorObject.GetComponent<Canvas>().sortingOrder != -1 && instance.visorObject.GetComponent<Image>().sprite != instance.hackingVisor)
         {
-            instance.visorObject.GetComponent<Canvas>().sortingOrder = 0;
+            instance.visorObject.GetComponent<Canvas>().sortingOrder = -1;
         }
     }
 }

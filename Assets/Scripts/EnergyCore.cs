@@ -13,6 +13,7 @@ public class EnergyCore : MonoBehaviour, IHealth
 
     public float heatAmount;
     public float maxHeat;
+    public float heatIncreaseTime = 8f;
 
     private void OnEnable()
     {
@@ -38,7 +39,7 @@ public class EnergyCore : MonoBehaviour, IHealth
     {
         while (heatAmount < maxHeat)
         {
-            yield return new WaitForSeconds(8f);
+            yield return new WaitForSeconds(heatIncreaseTime);
             heatAmount += 1f;
             coreSounds?.PlayRandomDamageSound();
         }

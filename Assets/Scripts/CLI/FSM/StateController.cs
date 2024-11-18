@@ -107,7 +107,7 @@ namespace CLI.FSM
         {
             PauseGame.Resume(PauseGame.TransitionType.NormalMusic);
             FindObjectOfType<PauseMenu>().enabled = true;
-            VisorChange.UpdateVisor(VisorChange.Visor.Default);
+            VisorChange.UpdateVisor(VisorChange.currentDamageState);
 
             CLI.SetActive(false);
 

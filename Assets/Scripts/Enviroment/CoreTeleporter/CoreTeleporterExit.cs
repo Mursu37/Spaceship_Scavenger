@@ -40,9 +40,13 @@ public class CoreTeleporterExit : MonoBehaviour
                 break;
 
             case TeleporterState.PlayerNear:
-                if (Vector3.Distance(transform.position, player.position) < 5f)
+                if (Vector3.Distance(transform.position, player.position) < 4f)
                 {
                     animator.Play("TeleporterOpen");
+                    if (!AudioManager.IsPlaying("TeleporterOpen"))
+                    {
+                        AudioManager.PlayModifiedClipAtPoint("TeleporterOpen", transform.position, 1, 1, 1, 1000);
+                    }
                     targetPosition = core.transform.position + core.transform.right * -2f;
                     currentState = TeleporterState.CoreMoving;
                 }
@@ -62,6 +66,10 @@ public class CoreTeleporterExit : MonoBehaviour
 
             case TeleporterState.Closing:
                 animator.Play("DoorClose");
+                if (!AudioManager.IsPlaying("TeleporterClose"))
+                {
+                    AudioManager.PlayModifiedClipAtPoint("TeleporterClose", transform.position, 1, 1, 1, 1000);
+                }
                 core.GetComponent<Collider>().enabled = true;
                 Rigidbody coreRbFinal = core.GetComponent<Rigidbody>();
                 if (coreRbFinal != null)
@@ -69,6 +77,7 @@ public class CoreTeleporterExit : MonoBehaviour
                     coreRbFinal.constraints = RigidbodyConstraints.None;
                 }
 
+                core.GetComponent<EnergyCore>().heatIncreaseTime = 8f;
 
                 currentState = TeleporterState.Idle;
                 break;
@@ -91,6 +100,7 @@ public class CoreTeleporterExit : MonoBehaviour
         if (currentState == TeleporterState.Idle)
         {
             currentState = TeleporterState.Teleporting;
+            core.GetComponent<EnergyCore>().heatIncreaseTime = 16f;
         }
     }
 }

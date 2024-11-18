@@ -9,6 +9,8 @@ public class PlayerHealth : MonoBehaviour, IHealth
 {
     private FadeIn fadeIn;
     private AmbientMusic ambientMusic;
+    private MeltdownMusic meltdownMusic;
+    private AmbienceManager ambienceManager;
     private float previousHealth;
     private bool hasDied = false;
     private bool hasFadeIn = false;
@@ -27,6 +29,10 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
     public void Damage(float amount, float shakeAmount = 0.04f)
     {
+        if (!AudioManager.IsPlaying("PlayerDamageAlarm"))
+        {
+            AudioManager.PlayAudio("PlayerDamageAlarm", 1, 1, false);
+        }
         currentHealth -= amount;
         Camera.main.GetComponent<CameraShake>().shakeDuration = 0.2f;
         Camera.main.GetComponent<CameraShake>().shakeAmount = shakeAmount;
@@ -56,6 +62,18 @@ public class PlayerHealth : MonoBehaviour, IHealth
                 if (ambientMusic != null)
                 {
                     ambientMusic.StopAmbientMusic();
+                }
+
+                meltdownMusic = FindObjectOfType<MeltdownMusic>();
+                if (meltdownMusic != null)
+                {
+                    meltdownMusic.StopMeltdownMusic();
+                }
+
+                ambienceManager = FindObjectOfType<AmbienceManager>();
+                if (ambienceManager != null)
+                {
+                    ambienceManager.StopAmbience();
                 }
 
                 hasDied = true;
