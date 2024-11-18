@@ -10,12 +10,13 @@ using TMPro;
 public class Cutting : MonoBehaviour
 {
     
-    private float rayDistance = 2f; // Distance of the raycast
-    private LayerMask layerMask; // Define a LayerMask to specify layers for Cuttable and Explosive
+    
+    private LayerMask layerMask;
     private Transform cuttingPoint;
     private Vector3 hitPoint;
     private CuttableType currentType = CuttableType.None;
 
+    [SerializeField] private float range = 2f;
     [SerializeField] private float angleTolerance = 6f;
     [SerializeField] private LineRenderer rightmostLaser;
     [SerializeField] private LineRenderer leftmostLaser;
@@ -64,7 +65,7 @@ public class Cutting : MonoBehaviour
         RaycastHit hit;
 
         // Check if the ray hit something within specified layers and distance
-        if (Physics.Raycast(ray, out hit, rayDistance, ~layerMask))
+        if (Physics.Raycast(ray, out hit, range, ~layerMask))
         {
             Transform hitTransform = hit.transform;
             Debug.Log(hitTransform.name);
@@ -261,7 +262,7 @@ public class Cutting : MonoBehaviour
     }
 
     public float Tolerance => angleTolerance;
-    public float RayDistance => rayDistance;
+    public float RayDistance => range;
 
     private void OnDisable()
     {
