@@ -29,7 +29,8 @@ public class GasTrigger : MonoBehaviour
                 rb.GetComponent<IHealth>().Damage(5f);
                 canDamage = false;
             }
-            rb.AddForce(-rb.transform.forward * 500);
+            Vector3 pushDirection = (rb.transform.position - transform.position).normalized;
+            rb.AddForce(pushDirection * 5, ForceMode.Impulse);
         }
     }
 }
