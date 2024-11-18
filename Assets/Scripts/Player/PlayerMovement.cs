@@ -8,14 +8,14 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalInput;
     private float rollInput;
     private float ascendInput;
-    private float momentumInput;
+    private float stabilizeInput;
     private float mouseInputX;
     private float mouseInputY;
 
     private Rigidbody rb;
-    private float fov;
     private float speedRatio;
     private float dampingFactor;
+    private bool isStabilized = false;
 
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed;
@@ -25,10 +25,13 @@ public class PlayerMovement : MonoBehaviour
     public float maxSpeed;
     public float mouseSensitivity;
 
+    [HideInInspector] public float currentDrag;
+
     // Start is called before the first frame update
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        currentDrag = rb.drag;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -38,20 +41,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
+        // Moves the player around
         rb.AddForce(rb.transform.TransformDirection(Vector3.forward) * verticalInput * acceleration, ForceMode.VelocityChange);
         rb.AddForce(rb.transform.TransformDirection(Vector3.right) * horizontalInput * acceleration, ForceMode.VelocityChange);
 
+        // Turn the player / camera
         rb.AddTorque(rb.transform.right * mouseSensitivity * mouseInputY * -1, ForceMode.VelocityChange);
         rb.AddTorque(rb.transform.up * mouseSensitivity * mouseInputX, ForceMode.VelocityChange);
 
-        // Rotates player
+        // Rolls the player
         rb.AddTorque(rb.transform.forward * rollAcceleration * rollInput, ForceMode.VelocityChange);
 
         // Ascends / descends player
         rb.AddForce(rb.transform.TransformDirection(Vector3.up) * ascendInput * acceleration, ForceMode.VelocityChange);
 
         // Makes player lose all momentum
-        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, acceleration * momentumInput);
+        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, acceleration * stabilizeInput);
 
         //Check if the player's speed exceeds the maxium speed
         if (rb.velocity.magnitude > maxSpeed && !GameObject.Find("Multitool").GetComponent<GravityGun>().isGrabbling)
@@ -63,8 +68,27 @@ public class PlayerMovement : MonoBehaviour
             // Apply stronger damping the closer the velocity is to the max speed
             rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, dampingFactor);
         }
+    }
 
-        
+    private void Stabilize()
+    {
+        if (Input.GetButtonDown("Stabilize"))
+        {
+            if (isStabilized)
+            {
+                isStabilized = false;
+                rb.drag = 0f;
+                acceleration = 0.05f;
+                currentDrag = rb.drag;
+            }
+            else
+            {
+                isStabilized = true;
+                rb.drag = 4f;
+                acceleration = 0.25f;
+                currentDrag = rb.drag;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -75,9 +99,11 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         ascendInput = Input.GetAxis("Ascend");
         rollInput = Input.GetAxis("Roll");
-        momentumInput = Input.GetAxis("Stabilize");
+        stabilizeInput = Input.GetAxis("Break");
         mouseInputX = Input.GetAxis("Mouse X");
         mouseInputY = Input.GetAxis("Mouse Y");
+
+        Stabilize();
 
         // Gets the current speed
         speed = rb.velocity.magnitude;
