@@ -27,11 +27,11 @@ public class DamageOnImpact : MonoBehaviour
             relativeVelocity = collision.relativeVelocity;
 
             // Calculate the force of impact using the other object's mass and relative velocity
-            collisionForce = relativeVelocity.magnitude * otherRb.mass;
+            collisionForce = relativeVelocity.magnitude;
 
-            float amount = Mathf.RoundToInt(collisionForce * 0.8f);
+            float amount = Mathf.RoundToInt(collisionForce);
 
-            if (collisionForce > 8)
+            if (collisionForce > 5)
             {
                 rb.GetComponent<IHealth>().Damage(amount);
             }
