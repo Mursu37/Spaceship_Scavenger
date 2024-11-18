@@ -9,7 +9,6 @@ public class Interact : MonoBehaviour
 
     [SerializeField] private LayerMask interactableLayerMask;
     [SerializeField] private GameObject interactionTextObject;
-    private GameObject currentTextObject;
     private Camera camera;
     public GameObject currentlyHighlighted;
     
@@ -27,7 +26,7 @@ public class Interact : MonoBehaviour
             {
                 if (hit.transform.CompareTag("RepairKit"))
                 {
-                    transform.GetComponent<IHealth>().Heal(5);
+                    transform.GetComponent<IHealth>().Heal(50);
                 }
                 if (hit.transform.GetComponent<IInteractable>() != null)
                 {
@@ -35,19 +34,17 @@ public class Interact : MonoBehaviour
                 }
             }
         }
-        if (currentTextObject != null) Destroy(currentTextObject);
         if (Physics.Raycast(camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out RaycastHit hit2, 10f,
                 interactableLayerMask))
         {
             currentlyHighlighted = hit2.transform.gameObject;
             if (interactionTextObject == null) return;
-            Vector3 point = hit2.collider.bounds.center;
-            point.y = point.y + hit2.collider.bounds.extents.y + 1f;
-            currentTextObject = Instantiate(interactionTextObject, point, quaternion.identity);
+            interactionTextObject.SetActive(true);
         }
-        else
+        else if (currentlyHighlighted != null)
         {
             currentlyHighlighted = null;
+            interactionTextObject.SetActive(false);
         }
     }
 }
