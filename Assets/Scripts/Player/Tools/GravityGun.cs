@@ -172,7 +172,7 @@ public class GravityGun : MonoBehaviour
         if (target == null)
         {
             targetRb = null;
-            playerRb.drag = 0f;
+            playerRb.drag = playerObject.GetComponent<PlayerMovement>().currentDrag;
             isGrabbling = false;
             distanceToPlayer = 0;
             strength = 0f;
@@ -194,7 +194,7 @@ public class GravityGun : MonoBehaviour
 
         target = null;
         targetRb = null;
-        playerRb.drag = 0f;
+        playerRb.drag = playerObject.GetComponent<PlayerMovement>().currentDrag;
         isGrabbling = false;
         distanceToPlayer = 0;
         strength = 0f;
