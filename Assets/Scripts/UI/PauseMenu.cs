@@ -1,4 +1,3 @@
-//using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,19 +9,28 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject settings;
     [SerializeField] private GameObject controls;
 
+    private bool controlsOpen = false;
+
     private void Update()
     {
+        // Opening and closing controls (F1)
+        if (Input.GetButtonDown("OpenControls"))
+        {
+            OpenControls();
+        }
+        if (Input.GetButtonUp("OpenControls") && controlsOpen)
+        {
+            CloseControls();
+        }
+
         if (Input.GetButtonDown("Cancel"))
         {
             if (isPaused)
-            {
                 Resume();
-            }
             else
-            {
                 Pause();
-            }
         }
+
     }
 
     public void Pause()
@@ -39,6 +47,21 @@ public class PauseMenu : MonoBehaviour
         PauseGame.Resume(PauseGame.TransitionType.UnpauseMixer);
     }
 
+    public void OpenControls()
+    {
+        controlsOpen = true;
+        controls.SetActive(true);
+        settings.SetActive(false);
+        pauseMenu.SetActive(false);
+    }
+
+    public void CloseControls()
+    {
+        controlsOpen = false;
+        controls.SetActive(false);
+        pauseMenu.SetActive(false);
+    }
+
     public void Retry()
     {
         Scene scene = SceneManager.GetActiveScene();
@@ -50,13 +73,6 @@ public class PauseMenu : MonoBehaviour
     {
         settings.SetActive(true);
         controls.SetActive(false);
-        pauseMenu.SetActive(false);
-    }
-
-    public void Controls()
-    {
-        controls.SetActive(true);
-        settings.SetActive(false);
         pauseMenu.SetActive(false);
     }
 
