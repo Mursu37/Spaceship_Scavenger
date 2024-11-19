@@ -41,7 +41,7 @@ public class EnergyCore : MonoBehaviour, IHealth
         {
             yield return new WaitForSeconds(heatIncreaseTime);
             heatAmount += 1f;
-            coreSounds?.PlayRandomDamageSound();
+            //coreSounds?.PlayRandomDamageSound();
         }
     }
 
