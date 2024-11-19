@@ -57,7 +57,7 @@ public class MovementSounds : MonoBehaviour
         }
 
         // Check if left Ctrl is pressed and if the player's speed is high enough
-        if (Input.GetButton("Stabilize") && currentSpeed > speedThreshold)
+        if (Input.GetButton("Break") && currentSpeed > speedThreshold)
         {
             PlaystoppingSound();
         }
