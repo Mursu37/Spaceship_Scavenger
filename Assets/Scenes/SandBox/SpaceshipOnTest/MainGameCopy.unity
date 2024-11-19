@@ -24436,6 +24436,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8343506286842131222, guid: ce1c20acb032c5341bbf98de65980239,
         type: 3}
+      propertyPath: managedReferences[1570080773791023104].range
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343506286842131222, guid: ce1c20acb032c5341bbf98de65980239,
+        type: 3}
       propertyPath: managedReferences[1570080753363714048].enabled
       value: 0
       objectReference: {fileID: 0}
@@ -24477,6 +24482,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 881247536}
+    - targetCorrespondingSourceObject: {fileID: 7366239943124184128, guid: ce1c20acb032c5341bbf98de65980239,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 881247537}
   m_SourcePrefab: {fileID: 100100000, guid: ce1c20acb032c5341bbf98de65980239, type: 3}
 --- !u!114 &881247529 stripped
 MonoBehaviour:
@@ -24890,6 +24899,82 @@ MonoBehaviour:
         stencilFailOperation: 0
         stencilDepthFailOperation: 0
         shaderPass: 0
+--- !u!114 &881247537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881247530}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d6499a6bd256e47b859377446493a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  fadeRadius: 0
+  priority: 0
+  customPasses:
+  - rid: 1570081050389643264
+  injectionPoint: 2
+  m_TargetCamera: {fileID: 0}
+  useTargetCamera: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 1570081050389643264
+      type: {class: ScannerPass, ns: , asm: Assembly-CSharp}
+      data:
+        m_Name: Custom Pass
+        enabled: 1
+        targetColorBuffer: 0
+        targetDepthBuffer: 0
+        clearFlags: 0
+        passFoldout: 0
+        m_Version: 0
+        scanSettingsList:
+        - color: {r: 0, g: 1, b: 0.06666667, a: 1}
+          layerMask:
+            serializedVersion: 2
+            m_Bits: 1
+          overrideVisual: {fileID: 2100000, guid: 48e9f961b8faeee4e81ebc2230420e4a,
+            type: 2}
+        - color: {r: 0, g: 3.3043249, b: 7.999999, a: 1}
+          layerMask:
+            serializedVersion: 2
+            m_Bits: 4096
+          overrideVisual: {fileID: 2100000, guid: 48e9f961b8faeee4e81ebc2230420e4a,
+            type: 2}
+        - color: {r: 7.999999, g: 1.228137, b: 0, a: 0}
+          layerMask:
+            serializedVersion: 2
+            m_Bits: 8192
+          overrideVisual: {fileID: 2100000, guid: 87b7e4c5c22383445ba21b905cf9786f,
+            type: 2}
+        - color: {r: 1, g: 0.9843137, b: 0, a: 0}
+          layerMask:
+            serializedVersion: 2
+            m_Bits: 16384
+          overrideVisual: {fileID: 2100000, guid: 5c4bbae014ffb7c428adec919145b163,
+            type: 2}
+        - color: {r: 3.9999995, g: 0, b: 0.12122153, a: 0}
+          layerMask:
+            serializedVersion: 2
+            m_Bits: 1
+          overrideVisual: {fileID: 2100000, guid: f3b72ae133e7eb54b99a2c45a25e2c66,
+            type: 2}
+        - color: {r: 0, g: 3.3043249, b: 7.999999, a: 0}
+          layerMask:
+            serializedVersion: 2
+            m_Bits: 1
+          overrideVisual: {fileID: 2100000, guid: ed04b50ec65f5734bb4e856d0114fcc3,
+            type: 2}
+        range: 42.62
+        threshold: 0.18
+        replacementMaterial: {fileID: 2100000, guid: c01724b41324fd24691a4a2429423a8c,
+          type: 2}
+        outlineShader: {fileID: 4800000, guid: dab1ae183861fb949962e1f3e36563ad, type: 3}
+        fullscreenOutline: {fileID: 0}
 --- !u!43 &888348799
 Mesh:
   m_ObjectHideFlags: 0
@@ -56868,12 +56953,12 @@ PrefabInstance:
     - target: {fileID: 8240356739133988897, guid: ec678b3000fd17e4f92bb401f3138524,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00015634458
+      value: 0.00015619643
       objectReference: {fileID: 0}
     - target: {fileID: 8240356739133988897, guid: ec678b3000fd17e4f92bb401f3138524,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0053759953
+      value: 0.005559101
       objectReference: {fileID: 0}
     - target: {fileID: 8243710975112532153, guid: ec678b3000fd17e4f92bb401f3138524,
         type: 3}
