@@ -17,11 +17,10 @@ public class MovementSounds : MonoBehaviour
     [SerializeField] private float inputTimeThreshold = 2.0f;
     private float inputTimer = 0.0f; //timer to track continuous input
 
-    private float thrusterLayerVolume;
+
 
     private void Start()
     {
-        thrusterLayerVolume = 0f;
 
         rb = GetComponentInParent<Rigidbody>(); // Get the Rigidbody component from the parent object
     }
@@ -83,7 +82,6 @@ public class MovementSounds : MonoBehaviour
         {
             AudioManager.StopAudio("Thruster");
 
-            thrusterLayerVolume = 0f;
         }
     }
 

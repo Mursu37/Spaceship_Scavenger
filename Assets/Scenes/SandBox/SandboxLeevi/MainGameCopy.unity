@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.33694, g: 325.04984, b: 430.2193, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12844,9 +12844,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1744162995089050378, guid: f7706f79e4135f44b84335d3ff8c3212,
         type: 3}
+      propertyPath: sparkEffect
+      value: 
+      objectReference: {fileID: 487179414463494871, guid: 2908ea2e411924c469ed89130e3993f1,
+        type: 3}
+    - target: {fileID: 1744162995089050378, guid: f7706f79e4135f44b84335d3ff8c3212,
+        type: 3}
       propertyPath: playerObject
       value: 
       objectReference: {fileID: 660902984}
+    - target: {fileID: 1744162995089050378, guid: f7706f79e4135f44b84335d3ff8c3212,
+        type: 3}
+      propertyPath: sparkleEffect
+      value: 
+      objectReference: {fileID: 5219258442272032386, guid: 3ce224f1be7caeb45ab4a7a8b1f2dc28,
+        type: 3}
     - target: {fileID: 1744162995089050378, guid: f7706f79e4135f44b84335d3ff8c3212,
         type: 3}
       propertyPath: verticalCrosshair
@@ -16516,12 +16528,12 @@ PrefabInstance:
     - target: {fileID: 8240356739133988897, guid: ec678b3000fd17e4f92bb401f3138524,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00015624815
+      value: 0.0001562111
       objectReference: {fileID: 0}
     - target: {fileID: 8240356739133988897, guid: ec678b3000fd17e4f92bb401f3138524,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.005200519
+      value: 0.0052462956
       objectReference: {fileID: 0}
     - target: {fileID: 8243710975112532153, guid: ec678b3000fd17e4f92bb401f3138524,
         type: 3}
@@ -33849,7 +33861,7 @@ PrefabInstance:
     - target: {fileID: 4845627658618286178, guid: af808f752f9b657468c3f0c847804fb0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -57874,10 +57886,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1414989214114911789, guid: e5346a7531f051d48abb3b2f9d9d1e14,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.92
+      objectReference: {fileID: 0}
     - target: {fileID: 5851137048382218593, guid: e5346a7531f051d48abb3b2f9d9d1e14,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.255
+      value: -10.88
       objectReference: {fileID: 0}
     - target: {fileID: 5851137048382218593, guid: e5346a7531f051d48abb3b2f9d9d1e14,
         type: 3}
@@ -57923,6 +57940,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6002198077219774508, guid: e5346a7531f051d48abb3b2f9d9d1e14,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.82
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -67075,6 +67097,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f1c9ae05bd0e6a4bb36ce85007edd74, type: 3}
+--- !u!1001 &7704789522577687478
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 490200401167991158, guid: 2908ea2e411924c469ed89130e3993f1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 490200401167991158, guid: 2908ea2e411924c469ed89130e3993f1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 490200401167991158, guid: 2908ea2e411924c469ed89130e3993f1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 490200401167991158, guid: 2908ea2e411924c469ed89130e3993f1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 490200401167991158, guid: 2908ea2e411924c469ed89130e3993f1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 490200401167991158, guid: 2908ea2e411924c469ed89130e3993f1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 490200401167991158, guid: 2908ea2e411924c469ed89130e3993f1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 490200401167991158, guid: 2908ea2e411924c469ed89130e3993f1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 490200401167991158, guid: 2908ea2e411924c469ed89130e3993f1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 490200401167991158, guid: 2908ea2e411924c469ed89130e3993f1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6131628909074395128, guid: 2908ea2e411924c469ed89130e3993f1,
+        type: 3}
+      propertyPath: m_Name
+      value: Spark
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2908ea2e411924c469ed89130e3993f1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -67129,3 +67219,4 @@ SceneRoots:
   - {fileID: 177316111}
   - {fileID: 1454942024}
   - {fileID: 380311323}
+  - {fileID: 7704789522577687478}
