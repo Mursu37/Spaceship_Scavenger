@@ -6,6 +6,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI; //Arina UI
 using TMPro;
+using UnityEngine.UIElements;
+using System.Drawing;
 
 public class Cutting : MonoBehaviour
 {
@@ -14,7 +16,10 @@ public class Cutting : MonoBehaviour
     private LayerMask layerMask;
     private Transform cuttingPoint;
     private Vector3 hitPoint;
+    private float diffY;
     private CuttableType currentType = CuttableType.None;
+    ParticleSystem rightSpark;
+    ParticleSystem leftSpark;
 
     [SerializeField] private float range = 2f;
     [SerializeField] private float angleTolerance = 6f;
@@ -27,6 +32,7 @@ public class Cutting : MonoBehaviour
     [SerializeField] private GameObject horizontalCrosshair;
     [SerializeField] private GameObject verticalCrosshair;
     [SerializeField] private GameObject playerObject;
+    [SerializeField] private ParticleSystem sparkEffect;
 
     private enum CuttableType
     {
@@ -75,7 +81,11 @@ public class Cutting : MonoBehaviour
                 if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, angleTolerance))
                 {
                     cuttingPoint = hitTransform;
+                    hitPoint = hit.point;
                     currentType = CuttableType.Normal;
+
+                    rightSpark = Instantiate(sparkEffect, transform.position, Quaternion.LookRotation(hit.normal));
+                    leftSpark = Instantiate(sparkEffect, transform.position, Quaternion.LookRotation(hit.normal));
                 }
                 else if (hitTransform.CompareTag("Explosive"))
                 {
@@ -118,7 +128,7 @@ public class Cutting : MonoBehaviour
 
     private void FixedUpdate()
     {
-        FaceToCuttingPoint();
+        FaceToCuttingPoint(hitPoint);
     }
 
     private IEnumerator AnimateLasers(Transform point, float duration)
@@ -129,21 +139,32 @@ public class Cutting : MonoBehaviour
             var mesh = meshFilter.sharedMesh;
             if (mesh != null)
             {
-                // Get the center and rightmost / leftmost points in world space
-                Vector3 center = point.TransformPoint(mesh.bounds.center);
-                Vector3 rightmostPoint = point.TransformPoint(
-                    new Vector3(mesh.bounds.max.x, mesh.bounds.center.y, mesh.bounds.center.z));
-                Vector3 leftmostPoint = point.TransformPoint(
-                    new Vector3(mesh.bounds.min.x, mesh.bounds.center.y, mesh.bounds.center.z));
+                Vector3 rightmostPoint;
+                Vector3 leftmostPoint;
+
+                // Get the rightmost / leftmost points in world space
+                // Check from which direction the player will cut and adjust the z bounds accordingly
+                if (diffY <= 90f)
+                {
+                    rightmostPoint = point.TransformPoint(
+                        new Vector3(mesh.bounds.max.x, mesh.bounds.center.y, mesh.bounds.min.z));
+                    leftmostPoint = point.TransformPoint(
+                        new Vector3(mesh.bounds.min.x, mesh.bounds.center.y, mesh.bounds.min.z));
+                }
+                else
+                {
+                    rightmostPoint = point.TransformPoint(
+                        new Vector3(mesh.bounds.max.x, mesh.bounds.center.y, mesh.bounds.max.z));
+                    leftmostPoint = point.TransformPoint(
+                        new Vector3(mesh.bounds.min.x, mesh.bounds.center.y, mesh.bounds.max.z));
+                }
 
                 // Enable the line renderer and set the start position
                 rightmostLaser.enabled = true;
                 rightmostLaser.SetPosition(0, shootingPoint.position); // Start point
-                rightmostLaser.SetPosition(1, center); // Start at the center
 
                 leftmostLaser.enabled = true;
                 leftmostLaser.SetPosition(0, shootingPoint.position); // Start point
-                leftmostLaser.SetPosition(1, center); // Start at the center
 
                 // Animate the line to the rightmost point
                 float elapsedTime = 0f;
@@ -154,24 +175,38 @@ public class Cutting : MonoBehaviour
                     float t = elapsedTime / duration;
 
                     // Update the end position of the line renderer
-                    Vector3 currentRightPoint = Vector3.Lerp(center, rightmostPoint, t);
+                    Vector3 currentRightPoint = Vector3.Lerp(hitPoint, rightmostPoint, t);
                     rightmostLaser.SetPosition(1, currentRightPoint);
+                    if (rightSpark != null)
+                        rightSpark.transform.position = currentRightPoint; // Move the particle system
 
-                    Vector3 currentLeftPoint = Vector3.Lerp(center, leftmostPoint, t);
+                    Vector3 currentLeftPoint = Vector3.Lerp(hitPoint, leftmostPoint, t);
                     leftmostLaser.SetPosition(1, currentLeftPoint);
+                    if (leftSpark != null)
+                        leftSpark.transform.position = currentLeftPoint; // Move the particle system
 
                     // Increment the elapsed time
                     elapsedTime += Time.deltaTime;
                     yield return null; // Wait for the next frame
                 }
 
+                // Set final positions of the lasers
                 rightmostLaser.SetPosition(1, rightmostPoint);
                 leftmostLaser.SetPosition(1, leftmostPoint);
+
+                // Destroy the particle systems after animation ends
+                if (rightSpark != null)
+                    Destroy(rightSpark.gameObject);
+                if (leftSpark != null)
+                    Destroy(leftSpark.gameObject);
             }
         }
 
+        // Disable the lasers after animation is complete
         rightmostLaser.enabled = false;
         leftmostLaser.enabled = false;
+
+        // Reset the cutting state
         currentType = CuttableType.None;
 
         if (cuttingPoint != null)
@@ -224,7 +259,7 @@ public class Cutting : MonoBehaviour
         float diffZNegative = Mathf.Abs(Mathf.DeltaAngle(angleA.z * -1, angleB.z));
         float diffZRotatedNegative = Mathf.Abs(Mathf.DeltaAngle(angleA.z * -1 + 180f, angleB.z));
 
-        float diffY = Mathf.Abs(Mathf.DeltaAngle(angleA.y, angleB.y));
+        diffY = Mathf.Abs(Mathf.DeltaAngle(angleA.y, angleB.y));
 
         bool isZClose = diffZ <= angleTolerance || diffZRotated <= angleTolerance;
         bool isZCloseNegative = diffZNegative <= angleTolerance || diffZRotatedNegative <= angleTolerance;
@@ -247,12 +282,12 @@ public class Cutting : MonoBehaviour
         return false;
     }
 
-    private void FaceToCuttingPoint()
+    private void FaceToCuttingPoint(Vector3 hitPoint)
     {
         if (cuttingPoint == null || playerObject == null) return;
 
         // Determine the direction vector to the cutting point
-        Vector3 directionToTarget = (cuttingPoint.position - playerObject.transform.position).normalized;
+        Vector3 directionToTarget = (hitPoint - playerObject.transform.position).normalized;
 
         // Calculate the rotation to face the target
         Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
