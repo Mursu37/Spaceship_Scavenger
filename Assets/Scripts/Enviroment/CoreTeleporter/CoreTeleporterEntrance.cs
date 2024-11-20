@@ -7,7 +7,6 @@ public class CoreTeleporterEntrance : MonoBehaviour
     private CoreTeleporterExit exit;
     private GravityGun gravityGun;
     private bool canMove = false;
-
     private bool coreInSoundPlayed = false;
 
     private MixerController mixerController;
@@ -16,7 +15,7 @@ public class CoreTeleporterEntrance : MonoBehaviour
     [SerializeField] private Transform core;
     [SerializeField] private Transform coreHolder;
     [SerializeField] private GameObject multitool;
-
+    [SerializeField] private CheckPointSave checkPointSave;
     private enum TeleporterState
     {
         Idle,
@@ -140,6 +139,8 @@ public class CoreTeleporterEntrance : MonoBehaviour
         exit.StartTeleportation();
         core.position = exit.coreHolder.position;
         core.rotation = exit.coreHolder.rotation;
+
+        checkPointSave?.Save();
 
         yield return new WaitForSeconds(0.5f);
 

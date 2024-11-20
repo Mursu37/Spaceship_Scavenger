@@ -7,11 +7,19 @@ public class PlayerRespawn : MonoBehaviour
     private bool canRespawn;
     private Vector3 spawnPosition;
 
-    [SerializeField] private GameObject spawnPoint;
+    public static bool hasLoadedOnce = false;
 
     private void Awake()
     {
+        if (!hasLoadedOnce)
+        {
+            PlayerPrefs.SetFloat("PlayerPosX", transform.position.x);
+            PlayerPrefs.SetFloat("PlayerPosY", transform.position.y);
+            PlayerPrefs.SetFloat("PlayerPosZ", transform.position.z);
+            hasLoadedOnce = true;
+        }
         canRespawn = true;
+
         spawnPosition = new Vector3(
             PlayerPrefs.GetFloat("PlayerPosX"),
             PlayerPrefs.GetFloat("PlayerPosY"),
@@ -20,7 +28,7 @@ public class PlayerRespawn : MonoBehaviour
         Debug.Log("Spawned at: " + PlayerPrefs.GetFloat("PlayerPosX") + " " + PlayerPrefs.GetFloat("PlayerPosY") + " " + PlayerPrefs.GetFloat("PlayerPosZ"));
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (canRespawn)
         {
@@ -29,19 +37,14 @@ public class PlayerRespawn : MonoBehaviour
         }
     }
 
-    private void OnApplicationQuit()
+    [RuntimeInitializeOnLoadMethod]
+    private static void OnApplicationStart()
     {
-        if (spawnPoint != null)
-        {
-            PlayerPrefs.SetFloat("PlayerPosX", spawnPoint.transform.position.x);
-            PlayerPrefs.SetFloat("PlayerPosY", spawnPoint.transform.position.y);
-            PlayerPrefs.SetFloat("PlayerPosZ", spawnPoint.transform.position.z);
-        }
-        else
-        {
-            PlayerPrefs.SetFloat("PlayerPosX", 0);
-            PlayerPrefs.SetFloat("PlayerPosY", 0);
-            PlayerPrefs.SetFloat("PlayerPosZ", 0);
-        }
+        Application.quitting += ResetHasLoadedOnce;
+    }
+
+    private static void ResetHasLoadedOnce()
+    {
+        hasLoadedOnce = false;
     }
 }

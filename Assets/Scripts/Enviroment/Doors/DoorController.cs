@@ -6,7 +6,7 @@ public class DoorController : CuttingPointManager
 {
     private Animator animator;
 
-    private bool doorOpened = false;
+    public bool doorOpened = false;
 
     // Start is called before the first frame update
     private void Start()
