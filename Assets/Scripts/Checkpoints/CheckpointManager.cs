@@ -8,7 +8,7 @@ public static class CheckpointManager
     
     public static int lastTeleportId; // Saves the ID of the most recently used teleporter exit which can be used to determine where the core will teleport
 
-    // Save checkpoint method
+    // Saves the most recent checkpoint
     public static void SaveCheckpoint(Vector3 checkpointPosition)
     {
         checkpointReached = true;
