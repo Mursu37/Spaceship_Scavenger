@@ -46,7 +46,7 @@ public class Cutting : MonoBehaviour
 
     private void Start()
     {
-        layerMask = LayerMask.GetMask("Player");
+        layerMask = LayerMask.GetMask("Player") | LayerMask.GetMask("CutThrough");
         rightmostLaser.enabled = false;
         leftmostLaser.enabled = false;
     }
