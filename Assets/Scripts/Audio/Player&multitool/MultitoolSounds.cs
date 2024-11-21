@@ -19,6 +19,10 @@ private LineRenderer[] laserRenderers;
 
 [SerializeField] private string[] cuttingSounds;
 
+[SerializeField] private Animator animator;
+private AnimatorStateInfo previousStateInfo;
+private bool hasInitialized = false;
+
 private bool isCuttingSoundPlaying = false;
 
     // Start is called before the first frame update
@@ -40,6 +44,20 @@ private bool isCuttingSoundPlaying = false;
 
         laserRenderers = this.transform.parent.GetComponentsInChildren<LineRenderer>();
 
+        StartCoroutine(InitializeAnimatorState());
+
+    }
+
+    private IEnumerator InitializeAnimatorState()
+    {
+        // Wait until the end of frame to ensure Animator has fully set up its initial state
+        yield return new WaitForEndOfFrame();
+
+        if (animator != null)
+        {
+            previousStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            hasInitialized = true;
+        }
     }
 
     // Update is called once per frame
@@ -73,6 +91,20 @@ private bool isCuttingSoundPlaying = false;
         else
         {
             isCuttingSoundPlaying = false;  // Reset flag when no laser is active
+        }
+
+        if (animator != null && hasInitialized)
+        {
+            AnimatorStateInfo currentStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            
+                if ((currentStateInfo.IsName("HorizontalCut") && (previousStateInfo.IsName("VerticalCut") || previousStateInfo.IsName("Idle"))) ||
+                    (currentStateInfo.IsName("VerticalCut") && (previousStateInfo.IsName("HorizontalCut") || previousStateInfo.IsName("Idle"))))
+                {
+                    PlayCuttingModeSwitchSound();
+                }
+            
+
+            previousStateInfo = currentStateInfo;
         }
     }
 
@@ -120,6 +152,13 @@ private bool isCuttingSoundPlaying = false;
     {
         int randomIndex = Random.Range(0, soundNames.Length);
         return soundNames[randomIndex];
+    }
+
+
+    private void PlayCuttingModeSwitchSound()
+    {
+        float randomPitch = Random.Range(0.95f, 1.05f);
+        AudioManager.PlayAudio("MultitoolAngleSwitch", 1, randomPitch, false);
     }
 
 }
