@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1022894875765732194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5851647408334139874}
+  m_Layer: 0
+  m_Name: Lighting_Probes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5851647408334139874
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022894875765732194}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 272235207777192093}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1483604086931985605
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 272235207777192093}
+  - component: {fileID: 346417548474111116}
+  m_Layer: 0
+  m_Name: Light Probe Group
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &272235207777192093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483604086931985605}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -76.35, y: 6.19, z: 14.46}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5851647408334139874}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!220 &346417548474111116
+LightProbeGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483604086931985605}
+  m_Enabled: 1
+  m_SourcePositions:
+  - {x: 3.5171509, y: -5.75205, z: 0.33455372}
+  - {x: 3.5171509, y: -5.75205, z: -1.6654463}
+  - {x: 3.5171509, y: -7.75205, z: 0.33455372}
+  - {x: 3.5171509, y: -7.75205, z: -1.6654463}
+  - {x: -3.8018951, y: -5.75205, z: 0.33455372}
+  - {x: -3.8018951, y: -5.75205, z: -1.6654463}
+  - {x: -3.8018951, y: -7.75205, z: 0.33455372}
+  - {x: -3.8018951, y: -7.75205, z: -1.6654463}
+  - {x: 6.48983, y: -5.75205, z: 0.33455372}
+  - {x: 6.48983, y: -5.75205, z: -1.6654463}
+  - {x: 6.48983, y: -7.75205, z: 0.33455372}
+  - {x: 6.48983, y: -7.75205, z: -1.6654463}
+  - {x: 9.23983, y: -5.75205, z: 0.33455372}
+  - {x: 9.23983, y: -5.75205, z: -1.6654463}
+  - {x: 9.23983, y: -7.75205, z: 0.33455372}
+  - {x: 9.23983, y: -7.75205, z: -1.6654463}
+  m_Dering: 1
