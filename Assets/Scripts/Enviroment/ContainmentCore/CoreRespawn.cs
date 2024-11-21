@@ -3,6 +3,12 @@ using UnityEngine;
 public class CoreRespawn : MonoBehaviour
 {
     private bool coreRespawned = false;
+    private EnergyCore energyCore;
+
+    private void Start()
+    {
+        energyCore = GetComponent<EnergyCore>();
+    }
 
     private void Update()
     {
@@ -23,6 +29,8 @@ public class CoreRespawn : MonoBehaviour
                 }
 
                 Debug.Log("Core at: " + transform.position);
+
+                energyCore.heatAmount = CheckpointManager.coreHealth;
             }
             else
             {
@@ -30,30 +38,6 @@ public class CoreRespawn : MonoBehaviour
             }
 
             coreRespawned = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            if (CheckpointManager.checkpointReached)
-            {
-                CoreTeleporterExit[] teleporterExits = FindObjectsOfType<CoreTeleporterExit>();
-                foreach (CoreTeleporterExit teleporterExit in teleporterExits)
-                {
-                    if (teleporterExit.id == CheckpointManager.lastTeleportId)
-                    {
-                        teleporterExit.currentState = CoreTeleporterExit.TeleporterState.Idle;
-                        teleporterExit.StartTeleportation();
-                        Debug.Log("ID found!");
-                        break;
-                    }
-                }
-
-                Debug.Log("Core at: " + transform.position);
-            }
-            else
-            {
-                Debug.Log("Respawning Core at default position.");
-            }
         }
     }
 }

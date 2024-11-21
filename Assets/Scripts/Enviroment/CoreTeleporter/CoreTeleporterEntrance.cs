@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CoreTeleporterEntrance : MonoBehaviour
 {
+    public int id;
     private Animator animator;
     private CoreTeleporterExit exit;
     private GravityGun gravityGun;
@@ -138,7 +139,7 @@ public class CoreTeleporterEntrance : MonoBehaviour
         }
 
         // Save data
-        checkpoint?.SaveCheckpointPosition();
+        checkpoint?.SaveCheckpointState(id);
         CheckpointManager.lastTeleportId = exit.id;
 
         exit.StartTeleportation();

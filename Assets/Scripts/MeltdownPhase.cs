@@ -23,7 +23,7 @@ public class MeltdownPhase : MonoBehaviour
 
         if (!shipPowerOn.isPowerOn)
         {
-            shipPowerOn.turnShipOn();
+            shipPowerOn.turnShipOnNoSound();
         }
 
         lampSwitcherManager.SetAlarmOn();
@@ -56,6 +56,6 @@ public class MeltdownPhase : MonoBehaviour
             ambientMusic.StopAmbientMusic();
         }
         
-        if (objectiveMarker != null) objectiveMarker.SetActive(true);
+        if (objectiveMarker != null && !CheckpointManager.checkpointReached) objectiveMarker.SetActive(true);
     }
 }

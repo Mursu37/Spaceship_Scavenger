@@ -14,12 +14,18 @@ public class TurnMeltdownPhaseOn : MonoBehaviour
     {
         if (!isTurnedOn)
         {
-            if (CheckpointManager.checkpointReached)
-            {
-                meltdownPhase.enabled = true;
-            }
-
-            isTurnedOn = true;
+            Invoke("TurnOn", 0.1f);
         }
+    }
+
+    private void TurnOn()
+    {
+
+        if (CheckpointManager.checkpointReached)
+        {
+            meltdownPhase.enabled = true;
+        }
+
+        isTurnedOn = true;
     }
 }
