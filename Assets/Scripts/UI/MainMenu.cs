@@ -4,13 +4,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    private FadeIn fadeIn;
+
     [SerializeField] private GameObject spawnPoint;
     [SerializeField] private GameObject settings;
+    [SerializeField] private GameObject blackPanel;
 
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+
+        fadeIn = blackPanel.GetComponent<FadeIn>();
     }
 
     public void Play()
@@ -19,7 +24,8 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.SetFloat("PlayerPosY", spawnPoint.transform.position.y);
         PlayerPrefs.SetFloat("PlayerPosZ", spawnPoint.transform.position.z);
 
-        SceneManager.LoadSceneAsync("MainGame");
+        blackPanel.SetActive(true);
+        fadeIn.StartFadeIn();
     }
 
     public void Settings()
@@ -31,5 +37,13 @@ public class MainMenu : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    private void Update()
+    {
+        if (fadeIn.allFadedIn)
+        {
+            SceneManager.LoadSceneAsync("IntroCutscene");
+        }
     }
 }
