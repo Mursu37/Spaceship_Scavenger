@@ -11,11 +11,11 @@ namespace CLI.FSM
         {
         }
 
-        public override void Interpret(string[] command)
+        public override void Interpret(string command)
         {
             if (GameObject.Find("EngineSwitch").transform.GetChild(0).GetComponent<EngineRoomSwitch>().isEngineCompuerOn)
             {
-                if (command[0] == "poweron")
+                if (command == "poweron")
                 {
                     GameObject.Find("EngineComputer").GetComponent<ShipPowerOn>().turnShipOn();
                 }

@@ -18,18 +18,18 @@ namespace CLI.FSM
             base.OnEnter();
         }
 
-        public override void Interpret(string[] command)
+        public override void Interpret(string command)
         {
-            if (command[0] == "help")
+            if (command == "help")
             {
                 stateController.AddText("Available commands: <BR> cd [directory_name] --- change directory <BR> dl [file_name] --- download file");
             }
 
-            else if (command[0] == "dl")
+            else if (command == "dl")
             {
                 if (command.Length > 1)
                 {
-                    if (command[1] == "ventilation")
+                    if (command == "ventilation")
                     {
                         EventDispatcher dispatcher;
                         dispatcher = stateController.gameObject.GetComponent<EventDispatcher>();
@@ -40,7 +40,7 @@ namespace CLI.FSM
 
                     else
                     {
-                        stateController.AddText("could not find file \"" + command[1] + "\"");
+                        stateController.AddText("could not find file \"" + command + "\"");
                     }
                 }
                 else

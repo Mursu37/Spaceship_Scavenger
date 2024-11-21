@@ -18,20 +18,20 @@ namespace CLI.FSM
             base.OnEnter();
         }
 
-        public override void Interpret(string[] command)
+        public override void Interpret(string command)
         {
-            if (command[0] == "help")
+            if (command == "help")
             {
                 stateController.AddText("Confirm your choice by typing \"Y\" or cancel by typing \"N\"");
             }
 
-            else if (command[0] == "N" || command[0] == "n")
+            else if (command == "n")
             {
                 stateController.BackOne();
                 stateController.AddText("Access to security systems cancelled by the user. Returning to system directory.");
             }
 
-            else if (command[0] == "Y" || command[0] == "y")
+            else if (command == "y")
             {
                 if (command.Length == 1)
                 {

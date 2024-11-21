@@ -18,9 +18,9 @@ namespace CLI.FSM
             base.OnEnter();
         }
 
-        public override void Interpret(string[] command)
+        public override void Interpret(string command)
         {
-            if (command[0] == "help")
+            if (command == "help")
             {
                 stateController.ChangeText("Available commands: <BR> cd [directory_name] --- change directory");
 

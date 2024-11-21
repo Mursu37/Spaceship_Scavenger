@@ -16,9 +16,9 @@ namespace CLI.FSM
             base.OnEnter();
         }
 
-        public override void Interpret(string[] command)
+        public override void Interpret(string command)
         {
-            if (command[0] == "disconnect")
+            if (command == "disconnect")
             {
                 if (GameObject.Find("PowerOnSwitch").gameObject.transform.GetChild(0).GetComponent<ShipPowerOn>().isPowerOn)
                 {
