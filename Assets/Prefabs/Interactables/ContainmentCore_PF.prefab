@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2777503362929569019}
   - component: {fileID: 7845043151972597678}
+  - component: {fileID: 5907080842326183470}
   - component: {fileID: 2301643800486244656}
   - component: {fileID: 5321716746354223734}
   m_Layer: 0
@@ -50,8 +51,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heatAmount: 0
   maxHeat: 100
-  gameState: {fileID: 0}
-  meter: {fileID: 0}
+  heatIncreaseTime: 8
+--- !u!114 &5907080842326183470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7088532283982205521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 564733549416a3745b51382e438c00d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &2301643800486244656
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -154,7 +166,6 @@ MonoBehaviour:
   - CoreDamage1
   - CoreDamage2
   - CoreDamage3
-  shipPowerOn: ShipPowerOn
 --- !u!1001 &2570190037267210054
 PrefabInstance:
   m_ObjectHideFlags: 0

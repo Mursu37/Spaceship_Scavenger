@@ -1,3 +1,4 @@
+using Enviroment.MainTerminal;
 using UnityEngine;
 
 public class MeltdownPhase : MonoBehaviour
@@ -6,6 +7,7 @@ public class MeltdownPhase : MonoBehaviour
     [SerializeField] private GameObject coreObject;
     [SerializeField] private GameObject lightManager;
     [SerializeField] private GameObject objectiveMarker;
+    [SerializeField] private ShipPowerOn shipPowerOn;
     private CoreSounds coreSounds;
     private MeltdownMusic meltdownMusic;
     private LampSwitcherManager lampSwitcherManager;
@@ -17,6 +19,11 @@ public class MeltdownPhase : MonoBehaviour
         if (lightManager != null)
         {
             lampSwitcherManager = lightManager.GetComponent<LampSwitcherManager>();
+        }
+
+        if (!shipPowerOn.isPowerOn)
+        {
+            shipPowerOn.turnShipOn();
         }
 
         lampSwitcherManager.SetAlarmOn();

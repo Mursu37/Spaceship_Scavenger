@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        PlayerRespawn.hasLoadedOnce = false;
+        CheckpointManager.checkpointReached = false;
 
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
