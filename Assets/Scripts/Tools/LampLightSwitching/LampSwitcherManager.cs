@@ -67,15 +67,25 @@ public class LampSwitcherManager : MonoBehaviour
     {
         SetAlarmState(true);
 
-        for (int i = 0; i < lights.Length; i++)
+        if (lights != null)
         {
-            lights[i].SetAlarmState(true);
-        }
+            for (int i = 0; i < lights.Length; i++)
+            {
+                if (lights[i] != null)
+                {
+                    lights[i].SetAlarmState(true);
+                }
+            }
 
-        for (int i = 0; i < lights.Length; i++)
-        {
-            lights[i].SetAlarmLights();
+            for (int i = 0; i < lights.Length; i++)
+            {
+                if (lights[i] != null)
+                {
+                    lights[i].SetAlarmLights();
+                }
+            }
         }
+        
 
         GetComponent<LightMapSceneLoader>()?.LoadLightMapScene(poolIndex_alarm);
     }

@@ -38,8 +38,10 @@ public class Cutting : MonoBehaviour
     [SerializeField] private GameObject verticalCrosshair;
     [SerializeField] private GameObject playerObject;
     [SerializeField] private ParticleSystem sparkEffect;
-
+    
     private bool currentlyCutting = false;
+    private bool hasPlayedBlockedSound = false;
+    private bool isSoundCoroutineRunning = false;
 
     private enum CuttableType
     {
@@ -50,7 +52,7 @@ public class Cutting : MonoBehaviour
 
     private void Start()
     {
-        layerMask = LayerMask.GetMask("Player");
+        layerMask = LayerMask.GetMask("Player") | LayerMask.GetMask("CutThrough");
         rightmostLaser.enabled = false;
         leftmostLaser.enabled = false;
         Debug.Log(mask);
@@ -79,18 +81,19 @@ public class Cutting : MonoBehaviour
             }
         }
 
-        // Cast a ray forward from the object's position
-        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-        RaycastHit hit;
-
-        // Check if the ray hit something within specified layers and distance
-        if (Physics.Raycast(ray, out hit, range, ~layerMask))
+        //Modified order to accomodate sound playback
+        if (Input.GetButtonDown("Fire1") && !PauseGame.isPaused)
         {
-            Transform hitTransform = hit.transform;
-            Debug.Log(hitTransform.name);
+            // Cast a ray forward from the camera's position
+            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+            RaycastHit hit;
 
-            if (Input.GetButtonDown("Fire1") && !PauseGame.isPaused)
+            // Check if the ray hit something within specified layers and distance
+            if (Physics.Raycast(ray, out hit, range, ~layerMask))
             {
+                Transform hitTransform = hit.transform;
+                Debug.Log(hitTransform.name);
+
                 if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, angleTolerance))
                 {
                     cuttingPoint = hitTransform;
@@ -99,13 +102,28 @@ public class Cutting : MonoBehaviour
 
                     rightSpark = Instantiate(sparkEffect, transform.position, Quaternion.LookRotation(hit.normal));
                     leftSpark = Instantiate(sparkEffect, transform.position, Quaternion.LookRotation(hit.normal));
+
+                    // Reset the blocked sound flag since we have a valid action now
+                    hasPlayedBlockedSound = false;
                 }
                 else if (hitTransform.CompareTag("Explosive"))
                 {
                     cuttingPoint = hitTransform;
                     hitPoint = hit.point;
                     currentType = CuttableType.Explosive;
+
+                    hasPlayedBlockedSound = false;
                 }
+                // If hit object is neither "Cuttable" nor "Explosive"
+                else
+                {
+                    PlayActionBlockedSound();
+                }
+            }
+            else
+            {
+                // If the raycast does not hit anything
+                PlayActionBlockedSound();
             }
         }
 
@@ -137,6 +155,27 @@ public class Cutting : MonoBehaviour
             horizontalCrosshair.SetActive(true);
             verticalCrosshair.SetActive(false);
         }
+    }
+
+    private void PlayActionBlockedSound()
+    {
+        if (!hasPlayedBlockedSound)
+        {
+            AudioManager.PlayAudio("MultitoolActionBlocked", 1, 1, false);
+            hasPlayedBlockedSound = true;
+        }
+            if (!isSoundCoroutineRunning)
+            {
+                StartCoroutine(ResetBlockedSoundFlag());
+            }
+    }
+    private IEnumerator ResetBlockedSoundFlag()
+    {
+        isSoundCoroutineRunning = true;
+        float clipduration = 1f;
+        yield return new WaitForSeconds(clipduration);
+        hasPlayedBlockedSound = false;
+        isSoundCoroutineRunning = false;
     }
 
     private void FixedUpdate()
