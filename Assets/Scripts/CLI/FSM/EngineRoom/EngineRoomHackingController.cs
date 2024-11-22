@@ -11,6 +11,7 @@ namespace CLI.FSM
         {
             defaultState = new EngineRoomMainState(this);
             stateHistory = new List<State> { defaultState };
+            defaultDirName = "Engine_Room_Operations";
             currentState = defaultState;
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -21,7 +22,13 @@ namespace CLI.FSM
         
         [SerializeField] protected Color textColor;
         [SerializeField] protected Color highlightedColor;
+        [SerializeField] private float textWriteDelay = 0.001f;
 
+        private bool textResponseCoroutineRunning = false;
+        private bool flavourTextCoroutineRunning = false;
+
+        private Coroutine textResponseCoroutine;
+        private Coroutine flavourTextCoroutine;
 
         protected List<GameObject> commandList = new();
 
@@ -35,11 +42,13 @@ namespace CLI.FSM
         protected List<State> stateHistory = new();
         protected State defaultState;
         protected string dirName = "C";
+        protected string defaultDirName;
 
         protected bool GUIBlock = false;
 
         private void Start()
         {
+            ResetState();
             ChangeState(currentState);
         }
 
@@ -115,21 +124,97 @@ namespace CLI.FSM
 
         public virtual void ChangeText(string text)
         {
+            if (textResponseCoroutine != null)
+            {
+                StopCoroutine(textResponseCoroutine);
+            }
+
             commandLineText.text = text;
+            commandLineText.maxVisibleCharacters = 0;
+            textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay, textResponseCoroutineRunning));
             commandLineInput.text = "";
             commandLineInput.ActivateInputField();
         }
 
         public virtual void AddText(string text)
         {
+            if (textResponseCoroutine != null)
+            {
+                StopCoroutine(textResponseCoroutine);
+            }
+
             commandLineText.text = commandLineText.text + "<BR><BR>" + text;
+            commandLineText.maxVisibleCharacters = 0;
+            textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay, textResponseCoroutineRunning));
             commandLineInput.text = "";
+
             commandLineInput.ActivateInputField();
+        }
+        private IEnumerator RoutineDelayedText(TMP_Text textToDisplay, float timeDelay, bool _bool)
+        {
+            if (!_bool)
+            {
+                _bool = true;
+            }
+            else
+            {
+                yield return null;
+            }
+
+            WaitForSecondsRealtime delay = new WaitForSecondsRealtime(timeDelay);
+
+
+            for (int i = 0; i < textToDisplay.text.Length; ++i)
+            {
+                Debug.Log("Coroutine in progress" + i.ToString());
+                textToDisplay.maxVisibleCharacters = i + 1;
+                //string delayedText = textToDisplay.Substring(0, i + 1);
+                // Do whatever you need to do with this string, e.g. set text on UI.
+                yield return delay;
+            }
+
+            textResponseCoroutine = null;
+            _bool = false; // Coroutine finished;
+        }
+
+        private IEnumerator RoutineDelayedFlavourText(TMP_Text textToDisplay, float timeDelay, bool _bool)
+        {
+            if (!_bool)
+            {
+                _bool = true;
+            }
+            else
+            {
+                yield return null;
+            }
+
+            WaitForSecondsRealtime delay = new WaitForSecondsRealtime(timeDelay);
+
+
+            for (int i = 0; i < textToDisplay.text.Length; ++i)
+            {
+                Debug.Log("Coroutine in progress" + i.ToString());
+                textToDisplay.maxVisibleCharacters = i + 1;
+                //string delayedText = textToDisplay.Substring(0, i + 1);
+                // Do whatever you need to do with this string, e.g. set text on UI.
+                yield return delay;
+            }
+
+            textResponseCoroutine = null;
+            _bool = false; // Coroutine finished;
         }
 
         public virtual void ChangeFlavourText(string text)
         {
+            if (flavourTextCoroutine != null)
+            {
+                StopCoroutine(flavourTextCoroutine);
+            }
+
             flavourText.text = text;
+            flavourText.maxVisibleCharacters = 0;
+            flavourTextCoroutine = StartCoroutine(RoutineDelayedFlavourText(flavourText, textWriteDelay, flavourTextCoroutineRunning));
+
         }
 
         private void OnInput()
@@ -139,25 +224,9 @@ namespace CLI.FSM
             string userInput = commandLineInput.text.ToLower();
             currentState.Interpret(userInput);
         }
-        
-        
-        protected void OnEnable()
-        {
-            PauseGame.Pause(PauseGame.TransitionType.LowPassMusic);
-            FindObjectOfType<PauseMenu>().enabled = false;
-            VisorChange.UpdateVisor(VisorChange.Visor.Hacking);
-            commandLineInput.ActivateInputField();
-            currentState?.OnEnter();
-        }
-        
-        private void OnDisable()
-        {
-            PauseGame.Resume(PauseGame.TransitionType.NormalMusic);
-            FindObjectOfType<PauseMenu>().enabled = true;
-            VisorChange.UpdateVisor(VisorChange.currentDamageState);
 
-            CLI.SetActive(false);
-
+        public virtual void ResetState()
+        {
             stateHistory.Clear();
             stateHistory.Add(defaultState);
             currentState = defaultState;
@@ -165,9 +234,36 @@ namespace CLI.FSM
 
             commandLineText.text = "";
             commandLineInput.text = "";
-            directoryText.text = "C:";
+            if (defaultDirName != null)
+            {
+                dirName = defaultDirName;
+            }
+            directoryText.text = dirName;
 
             commandLineInput.ActivateInputField();
+        }
+
+
+        protected void OnEnable()
+        {
+            PauseGame.Pause(PauseGame.TransitionType.LowPassMusic);
+            FindObjectOfType<PauseMenu>().enabled = false;
+            VisorChange.UpdateVisor(VisorChange.Visor.Hacking);
+            ResetState();
+            ChangeState(currentState);
+            commandLineInput.ActivateInputField();
+            currentState?.OnEnter();
+        }
+
+        private void OnDisable()
+        {
+            PauseGame.Resume(PauseGame.TransitionType.NormalMusic);
+            FindObjectOfType<PauseMenu>().enabled = true;
+            VisorChange.UpdateVisor(VisorChange.currentDamageState);
+            ClearCommands();
+            ResetState();
+
+            CLI.SetActive(false);
         }
 
         void Update()

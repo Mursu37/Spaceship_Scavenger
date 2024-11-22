@@ -19,11 +19,13 @@ public class DoorController : CuttingPointManager
     {
         if (animator != null)
         {
+            DestroyCuttableObjects(transform);
+            /*
             animator.Play("DoorOpening");
             if (!AudioManager.IsPlaying("DoorOpen"))
             {
                 AudioManager.PlayModifiedClipAtPoint("DoorOpen", transform.position, 1, 1, 1, 500);
-            }
+            }*/
             
         }
     }

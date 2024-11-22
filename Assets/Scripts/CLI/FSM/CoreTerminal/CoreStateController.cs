@@ -11,6 +11,7 @@ namespace CLI.FSM
         {
             defaultState = new MainCoreState(this);
             stateHistory = new List<State> { defaultState };
+            defaultDirName = "Reactor_Station_Systems";
             currentState = defaultState;
         }
     }

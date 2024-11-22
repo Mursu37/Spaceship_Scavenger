@@ -74,7 +74,9 @@ namespace CLI.FSM
             return allCommands;
         }
 
-        public virtual void OnExit() {}
+        public virtual void OnExit()
+        {
+        }
 
         public virtual void OnEnter()
         {

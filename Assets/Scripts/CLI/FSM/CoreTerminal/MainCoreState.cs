@@ -9,11 +9,12 @@ namespace CLI.FSM
         public MainCoreState(StateController controller) : base(controller)
         {
             directories.Add("core", new CoreState(controller));
+            directories.Add("downloads", new DownloadState(controller));
         }
 
         public override void OnEnter()
         {
-            stateController.AddText("System directories:<BR>-- core<BR><BR>downloadable files:<BR>power_bp");
+            stateController.ChangeFlavourText("Containment Core Reactor Station -- Systems Interface <BR><BR> Containment Core -- Status: Stabile<BR>Systems Running on Auxiliary Power.");
             base.OnEnter();
         }
 
@@ -21,27 +22,7 @@ namespace CLI.FSM
         {
             if (command == "help")
             {
-                stateController.ChangeText("Available commands: <BR> cd [directory_name] --- change directory<BR> dl [file_name] --- download file");
-
-            }
-
-            else if (command == "dl")
-            { 
-                if (command.Length > 1)
-                {
-                    if (command == "power_bp")
-                    {
-                        EventDispatcher dispatcher;
-                        dispatcher = stateController.gameObject.GetComponent<EventDispatcher>();
-                        dispatcher.TriggerEvent();
-
-                        stateController.AddText("downloaded file: power_bp<BR><BR>Schematics added to user scanner.");
-                    }
-                    else
-                    {
-                        stateController.AddText("file '" + command +"' could not be found.");
-                    }
-                }
+                stateController.ChangeText("Navigate to directoriesby typing ['directory_name'] for further commands. Use command 'Instructions' to navigate to instructions page.");
 
             }
 
