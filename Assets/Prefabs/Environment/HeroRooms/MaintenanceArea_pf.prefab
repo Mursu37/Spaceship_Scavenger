@@ -351,7 +351,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7379524071515700487
 Transform:
@@ -379,7 +379,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -850,7 +850,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7001825897214327774
 Transform:
@@ -878,7 +878,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1097,7 +1097,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7592519334346592372
 Transform:
@@ -1125,7 +1125,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -3647,6 +3647,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 2235356911410768305, guid: ec564fda3fdb4324c96073785dce9cf9,
+        type: 3}
+      propertyPath: m_BakedTexture
+      value: 
+      objectReference: {fileID: 8900000, guid: df8052c791bf2174d9aeabb7b61ddfad, type: 3}
     - target: {fileID: 2257467390271754331, guid: ec564fda3fdb4324c96073785dce9cf9,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -5323,6 +5328,16 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 3552769489077847804, guid: cde3ccbc8d9198b49a69770e59532242,
+        type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3552769489077847804, guid: cde3ccbc8d9198b49a69770e59532242,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 848ea3b150540ae4ca1e0d4d6ff4ebed, type: 2}
     - target: {fileID: 5524931200785993391, guid: cde3ccbc8d9198b49a69770e59532242,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -5846,7 +5861,7 @@ PrefabInstance:
     - target: {fileID: 6452329457341823134, guid: 01fe0c6895922894ab7811cf1f65aa1a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.58
+      value: 4.238
       objectReference: {fileID: 0}
     - target: {fileID: 6452329457341823134, guid: 01fe0c6895922894ab7811cf1f65aa1a,
         type: 3}
@@ -10921,6 +10936,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 4300000, guid: 61f30742f25d8fe4bb66cd77a191897c, type: 2}
+    - target: {fileID: 6594218473925818651, guid: 4372dc4ba251d5b42a3e088fb89cfbd3,
+        type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6594218473925818651, guid: 4372dc4ba251d5b42a3e088fb89cfbd3,
         type: 3}
       propertyPath: m_SelectedEditorRenderState
@@ -18166,7 +18186,9 @@ PrefabInstance:
     - {fileID: 4456280289670534268, guid: b5baa361afb85724fadfb6af94d73905, type: 3}
     - {fileID: 103281393577064068, guid: b5baa361afb85724fadfb6af94d73905, type: 3}
     - {fileID: 1965513135936847699, guid: b5baa361afb85724fadfb6af94d73905, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7463204039599856518, guid: b5baa361afb85724fadfb6af94d73905, type: 3}
+    - {fileID: 752024195392805218, guid: b5baa361afb85724fadfb6af94d73905, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5baa361afb85724fadfb6af94d73905, type: 3}
