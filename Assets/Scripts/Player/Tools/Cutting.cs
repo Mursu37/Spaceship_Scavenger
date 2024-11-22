@@ -8,10 +8,15 @@ using UnityEngine.UI; //Arina UI
 using TMPro;
 using UnityEngine.UIElements;
 using System.Drawing;
+using Unity.Mathematics;
 
 public class Cutting : MonoBehaviour
 {
-    
+    [SerializeField] private LayerMask mask;
+
+    [SerializeField] private GameObject CuttingTrailPrefab;
+    private GameObject cuttingTrailRight;
+    private GameObject cuttingTrailLeft;
     
     private LayerMask layerMask;
     private Transform cuttingPoint;
@@ -34,6 +39,8 @@ public class Cutting : MonoBehaviour
     [SerializeField] private GameObject playerObject;
     [SerializeField] private ParticleSystem sparkEffect;
 
+    private bool currentlyCutting = false;
+
     private enum CuttableType
     {
         None,
@@ -46,24 +53,30 @@ public class Cutting : MonoBehaviour
         layerMask = LayerMask.GetMask("Player");
         rightmostLaser.enabled = false;
         leftmostLaser.enabled = false;
+        Debug.Log(mask);
     }
 
     private void Update()
     {
-        switch(currentType)
+        if (!currentlyCutting)
         {
-            case CuttableType.Normal:
-                if (cuttingPoint != null)
-                {
-                    StartCoroutine(AnimateLasers(cuttingPoint, 1f));
-                }
-                break;
-            case CuttableType.Explosive:
-                if (cuttingPoint != null)
-                {
-                    StartCoroutine(ExplodeObject(cuttingPoint, hitPoint));
-                }
-                break;
+            switch (currentType)
+            {
+                case CuttableType.Normal:
+                    if (cuttingPoint != null)
+                    {
+                        StartCoroutine(AnimateLasers(cuttingPoint, 1f));
+                    }
+
+                    break;
+                case CuttableType.Explosive:
+                    if (cuttingPoint != null)
+                    {
+                        StartCoroutine(ExplodeObject(cuttingPoint, hitPoint));
+                    }
+
+                    break;
+            }
         }
 
         // Cast a ray forward from the object's position
@@ -131,8 +144,15 @@ public class Cutting : MonoBehaviour
         FaceToCuttingPoint(hitPoint);
     }
 
+    private void AddPoint(LineRenderer renderer, Vector3 point)
+    {
+        renderer.positionCount += 1;
+        renderer.SetPosition(renderer.positionCount-1, point);
+    }
+
     private IEnumerator AnimateLasers(Transform point, float duration)
     {
+        currentlyCutting = true;
         MeshFilter meshFilter = point.GetComponent<MeshFilter>();
         if (meshFilter != null)
         {
@@ -185,6 +205,53 @@ public class Cutting : MonoBehaviour
                     if (leftSpark != null)
                         leftSpark.transform.position = currentLeftPoint; // Move the particle system
 
+                    // Cutting burn marks
+                    if (CuttingTrailPrefab != null) 
+                    {
+                        RaycastHit hit;
+                        var l = LayerMask.NameToLayer("Obstacle");
+                        if (Physics.Raycast(
+                            new Ray(Camera.main.transform.position, currentRightPoint - Camera.main.transform.position),
+                            out hit, range, l))
+                        { 
+                            Debug.Log(LayerMask.LayerToName(hit.transform.gameObject.layer));
+                            if (cuttingTrailRight == null) 
+                            { 
+                                cuttingTrailRight = Instantiate(CuttingTrailPrefab,
+                                hit.point, quaternion.identity, hit.transform);
+                            }
+                            else
+                            {
+                                AddPoint(cuttingTrailRight.GetComponent<LineRenderer>(),
+                                    cuttingTrailRight.transform.InverseTransformPoint(hit.point));
+                            }
+                        }
+                        else if (cuttingTrailRight != null)
+                        {
+                            cuttingTrailRight = null;
+                        }
+
+                        if (Physics.Raycast(
+                            new Ray(Camera.main.transform.position, currentLeftPoint - Camera.main.transform.position),
+                            out hit, range, l))
+                        {
+                            if (cuttingTrailLeft == null)
+                            {
+                                cuttingTrailLeft = Instantiate(CuttingTrailPrefab,
+                                     hit.point, quaternion.identity, hit.transform);
+                            }
+                            else
+                            {
+                                AddPoint(cuttingTrailLeft.GetComponent<LineRenderer>(),
+                                    cuttingTrailLeft.transform.InverseTransformPoint(hit.point));
+                            }
+                        }
+                        else if (cuttingTrailLeft != null)
+                        {
+                            cuttingTrailLeft = null;
+                        }
+                    }
+
                     // Increment the elapsed time
                     elapsedTime += Time.deltaTime;
                     yield return null; // Wait for the next frame
@@ -205,9 +272,14 @@ public class Cutting : MonoBehaviour
         // Disable the lasers after animation is complete
         rightmostLaser.enabled = false;
         leftmostLaser.enabled = false;
+        
+        cuttingTrailRight = null;
+        cuttingTrailLeft = null;
 
         // Reset the cutting state
         currentType = CuttableType.None;
+
+        currentlyCutting = false;
 
         if (cuttingPoint != null)
         {

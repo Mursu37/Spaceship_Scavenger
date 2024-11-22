@@ -52,19 +52,6 @@ namespace CLI.FSM
                     return;
                 }
             }
-            
-            /*
-            if (command[0] == "cd" && command.Length > 1)
-            {
-                MoveDirectory(command[1]);
-                return;
-            }
-
-            if (command[0] == "help")
-            {
-                
-            }
-            */
             CommandNotRecognised();
         }
         
