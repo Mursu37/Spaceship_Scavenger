@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        CheckpointManager.checkpointReached = false;
+        CheckpointManager.ResetCheckpoints();
 
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;

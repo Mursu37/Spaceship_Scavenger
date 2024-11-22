@@ -19,6 +19,18 @@ public class Checkpoint : MonoBehaviour
             }
         }
 
+        Switch[] switches = FindObjectsOfType<Switch>();
+        foreach(Switch sw in switches)
+        {
+            if (sw.turnedOn)
+            {
+                if (!CheckpointManager.switchesTurnedOn.Contains(sw.id))
+                {
+                    CheckpointManager.switchesTurnedOn.Add(sw.id);
+                }
+            }
+        }
+
         if (teleportId == 1)
         {
             CheckpointManager.currentActiveMarkerId = 5;
