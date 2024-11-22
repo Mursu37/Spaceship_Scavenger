@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class GravityGun : MonoBehaviour
 {
     // Inputs
@@ -19,6 +20,13 @@ public class GravityGun : MonoBehaviour
     private Quaternion targetInitialRotation;
     private Quaternion playerInitialRotation;
     private Vector3 localHitOffset;
+   
+
+    public bool IsGrabbingValidObject()
+    {
+        return target != null && targetRb != null; // Check if a valid target is grabbed
+    }
+
 
     [SerializeField] private GameObject playerObject;
     [SerializeField] private Rigidbody playerRb;
@@ -28,6 +36,9 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private Transform p1;
     [SerializeField] private LayerMask ignoreLayerMask;
+    
+
+
 
     [HideInInspector] public bool isGrabbling;
 
@@ -36,11 +47,13 @@ public class GravityGun : MonoBehaviour
     public float objectMass;
     public float strength;
 
+
     // Start is called before the first frame update
     private void Start()
     {
         cam = Camera.main;
-        lineRenderer = GetComponent<LineRenderer>();
+
+    lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
         modeSwitch = GetComponent<ModeSwitch>();
     }
@@ -169,6 +182,7 @@ public class GravityGun : MonoBehaviour
     // Releases the object
     private void Release()
     {
+        
         if (target == null)
         {
             targetRb = null;
@@ -261,6 +275,7 @@ public class GravityGun : MonoBehaviour
         {
             lineRenderer.enabled = false;
         }
+
     }
 
     private void FixedUpdate()
