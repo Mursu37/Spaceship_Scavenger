@@ -6,12 +6,13 @@ public class MainMenu : MonoBehaviour
 {
     private FadeIn fadeIn;
 
-    [SerializeField] private GameObject spawnPoint;
     [SerializeField] private GameObject settings;
     [SerializeField] private GameObject blackPanel;
 
     private void Awake()
     {
+        CheckpointManager.ResetCheckpoints();
+
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
 
@@ -20,10 +21,6 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
-        PlayerPrefs.SetFloat("PlayerPosX", spawnPoint.transform.position.x);
-        PlayerPrefs.SetFloat("PlayerPosY", spawnPoint.transform.position.y);
-        PlayerPrefs.SetFloat("PlayerPosZ", spawnPoint.transform.position.z);
-
         blackPanel.SetActive(true);
         fadeIn.StartFadeIn();
     }

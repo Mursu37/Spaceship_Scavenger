@@ -3,18 +3,31 @@ using UnityEngine;
 
 public abstract class Switch : MonoBehaviour, IInteractable
 {
+    public int id;
+    public bool turnedOn = false;
+
     private Animator animator;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+
+        if (CheckpointManager.switchesTurnedOn.Contains(id))
+        {
+            turnedOn = true;
+            animator.Play("TurnOn", 0, 1);
+        }
     }
 
     public void Interact()
     {
-        animator.Play("TurnOn");
-        AudioManager.PlayModifiedClipAtPoint("LeverPull", transform.position, 1, 1, 1, 1000);
-        StartCoroutine(SwitchAction());
+        if (!turnedOn)
+        {
+            animator.Play("TurnOn");
+            AudioManager.PlayModifiedClipAtPoint("LeverPull", transform.position, 1, 1, 1, 1000);
+            StartCoroutine(SwitchAction());
+            turnedOn = true;
+        }
     }
 
     protected abstract IEnumerator SwitchAction();

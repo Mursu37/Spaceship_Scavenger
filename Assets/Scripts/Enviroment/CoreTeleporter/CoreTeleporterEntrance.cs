@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class CoreTeleporterEntrance : MonoBehaviour
 {
+    public int id;
     private Animator animator;
     private CoreTeleporterExit exit;
     private GravityGun gravityGun;
     private bool canMove = false;
-
     private bool coreInSoundPlayed = false;
 
     private MixerController mixerController;
@@ -16,7 +16,7 @@ public class CoreTeleporterEntrance : MonoBehaviour
     [SerializeField] private Transform core;
     [SerializeField] private Transform coreHolder;
     [SerializeField] private GameObject multitool;
-
+    [SerializeField] private Checkpoint checkpoint;
     private enum TeleporterState
     {
         Idle,
@@ -137,9 +137,12 @@ public class CoreTeleporterEntrance : MonoBehaviour
         {
             AudioManager.PlayModifiedClipAtPoint("TeleporterActiveHum", transform.position, 1, 1, 1, 1000);
         }
+
+        // Save data
+        checkpoint?.SaveCheckpointState(id);
+        CheckpointManager.lastTeleportId = exit.id;
+
         exit.StartTeleportation();
-        core.position = exit.coreHolder.position;
-        core.rotation = exit.coreHolder.rotation;
 
         yield return new WaitForSeconds(0.5f);
 

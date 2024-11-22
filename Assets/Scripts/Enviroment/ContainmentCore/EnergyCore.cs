@@ -23,7 +23,11 @@ public class EnergyCore : MonoBehaviour, IHealth
     private void Start()
     {
         coreSounds = GetComponentInChildren<CoreSounds>();
-        gameObject.SetActive(false);
+
+        if (!CheckpointManager.checkpointReached)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void Update()
