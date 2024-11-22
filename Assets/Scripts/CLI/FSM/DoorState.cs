@@ -11,9 +11,9 @@ namespace CLI.FSM
         {
         }
 
-        public override void Interpret(string[] command)
+        public override void Interpret(string command)
         {
-            if (command[0] == "opendoor")
+            if (command == "opendoor")
             {
                 if (command.Length < 2)
                 {
@@ -21,14 +21,14 @@ namespace CLI.FSM
                     return;
                 }
                 // makes sure input is a positive integer
-                else if (command[1].All(Char.IsDigit) && command[1] != "")
+                else if (command.All(Char.IsDigit) && command != "")
                 {
                     // get objects with openDoor component and see if one with the correct ID exists
                     var doors = GameObject.FindObjectsByType<OpenDoor>(FindObjectsSortMode.None);
 
                     foreach (var door in doors)
                     {
-                        if (door.doorNumber == int.Parse(command[1]))
+                        if (door.doorNumber == int.Parse(command))
                         {
                             door.Open();
                             stateController.ChangeText("Door number " + door.doorNumber + " has been opened");
@@ -38,7 +38,7 @@ namespace CLI.FSM
                 }
                 else
                 {
-                    stateController.ChangeText("'" + command[1] + "'" + " is not a valid input for this command");
+                    stateController.ChangeText("'" + command + "'" + " is not a valid input for this command");
                 }
             }
             else

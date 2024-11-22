@@ -1,7 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
+using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace CLI.FSM
 {
@@ -12,17 +16,31 @@ namespace CLI.FSM
         [SerializeField] protected TMP_Text commandLineText;
         [SerializeField] protected TMP_InputField commandLineInput;
         [SerializeField] protected TMP_Text directoryText;
+        [SerializeField] protected TMP_Text flavourText;
+        
+        
+        [SerializeField] protected Color textColor;
+        [SerializeField] protected Color highlightedColor;
+
+
+        protected List<GameObject> commandList = new();
+
+        [SerializeField] protected GameObject CLCommandsListObj;
+
+        [SerializeField] protected GameObject CLCommandPrefab;
+        // tracks which command is currently selected. -1 = Input field, 0 - commandList.lenght = command at that index
+        protected int commandIndex = -1;
 
         protected State currentState;
-        protected List<State> stateHistory;
+        protected List<State> stateHistory = new();
         protected State defaultState;
-        private string path;
+        protected string dirName = "C";
 
-        protected StateController()
+        protected bool GUIBlock = false;
+
+        private void Start()
         {
-            defaultState = new MainDriveState(this);
-            stateHistory = new List<State> { defaultState };
-            currentState = defaultState;
+            ChangeState(currentState);
         }
 
         public virtual void ChangeState(State newState)
@@ -30,6 +48,38 @@ namespace CLI.FSM
             currentState?.OnExit();
             currentState = newState;
             currentState.OnEnter();
+            UpdateCommands();
+            commandIndex = -1;
+            ChangeText("");
+        }
+
+        // Removes current commands in list and adds the current states commands to it
+        public virtual void UpdateCommands()
+        {
+            ClearCommands();
+            AddCommands();
+        }
+
+        // Removes commands from commandList and delete them from canvas
+        protected virtual void ClearCommands()
+        {
+            foreach (var command in commandList)
+            {
+                Destroy(command);
+            }
+            commandList.Clear();   
+        }
+
+        // Adds commands from current state to CLI Canvas and commandList
+        protected virtual void AddCommands()
+        {
+            var commands = currentState.GetCommands();
+            foreach (var command in commands)
+            {
+                var commandObj = Instantiate(CLCommandPrefab, CLCommandsListObj.transform);
+                commandObj.GetComponentInChildren<TMP_Text>().text = command.ToUpper();
+                commandList.Insert(0, commandObj);
+            }
         }
 
         public virtual void BackOne()
@@ -47,7 +97,7 @@ namespace CLI.FSM
             
             // loop through current directories to update the directoryText
             string[] currentDirectories = directoryText.text.ToLower().Split("\\");
-            directoryText.text = "C:";
+            directoryText.text = dirName;
             for (int i = 1; i < currentDirectories.Length-1; i++)
             {
                 directoryText.text += "\\" + currentDirectories[i];
@@ -77,20 +127,17 @@ namespace CLI.FSM
             commandLineInput.ActivateInputField();
         }
 
-        private void OnGUI()
+        public virtual void ChangeFlavourText(string text)
         {
-            // Detects a new string of text being sent from commandLine
-            if (commandLineInput.text != "" && Input.GetKeyDown(KeyCode.Return))
-            {
-                OnInput();
-            }
+            flavourText.text = text;
         }
 
         private void OnInput()
         {
-            string[] userInputs = commandLineInput.text.ToLower().Split(" ");
+            //string[] userInputs = commandLineInput.text.ToLower().Split(" ");
             // Lets the current state to define behaviours that happen based on it's individual properties
-            currentState.Interpret(userInputs);
+            string userInput = commandLineInput.text.ToLower();
+            currentState.Interpret(userInput);
         }
         
         
@@ -102,7 +149,7 @@ namespace CLI.FSM
             commandLineInput.ActivateInputField();
             currentState?.OnEnter();
         }
-
+        
         private void OnDisable()
         {
             PauseGame.Resume(PauseGame.TransitionType.NormalMusic);
@@ -128,6 +175,50 @@ namespace CLI.FSM
             if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape))
             {
                 this.enabled = false;
+                CLI.SetActive(false);
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow)) SelectedChange(true);
+            else if (Input.GetKeyDown(KeyCode.DownArrow)) SelectedChange(false);
+            
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                if (commandIndex > -1)
+                {
+                    currentState.Interpret(commandList[commandIndex].GetComponentInChildren<TMP_Text>().text.ToLower());
+                }
+                else if (commandLineInput.text != "")
+                {
+                    OnInput();
+                }
+            }
+
+            if (commandIndex == -1)
+            {
+                if (!commandLineInput.isFocused) commandLineInput.ActivateInputField();
+            }
+        }
+
+        protected virtual void SelectedChange(bool up)
+        {
+            if (up)
+            {
+                if (commandIndex + 1 > commandList.Count - 1) return;
+                commandIndex++;
+                commandLineInput.DeactivateInputField();
+                commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = highlightedColor;
+                if (commandIndex - 1 == -1) return;
+                commandList[commandIndex - 1].GetComponentInChildren<TMP_Text>().color = textColor;
+            }
+            else if (commandIndex - 1 >= -1)
+            {
+                commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = textColor;
+                commandIndex--;
+                if (commandIndex == -1)
+                {
+                    commandLineInput.ActivateInputField();
+                    return;
+                }
+                commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = highlightedColor;
             }
         }
     }

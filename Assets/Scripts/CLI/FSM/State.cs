@@ -8,11 +8,15 @@ namespace CLI.FSM
     public abstract class State
     {
         protected Dictionary<string, State> directories = new Dictionary<string, State>();
+        protected List<string> commands = new List<string>();
+        
         protected StateController stateController;
         
         protected State(StateController controller)
         {
             this.stateController = controller;
+            commands.Add("back");
+            commands.Add("help");
         }
 
         public virtual void MoveDirectory(string dir)
@@ -33,31 +37,49 @@ namespace CLI.FSM
             }
         }
 
-        public virtual void Interpret(string[] command)
+        public virtual void Interpret(string command)
         {
-            if (command[0] == "cd" && command.Length > 1)
+            if (command == "back")
             {
-                MoveDirectory(command[1]);
+                MoveDirectory("..");
                 return;
             }
-
-            if (command[0] == "ls")
+            foreach (var dir in directories)
             {
-                
+                if (command == dir.Key)
+                {
+                    stateController.ChangeDeeper(dir.Value, dir.Key);
+                    return;
+                }
             }
-
-            if (command[0] == "help")
-            {
-                
-            }
-            
             CommandNotRecognised();
         }
         
         public virtual void ShowCommands() {}
 
+        public virtual List<string> GetCommands()
+        {
+            var allCommands = new List<string>();
+            
+            // add all directories and commands to a new list and return it;
+            foreach (var dirCommand in directories.Keys)
+            {
+                allCommands.Add(dirCommand);   
+            }
+            foreach (var command in commands)
+            {
+                allCommands.Add(command);   
+            }
+
+            return allCommands;
+        }
+
         public virtual void OnExit() {}
-        public virtual void OnEnter() {}
+
+        public virtual void OnEnter()
+        {
+            stateController.ChangeFlavourText("Directory content prints here");
+        }
 
         protected virtual void CommandNotRecognised()
         {
