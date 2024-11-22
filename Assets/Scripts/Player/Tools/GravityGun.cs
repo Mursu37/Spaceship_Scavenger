@@ -9,6 +9,7 @@ public class GravityGun : MonoBehaviour
     // Inputs
     private float scrollWheelInput;
 
+    
     private GameObject target;
     private Rigidbody targetRb;
     private Camera cam;
@@ -28,6 +29,7 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private Transform p1;
     [SerializeField] private LayerMask ignoreLayerMask;
+    [SerializeField] private Animator animator;
 
     [HideInInspector] public bool isGrabbling;
 
@@ -268,11 +270,13 @@ public class GravityGun : MonoBehaviour
         if (isAttracting)
         {
             modeSwitch.enabled = false;
+            animator.SetBool("IsGrabbling", true);
             Attract();
         }
         else
         {
             modeSwitch.enabled = true;
+            animator.SetBool("IsGrabbling", false);
             Release();
         }
     }
