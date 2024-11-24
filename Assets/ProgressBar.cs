@@ -10,8 +10,8 @@ public class ProgressBar : MonoBehaviour
     [SerializeField] private Image delayedBar; // Delayed meltdown bar
     [SerializeField] private TMP_Text stageText; // Text to display the current stage
     [SerializeField] private GameObject coreObject;
-    [SerializeField] private float lerpSpeed = 0.02f; 
-    [SerializeField] private float delayInterval = 1.0f; 
+    [SerializeField] private float lerpSpeed = 5.0f; 
+    [SerializeField] private float delayInterval = 1.0f;
 
     private float delayTimer;
 
@@ -29,9 +29,9 @@ public class ProgressBar : MonoBehaviour
     {
         if (core != null)
         {
-            float fillAmount = core.heatAmount / core.maxHeat;
+            float targetFillAmount = core.heatAmount / core.maxHeat;
 
-            bar.fillAmount = fillAmount;
+            bar.fillAmount = Mathf.Lerp(bar.fillAmount, targetFillAmount, Time.deltaTime * lerpSpeed);
 
             if (delayedBar != null)
             {
@@ -43,13 +43,13 @@ public class ProgressBar : MonoBehaviour
                     delayedBar.fillAmount = Mathf.Lerp(
                         delayedBar.fillAmount,
                         bar.fillAmount,
-                        lerpSpeed
+                        Time.deltaTime * lerpSpeed
                     );
                 }
 
                 if (delayedBar.fillAmount > bar.fillAmount)
                 {
-                    delayedBar.fillAmount = bar.fillAmount;
+                    delayedBar.fillAmount = Mathf.Lerp(delayedBar.fillAmount, bar.fillAmount, Time.deltaTime * lerpSpeed);
                 }
             }
 

@@ -43,6 +43,18 @@ public class Cutting : MonoBehaviour
     private bool hasPlayedBlockedSound = false;
     private bool isSoundCoroutineRunning = false;
 
+    //Arina UI 
+    public bool IsObjectDetected()
+    {
+        return cuttingPoint != null;
+    }
+
+    public bool IsCutAligned()
+    {
+        // Check alignment 
+        return cuttingPoint != null && AreAnglesClose(transform, cuttingPoint, angleTolerance);
+    }
+
     private enum CuttableType
     {
         None,

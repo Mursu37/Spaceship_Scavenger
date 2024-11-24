@@ -4,11 +4,13 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class GravityGun : MonoBehaviour
 {
     // Inputs
     private float scrollWheelInput;
 
+    
     private GameObject target;
     private Rigidbody targetRb;
     private Camera cam;
@@ -19,6 +21,13 @@ public class GravityGun : MonoBehaviour
     private Quaternion targetInitialRotation;
     private Quaternion playerInitialRotation;
     private Vector3 localHitOffset;
+   
+
+    public bool IsGrabbingValidObject()
+    {
+        return target != null && targetRb != null; // Check if a valid target is grabbed
+    }
+
 
     [SerializeField] private GameObject playerObject;
     [SerializeField] private Rigidbody playerRb;
@@ -29,6 +38,9 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private Transform p1;
     [SerializeField] private LayerMask ignoreLayerMask;
 
+    [SerializeField] private Animator animator;
+
+ 
     [HideInInspector] public bool isGrabbling;
 
     // These variables can be used for the UI
@@ -36,10 +48,12 @@ public class GravityGun : MonoBehaviour
     public float objectMass;
     public float strength;
 
+
     // Start is called before the first frame update
     private void Start()
     {
         cam = Camera.main;
+
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
         modeSwitch = GetComponent<ModeSwitch>();
@@ -169,6 +183,7 @@ public class GravityGun : MonoBehaviour
     // Releases the object
     private void Release()
     {
+        
         if (target == null)
         {
             targetRb = null;
@@ -261,6 +276,7 @@ public class GravityGun : MonoBehaviour
         {
             lineRenderer.enabled = false;
         }
+
     }
 
     private void FixedUpdate()
@@ -268,11 +284,13 @@ public class GravityGun : MonoBehaviour
         if (isAttracting)
         {
             modeSwitch.enabled = false;
+            animator.SetBool("IsGrabbling", true);
             Attract();
         }
         else
         {
             modeSwitch.enabled = true;
+            animator.SetBool("IsGrabbling", false);
             Release();
         }
     }

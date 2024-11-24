@@ -34,14 +34,15 @@ public abstract class CuttingPointManager : MonoBehaviour
         return true;
     }
 
-    protected void DestroyCuttableObjects(Transform parent)
+    protected void DestroyCuttingPoints()
     {
-        if (cuttingPoints.Count > 0 && cuttingPoints != null)
+        foreach (GameObject cuttingPoint in cuttingPoints)
         {
-            foreach (GameObject cuttingPointToDestroy in cuttingPoints)
+            if (cuttingPoint != null)
             {
-                Destroy(cuttingPointToDestroy);
+                Destroy(cuttingPoint);
             }
         }
+        cuttingPoints.Clear();
     }
 }
