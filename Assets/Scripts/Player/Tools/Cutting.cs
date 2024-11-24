@@ -8,15 +8,10 @@ using UnityEngine.UI; //Arina UI
 using TMPro;
 using UnityEngine.UIElements;
 using System.Drawing;
-using Unity.Mathematics;
 
 public class Cutting : MonoBehaviour
 {
-    [SerializeField] private LayerMask mask;
-
-    [SerializeField] private GameObject CuttingTrailPrefab;
-    private GameObject cuttingTrailRight;
-    private GameObject cuttingTrailLeft;
+    
     
     private LayerMask layerMask;
     private Transform cuttingPoint;
@@ -25,6 +20,8 @@ public class Cutting : MonoBehaviour
     private CuttableType currentType = CuttableType.None;
     ParticleSystem rightSpark;
     ParticleSystem leftSpark;
+    ParticleSystem rightBeamEnd;
+    ParticleSystem leftBeamEnd;
 
     [SerializeField] private float range = 2f;
     [SerializeField] private float angleTolerance = 6f;
@@ -38,8 +35,9 @@ public class Cutting : MonoBehaviour
     [SerializeField] private GameObject verticalCrosshair;
     [SerializeField] private GameObject playerObject;
     [SerializeField] private ParticleSystem sparkEffect;
-    
-    private bool currentlyCutting = false;
+    [SerializeField] private ParticleSystem beamSource;
+    [SerializeField] private ParticleSystem beamEnd;
+
     private bool hasPlayedBlockedSound = false;
     private bool isSoundCoroutineRunning = false;
 
@@ -64,33 +62,29 @@ public class Cutting : MonoBehaviour
 
     private void Start()
     {
-        layerMask = LayerMask.GetMask("Player") | LayerMask.GetMask("CutThrough");
+        layerMask = LayerMask.GetMask("Player") | LayerMask.GetMask("CutThrough") | LayerMask.GetMask("FirstPersonView");
         rightmostLaser.enabled = false;
         leftmostLaser.enabled = false;
-        Debug.Log(mask);
     }
 
     private void Update()
     {
-        if (!currentlyCutting)
+        switch(currentType)
         {
-            switch (currentType)
-            {
-                case CuttableType.Normal:
-                    if (cuttingPoint != null)
-                    {
-                        StartCoroutine(AnimateLasers(cuttingPoint, 1f));
-                    }
-
-                    break;
-                case CuttableType.Explosive:
-                    if (cuttingPoint != null)
-                    {
-                        StartCoroutine(ExplodeObject(cuttingPoint, hitPoint));
-                    }
-
-                    break;
-            }
+            case CuttableType.Normal:
+                if (cuttingPoint != null)
+                {
+                    beamSource.Play();
+                    StartCoroutine(AnimateLasers(cuttingPoint, 1f));
+                }
+                break;
+            case CuttableType.Explosive:
+                if (cuttingPoint != null)
+                {
+                    beamSource.Play();
+                    StartCoroutine(ExplodeObject(cuttingPoint, hitPoint));
+                }
+                break;
         }
 
         //Modified order to accomodate sound playback
@@ -112,8 +106,13 @@ public class Cutting : MonoBehaviour
                     hitPoint = hit.point;
                     currentType = CuttableType.Normal;
 
-                    rightSpark = Instantiate(sparkEffect, transform.position, Quaternion.LookRotation(hit.normal));
-                    leftSpark = Instantiate(sparkEffect, transform.position, Quaternion.LookRotation(hit.normal));
+                    if (rightSpark == null && leftSpark == null && rightBeamEnd == null && leftBeamEnd == null)
+                    {
+                        rightSpark = Instantiate(sparkEffect, transform.position, Quaternion.LookRotation(hit.normal));
+                        leftSpark = Instantiate(sparkEffect, transform.position, Quaternion.LookRotation(hit.normal));
+                        rightBeamEnd = Instantiate(beamEnd, transform.position, Quaternion.identity);
+                        leftBeamEnd = Instantiate(beamEnd, transform.position, Quaternion.identity);
+                    }
 
                     // Reset the blocked sound flag since we have a valid action now
                     hasPlayedBlockedSound = false;
@@ -195,15 +194,8 @@ public class Cutting : MonoBehaviour
         FaceToCuttingPoint(hitPoint);
     }
 
-    private void AddPoint(LineRenderer renderer, Vector3 point)
-    {
-        renderer.positionCount += 1;
-        renderer.SetPosition(renderer.positionCount-1, point);
-    }
-
     private IEnumerator AnimateLasers(Transform point, float duration)
     {
-        currentlyCutting = true;
         MeshFilter meshFilter = point.GetComponent<MeshFilter>();
         if (meshFilter != null)
         {
@@ -250,58 +242,15 @@ public class Cutting : MonoBehaviour
                     rightmostLaser.SetPosition(1, currentRightPoint);
                     if (rightSpark != null)
                         rightSpark.transform.position = currentRightPoint; // Move the particle system
+                    if (rightBeamEnd != null)
+                        rightBeamEnd.transform.position = currentRightPoint;
 
                     Vector3 currentLeftPoint = Vector3.Lerp(hitPoint, leftmostPoint, t);
                     leftmostLaser.SetPosition(1, currentLeftPoint);
-                    if (leftSpark != null)
+                    if (leftSpark != null && leftBeamEnd != null)
                         leftSpark.transform.position = currentLeftPoint; // Move the particle system
-
-                    // Cutting burn marks
-                    if (CuttingTrailPrefab != null) 
-                    {
-                        RaycastHit hit;
-                        var l = LayerMask.NameToLayer("Obstacle");
-                        if (Physics.Raycast(
-                            new Ray(Camera.main.transform.position, currentRightPoint - Camera.main.transform.position),
-                            out hit, range, l))
-                        { 
-                            Debug.Log(LayerMask.LayerToName(hit.transform.gameObject.layer));
-                            if (cuttingTrailRight == null) 
-                            { 
-                                cuttingTrailRight = Instantiate(CuttingTrailPrefab,
-                                hit.point, quaternion.identity, hit.transform);
-                            }
-                            else
-                            {
-                                AddPoint(cuttingTrailRight.GetComponent<LineRenderer>(),
-                                    cuttingTrailRight.transform.InverseTransformPoint(hit.point));
-                            }
-                        }
-                        else if (cuttingTrailRight != null)
-                        {
-                            cuttingTrailRight = null;
-                        }
-
-                        if (Physics.Raycast(
-                            new Ray(Camera.main.transform.position, currentLeftPoint - Camera.main.transform.position),
-                            out hit, range, l))
-                        {
-                            if (cuttingTrailLeft == null)
-                            {
-                                cuttingTrailLeft = Instantiate(CuttingTrailPrefab,
-                                     hit.point, quaternion.identity, hit.transform);
-                            }
-                            else
-                            {
-                                AddPoint(cuttingTrailLeft.GetComponent<LineRenderer>(),
-                                    cuttingTrailLeft.transform.InverseTransformPoint(hit.point));
-                            }
-                        }
-                        else if (cuttingTrailLeft != null)
-                        {
-                            cuttingTrailLeft = null;
-                        }
-                    }
+                    if (leftBeamEnd != null)
+                        leftBeamEnd.transform.position = currentLeftPoint;
 
                     // Increment the elapsed time
                     elapsedTime += Time.deltaTime;
@@ -315,22 +264,23 @@ public class Cutting : MonoBehaviour
                 // Destroy the particle systems after animation ends
                 if (rightSpark != null)
                     Destroy(rightSpark.gameObject);
+                if (rightBeamEnd != null)
+                    Destroy(rightBeamEnd.gameObject);
                 if (leftSpark != null)
                     Destroy(leftSpark.gameObject);
+                if (leftBeamEnd != null)
+                    Destroy(leftBeamEnd.gameObject);
             }
         }
 
         // Disable the lasers after animation is complete
         rightmostLaser.enabled = false;
         leftmostLaser.enabled = false;
-        
-        cuttingTrailRight = null;
-        cuttingTrailLeft = null;
 
         // Reset the cutting state
         currentType = CuttableType.None;
 
-        currentlyCutting = false;
+        beamSource.Stop();
 
         if (cuttingPoint != null)
         {
@@ -363,6 +313,8 @@ public class Cutting : MonoBehaviour
             }
 
             currentType = CuttableType.None;
+
+            beamSource.Stop();
         }
     }
 

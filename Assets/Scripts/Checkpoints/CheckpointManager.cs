@@ -16,6 +16,8 @@ public static class CheckpointManager
 
     public static List<int> switchesTurnedOn = new List<int>(); // Tracks which switches were turned on
 
+    public static List<string> tutorialsShowed = new List<string>(); // Tracks which tutorials have been showed
+
     public static float coreHealth; // Assigns health value for core each respawn
 
     // Saves the most recent checkpoint
