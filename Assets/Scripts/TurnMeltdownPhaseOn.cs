@@ -10,6 +10,11 @@ public class TurnMeltdownPhaseOn : MonoBehaviour
         meltdownPhase = GetComponent<MeltdownPhase>();
     }
 
+    public void SetBool(bool _bool)
+    {
+        isTurnedOn = _bool;
+    }
+
     private void Update()
     {
         if (!isTurnedOn)

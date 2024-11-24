@@ -5,12 +5,13 @@ using UnityEngine;
 
 namespace CLI.FSM
 {
-    public class BPAController : StateController
+    public class VentilationShaftsController : StateController
     {
         private void Awake()
         {
-            defaultState = new BPAMainState(this);
+            defaultState = new DownloadState(this);
             stateHistory = new List<State> { defaultState };
+            defaultDirName = "Ventilation_Systems";
             currentState = defaultState;
         }
     }

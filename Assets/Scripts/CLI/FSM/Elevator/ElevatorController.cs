@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace CLI.FSM
 {
-    public class SecurityShipmentHackingController : StateController
+    public class ElevatorController : StateController
     {
         private void Awake()
         {
-            defaultState = new SecurityState(this);
+            defaultState = new ElevatorMainState(this);
             stateHistory = new List<State> { defaultState };
-            defaultDirName = "Security_Shipments_Operations";
+            defaultDirName = "Engine_Room_Operations";
             currentState = defaultState;
         }
     }
