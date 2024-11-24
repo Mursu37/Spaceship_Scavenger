@@ -4887,7 +4887,11 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 7819732033060311169, guid: f7706f79e4135f44b84335d3ff8c3212, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7522526848673518886, guid: f7706f79e4135f44b84335d3ff8c3212,
+        type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1991281742}
   m_SourcePrefab: {fileID: 100100000, guid: f7706f79e4135f44b84335d3ff8c3212, type: 3}
 --- !u!1 &660902984 stripped
 GameObject:
@@ -14102,6 +14106,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6303633275567474318, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340194955840167706, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -24480,6 +24489,23 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 660902983}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1991281742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991281728}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be879f49614b9f44687fc756044f19f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swayAmountA: 1
+  swayAmountB: 2
+  swayScale: 600
+  swayLerpSpeed: 14
+  swayTime: 0
 --- !u!4 &1993462472 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5851137048382218593, guid: e5346a7531f051d48abb3b2f9d9d1e14,
