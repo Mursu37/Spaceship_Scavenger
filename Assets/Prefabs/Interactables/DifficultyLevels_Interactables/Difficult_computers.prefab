@@ -288,10 +288,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5115092571998377709, guid: 215d602747c2d0044ad08260f609618f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7261058592874804864}
-    - targetCorrespondingSourceObject: {fileID: 5115092571998377709, guid: 215d602747c2d0044ad08260f609618f,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7489510923948229694}
     - targetCorrespondingSourceObject: {fileID: 5115092571998377709, guid: 215d602747c2d0044ad08260f609618f,
         type: 3}
@@ -300,7 +296,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5115092571998377709, guid: 215d602747c2d0044ad08260f609618f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4029824289320852320}
+      addedObject: {fileID: 8073905884217861755}
   m_SourcePrefab: {fileID: 100100000, guid: 215d602747c2d0044ad08260f609618f, type: 3}
 --- !u!4 &2399415245454068104 stripped
 Transform:
@@ -326,20 +322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845e5e53d7547b941b8a0ebdb251646e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateController: {fileID: 4029824289320852320}
+  stateController: {fileID: 0}
   CLI: {fileID: 0}
---- !u!114 &7261058592874804864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7459743251604453739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a0748f8d368d349801b1c5b8a43e73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &7489510923948229694
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -388,16 +372,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4029824289320852320
+--- !u!114 &8073905884217861755
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7459743251604453739}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1032471330934c34e919baca8b5055ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d3ea451f6f0e0344b64279b8f7d1d2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CLI: {fileID: 0}
@@ -405,12 +389,11 @@ MonoBehaviour:
   commandLineInput: {fileID: 0}
   directoryText: {fileID: 0}
   flavourText: {fileID: 0}
-  textColor: {r: 0, g: 0.5019608, b: 0, a: 1}
-  highlightedColor: {r: 1, g: 0.8745098, b: 0, a: 1}
-  textWriteDelay: 0.025
+  textColor: {r: 0, g: 0, b: 0, a: 0}
+  highlightedColor: {r: 0, g: 0, b: 0, a: 0}
+  textWriteDelay: 0.001
   CLCommandsListObj: {fileID: 0}
-  CLCommandPrefab: {fileID: 3871985432989491793, guid: cb5d05830b72afc40af3db48dd7467e2,
-    type: 3}
+  CLCommandPrefab: {fileID: 0}
 --- !u!1001 &4971219687058528561
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -673,10 +656,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5115092571998377709, guid: 215d602747c2d0044ad08260f609618f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7681622821364330311}
-    - targetCorrespondingSourceObject: {fileID: 5115092571998377709, guid: 215d602747c2d0044ad08260f609618f,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 4531500200203475668}
     - targetCorrespondingSourceObject: {fileID: 5115092571998377709, guid: 215d602747c2d0044ad08260f609618f,
         type: 3}
@@ -707,18 +686,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateController: {fileID: 2458174085810136355}
   CLI: {fileID: 0}
---- !u!114 &7681622821364330311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 597144183766927523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a0748f8d368d349801b1c5b8a43e73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &4531500200203475668
 BoxCollider:
   m_ObjectHideFlags: 0

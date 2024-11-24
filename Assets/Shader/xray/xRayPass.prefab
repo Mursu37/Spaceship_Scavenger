@@ -48,15 +48,20 @@ MonoBehaviour:
   fadeRadius: 0
   priority: 0
   customPasses:
-  - rid: 1570080753363714048
-  - rid: 1570080773791023104
+  - rid: 1790848817684545562
+  - rid: 1790848817684545563
+  - rid: 1790848817684545564
+  - rid: 1790848817684545565
+  - rid: 1790848817684545566
+  - rid: 1790848817684545567
+  - rid: 1790848817684545568
   injectionPoint: 2
   m_TargetCamera: {fileID: 0}
   useTargetCamera: 0
   references:
     version: 2
     RefIds:
-    - rid: 1570080753363714048
+    - rid: 1790848817684545562
       type: {class: FullScreenCustomPass, ns: UnityEngine.Rendering.HighDefinition,
         asm: Unity.RenderPipelines.HighDefinition.Runtime}
       data:
@@ -72,7 +77,7 @@ MonoBehaviour:
         materialPassIndex: 0
         materialPassName: Custom Pass 0
         fetchColorBuffer: 0
-    - rid: 1570080773791023104
+    - rid: 1790848817684545563
       type: {class: outlineRendering1, ns: , asm: Assembly-CSharp}
       data:
         m_Name: XRayCorridor
@@ -84,15 +89,135 @@ MonoBehaviour:
         m_Version: 0
         outlineLayer:
           serializedVersion: 2
-          m_Bits: 512
-        outlineColor: {r: 0, g: 1, b: 0.06607723, a: 1}
-        fadeCheck: {r: 0, g: 0, b: 0.489, a: 1}
+          m_Bits: 256
+        outlineColor: {r: 0, g: 2, b: 0.13215446, a: 1}
+        fadeCheck: {r: 0, g: 0, b: 0.489, a: 0}
         threshold: 0.18
         range: 1
-        nearPlane: 0.6
+        nearPlane: 0.7
         replacementMaterial: {fileID: 2100000, guid: c01724b41324fd24691a4a2429423a8c,
           type: 2}
         visualMaterial: {fileID: 2100000, guid: 48e9f961b8faeee4e81ebc2230420e4a,
+          type: 2}
+        outlineShader: {fileID: 4800000, guid: dab1ae183861fb949962e1f3e36563ad, type: 3}
+        fullscreenOutline: {fileID: 0}
+    - rid: 1790848817684545564
+      type: {class: outlineRendering1, ns: , asm: Assembly-CSharp}
+      data:
+        m_Name: Hidden
+        enabled: 1
+        targetColorBuffer: 0
+        targetDepthBuffer: 0
+        clearFlags: 0
+        passFoldout: 0
+        m_Version: 0
+        outlineLayer:
+          serializedVersion: 2
+          m_Bits: 4096
+        outlineColor: {r: 0, g: 3.3043249, b: 7.999999, a: 1}
+        fadeCheck: {r: 0.25490198, g: 0.25490198, b: 0.8, a: 0.7647059}
+        threshold: 0.18
+        range: 1
+        nearPlane: 1
+        replacementMaterial: {fileID: 2100000, guid: c01724b41324fd24691a4a2429423a8c,
+          type: 2}
+        visualMaterial: {fileID: 2100000, guid: 48e9f961b8faeee4e81ebc2230420e4a,
+          type: 2}
+        outlineShader: {fileID: 4800000, guid: dab1ae183861fb949962e1f3e36563ad, type: 3}
+        fullscreenOutline: {fileID: 0}
+    - rid: 1790848817684545565
+      type: {class: outlineRendering1, ns: , asm: Assembly-CSharp}
+      data:
+        m_Name: ContainmentCore
+        enabled: 1
+        targetColorBuffer: 0
+        targetDepthBuffer: 0
+        clearFlags: 0
+        passFoldout: 0
+        m_Version: 0
+        outlineLayer:
+          serializedVersion: 2
+          m_Bits: 8192
+        outlineColor: {r: 7.999999, g: 1.228137, b: 0, a: 1}
+        fadeCheck: {r: 0.25490198, g: 0.25490198, b: 0.8, a: 0.7647059}
+        threshold: 1
+        range: 1
+        nearPlane: 0.89
+        replacementMaterial: {fileID: 2100000, guid: c01724b41324fd24691a4a2429423a8c,
+          type: 2}
+        visualMaterial: {fileID: 2100000, guid: 87b7e4c5c22383445ba21b905cf9786f,
+          type: 2}
+        outlineShader: {fileID: 4800000, guid: dab1ae183861fb949962e1f3e36563ad, type: 3}
+        fullscreenOutline: {fileID: 0}
+    - rid: 1790848817684545566
+      type: {class: outlineRendering1, ns: , asm: Assembly-CSharp}
+      data:
+        m_Name: Custom Pass
+        enabled: 1
+        targetColorBuffer: 0
+        targetDepthBuffer: 0
+        clearFlags: 0
+        passFoldout: 0
+        m_Version: 0
+        outlineLayer:
+          serializedVersion: 2
+          m_Bits: 16384
+        outlineColor: {r: 1, g: 0.9843137, b: 0, a: 1}
+        fadeCheck: {r: 0.25490198, g: 0.25490198, b: 0.8, a: 0.5686275}
+        threshold: 0.18
+        range: 1
+        nearPlane: 0.89
+        replacementMaterial: {fileID: 2100000, guid: c01724b41324fd24691a4a2429423a8c,
+          type: 2}
+        visualMaterial: {fileID: 2100000, guid: 5c4bbae014ffb7c428adec919145b163,
+          type: 2}
+        outlineShader: {fileID: 4800000, guid: dab1ae183861fb949962e1f3e36563ad, type: 3}
+        fullscreenOutline: {fileID: 0}
+    - rid: 1790848817684545567
+      type: {class: outlineRendering1, ns: , asm: Assembly-CSharp}
+      data:
+        m_Name: Custom Pass
+        enabled: 1
+        targetColorBuffer: 0
+        targetDepthBuffer: 0
+        clearFlags: 0
+        passFoldout: 0
+        m_Version: 0
+        outlineLayer:
+          serializedVersion: 2
+          m_Bits: 32768
+        outlineColor: {r: 3.9999995, g: 0, b: 0.12122153, a: 1}
+        fadeCheck: {r: 0.25490198, g: 0.25490198, b: 0.8, a: 0.7647059}
+        threshold: 1
+        range: 1
+        nearPlane: 0.18
+        replacementMaterial: {fileID: 2100000, guid: c01724b41324fd24691a4a2429423a8c,
+          type: 2}
+        visualMaterial: {fileID: 2100000, guid: f3b72ae133e7eb54b99a2c45a25e2c66,
+          type: 2}
+        outlineShader: {fileID: 4800000, guid: dab1ae183861fb949962e1f3e36563ad, type: 3}
+        fullscreenOutline: {fileID: 0}
+    - rid: 1790848817684545568
+      type: {class: outlineRendering1, ns: , asm: Assembly-CSharp}
+      data:
+        m_Name: Interactables
+        enabled: 1
+        targetColorBuffer: 0
+        targetDepthBuffer: 0
+        clearFlags: 0
+        passFoldout: 0
+        m_Version: 0
+        outlineLayer:
+          serializedVersion: 2
+          m_Bits: 64
+        outlineColor: {r: 0, g: 3.3043249, b: 7.999999, a: 1}
+        fadeCheck: {r: 0.25490198, g: 0.25490198, b: 0.8, a: 0.7647059}
+        threshold: 1
+        range: 1
+        nearPlane: 0.89
+        replacementMaterial: {fileID: 2100000, guid: c01724b41324fd24691a4a2429423a8c,
+          type: 2}
+        visualMaterial: {fileID: 2100000, guid: ed04b50ec65f5734bb4e856d0114fcc3,
           type: 2}
         outlineShader: {fileID: 4800000, guid: dab1ae183861fb949962e1f3e36563ad, type: 3}
         fullscreenOutline: {fileID: 0}
