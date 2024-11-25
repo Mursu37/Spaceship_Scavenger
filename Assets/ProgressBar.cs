@@ -10,10 +10,9 @@ public class ProgressBar : MonoBehaviour
     [SerializeField] private Image delayedBar; // Delayed meltdown bar
     [SerializeField] private TMP_Text stageText; // Text to display the current stage
     [SerializeField] private GameObject coreObject;
-    [SerializeField] private float lerpSpeed = 5.0f; 
-    [SerializeField] private float delayInterval = 1.0f;
-
-    private float delayTimer;
+    [SerializeField] private float lerpSpeed = 5.0f; // Speed for main bar
+    [SerializeField] private float delayedBarLerpSpeed = 2.0f; // Smoother speed for delayed bar
+    [SerializeField] private float maxLagDistance = 0.1f; // Maximum allowed difference between bars
 
     private void Start()
     {
@@ -35,21 +34,19 @@ public class ProgressBar : MonoBehaviour
 
             if (delayedBar != null)
             {
-                delayTimer += Time.deltaTime;
-                if (delayTimer >= delayInterval)
-                {
-                    delayTimer = 0f;
+                delayedBar.fillAmount = Mathf.Lerp(
+                    delayedBar.fillAmount,
+                    bar.fillAmount,
+                    Time.deltaTime * delayedBarLerpSpeed
+                );
 
+                if (delayedBar.fillAmount > bar.fillAmount + maxLagDistance)
+                {
                     delayedBar.fillAmount = Mathf.Lerp(
                         delayedBar.fillAmount,
-                        bar.fillAmount,
-                        Time.deltaTime * lerpSpeed
+                        bar.fillAmount + maxLagDistance,
+                        Time.deltaTime * delayedBarLerpSpeed
                     );
-                }
-
-                if (delayedBar.fillAmount > bar.fillAmount)
-                {
-                    delayedBar.fillAmount = Mathf.Lerp(delayedBar.fillAmount, bar.fillAmount, Time.deltaTime * lerpSpeed);
                 }
             }
 

@@ -21,7 +21,7 @@ public class DamageOnImpact : MonoBehaviour
         // Get the Rigidbody of the object the player collides with
         otherRb = collision.collider.GetComponent<Rigidbody>();
 
-        if (otherRb != null)
+        if (otherRb != null && otherRb.mass >= 3f)
         {
             // Get the relative velocity between your object and the other object
             relativeVelocity = collision.relativeVelocity;
