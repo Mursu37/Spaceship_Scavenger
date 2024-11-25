@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8333519756861762367
+--- !u!114 &-541827841512130104
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -23,16 +23,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ExplosionStripesMaterial Variant
-  m_Shader: {fileID: -6465566751694194690, guid: 51dfe0631a50087468cc1e1f23b8bc86,
+  m_Name: ContainmentCoreParticle_Mat Outer 2
+  m_Shader: {fileID: -6465566751694194690, guid: d45a491b06858cc459a0f517834bb0f9,
     type: 3}
-  m_Parent: {fileID: 2100000, guid: c44d67a4e262b6643a1a8ce59ceecca5, type: 2}
-  m_ModifiedSerializedProperties: 8
+  m_Parent: {fileID: 2100000, guid: bc55970e68fbda04c8aadcb9b24a8990, type: 2}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _ALPHATEST_ON
   - _ENABLE_FOG_ON_TRANSPARENT
   - _SURFACE_TYPE_TRANSPARENT
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _DOUBLESIDED_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -44,19 +44,20 @@ Material:
   - TransparentDepthPrepass
   - TransparentDepthPostpass
   - TransparentBackface
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _AddPrecomputedVelocity: 0
-    - _AlphaCutoffEnable: 1
-    - _Dissolve: 0.206
-    - _DoubleSidedGIMode: 0
-    - _NoiseScale: 10000
+    - _Alpha: 1.41
+    - _Blend: 0.72
+    - _Cells: 1.16
+    - _Fresnel: 0.1
+    - _IntersectionDepth: 4.73
+    - _Smoothing: 0.4
+    - _UVScale: 126.83
     m_Colors:
-    - _Color: {r: 0, g: 16.417685, b: 20.865904, a: 1}
-    - _NoiseSpeed: {r: -0.004, g: 0.004, b: 0, a: 0}
-    - _UV: {r: 5.19, g: 10, b: 0, a: 0}
+    - _Color: {r: 0.34943005, g: 0.34943005, b: 0.34943005, a: 1}
   m_BuildTextureStacks: []
