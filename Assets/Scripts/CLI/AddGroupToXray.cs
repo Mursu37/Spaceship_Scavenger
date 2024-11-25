@@ -6,16 +6,22 @@ public class AddGroupToXray : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    private GameObject geometryGroup;
+    [SerializeField]
+    private GameObject targetGroup;
 
-    void Start()
+
+    public void SetGroupToLayer(int newlayer)
     {
-        
+        SetLayerRecursively(targetGroup, newlayer);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetLayerRecursively(GameObject obj, int newlayer)
     {
-        
+        obj.layer = newlayer;
+        foreach (Transform child in obj.transform)
+        {
+            SetLayerRecursively(child.gameObject, newlayer);
+        }
     }
+
 }

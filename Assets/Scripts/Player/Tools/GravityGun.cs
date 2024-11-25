@@ -4,11 +4,13 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class GravityGun : MonoBehaviour
 {
     // Inputs
     private float scrollWheelInput;
 
+    
     private GameObject target;
     private Rigidbody targetRb;
     private Camera cam;
@@ -19,6 +21,11 @@ public class GravityGun : MonoBehaviour
     private Quaternion targetInitialRotation;
     private Quaternion playerInitialRotation;
     private Vector3 localHitOffset;
+   
+    public bool IsGrabbingValidObject()
+    {
+        return target != null && targetRb != null; // Check if a valid target is grabbed
+    }
 
     [SerializeField] private GameObject playerObject;
     [SerializeField] private Rigidbody playerRb;
@@ -28,6 +35,10 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private Transform p1;
     [SerializeField] private LayerMask ignoreLayerMask;
+    [SerializeField] private ParticleSystem beamSource;
+    [SerializeField] private ParticleSystem beamEnd;
+
+    [SerializeField] private Animator animator;
 
     [HideInInspector] public bool isGrabbling;
 
@@ -36,10 +47,12 @@ public class GravityGun : MonoBehaviour
     public float objectMass;
     public float strength;
 
+
     // Start is called before the first frame update
     private void Start()
     {
         cam = Camera.main;
+
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
         modeSwitch = GetComponent<ModeSwitch>();
@@ -169,6 +182,8 @@ public class GravityGun : MonoBehaviour
     // Releases the object
     private void Release()
     {
+        
+        
         if (target == null)
         {
             targetRb = null;
@@ -243,24 +258,40 @@ public class GravityGun : MonoBehaviour
             isAttracting = false;
         }
 
+        if (isAttracting && (target != null || targetRb != null))
+        {
+            animator.SetBool("IsGrabbling", true);
+            beamSource.Play();
+            beamEnd.Play();
+        }
+        else
+        {
+            modeSwitch.enabled = true;
+            beamSource.Stop();
+            beamEnd.Stop();
+        }
+
         // Draws a line between the gun and the object
         if (isAttracting && target != null && targetRb != null)
         {
             lineRenderer.enabled = true;
             p1.position = shootingPoint.position + cam.transform.forward * 4f;
             Vector3 grapplePointWorldPosition = target.transform.TransformPoint(localHitOffset);
+            beamEnd.transform.position = grapplePointWorldPosition;
             DrawQuadraticBezierCurve(shootingPoint.position, p1.position, grapplePointWorldPosition);
         }
         else if (isAttracting && target != null && targetRb == null)
         {
             lineRenderer.enabled = true;
             p1.position = shootingPoint.position + cam.transform.forward;
+            beamEnd.transform.position = hitPosition;
             DrawQuadraticBezierCurve(shootingPoint.position, p1.position, hitPosition);
         }
         else
         {
             lineRenderer.enabled = false;
         }
+
     }
 
     private void FixedUpdate()
@@ -272,7 +303,7 @@ public class GravityGun : MonoBehaviour
         }
         else
         {
-            modeSwitch.enabled = true;
+            animator.SetBool("IsGrabbling", false);
             Release();
         }
     }

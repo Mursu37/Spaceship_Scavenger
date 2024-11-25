@@ -27,5 +27,13 @@ namespace Enviroment.MainTerminal
             isPowerOn = true;
             AudioManager.PlayAudio("ShipPowerOn", 1, 1, false);
         }
+
+        public void turnShipOnNoSound()
+        {
+            lampSwitcherManager.ToggleLamps(true);
+            obstacles.SetActive(true);
+            //doorAnimator.Play("Closing");
+            isPowerOn = true;
+        }
     }
 }

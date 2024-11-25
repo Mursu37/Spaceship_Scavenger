@@ -19,6 +19,7 @@ public class HighlightCuttable : MonoBehaviour
     private Dictionary<Collider, GameObject> highlights;
 
     private Camera mainCamera;
+    private LayerMask layerMask;
 
     private void Start()
     {
@@ -27,6 +28,7 @@ public class HighlightCuttable : MonoBehaviour
         tolerance = cutting.Tolerance;
         distance = cutting.RayDistance;
         mainCamera = Camera.main;
+        layerMask = LayerMask.GetMask("Player") | LayerMask.GetMask("CutThrough") | LayerMask.GetMask("FirstPersonView");
     }
     
     private void Update()
@@ -94,7 +96,7 @@ public class HighlightCuttable : MonoBehaviour
                 currentlyCuttable = null;
             }
             if (Physics.Raycast(new Ray(mainCamera.transform.position, mainCamera.transform.forward), out RaycastHit hit, distance,
-                    ~LayerMask.GetMask("Player")))
+                    ~layerMask))
             {
                 if (hit.transform.CompareTag("Cuttable") && highlights.ContainsKey(hit.collider) && cutting.AreAnglesClose(cutting.transform, hit.transform, tolerance))
                 {

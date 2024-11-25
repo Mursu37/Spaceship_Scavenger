@@ -53,12 +53,12 @@ public class Toolinfo : MonoBehaviour
             if (!cutting.isVerticalCut)
             {
                 modeImage.texture = horizontalcuttingInfo;
-                infoText.text = "CUTTING ALIGHNED\nCUTTABLE OBJ\nSCANNING OBJS";
+                infoText.text = "CUTTING ALIGNED\nCUTTABLE OBJ\nSCANNING OBJS";
             }
             else
             {
                 modeImage.texture = verticalcuttingInfo;
-                infoText.text = "CUTTING ALIGHNED\nCUTTABLE OBJ\nSCANNING OBJS";
+                infoText.text = "CUTTING ALIGNED\nCUTTABLE OBJ\nSCANNING OBJS";
                 }
             }
         }

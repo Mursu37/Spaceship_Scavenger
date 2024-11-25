@@ -1,47 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerRespawn : MonoBehaviour
 {
-    private bool canRespawn;
-    private Vector3 spawnPosition;
+    private bool playerRespawned = false;
 
-    [SerializeField] private GameObject spawnPoint;
-
-    private void Awake()
+    private void Update()
     {
-        canRespawn = true;
-        spawnPosition = new Vector3(
-            PlayerPrefs.GetFloat("PlayerPosX"),
-            PlayerPrefs.GetFloat("PlayerPosY"),
-            PlayerPrefs.GetFloat("PlayerPosZ"));
-
-        Debug.Log("Spawned at: " + PlayerPrefs.GetFloat("PlayerPosX") + " " + PlayerPrefs.GetFloat("PlayerPosY") + " " + PlayerPrefs.GetFloat("PlayerPosZ"));
-    }
-
-    private void FixedUpdate()
-    {
-        if (canRespawn)
+        if (!playerRespawned)
         {
-            transform.position = spawnPosition;
-            canRespawn = false;
-        }
-    }
+            if (CheckpointManager.checkpointReached)
+            {
+                transform.position = CheckpointManager.lastCheckpointPosition;
+                Debug.Log($"Player respawned at {CheckpointManager.lastCheckpointPosition}");
+            }
+            else
+            {
+                Debug.Log("No checkpoint reached. Respawning at default position.");
+            }
 
-    private void OnApplicationQuit()
-    {
-        if (spawnPoint != null)
-        {
-            PlayerPrefs.SetFloat("PlayerPosX", spawnPoint.transform.position.x);
-            PlayerPrefs.SetFloat("PlayerPosY", spawnPoint.transform.position.y);
-            PlayerPrefs.SetFloat("PlayerPosZ", spawnPoint.transform.position.z);
-        }
-        else
-        {
-            PlayerPrefs.SetFloat("PlayerPosX", 0);
-            PlayerPrefs.SetFloat("PlayerPosY", 0);
-            PlayerPrefs.SetFloat("PlayerPosZ", 0);
+            playerRespawned = true;
         }
     }
 }

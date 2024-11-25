@@ -1,7 +1,9 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CoreTeleporterExit : MonoBehaviour
 {
+    public int id;
     private Animator animator;
     [SerializeField] private Transform player;
     [SerializeField] private GameObject core;
@@ -11,7 +13,7 @@ public class CoreTeleporterExit : MonoBehaviour
 
     private MixerController mixerController;
 
-    private enum TeleporterState
+    public enum TeleporterState
     {
         Idle,
         Teleporting,
@@ -20,7 +22,7 @@ public class CoreTeleporterExit : MonoBehaviour
         Closing
     }
 
-    private TeleporterState currentState = TeleporterState.Idle;
+    [HideInInspector] public TeleporterState currentState = TeleporterState.Idle;
 
     private void Start()
     {
@@ -99,8 +101,20 @@ public class CoreTeleporterExit : MonoBehaviour
     {
         if (currentState == TeleporterState.Idle)
         {
-            currentState = TeleporterState.Teleporting;
-            core.GetComponent<EnergyCore>().heatIncreaseTime = 16f;
+            Debug.Log("Teleportation started.");
+
+            if (core != null)
+            {
+                core.transform.position = coreHolder.position;
+                core.transform.rotation = coreHolder.rotation;
+
+                currentState = TeleporterState.Teleporting;
+                core.GetComponent<EnergyCore>().heatIncreaseTime = 16f;
+            }
+            else
+            {
+                Debug.LogError("Core was null.");
+            }
         }
     }
 }

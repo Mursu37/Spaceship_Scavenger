@@ -18,7 +18,7 @@ public class LockDownWallsSound : MonoBehaviour
 
     private bool IsAnimationPlaying(string animationName)
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(animationName) && !CheckpointManager.checkpointReached)
         {
             return true;
         }

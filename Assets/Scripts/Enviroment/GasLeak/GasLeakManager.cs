@@ -28,7 +28,6 @@ public class GasLeakManager : MonoBehaviour
     {
         if (dispensers != null)
         {
-            Debug.Log("Checking for dispensers.");
             bool canActivate = true;
 
             foreach (var dispenser in dispensers)
