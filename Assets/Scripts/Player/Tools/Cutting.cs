@@ -13,10 +13,11 @@ using Unity.Mathematics;
 public class Cutting : MonoBehaviour
 {
     [SerializeField] private LayerMask mask;
-
     [SerializeField] private GameObject CuttingTrailPrefab;
     private GameObject cuttingTrailRight;
     private GameObject cuttingTrailLeft;
+    private Collider cuttingColliderRight;
+    private Collider cuttingColliderLeft;
     
     private LayerMask layerMask;
     private Transform cuttingPoint;
@@ -258,11 +259,18 @@ public class Cutting : MonoBehaviour
                             { 
                                 cuttingTrailRight = Instantiate(CuttingTrailPrefab,
                                 hit.point, quaternion.identity, hit.transform);
+                                cuttingColliderRight = hit.collider;
                             }
-                            else
+                            else if (cuttingColliderRight == hit.collider)
                             {
                                 AddPoint(cuttingTrailRight.GetComponent<LineRenderer>(),
                                     cuttingTrailRight.transform.InverseTransformPoint(hit.point));
+                            }
+                            else
+                            {
+                                cuttingTrailRight = Instantiate(CuttingTrailPrefab,
+                                    hit.point, quaternion.identity, hit.transform);
+                                cuttingColliderRight = hit.collider;
                             }
                         }
                         else if (cuttingTrailRight != null)
@@ -278,11 +286,18 @@ public class Cutting : MonoBehaviour
                             {
                                 cuttingTrailLeft = Instantiate(CuttingTrailPrefab,
                                      hit.point, quaternion.identity, hit.transform);
+                                cuttingColliderLeft = hit.collider;
                             }
-                            else
+                            else if (cuttingColliderLeft == hit.collider)
                             {
                                 AddPoint(cuttingTrailLeft.GetComponent<LineRenderer>(),
                                     cuttingTrailLeft.transform.InverseTransformPoint(hit.point));
+                            }
+                            else
+                            {
+                                cuttingTrailLeft = Instantiate(CuttingTrailPrefab,
+                                    hit.point, quaternion.identity, hit.transform);
+                                cuttingColliderLeft = hit.collider;
                             }
                         }
                         else if (cuttingTrailLeft != null)
