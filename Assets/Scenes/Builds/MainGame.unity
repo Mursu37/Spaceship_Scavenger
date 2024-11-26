@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 262.33694, g: 325.04984, b: 430.2193, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4761,6 +4761,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4319834392294547856, guid: f7706f79e4135f44b84335d3ff8c3212,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319834392294547856, guid: f7706f79e4135f44b84335d3ff8c3212,
+        type: 3}
       propertyPath: m_Parameters.colorGradient.key1.g
       value: 0.33903617
       objectReference: {fileID: 0}
@@ -4903,6 +4908,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Parameters.colorGradient.key1.g
       value: 0.33903617
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260234886551076962, guid: f7706f79e4135f44b84335d3ff8c3212,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7522526848673518886, guid: f7706f79e4135f44b84335d3ff8c3212,
         type: 3}
@@ -13948,6 +13958,11 @@ PrefabInstance:
       propertyPath: coreObject
       value: 
       objectReference: {fileID: 881260440}
+    - target: {fileID: 2868944058412243982, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+        type: 3}
+      propertyPath: m_MinValue
+      value: 0.0001
+      objectReference: {fileID: 0}
     - target: {fileID: 2897445722516071028, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
         type: 3}
       propertyPath: m_Texture
@@ -14113,6 +14128,17 @@ PrefabInstance:
       propertyPath: weaponHolder
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5666284926564136123, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5666284926564136123, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+        type: 3}
+      propertyPath: musicMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 593f6e12a0383c24c93cf48f8d728fd9,
+        type: 2}
     - target: {fileID: 6303633275567474318, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
         type: 3}
       propertyPath: m_IsActive
@@ -21684,11 +21710,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be879f49614b9f44687fc756044f19f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swayAmountA: 1
-  swayAmountB: 2
-  swayScale: 600
-  swayLerpSpeed: 14
-  swayTime: 0
 --- !u!4 &1993462472 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5851137048382218593, guid: e5346a7531f051d48abb3b2f9d9d1e14,

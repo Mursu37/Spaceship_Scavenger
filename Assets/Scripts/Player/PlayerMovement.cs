@@ -13,16 +13,23 @@ public class PlayerMovement : MonoBehaviour
     private float mouseInputY;
 
     private Rigidbody rb;
+    private GravityGun gravityGun;
+    
     private float speedRatio;
     private float dampingFactor;
 
+    [Header("Current Speed Values")]
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed;
+
+    [Header("Acceleration Values")]
     [SerializeField] private float acceleration;
     [SerializeField] private float rollAcceleration;
+    [Tooltip("This value equals the mouse sensitivity.")]
+    [Range(0f, 1.5f)] public float turnAcceleration;
 
+    [Header("Other")]
     public float maxSpeed;
-    public float mouseSensitivity;
     public bool isStabilized = false;
 
     [HideInInspector] public float currentDrag;
@@ -31,12 +38,27 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        if (rb == null )
+        {
+            Debug.LogError("Rigidbody component missing!");
+            enabled = false;
+            return;
+        }
+
+        gravityGun = FindObjectOfType<GravityGun>();
+        if ( gravityGun == null )
+        {
+            Debug.LogError("Gravity Gun component missing!");
+            enabled = false;
+            return;
+        }
+
         currentDrag = rb.drag;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        mouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity");
+        turnAcceleration = PlayerPrefs.GetFloat("MouseSensitivity");
     }
 
     private void HandleMovement()
@@ -46,8 +68,8 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(rb.transform.TransformDirection(Vector3.right) * horizontalInput * acceleration, ForceMode.VelocityChange);
 
         // Turn the player / camera
-        rb.AddTorque(rb.transform.right * mouseSensitivity * mouseInputY * -1, ForceMode.VelocityChange);
-        rb.AddTorque(rb.transform.up * mouseSensitivity * mouseInputX, ForceMode.VelocityChange);
+        rb.AddTorque(rb.transform.right * turnAcceleration * mouseInputY * -1, ForceMode.VelocityChange);
+        rb.AddTorque(rb.transform.up * turnAcceleration * mouseInputX, ForceMode.VelocityChange);
 
         // Rolls the player
         rb.AddTorque(rb.transform.forward * rollAcceleration * rollInput, ForceMode.VelocityChange);
@@ -59,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, acceleration * stabilizeInput);
 
         //Check if the player's speed exceeds the maxium speed
-        if (rb.velocity.magnitude > maxSpeed && !GameObject.Find("Multitool").GetComponent<GravityGun>().isGrabbling)
+        if (rb.velocity.magnitude > maxSpeed && !gravityGun.isGrabbling)
         {
             // Define the range between maxSpeed and the desired upper limit
             speedRatio = Mathf.InverseLerp(maxSpeed, 10f, rb.velocity.magnitude);

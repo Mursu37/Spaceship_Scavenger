@@ -39,7 +39,7 @@ public class MouseSensitivity : MonoBehaviour
     {
         if (playerMovement != null)
         {
-            playerMovement.mouseSensitivity = value;
+            playerMovement.turnAcceleration = value;
             valueText.text = value.ToString("0.0");
             PlayerPrefs.SetFloat("MouseSensitivity", value);
         }
