@@ -122,8 +122,8 @@ public class PlayerMovement : MonoBehaviour
         ascendInput = Input.GetAxis("Ascend");
         rollInput = Input.GetAxis("Roll");
         stabilizeInput = Input.GetAxis("Break");
-        mouseInputX = Input.GetAxis("Mouse X");
-        mouseInputY = Input.GetAxis("Mouse Y");
+        mouseInputX = Input.GetAxisRaw("Mouse X");
+        mouseInputY = Input.GetAxisRaw("Mouse Y");
 
         Stabilize();
 

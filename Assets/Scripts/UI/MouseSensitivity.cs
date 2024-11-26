@@ -20,9 +20,6 @@ public class MouseSensitivity : MonoBehaviour
     {
         savedSensitivity = PlayerPrefs.GetFloat("MouseSensitivity", 0.5f);
 
-        slider.minValue = 0.1f;
-        slider.maxValue = 1.5f;
-
         if (player != null)
         {
             playerMovement = player.GetComponent<PlayerMovement>();
@@ -30,7 +27,7 @@ public class MouseSensitivity : MonoBehaviour
             if (playerMovement != null)
             {
                 slider.value = savedSensitivity;
-                valueText.text = slider.value.ToString("0.0");
+                valueText.text = (slider.value * 100).ToString("0.0");
             }
         }
     }
@@ -40,7 +37,7 @@ public class MouseSensitivity : MonoBehaviour
         if (playerMovement != null)
         {
             playerMovement.turnAcceleration = value;
-            valueText.text = value.ToString("0.0");
+            valueText.text = (value * 100).ToString("0.0");
             PlayerPrefs.SetFloat("MouseSensitivity", value);
         }
     }

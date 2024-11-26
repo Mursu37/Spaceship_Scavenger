@@ -37,14 +37,14 @@ public class VolumeAdjust : MonoBehaviour
 
     public void SetMusicVolume(float value)
     {
-        musicValue.text = Mathf.RoundToInt(value * 100).ToString();
+        musicValue.text = Mathf.RoundToInt(value * 100).ToString() + "%";
         audioMixer.SetFloat("Music", Mathf.Log10(value) * 20);
         PlayerPrefs.SetFloat("MusicVolume", value);
     }
 
     public void SetSoundVolume(float value)
     {
-        soundValue.text = Mathf.RoundToInt(value * 100).ToString();
+        soundValue.text = Mathf.RoundToInt(value * 100).ToString() + "%";
         audioMixer.SetFloat("Sound", Mathf.Log10(value) * 20);
         audioMixer.SetFloat("Ambience", Mathf.Log10(value) * 20);
         audioMixer.SetFloat("UI", Mathf.Log10(value) * 20);
