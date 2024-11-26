@@ -18,7 +18,7 @@ class outlineRendering : CustomPass
     Material fullscreenOutline;
     
     RTHandle outlineBuffer;
-    RTHandle finalOutlines;
+    private RTHandle cameraBuffer;
 
     protected override void Setup(ScriptableRenderContext renderContext, CommandBuffer cmd)
     {
@@ -31,10 +31,18 @@ class outlineRendering : CustomPass
 
             useDynamicScale: true, name: "Outline Buffer"
         );
+        
+        cameraBuffer = RTHandles.Alloc(
+            Vector2.one, TextureXR.slices, dimension: TextureXR.dimension,
+            colorFormat: GraphicsFormat.B10G11R11_UFloatPack32,
+
+            useDynamicScale: true, name: "Camera Buffer"
+        );
     }
 
     protected override void Execute(CustomPassContext ctx)
     {
+        CustomPassUtils.Copy(ctx, ctx.cameraColorBuffer, cameraBuffer);
         // Sets properties for outline
         ctx.propertyBlock.SetColor("_OutlineColor", outlineColor);
         ctx.propertyBlock.SetFloat("_Threshold", threshold);
@@ -50,6 +58,7 @@ class outlineRendering : CustomPass
         }
         // set texture that shader samples as outline buffer
         ctx.propertyBlock.SetTexture("_OutlineBuffer", outlineBuffer);
+        ctx.propertyBlock.SetTexture("_CameraBuffer", cameraBuffer);
         CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);
         CoreUtils.DrawFullScreen(ctx.cmd, fullscreenOutline, ctx.propertyBlock, shaderPassId: 0);
     }
@@ -58,6 +67,7 @@ class outlineRendering : CustomPass
     {
         // release unnecessary resources
         CoreUtils.Destroy(fullscreenOutline);
+        cameraBuffer.Release();
         outlineBuffer.Release();
     }
 }
