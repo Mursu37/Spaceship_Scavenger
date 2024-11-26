@@ -8,13 +8,13 @@ namespace CLI.FSM
     {
         public DownloadState(StateController controller) : base(controller)
         {
-            directories.Add("blueprints", new DoorState(controller));
+            directories.Add("blueprints", new BlueprintState(controller));
         }
 
         public override void OnEnter()
         {
 
-            stateController.ChangeText("Directories:<BR><BR> blueprints");
+            stateController.ChangeText("Downloadable Files:<BR><BR> blueprints");
             base.OnEnter();
         }
 
