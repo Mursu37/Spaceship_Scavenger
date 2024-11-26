@@ -90,4 +90,11 @@ public class PauseMenu : MonoBehaviour
         Cursor.visible = true;
         PauseGame.Resume(PauseGame.TransitionType.UnpauseMixer);
     }
+
+    public void SettingsBack()
+    {
+        pauseMenu.SetActive(true);
+        settings.SetActive(false);
+        controls.SetActive(false);
+    }
 }
