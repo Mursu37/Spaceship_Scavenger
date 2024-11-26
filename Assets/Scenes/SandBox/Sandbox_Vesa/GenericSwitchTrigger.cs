@@ -1,24 +1,41 @@
+using CLI.FSM;
+using Enviroment.MainTerminal;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GenericSwitchTrigger : MonoBehaviour
+public class GenericSwitchTrigger : Switch
 {
-    Animator animator;
+    private Animator switchAnimator;
+    [SerializeField]
+    private EventDispatcher dispatcher;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = gameObject.GetComponent<Animator>();
+        switchAnimator = gameObject.GetComponentInChildren<Animator>();
     }
 
-    void SwitchTriggered()
+    protected override IEnumerator SwitchAction()
     {
+        yield return new WaitForSeconds(0.5f);
+        ActivateSwitch();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ActivateSwitch()
     {
-        
+        Debug.Log("SwitchActivated");
+
+        int layerIndex = 0;
+        string stateName = "TurnOn";
+        int stateHash = Animator.StringToHash(stateName);
+
+        if (switchAnimator.HasState(layerIndex, stateHash))
+        {
+            switchAnimator.Play("TurnOn", layerIndex);
+            dispatcher.TriggerEvent();
+
+        }
     }
+
 }
