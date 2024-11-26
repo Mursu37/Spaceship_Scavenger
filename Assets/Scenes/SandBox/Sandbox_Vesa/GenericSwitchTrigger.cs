@@ -24,7 +24,10 @@ public class GenericSwitchTrigger : Switch
 
     private void ActivateSwitch()
     {
-        Debug.Log("SwitchActivated");
+        if (switchAnimator.enabled == false)
+        {
+            return;
+        }
 
         int layerIndex = 0;
         string stateName = "TurnOn";
