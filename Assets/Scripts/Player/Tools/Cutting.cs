@@ -30,19 +30,20 @@ public class Cutting : MonoBehaviour
 
     [SerializeField] private float range = 2f;
     [SerializeField] private float angleTolerance = 6f;
-    [SerializeField] private LineRenderer rightmostLaser;
-    [SerializeField] private LineRenderer leftmostLaser;
+
+    [Header("References")]
     [SerializeField] private Animator animator;
-    public bool isVerticalCut = false;
-    [SerializeField] private GameObject slicerObject;
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private GameObject horizontalCrosshair;
     [SerializeField] private GameObject verticalCrosshair;
     [SerializeField] private GameObject playerObject;
+    [SerializeField] private LineRenderer rightmostLaser;
+    [SerializeField] private LineRenderer leftmostLaser;
     [SerializeField] private ParticleSystem sparkEffect;
     [SerializeField] private ParticleSystem beamSource;
     [SerializeField] private ParticleSystem beamEnd;
 
+    [HideInInspector] public bool isVerticalCut = false;
     private bool hasPlayedBlockedSound = false;
     private bool isSoundCoroutineRunning = false;
 
@@ -146,15 +147,6 @@ public class Cutting : MonoBehaviour
         if (Input.GetButtonDown("Fire2") && !PauseGame.isPaused)
         {
             isVerticalCut = !isVerticalCut;
-
-            if (isVerticalCut)
-            {
-                slicerObject.transform.localRotation = Quaternion.Euler(0, 0, 90);
-            }
-            else
-            {
-                slicerObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            }
         }
 
         if (isVerticalCut)
