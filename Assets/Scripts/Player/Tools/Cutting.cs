@@ -8,11 +8,16 @@ using UnityEngine.UI; //Arina UI
 using TMPro;
 using UnityEngine.UIElements;
 using System.Drawing;
+using Unity.Mathematics;
 
 public class Cutting : MonoBehaviour
 {
-    
-    
+    [SerializeField] private GameObject CuttingTrailPrefab;
+    private GameObject cuttingTrailRight;
+    private GameObject cuttingTrailLeft;
+    private Collider cuttingColliderRight;
+    private Collider cuttingColliderLeft;
+
     private LayerMask layerMask;
     private Transform cuttingPoint;
     private Vector3 hitPoint;
@@ -241,6 +246,72 @@ public class Cutting : MonoBehaviour
                     leftmostLaser.SetPosition(1, currentLeftPoint);
                     if (leftSpark != null && leftBeamEnd != null)
                         leftSpark.transform.position = currentLeftPoint; // Move the particle system
+
+                    // Cutting burn marks
+                    if (CuttingTrailPrefab != null) 
+                    {
+                        RaycastHit hit;
+                        var l = LayerMask.GetMask("CutThrough");
+                        if (Physics.Raycast(
+                            new Ray(Camera.main.transform.position, currentRightPoint - Camera.main.transform.position),
+                            out hit, range, l))
+                        { 
+                            Debug.Log(LayerMask.LayerToName(hit.transform.gameObject.layer));
+                            if (cuttingTrailRight == null) 
+                            { 
+                                cuttingTrailRight = Instantiate(CuttingTrailPrefab,
+                                hit.point, quaternion.identity, hit.transform);
+                                cuttingColliderRight = hit.collider;
+                                Destroy(cuttingTrailRight, 15);
+                            }
+                            else if (cuttingColliderRight == hit.collider)
+                            {
+                                AddPoint(cuttingTrailRight.GetComponent<LineRenderer>(),
+                                    cuttingTrailRight.transform.InverseTransformPoint(hit.point));
+                            }
+                            else
+                            {
+                                cuttingTrailRight = Instantiate(CuttingTrailPrefab,
+                                    hit.point, quaternion.identity, hit.transform);
+                                cuttingColliderRight = hit.collider;
+                                Destroy(cuttingTrailRight, 15);
+                            }
+                        }
+                        else if (cuttingTrailRight != null)
+                        {
+                            cuttingTrailRight = null;
+                        }
+
+                        if (Physics.Raycast(
+                            new Ray(Camera.main.transform.position, currentLeftPoint - Camera.main.transform.position),
+                            out hit, range, l))
+                        {
+                            if (cuttingTrailLeft == null)
+                            {
+                                cuttingTrailLeft = Instantiate(CuttingTrailPrefab,
+                                     hit.point, quaternion.identity, hit.transform);
+                                cuttingColliderLeft = hit.collider;
+                                Destroy(cuttingTrailLeft, 15);
+                            }
+                            else if (cuttingColliderLeft == hit.collider)
+                            {
+                                AddPoint(cuttingTrailLeft.GetComponent<LineRenderer>(),
+                                    cuttingTrailLeft.transform.InverseTransformPoint(hit.point));
+                            }
+                            else
+                            {
+                                cuttingTrailLeft = Instantiate(CuttingTrailPrefab,
+                                    hit.point, quaternion.identity, hit.transform);
+                                cuttingColliderLeft = hit.collider;
+                                Destroy(cuttingTrailLeft, 15);
+                            }
+                        }
+                        else if (cuttingTrailLeft != null)
+                        {
+                            cuttingTrailLeft = null;
+                        }
+                    }
+
                     if (leftBeamEnd != null)
                         leftBeamEnd.transform.position = currentLeftPoint;
 
@@ -282,6 +353,12 @@ public class Cutting : MonoBehaviour
             }
             cuttingPoint = null;
         }
+    }
+    
+    private void AddPoint(LineRenderer renderer, Vector3 point)
+    {
+        renderer.positionCount += 1;
+        renderer.SetPosition(renderer.positionCount-1, point);
     }
 
     private IEnumerator ExplodeObject(Transform hitTransform, Vector3 hitPoint)

@@ -10,6 +10,7 @@ Shader "Hidden/Outline"
     #include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/RenderPass/CustomPass/CustomPassCommon.hlsl"
 
     TEXTURE2D_X(_OutlineBuffer);
+    TEXTURE2D_X(_CameraBuffer);
     float4 _OutlineColor;
     float _Threshold;
 
@@ -64,7 +65,16 @@ Shader "Hidden/Outline"
 
                 if (Luminance(neighbour) > threshold)
                 {
-                    outline.rgb = _OutlineColor.rgb;
+                    //outline.rgb = _OutlineColor.rgb;
+                    float4 cameraColor = SAMPLE_TEXTURE2D_X_LOD(_CameraBuffer, s_linear_clamp_sampler, uvN, 0);
+                    if (Luminance(cameraColor) > 0.33f)
+                    {
+                        outline.rgb = float3(0,0,0);
+                    }
+                    else
+                    {
+                        outline.rgb = float3(1,1,1);
+                    }
                     outline.a = 1;
                     break;
                 }
