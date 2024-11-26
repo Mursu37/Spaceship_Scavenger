@@ -10,6 +10,7 @@ namespace Enviroment.MainTerminal
         [SerializeField] private GameObject lightManager;
         [SerializeField] private GameObject obstacles;
         [SerializeField] private Animator doorAnimator;
+        [SerializeField] private EventDispatcher dispatcher;
 
         public bool isPowerOn = false;
 
@@ -17,12 +18,17 @@ namespace Enviroment.MainTerminal
         {
             obstacles.SetActive(false);
             lampSwitcherManager = lightManager.GetComponent<LampSwitcherManager>();
+            if (dispatcher == null)
+            {
+                dispatcher = GetComponent<EventDispatcher>();
+            }
         }
 
         public void turnShipOn()
         {
             lampSwitcherManager.ToggleLamps(true);
             obstacles.SetActive(true);
+            dispatcher.TriggerEvent();
             //doorAnimator.Play("Closing");
             isPowerOn = true;
             AudioManager.PlayAudio("ShipPowerOn", 1, 1, false);

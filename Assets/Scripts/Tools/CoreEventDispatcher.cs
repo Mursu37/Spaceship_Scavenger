@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DownloadEventDispatcher : EventDispatcher
+public class CoreEventDispatcher : EventDispatcher
 {
     //Public method to trigger the event
    public new void TriggerEvent()

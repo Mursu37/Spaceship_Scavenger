@@ -5,12 +5,13 @@ using UnityEngine;
 
 namespace CLI.FSM
 {
-    public class A2HackingController : StateController
+    public class CanteenRoomHackingController : StateController
     {
         private void Awake()
         {
             defaultState = new SecurityState(this);
             stateHistory = new List<State> { defaultState };
+            defaultDirName = "Canteen_Terminal_Access";
             currentState = defaultState;
         }
     }

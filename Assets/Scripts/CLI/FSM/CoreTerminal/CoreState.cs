@@ -27,9 +27,9 @@ namespace CLI.FSM
             {
                 if (GameObject.Find("PowerOnSwitch").gameObject.transform.GetChild(0).GetComponent<ShipPowerOn>().isPowerOn)
                 {
-                    EventDispatcher[] dispatcher;
-                    dispatcher = stateController.gameObject.GetComponents<EventDispatcher>();
-                    dispatcher[0].TriggerEvent();
+                    EventDispatcher dispatcher;
+                    dispatcher = stateController.gameObject.GetComponent<CoreEventDispatcher>();
+                    dispatcher.TriggerEvent();
 
                     stateController.ChangeFlavourText("Containment Core disconnected." +
                         "<BR> Containment Core released<BR><BR>>Downloaded System data to scanner" +
