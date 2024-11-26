@@ -33,6 +33,7 @@ Transform:
   m_Children:
   - {fileID: 2883637209646423922}
   - {fileID: 5523663869426418267}
+  - {fileID: 4424989184662656114}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2422633703024239703
@@ -954,6 +955,32 @@ MonoBehaviour:
     shouldLoop: 0
     sourceObject: {fileID: 0}
     source: {fileID: 0}
+  - name: MenuHover
+    clip: {fileID: 8300000, guid: 911680eeeb283c54ba955555edb498bc, type: 3}
+    mixerGroup: {fileID: -7922738907875861486, guid: d3ff09dec4119ae41940007921b2ea5c,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 1000
+    rolloffMode: 0
+    bypassReverbZones: 1
+    bypassEffects: 1
+    shouldLoop: 0
+    sourceObject: {fileID: 6309289052610746172}
+    source: {fileID: 0}
+  - name: MenuSelect
+    clip: {fileID: 8300000, guid: da36a09d44d878b41a454a4886cac2f4, type: 3}
+    mixerGroup: {fileID: -7922738907875861486, guid: d3ff09dec4119ae41940007921b2ea5c,
+      type: 2}
+    spatialBlend: 0
+    minDistance: 1
+    maxDistance: 1000
+    rolloffMode: 0
+    bypassReverbZones: 1
+    bypassEffects: 1
+    shouldLoop: 0
+    sourceObject: {fileID: 6309289052610746172}
+    source: {fileID: 0}
 --- !u!114 &323105513251090686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -974,6 +1001,37 @@ MonoBehaviour:
   musicLowPass: {fileID: 6735765389750778426, guid: 593f6e12a0383c24c93cf48f8d728fd9,
     type: 2}
   musicNormal: {fileID: 24500006, guid: 593f6e12a0383c24c93cf48f8d728fd9, type: 2}
+--- !u!1 &6309289052610746172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4424989184662656114}
+  m_Layer: 0
+  m_Name: UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4424989184662656114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6309289052610746172}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2113613496294778607}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7788608340621674505
 GameObject:
   m_ObjectHideFlags: 0

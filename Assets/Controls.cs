@@ -3,20 +3,17 @@ using UnityEngine;
 public class Controls : MonoBehaviour
 {
     [SerializeField] private GameObject controls; // The Controls panel GameObject
-
     private bool controlsOpen = false;
 
     private void Update()
     {
-        // Toggle controls visibility using the custom input button (F1)
+        // Check for F1 key press to toggle the controls panel
         if (Input.GetButtonDown("OpenControls"))
         {
             if (!controlsOpen)
                 OpenControls();
-        }
-        else if (Input.GetButtonUp("OpenControls") && controlsOpen)
-        {
-            CloseControls();
+            else
+                CloseControls();
         }
     }
 
@@ -24,13 +21,13 @@ public class Controls : MonoBehaviour
     {
         controlsOpen = true;
         controls.SetActive(true);
-        Time.timeScale = 0f; // Optional: Freeze game while viewing controls
+        Time.timeScale = 0f; // Freeze the game when controls are open
     }
 
     private void CloseControls()
     {
         controlsOpen = false;
         controls.SetActive(false);
-        Time.timeScale = 1f; // Optional: Resume game time
+        Time.timeScale = 1f; // Resume the game when controls are closed
     }
 }
