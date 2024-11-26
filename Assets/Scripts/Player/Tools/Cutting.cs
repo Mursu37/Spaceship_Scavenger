@@ -12,7 +12,6 @@ using Unity.Mathematics;
 
 public class Cutting : MonoBehaviour
 {
-    [SerializeField] private LayerMask mask;
     [SerializeField] private GameObject CuttingTrailPrefab;
     private GameObject cuttingTrailRight;
     private GameObject cuttingTrailLeft;
@@ -260,7 +259,7 @@ public class Cutting : MonoBehaviour
                     if (CuttingTrailPrefab != null) 
                     {
                         RaycastHit hit;
-                        var l = LayerMask.NameToLayer("Obstacle");
+                        var l = LayerMask.GetMask("CutThrough");
                         if (Physics.Raycast(
                             new Ray(Camera.main.transform.position, currentRightPoint - Camera.main.transform.position),
                             out hit, range, l))
@@ -271,6 +270,7 @@ public class Cutting : MonoBehaviour
                                 cuttingTrailRight = Instantiate(CuttingTrailPrefab,
                                 hit.point, quaternion.identity, hit.transform);
                                 cuttingColliderRight = hit.collider;
+                                Destroy(cuttingTrailRight, 15);
                             }
                             else if (cuttingColliderRight == hit.collider)
                             {
@@ -282,6 +282,7 @@ public class Cutting : MonoBehaviour
                                 cuttingTrailRight = Instantiate(CuttingTrailPrefab,
                                     hit.point, quaternion.identity, hit.transform);
                                 cuttingColliderRight = hit.collider;
+                                Destroy(cuttingTrailRight, 15);
                             }
                         }
                         else if (cuttingTrailRight != null)
@@ -298,6 +299,7 @@ public class Cutting : MonoBehaviour
                                 cuttingTrailLeft = Instantiate(CuttingTrailPrefab,
                                      hit.point, quaternion.identity, hit.transform);
                                 cuttingColliderLeft = hit.collider;
+                                Destroy(cuttingTrailLeft, 15);
                             }
                             else if (cuttingColliderLeft == hit.collider)
                             {
@@ -309,6 +311,7 @@ public class Cutting : MonoBehaviour
                                 cuttingTrailLeft = Instantiate(CuttingTrailPrefab,
                                     hit.point, quaternion.identity, hit.transform);
                                 cuttingColliderLeft = hit.collider;
+                                Destroy(cuttingTrailLeft, 15);
                             }
                         }
                         else if (cuttingTrailLeft != null)
