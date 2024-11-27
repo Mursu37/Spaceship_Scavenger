@@ -10,6 +10,8 @@ public class DamageOnImpact : MonoBehaviour
     private PlayerHealth playerHealth;
     private float collisionForce;
 
+    [SerializeField] private GameObject blackScreen;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -35,6 +37,15 @@ public class DamageOnImpact : MonoBehaviour
             {
                 rb.GetComponent<IHealth>().Damage(amount);
             }
+        }
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        if (other.CompareTag("Wave"))
+        {
+            playerHealth.currentHealth = 0f;
+            blackScreen.SetActive(true);
         }
     }
 }

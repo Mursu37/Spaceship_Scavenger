@@ -8,12 +8,19 @@ public class EnergyCore : MonoBehaviour, IHealth
 {
     private Vector3 relativeVelocity;
     private float collisionForce;
+    private bool hasExploded = false;
+    private AmbientMusic ambientMusic;
+    private MeltdownMusic meltdownMusic;
+    private AmbienceManager ambienceManager;
 
     private CoreSounds coreSounds;
 
     public float heatAmount;
     public float maxHeat;
     public float heatIncreaseTime = 8f;
+
+    [SerializeField] private ExplosionMaterialDriver explosionMaterialDriver;
+    [SerializeField] private ParticleSystem waveExplosion;
 
     private void OnEnable()
     {
@@ -32,10 +39,31 @@ public class EnergyCore : MonoBehaviour, IHealth
 
     private void Update()
     {
-        if (heatAmount >= maxHeat)
+        if (heatAmount >= maxHeat && !hasExploded)
         {
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            hasExploded = true;
+            waveExplosion.Play();
+
+            ambientMusic = FindObjectOfType<AmbientMusic>();
+            if (ambientMusic != null)
+            {
+                ambientMusic.StopAmbientMusic();
+            }
+
+            meltdownMusic = FindObjectOfType<MeltdownMusic>();
+            if (meltdownMusic != null)
+            {
+                meltdownMusic.StopMeltdownMusic();
+            }
+
+            ambienceManager = FindObjectOfType<AmbienceManager>();
+            if (ambienceManager != null)
+            {
+                ambienceManager.StopAmbience();
+            }
+
+            //Scene scene = SceneManager.GetActiveScene();
+            //SceneManager.LoadScene(scene.name);
         }
     }
 

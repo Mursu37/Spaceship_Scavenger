@@ -14954,7 +14954,7 @@ GameObject:
   - component: {fileID: 8710061008786542110}
   m_Layer: 18
   m_Name: SecondWave_Collision
-  m_TagString: Untagged
+  m_TagString: Wave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19889,7 +19889,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -39527,6 +39527,8 @@ MonoBehaviour:
   heatAmount: 0
   maxHeat: 100
   heatIncreaseTime: 8
+  explosionMaterialDriver: {fileID: 8841952056523148324}
+  waveExplosion: {fileID: 0}
 --- !u!114 &1032968023529851750
 MonoBehaviour:
   m_ObjectHideFlags: 0
