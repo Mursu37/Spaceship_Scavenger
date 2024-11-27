@@ -14,14 +14,17 @@ namespace CLI.FSM
         public override void OnEnter()
         {
             base.OnEnter();
-            stateController.ChangeFlavourText("Core Systems Directory Instructions <br>"+
-                "<br> systems running on <color=red> auxiliary power <color=#008000>"+
-                "<br>to access further containment core systems. Link main power coupling manually below the reactor station"+
-                "<br>"+
-                "<br>type 'download' to download main power coupling link blueprints");
+            stateController.ChangeFlavourText("<color=cyan>Core Systems Directory</color>" +
+            "<BR><BR><color=red>Alert:</color> The spaceship is operating on <color=orange>low auxiliary power.</color>" +
+            "<BR>Critical systems are offline." +  
+            "<BR><BR>To access the <color=#00ff00>Containment Core Control Panel</color>, reconnect power to the main reactor." +
+            "<BR><BR><b>Instructions:</b>" +  
+            "<BR>1. Manually link the main power coupling below the reactor station." +  
+            "<BR>2. Ensure primary systems are routed through the main reactor." +  
+            "<BR><BR>Type <color=yellow>'download'</color> to retrieve the <color=#00ff00>power routing schematics.</color>");
             stateController.AddText("Core Systems Directory." +
-                "<BR> Auxiliary power mode on" +
-                "<BR> Please connect power coupling with the main Reactor.");
+                "<BR>Low auxiliary power mode on" +
+                "<BR>Please connect power coupling with the main Reactor.");
         }
 
         public override void Interpret(string command)
