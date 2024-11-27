@@ -23,6 +23,7 @@ public class Cutting : MonoBehaviour
     private Vector3 hitPoint;
     private float diffY;
     private CuttableType currentType = CuttableType.None;
+    private Quaternion initialRotation;
     ParticleSystem rightSpark;
     ParticleSystem leftSpark;
     ParticleSystem rightBeamEnd;
@@ -99,6 +100,8 @@ public class Cutting : MonoBehaviour
             // Cast a ray forward from the camera's position
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             RaycastHit hit;
+
+            initialRotation = playerObject.transform.rotation;
 
             // Check if the ray hit something within specified layers and distance
             if (Physics.Raycast(ray, out hit, range, ~layerMask))
@@ -188,7 +191,10 @@ public class Cutting : MonoBehaviour
 
     private void FixedUpdate()
     {
-        FaceToCuttingPoint(hitPoint);
+        if (currentType != CuttableType.None)
+        {
+            KeepAngle();
+        }
     }
 
     private IEnumerator AnimateLasers(Transform point, float duration)
@@ -237,15 +243,9 @@ public class Cutting : MonoBehaviour
                     // Update the end position of the line renderer
                     Vector3 currentRightPoint = Vector3.Lerp(hitPoint, rightmostPoint, t);
                     rightmostLaser.SetPosition(1, currentRightPoint);
-                    if (rightSpark != null)
-                        rightSpark.transform.position = currentRightPoint; // Move the particle system
-                    if (rightBeamEnd != null)
-                        rightBeamEnd.transform.position = currentRightPoint;
 
                     Vector3 currentLeftPoint = Vector3.Lerp(hitPoint, leftmostPoint, t);
                     leftmostLaser.SetPosition(1, currentLeftPoint);
-                    if (leftSpark != null && leftBeamEnd != null)
-                        leftSpark.transform.position = currentLeftPoint; // Move the particle system
 
                     // Cutting burn marks
                     if (CuttingTrailPrefab != null) 
@@ -255,7 +255,12 @@ public class Cutting : MonoBehaviour
                         if (Physics.Raycast(
                             new Ray(Camera.main.transform.position, currentRightPoint - Camera.main.transform.position),
                             out hit, range, l))
-                        { 
+                        {
+                            if (rightSpark != null)
+                                rightSpark.transform.position = hit.point; // Move the particle system
+                            if (rightBeamEnd != null)
+                                rightBeamEnd.transform.position = hit.point;
+
                             Debug.Log(LayerMask.LayerToName(hit.transform.gameObject.layer));
                             if (cuttingTrailRight == null) 
                             { 
@@ -286,6 +291,11 @@ public class Cutting : MonoBehaviour
                             new Ray(Camera.main.transform.position, currentLeftPoint - Camera.main.transform.position),
                             out hit, range, l))
                         {
+                            if (leftSpark != null)
+                                leftSpark.transform.position = hit.point;  // Move the particle system
+                            if (leftBeamEnd != null)
+                                leftBeamEnd.transform.position = hit.point;
+
                             if (cuttingTrailLeft == null)
                             {
                                 cuttingTrailLeft = Instantiate(CuttingTrailPrefab,
@@ -311,9 +321,6 @@ public class Cutting : MonoBehaviour
                             cuttingTrailLeft = null;
                         }
                     }
-
-                    if (leftBeamEnd != null)
-                        leftBeamEnd.transform.position = currentLeftPoint;
 
                     // Increment the elapsed time
                     elapsedTime += Time.deltaTime;
@@ -426,18 +433,10 @@ public class Cutting : MonoBehaviour
         return false;
     }
 
-    private void FaceToCuttingPoint(Vector3 hitPoint)
+    private void KeepAngle()
     {
-        if (cuttingPoint == null || playerObject == null) return;
-
-        // Determine the direction vector to the cutting point
-        Vector3 directionToTarget = (hitPoint - playerObject.transform.position).normalized;
-
-        // Calculate the rotation to face the target
-        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
-
         // Smoothly rotate the player to face the target
-        playerObject.transform.rotation = Quaternion.Lerp(playerObject.transform.rotation, targetRotation, Time.deltaTime * 10f);
+        playerObject.transform.rotation = Quaternion.Lerp(playerObject.transform.rotation, initialRotation, Time.deltaTime * 10f);
     }
 
     public float Tolerance => angleTolerance;
