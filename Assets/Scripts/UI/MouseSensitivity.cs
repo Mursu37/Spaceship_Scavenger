@@ -13,15 +13,10 @@ public class MouseSensitivity : MonoBehaviour
     [SerializeField] private TextMeshProUGUI valueText;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject settingsMenu;
-    [SerializeField] private GameObject controlsMenu;
 
     void Start()
     {
         savedSensitivity = PlayerPrefs.GetFloat("MouseSensitivity", 0.5f);
-
-        slider.minValue = 0.1f;
-        slider.maxValue = 1.5f;
 
         if (player != null)
         {
@@ -30,7 +25,7 @@ public class MouseSensitivity : MonoBehaviour
             if (playerMovement != null)
             {
                 slider.value = savedSensitivity;
-                valueText.text = slider.value.ToString("0.0");
+                valueText.text = (slider.value * 100).ToString("0.0");
             }
         }
     }
@@ -39,16 +34,9 @@ public class MouseSensitivity : MonoBehaviour
     {
         if (playerMovement != null)
         {
-            playerMovement.mouseSensitivity = value;
-            valueText.text = value.ToString("0.0");
+            playerMovement.turnAcceleration = value;
+            valueText.text = (value * 100).ToString("0.0");
             PlayerPrefs.SetFloat("MouseSensitivity", value);
         }
-    }
-
-    public void Back()
-    {
-        pauseMenu.SetActive(true);
-        settingsMenu.SetActive(false);
-        controlsMenu.SetActive(false);
     }
 }
