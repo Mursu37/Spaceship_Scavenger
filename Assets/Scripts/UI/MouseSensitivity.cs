@@ -13,8 +13,6 @@ public class MouseSensitivity : MonoBehaviour
     [SerializeField] private TextMeshProUGUI valueText;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject settingsMenu;
-    [SerializeField] private GameObject controlsMenu;
 
     void Start()
     {
@@ -40,12 +38,5 @@ public class MouseSensitivity : MonoBehaviour
             valueText.text = (value * 100).ToString("0.0");
             PlayerPrefs.SetFloat("MouseSensitivity", value);
         }
-    }
-
-    public void Back()
-    {
-        pauseMenu.SetActive(true);
-        settingsMenu.SetActive(false);
-        controlsMenu.SetActive(false);
     }
 }

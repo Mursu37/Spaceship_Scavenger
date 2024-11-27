@@ -36,6 +36,12 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+
+    public void Back()
+    {
+        settings.SetActive(false);
+        gameObject.SetActive(true);
+    }
     private void Update()
     {
         if (fadeIn.allFadedIn)

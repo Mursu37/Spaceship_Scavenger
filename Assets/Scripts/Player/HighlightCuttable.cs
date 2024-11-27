@@ -76,12 +76,12 @@ public class HighlightCuttable : MonoBehaviour
             if (distPos > distNeg)
             {
                 highlight.transform.localPosition = new Vector3(original.x, original.y,
-                    original.z - cuttable.bounds.extents.z * (1 / highlight.transform.lossyScale.z));
+                    original.z - cuttable.bounds.extents.z * 2);  // (1 / highlight.transform.lossyScale.z)
             }
             else
             {
                 highlight.transform.localPosition = new Vector3(original.x, original.y,
-                    original.z + cuttable.bounds.extents.z * (1 / highlight.transform.lossyScale.z));
+                    original.z + cuttable.bounds.extents.z * 2);
             }
             highlights.Add(cuttable, highlight);
         }
