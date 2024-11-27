@@ -43,6 +43,15 @@ public class laser : MonoBehaviour
                         ForceMode.VelocityChange);
                     damageCooldownTimer = damageCooldown;
                 }
+
+                if (hit.rigidbody.CompareTag("Explosive"))
+                {
+                    Explosives explosives = hit.rigidbody.GetComponent<Explosives>();
+                    if (explosives != null)
+                    {
+                        explosives.Explode();
+                    }
+                }
             }
         }
         else

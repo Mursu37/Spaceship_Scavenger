@@ -19,7 +19,6 @@ public class EnergyCore : MonoBehaviour, IHealth
     public float maxHeat;
     public float heatIncreaseTime = 8f;
 
-    [SerializeField] private ExplosionMaterialDriver explosionMaterialDriver;
     [SerializeField] private ParticleSystem waveExplosion;
 
     private void OnEnable()
@@ -54,12 +53,6 @@ public class EnergyCore : MonoBehaviour, IHealth
             if (meltdownMusic != null)
             {
                 meltdownMusic.StopMeltdownMusic();
-            }
-
-            ambienceManager = FindObjectOfType<AmbienceManager>();
-            if (ambienceManager != null)
-            {
-                ambienceManager.StopAmbience();
             }
 
             //Scene scene = SceneManager.GetActiveScene();
