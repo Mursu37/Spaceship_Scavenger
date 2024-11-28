@@ -36,6 +36,12 @@ public class CoreTeleporterExit : MonoBehaviour
         switch (currentState)
         {
             case TeleporterState.Teleporting:
+                core.GetComponent<Collider>().enabled = false;
+                Rigidbody coreRb = core.GetComponent<Rigidbody>();
+                if (coreRb != null)
+                {
+                    coreRb.constraints = RigidbodyConstraints.FreezeAll;
+                }
                 animator.Play("TeleporterClose");
                 animator.Play("DoorOpen");
                 currentState = TeleporterState.PlayerNear;

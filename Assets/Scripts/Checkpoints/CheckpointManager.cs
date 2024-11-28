@@ -14,6 +14,8 @@ public static class CheckpointManager
 
     public static List<int> doorsOpened = new List<int>(); // Keeps track of which doors are opened
 
+    public static List<int> teleportersUsed = new List<int>(); // Keeps track of which doors are opened
+
     public static List<int> switchesTurnedOn = new List<int>(); // Tracks which switches were turned on
 
     public static List<string> tutorialsShowed = new List<string>(); // Tracks which tutorials have been showed

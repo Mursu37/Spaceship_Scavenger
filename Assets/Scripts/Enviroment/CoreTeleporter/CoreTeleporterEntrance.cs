@@ -9,6 +9,7 @@ public class CoreTeleporterEntrance : MonoBehaviour
     private GravityGun gravityGun;
     private bool canMove = false;
     private bool coreInSoundPlayed = false;
+    public bool canTeleport = true;
 
     private MixerController mixerController;
 
@@ -43,56 +44,65 @@ public class CoreTeleporterEntrance : MonoBehaviour
         {
             exit = teleporterExit.GetComponent<CoreTeleporterExit>();
         }
+
+        if (CheckpointManager.teleportersUsed.Contains(id))
+        {
+            canTeleport = false;
+        }
     }
 
     private void Update()
     {
         float distanceToCore = Vector3.Distance(transform.position, core.position);
 
-        switch (currentState)
+        if (canTeleport)
         {
-            case TeleporterState.Idle:
-                if (distanceToCore < 4f)
-                {
-                    animator.Play("DoorOpen");
-                    currentState = TeleporterState.Opening;
-                    if (!AudioManager.IsPlaying("TeleporterOpen"))
+            switch (currentState)
+            {
+                case TeleporterState.Idle:
+                    if (distanceToCore < 4f)
                     {
-                        AudioManager.PlayModifiedClipAtPoint("TeleporterOpen", transform.position, 1, 1, 1, 1000);
+                        animator.Play("DoorOpen");
+                        currentState = TeleporterState.Opening;
+                        if (!AudioManager.IsPlaying("TeleporterOpen"))
+                        {
+                            AudioManager.PlayModifiedClipAtPoint("TeleporterOpen", transform.position, 1, 1, 1, 1000);
+                        }
                     }
-                }
-                break;
+                    break;
 
-            case TeleporterState.Opening:
-                if (distanceToCore < 2f)
-                {
-                    currentState = TeleporterState.CoreApproaching;
-                    gravityGun.isAttracting = false;
-                    core.GetComponent<Collider>().enabled = false;
-                    Rigidbody coreRb = core.GetComponent<Rigidbody>();
-                    if (coreRb != null)
+                case TeleporterState.Opening:
+                    if (distanceToCore < 2f)
                     {
-                        coreRb.constraints = RigidbodyConstraints.FreezeAll;
+                        currentState = TeleporterState.CoreApproaching;
+                        gravityGun.isAttracting = false;
+                        core.GetComponent<Collider>().enabled = false;
+                        Rigidbody coreRb = core.GetComponent<Rigidbody>();
+                        if (coreRb != null)
+                        {
+                            coreRb.constraints = RigidbodyConstraints.FreezeAll;
+                        }
                     }
-                }
-                break;
+                    break;
 
-            case TeleporterState.CoreApproaching:
-                canMove = true;
-                
-                if (HasCoreReachedTarget())
-                {
-                    currentState = TeleporterState.Teleporting;
-                    animator.Play("TeleporterClose");
-                    canMove = false;
-                    StartCoroutine(TeleportCoreCoroutine());
-                }
-                break;
+                case TeleporterState.CoreApproaching:
+                    canMove = true;
 
-            case TeleporterState.Closing:
-                animator.Play("TeleporterOpen");
-                currentState = TeleporterState.Idle;
-                break;
+                    if (HasCoreReachedTarget())
+                    {
+                        currentState = TeleporterState.Teleporting;
+                        animator.Play("TeleporterClose");
+                        canMove = false;
+                        StartCoroutine(TeleportCoreCoroutine());
+                    }
+                    break;
+
+                case TeleporterState.Closing:
+                    animator.Play("TeleporterOpen");
+                    currentState = TeleporterState.Idle;
+                    canTeleport = false;
+                    break;
+            }
         }
     }
 
@@ -141,6 +151,7 @@ public class CoreTeleporterEntrance : MonoBehaviour
         // Save data
         checkpoint?.SaveCheckpointState(id);
         CheckpointManager.lastTeleportId = exit.id;
+        CheckpointManager.teleportersUsed.Add(id);
 
         exit.StartTeleportation();
 
