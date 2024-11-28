@@ -25,8 +25,6 @@ public class DispenserController : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        animator = transform.GetChild(0).GetComponent<Animator>();
-
         currentState = DispenserState.Idle;
         canDispense = true;
         isOpen = false;
@@ -36,6 +34,7 @@ public class DispenserController : MonoBehaviour, IInteractable
     {
         if (currentState == DispenserState.Idle && canDispense)
         {
+            Debug.Log("UwU");
             AudioManager.PlayAudio("InteractBeep", 1, 1, false);
             StartDispense();
         }
