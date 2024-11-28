@@ -44,13 +44,7 @@ public class CoreTeleporterExit : MonoBehaviour
             case TeleporterState.PlayerNear:
                 if (Vector3.Distance(transform.position, player.position) < 4f)
                 {
-                    animator.Play("TeleporterOpen");
-                    if (!AudioManager.IsPlaying("TeleporterOpen"))
-                    {
-                        AudioManager.PlayModifiedClipAtPoint("TeleporterOpen", transform.position, 1, 1, 1, 1000);
-                    }
-                    targetPosition = core.transform.position + core.transform.right * -2f;
-                    currentState = TeleporterState.CoreMoving;
+                    //TeleporterRelease();  <-- this has been changed to be triggered by a lever.
                 }
                 break;
 
@@ -87,6 +81,18 @@ public class CoreTeleporterExit : MonoBehaviour
             default:
                 break;
         }
+    }
+
+
+    public void TeleporterRelease()
+    {
+        animator.Play("TeleporterOpen");
+        if (!AudioManager.IsPlaying("TeleporterOpen"))
+        {
+            AudioManager.PlayModifiedClipAtPoint("TeleporterOpen", transform.position, 1, 1, 1, 1000);
+        }
+        targetPosition = core.transform.position + core.transform.right * -2f;
+        currentState = TeleporterState.CoreMoving;
     }
 
     private void FixedUpdate()

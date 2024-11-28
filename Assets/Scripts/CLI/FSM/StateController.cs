@@ -166,7 +166,6 @@ namespace CLI.FSM
 
             for (int i = 0; i < textToDisplay.text.Length; ++i)
             {
-                Debug.Log("Coroutine in progress" + i.ToString());
                 textToDisplay.maxVisibleCharacters = i + 1;
                 //string delayedText = textToDisplay.Substring(0, i + 1);
                 // Do whatever you need to do with this string, e.g. set text on UI.
@@ -193,7 +192,6 @@ namespace CLI.FSM
 
             for (int i = 0; i < textToDisplay.text.Length; ++i)
             {
-                Debug.Log("Coroutine in progress" + i.ToString());
                 textToDisplay.maxVisibleCharacters = i + 1;
                 //string delayedText = textToDisplay.Substring(0, i + 1);
                 // Do whatever you need to do with this string, e.g. set text on UI.
