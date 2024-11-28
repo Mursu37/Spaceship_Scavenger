@@ -18,6 +18,7 @@ public class CoreTeleporterEntrance : MonoBehaviour
     [SerializeField] private Transform coreHolder;
     [SerializeField] private GameObject multitool;
     [SerializeField] private Checkpoint checkpoint;
+    [SerializeField] private EventDispatcher dispatcher;
     private enum TeleporterState
     {
         Idle,
@@ -143,6 +144,11 @@ public class CoreTeleporterEntrance : MonoBehaviour
         animator.Play("DoorClose");
         yield return new WaitForSeconds(1f);
 
+        if (dispatcher != null)
+        {
+            dispatcher.TriggerEvent();
+        }
+
         if (!AudioManager.IsPlaying("TeleporterActiveHum"))
         {
             AudioManager.PlayModifiedClipAtPoint("TeleporterActiveHum", transform.position, 1, 1, 1, 1000);
@@ -150,10 +156,12 @@ public class CoreTeleporterEntrance : MonoBehaviour
 
         // Save data
         checkpoint?.SaveCheckpointState(id);
-        CheckpointManager.lastTeleportId = exit.id;
-        CheckpointManager.teleportersUsed.Add(id);
-
-        exit.StartTeleportation();
+        if (exit != null)
+        {
+            CheckpointManager.lastTeleportId = exit.id;
+            CheckpointManager.teleportersUsed.Add(id);
+            exit.StartTeleportation();
+        }
 
         yield return new WaitForSeconds(0.5f);
 

@@ -10,9 +10,12 @@ public class GasTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        rb = other.transform.parent.GetComponent<Rigidbody>();
-        canPush = true;
-        canDamage = true;
+        if (other.transform.parent.GetComponentInParent<Rigidbody>() != null)
+        {
+            rb = other.transform.parent.GetComponent<Rigidbody>();
+            canPush = true;
+            canDamage = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
