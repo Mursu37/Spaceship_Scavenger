@@ -79,5 +79,35 @@ public class CoreSounds : MonoBehaviour
         }
     }
 
+    public void PlayExplosionSounds(GameObject parentObject)
+    {
+        AudioManager.PlayFollowedAudio("CoreExplosionCharge", parentObject, 0.4f, 1, false);
+        StartCoroutine(PlayBigBoom());
+    }
+
+    private IEnumerator PlayBigBoom()
+    {
+        float chargeDuration = 5.1f;
+        yield return new WaitForSeconds(chargeDuration);
+        AudioManager.PlayAudio("CoreExplosionBoom", 1, 1, false);
+
+        GameObject shockwaveObject = new  GameObject("ShockwaveSoundObject");
+        shockwaveObject.transform.position = transform.position;
+        AudioManager.PlayFollowedAudio("CoreExplosionShockwave", shockwaveObject, 1, 1, true);
+
+        Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
+        float moveSpeed = 11f; //slightly slower than the particle effect to avoid panning issues
+        float timeToReachPlayer = Vector3.Distance(shockwaveObject.transform.position, playerPosition) / moveSpeed;
+
+        float elapsedTime = 0f;
+        while (elapsedTime < timeToReachPlayer)
+        {
+            shockwaveObject.transform.position = Vector3.MoveTowards(shockwaveObject.transform.position, playerPosition, moveSpeed * Time.deltaTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        shockwaveObject.transform.position = playerPosition;
+    }
 
 }
