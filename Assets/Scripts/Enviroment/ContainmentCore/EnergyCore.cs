@@ -42,6 +42,7 @@ public class EnergyCore : MonoBehaviour, IHealth
         {
             hasExploded = true;
             waveExplosion.Play();
+            coreSounds.PlayExplosionSounds(GameObject.Find("CoreAudio"));
 
             ambientMusic = FindObjectOfType<AmbientMusic>();
             if (ambientMusic != null)
