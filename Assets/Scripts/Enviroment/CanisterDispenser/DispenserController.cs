@@ -34,7 +34,6 @@ public class DispenserController : MonoBehaviour, IInteractable
     {
         if (currentState == DispenserState.Idle && canDispense)
         {
-            Debug.Log("UwU");
             AudioManager.PlayAudio("InteractBeep", 1, 1, false);
             StartDispense();
         }
