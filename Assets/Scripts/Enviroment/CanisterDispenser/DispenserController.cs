@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class DispenserController : MonoBehaviour, IInteractable
 {
-    private Animator animator;
+    
     private GameObject newCanister;
     private bool canDispense;
 
     public bool isOpen;
+
+    [SerializeField] private Animator animator;
     [SerializeField] private GameObject canister;
     [SerializeField] private Transform holder;
 
@@ -48,14 +50,17 @@ public class DispenserController : MonoBehaviour, IInteractable
         {
             Destroy(rb);
         }
-
-        AudioManager.PlayModifiedClipAtPoint("DispenserOpen", transform.position, 1, 1, 1, 1000, false);
-        animator.Play("Eject");
+        
+        animator.Play("ButtonPress");
         StartCoroutine(DispenseCanister());
     }
 
     private IEnumerator DispenseCanister()
     {
+        yield return new WaitForSeconds(0.3f);
+
+        AudioManager.PlayModifiedClipAtPoint("DispenserOpen", transform.position, 1, 1, 1, 1000, false);
+        animator.Play("Eject");
         yield return new WaitForSeconds(1f);
 
         newCanister.transform.SetParent(null);
@@ -103,9 +108,9 @@ public class DispenserController : MonoBehaviour, IInteractable
             else
             {
                 if (currentState != DispenserState.Reloading)
-                    {
-                        StartCoroutine(ReloadDispenser());
-                    }
+                {
+                    StartCoroutine(ReloadDispenser());
+                }
             }
         }
     }
