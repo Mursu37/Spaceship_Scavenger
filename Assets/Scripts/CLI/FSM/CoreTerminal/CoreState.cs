@@ -25,7 +25,7 @@ namespace CLI.FSM
         {
             if (command == "disconnect_protocol")
             {
-                if (GameObject.Find("PowerOnSwitch").gameObject.transform.GetChild(0).GetComponent<ShipPowerOn>().isPowerOn)
+                if (GameObject.Find("PowerOnSwitch").GetComponent<ShipPowerOn>().isPowerOn)
                 {
                     EventDispatcher dispatcher;
                     dispatcher = stateController.gameObject.GetComponent<CoreEventDispatcher>();
@@ -35,7 +35,6 @@ namespace CLI.FSM
                         "<BR> Containment Core released<BR><BR>>Downloaded System data to scanner" +
                         "<BR><color=red>---<BR>UNAUTHORIZED ACCESS DETECTED<BR>---" +
                         "<BR>CAUTION: Security systems activated. Alarm State raised. Containment Core meltdown imminent. Threat assessment lockdown in progress.<color=#008000>");
-
                 }
                 else
                 {
