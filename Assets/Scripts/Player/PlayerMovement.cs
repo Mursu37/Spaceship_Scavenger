@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float acceleration;
     [SerializeField] private float rollAcceleration;
     [Tooltip("This value equals the mouse sensitivity.")]
-    [Range(0f, 1.5f)] public float turnAcceleration;
+    [Range(0f, 0.8f)] public float turnAcceleration;
 
     [Header("Other")]
     public float maxSpeed;
