@@ -8,7 +8,6 @@ namespace Enviroment.MainTerminal
         private LampSwitcherManager lampSwitcherManager;
 
         [SerializeField] private GameObject lightManager;
-        [SerializeField] private GameObject obstacles;
         [SerializeField] private Animator doorAnimator;
         [SerializeField] private EventDispatcher dispatcher;
 
@@ -16,7 +15,6 @@ namespace Enviroment.MainTerminal
 
         private void Awake()
         {
-            obstacles.SetActive(false);
             lampSwitcherManager = lightManager.GetComponent<LampSwitcherManager>();
             if (dispatcher == null)
             {
@@ -27,7 +25,6 @@ namespace Enviroment.MainTerminal
         public void turnShipOn()
         {
             lampSwitcherManager.ToggleLamps(true);
-            obstacles.SetActive(true);
             dispatcher.TriggerEvent();
             //doorAnimator.Play("Closing");
             isPowerOn = true;
@@ -37,7 +34,6 @@ namespace Enviroment.MainTerminal
         public void turnShipOnNoSound()
         {
             lampSwitcherManager.ToggleLamps(true);
-            obstacles.SetActive(true);
             //doorAnimator.Play("Closing");
             isPowerOn = true;
         }
