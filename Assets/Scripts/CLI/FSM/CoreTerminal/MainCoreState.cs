@@ -29,6 +29,8 @@ namespace CLI.FSM
                 "2. Ensure primary systems are routed through the main reactor.  \r\n" +
                 "Type <color=yellow>'download'</color> to retrieve the <color=#00ff00>power routing schematics.</color>");
 
+            stateController.ChangeText("Type Your Command");
+
         }
 
         public override void Interpret(string command)

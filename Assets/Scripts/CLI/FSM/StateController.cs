@@ -50,16 +50,17 @@ namespace CLI.FSM
         {
             ResetState();
             ChangeState(currentState);
+            currentState?.OnEnter();
         }
 
         public virtual void ChangeState(State newState)
         {
             currentState?.OnExit();
             currentState = newState;
-            currentState.OnEnter();
             UpdateCommands();
             commandIndex = -1;
             ChangeText("");
+            currentState.OnEnter();
         }
 
         // Removes current commands in list and adds the current states commands to it
@@ -132,9 +133,15 @@ namespace CLI.FSM
 
             commandLineText.text = text;
             commandLineText.maxVisibleCharacters = 0;
-            textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay));
+            commandLineText.ForceMeshUpdate(true);
+            if (text.Length > 0)
+            {
+                textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay));
+            }
             commandLineInput.text = "";
-            commandLineInput.ActivateInputField();
+
+           commandLineInput.ActivateInputField();
+            
         }
 
         public virtual void AddText(string text)
@@ -147,14 +154,20 @@ namespace CLI.FSM
 
             commandLineText.text = commandLineText.text + "<BR><BR>" + text;
             commandLineText.maxVisibleCharacters = 0;
-            textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay));
+            commandLineText.ForceMeshUpdate(true);
+            if (text.Length > 0)
+            {
+                textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay));
+            }
             commandLineInput.text = "";
 
+           
             commandLineInput.ActivateInputField();
+           
         }
         private IEnumerator RoutineDelayedText(TMP_Text textToDisplay, float timeDelay)
         {
-            if (!textResponseCoroutineRunning)
+            if (!textResponseCoroutineRunning && textToDisplay.text.Length > 0)
             {
                 textResponseCoroutineRunning = true;
             }
@@ -164,7 +177,6 @@ namespace CLI.FSM
             }
 
             WaitForSecondsRealtime delay = new WaitForSecondsRealtime(timeDelay);
-
             
 
             for (int i = 0; i < textToDisplay.textInfo.characterCount; ++i)
@@ -182,7 +194,7 @@ namespace CLI.FSM
 
         private IEnumerator RoutineDelayedFlavourText(TMP_Text textToDisplay, float timeDelay)
         {
-            if (!flavourTextCoroutineRunning)
+            if (!flavourTextCoroutineRunning && textToDisplay.text.Length > 0)
             {
                 flavourTextCoroutineRunning = true;
             }
@@ -192,11 +204,6 @@ namespace CLI.FSM
             }
 
             WaitForSecondsRealtime delay = new WaitForSecondsRealtime(timeDelay);
-
-            if (!AudioManager.IsPlaying("TerminalTextLoop"))
-            {
-                AudioManager.PlayAudio("TerminalTextLoop", 1, 1, true, null, true);
-            }
 
             for (int i = 0; i < textToDisplay.textInfo.characterCount; ++i)
             {
@@ -215,12 +222,16 @@ namespace CLI.FSM
             if (flavourTextCoroutine != null)
             {
                 StopCoroutine(flavourTextCoroutine);
+                AudioManager.StopAudio("TerminalTextLoop");
             }
 
             flavourText.text = text;
             flavourText.maxVisibleCharacters = 0;
-            flavourTextCoroutine = StartCoroutine(RoutineDelayedFlavourText(flavourText, textWriteDelay));
-
+            flavourText.ForceMeshUpdate(true);
+            if (text.Length > 0)
+            {
+                flavourTextCoroutine = StartCoroutine(RoutineDelayedFlavourText(flavourText, textWriteDelay));
+            }
         }
 
         private void OnInput()
@@ -264,9 +275,6 @@ namespace CLI.FSM
 
         private void OnDisable()
         {
-            textResponseCoroutineRunning = false;
-            flavourTextCoroutineRunning = false;
-
             PauseGame.Resume(PauseGame.TransitionType.NormalMusic);
             FindObjectOfType<PauseMenu>().enabled = true;
             VisorChange.UpdateVisor(VisorChange.currentDamageState);
@@ -286,14 +294,14 @@ namespace CLI.FSM
 
         void Update()
         {
-            if (textResponseCoroutineRunning || flavourTextCoroutineRunning)
+            if (textResponseCoroutineRunning | flavourTextCoroutineRunning)
             {
                 if (!AudioManager.IsPlaying("TerminalTextLoop"))
                 {
                     AudioManager.PlayAudio("TerminalTextLoop", 1, 1, true, null, true);
                 }
             }
-            else
+            else if (!textResponseCoroutineRunning && !flavourTextCoroutineRunning)
             {
                 if (AudioManager.IsPlaying("TerminalTextLoop"))
                 {

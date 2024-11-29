@@ -7,7 +7,7 @@ namespace CLI.FSM
 {
     public class CoreStateController : StateController
     {
-        private void Awake()
+        private CoreStateController()
         {
             defaultState = new MainCoreState(this);
             stateHistory = new List<State> { defaultState };
