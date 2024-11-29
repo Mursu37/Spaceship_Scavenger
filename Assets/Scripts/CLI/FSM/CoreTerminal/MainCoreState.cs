@@ -21,15 +21,12 @@ namespace CLI.FSM
         {
             base.OnEnter();
             stateController.ChangeFlavourText("<color=green>Core Systems Directory</color>\r\n" +
-                "<BR><BR>" +
                 "<color=red>Alert:</color> The spaceship is operating on <color=orange>low auxiliary power.</color>  \r\n" +
-                "<BR>Critical systems are offline.  \r\n" +
-                "<BR><BR>" +
+                "Critical systems are offline.  \r\n" +
                 "To access the <color=#00ff00>Containment Core Control Panel</color>, reconnect power to the main reactor.  \r\n" +
                 "<BR><BR><b>Instructions:</b>  \r\n" +
-                "<BR>1. Manually link the main power coupling below the reactor station.  \r\n" +
-                "<BR>2. Ensure primary systems are routed through the main reactor.  \r\n" +
-                "<BR><BR>" +
+                "1. Manually link the main power coupling below the reactor station.  \r\n" +
+                "2. Ensure primary systems are routed through the main reactor.  \r\n" +
                 "Type <color=yellow>'download'</color> to retrieve the <color=#00ff00>power routing schematics.</color>");
 
         }

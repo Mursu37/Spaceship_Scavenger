@@ -14,6 +14,7 @@ namespace Enviroment.MainTerminal
             Debug.Log(true);
             CLI.SetActive(true);
             stateController.enabled = true;
+            AudioManager.PlayAudio("InteractBeep2", 1, 1, false, null, true);
         }
     }
 }
