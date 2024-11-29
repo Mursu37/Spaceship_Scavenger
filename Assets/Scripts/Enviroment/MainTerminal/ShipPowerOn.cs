@@ -35,6 +35,7 @@ namespace Enviroment.MainTerminal
         {
             lampSwitcherManager.ToggleLamps(true);
             //doorAnimator.Play("Closing");
+            dispatcher.TriggerEvent();
             isPowerOn = true;
         }
     }
