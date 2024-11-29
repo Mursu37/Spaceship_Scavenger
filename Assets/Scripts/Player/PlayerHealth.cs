@@ -42,6 +42,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     {
         currentHealth += amount;
         if (currentHealth > maxHealth) currentHealth = maxHealth;
+        AudioManager.PlayAudio("PlayerHealing", 0.7f, 1, false);
     }
 
     private void Update()
