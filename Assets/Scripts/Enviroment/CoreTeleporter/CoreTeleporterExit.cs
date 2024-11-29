@@ -13,6 +13,9 @@ public class CoreTeleporterExit : MonoBehaviour
 
     private MixerController mixerController;
 
+    [SerializeField]
+    private Animator switchAnimator;
+
     public enum TeleporterState
     {
         Idle,
@@ -33,6 +36,21 @@ public class CoreTeleporterExit : MonoBehaviour
 
     private void Update()
     {
+        if (currentState != TeleporterState.Idle)
+        {
+            if (switchAnimator != null)
+            {
+                switchAnimator.enabled = true;
+            }
+        }
+        else
+        {
+            if (switchAnimator != null)
+            {
+                switchAnimator.enabled = false;
+            }
+        }
+
         switch (currentState)
         {
             case TeleporterState.Teleporting:

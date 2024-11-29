@@ -127,11 +127,12 @@ namespace CLI.FSM
             if (textResponseCoroutine != null)
             {
                 StopCoroutine(textResponseCoroutine);
+                AudioManager.StopAudio("TerminalTextLoop");
             }
 
             commandLineText.text = text;
             commandLineText.maxVisibleCharacters = 0;
-            textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay, textResponseCoroutineRunning));
+            textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay));
             commandLineInput.text = "";
             commandLineInput.ActivateInputField();
         }
@@ -141,20 +142,21 @@ namespace CLI.FSM
             if (textResponseCoroutine != null)
             {
                 StopCoroutine(textResponseCoroutine);
+                AudioManager.StopAudio("TerminalTextLoop");
             }
 
             commandLineText.text = commandLineText.text + "<BR><BR>" + text;
             commandLineText.maxVisibleCharacters = 0;
-            textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay, textResponseCoroutineRunning));
+            textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay));
             commandLineInput.text = "";
 
             commandLineInput.ActivateInputField();
         }
-        private IEnumerator RoutineDelayedText(TMP_Text textToDisplay, float timeDelay, bool _bool)
+        private IEnumerator RoutineDelayedText(TMP_Text textToDisplay, float timeDelay)
         {
-            if (!_bool)
+            if (!textResponseCoroutineRunning)
             {
-                _bool = true;
+                textResponseCoroutineRunning = true;
             }
             else
             {
@@ -163,24 +165,26 @@ namespace CLI.FSM
 
             WaitForSecondsRealtime delay = new WaitForSecondsRealtime(timeDelay);
 
+            
 
-            for (int i = 0; i < textToDisplay.text.Length; ++i)
+            for (int i = 0; i < textToDisplay.textInfo.characterCount; ++i)
             {
+
                 textToDisplay.maxVisibleCharacters = i + 1;
                 //string delayedText = textToDisplay.Substring(0, i + 1);
                 // Do whatever you need to do with this string, e.g. set text on UI.
+                
                 yield return delay;
             }
-
             textResponseCoroutine = null;
-            _bool = false; // Coroutine finished;
+            textResponseCoroutineRunning = false; // Coroutine finished;
         }
 
-        private IEnumerator RoutineDelayedFlavourText(TMP_Text textToDisplay, float timeDelay, bool _bool)
+        private IEnumerator RoutineDelayedFlavourText(TMP_Text textToDisplay, float timeDelay)
         {
-            if (!_bool)
+            if (!flavourTextCoroutineRunning)
             {
-                _bool = true;
+                flavourTextCoroutineRunning = true;
             }
             else
             {
@@ -189,17 +193,21 @@ namespace CLI.FSM
 
             WaitForSecondsRealtime delay = new WaitForSecondsRealtime(timeDelay);
 
+            if (!AudioManager.IsPlaying("TerminalTextLoop"))
+            {
+                AudioManager.PlayAudio("TerminalTextLoop", 1, 1, true, null, true);
+            }
 
-            for (int i = 0; i < textToDisplay.text.Length; ++i)
+            for (int i = 0; i < textToDisplay.textInfo.characterCount; ++i)
             {
                 textToDisplay.maxVisibleCharacters = i + 1;
                 //string delayedText = textToDisplay.Substring(0, i + 1);
                 // Do whatever you need to do with this string, e.g. set text on UI.
+                
                 yield return delay;
             }
-
             textResponseCoroutine = null;
-            _bool = false; // Coroutine finished;
+            flavourTextCoroutineRunning = false; // Coroutine finished;
         }
 
         public virtual void ChangeFlavourText(string text)
@@ -211,7 +219,7 @@ namespace CLI.FSM
 
             flavourText.text = text;
             flavourText.maxVisibleCharacters = 0;
-            flavourTextCoroutine = StartCoroutine(RoutineDelayedFlavourText(flavourText, textWriteDelay, flavourTextCoroutineRunning));
+            flavourTextCoroutine = StartCoroutine(RoutineDelayedFlavourText(flavourText, textWriteDelay));
 
         }
 
@@ -221,6 +229,7 @@ namespace CLI.FSM
             // Lets the current state to define behaviours that happen based on it's individual properties
             string userInput = commandLineInput.text.ToLower();
             currentState.Interpret(userInput);
+
         }
 
         public virtual void ResetState()
@@ -255,17 +264,43 @@ namespace CLI.FSM
 
         private void OnDisable()
         {
+            textResponseCoroutineRunning = false;
+            flavourTextCoroutineRunning = false;
+
             PauseGame.Resume(PauseGame.TransitionType.NormalMusic);
             FindObjectOfType<PauseMenu>().enabled = true;
             VisorChange.UpdateVisor(VisorChange.currentDamageState);
             ClearCommands();
             ResetState();
+            if (AudioManager.IsPlaying("TerminalTextLoop"))
+            {
+                AudioManager.StopAudio("TerminalTextLoop");
+            }
 
+            if (!AudioManager.IsPlaying("TerminalExit"))
+            {
+                AudioManager.PlayAudio("TerminalExit", 1, 1, false, null, true);
+            }
             CLI.SetActive(false);
         }
 
         void Update()
         {
+            if (textResponseCoroutineRunning || flavourTextCoroutineRunning)
+            {
+                if (!AudioManager.IsPlaying("TerminalTextLoop"))
+                {
+                    AudioManager.PlayAudio("TerminalTextLoop", 1, 1, true, null, true);
+                }
+            }
+            else
+            {
+                if (AudioManager.IsPlaying("TerminalTextLoop"))
+                {
+                    AudioManager.StopAudio("TerminalTextLoop");
+                }
+            }
+
             if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape))
             {
                 this.enabled = false;
@@ -273,16 +308,18 @@ namespace CLI.FSM
             }
             if (Input.GetKeyDown(KeyCode.UpArrow)) SelectedChange(true);
             else if (Input.GetKeyDown(KeyCode.DownArrow)) SelectedChange(false);
-            
+
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 if (commandIndex > -1)
                 {
                     currentState.Interpret(commandList[commandIndex].GetComponentInChildren<TMP_Text>().text.ToLower());
+                    AudioManager.PlayAudio("TerminalSelect", 1, 1, false, null, true);
                 }
                 else if (commandLineInput.text != "")
                 {
                     OnInput();
+                    AudioManager.PlayAudio("TerminalSelect", 1, 1, false, null, true);
                 }
             }
 
@@ -290,6 +327,9 @@ namespace CLI.FSM
             {
                 if (!commandLineInput.isFocused) commandLineInput.ActivateInputField();
             }
+
+            
+
         }
 
         protected virtual void SelectedChange(bool up)
@@ -298,6 +338,7 @@ namespace CLI.FSM
             {
                 if (commandIndex + 1 > commandList.Count - 1) return;
                 commandIndex++;
+                AudioManager.PlayAudio("TerminalButtonHighlight", 1, 1, false, null, true);
                 commandLineInput.DeactivateInputField();
                 commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = highlightedColor;
                 if (commandIndex - 1 == -1) return;
@@ -307,6 +348,7 @@ namespace CLI.FSM
             {
                 commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = textColor;
                 commandIndex--;
+                AudioManager.PlayAudio("TerminalButtonHighlight", 1, 1, false, null, true);
                 if (commandIndex == -1)
                 {
                     commandLineInput.ActivateInputField();

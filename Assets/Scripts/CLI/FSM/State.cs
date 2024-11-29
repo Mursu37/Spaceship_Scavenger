@@ -80,7 +80,7 @@ namespace CLI.FSM
 
         public virtual void OnEnter()
         {
-            stateController.ChangeFlavourText("Directory content prints here");
+
         }
 
         protected virtual void CommandNotRecognised()
