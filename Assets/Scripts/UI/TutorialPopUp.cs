@@ -52,6 +52,7 @@ public class TutorialPopUp : MonoBehaviour
                 if (currentTutorial == tutorialWindows[0])
                 {
                     PauseGame.isPaused = true;
+                    instance.pauseMenu.enabled = false;
                 }
                 currentTutorial = null;
             }
