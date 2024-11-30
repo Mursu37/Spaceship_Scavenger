@@ -123,7 +123,7 @@ namespace CLI.FSM
             ChangeState(newState);
         }
 
-        public virtual void ChangeText(string text)
+        public virtual void ChangeText(string text, float delay = 0, bool waitToFinish = false, Action onFinish = null)
         {
             if (textResponseCoroutine != null)
             {
@@ -136,15 +136,24 @@ namespace CLI.FSM
             commandLineText.ForceMeshUpdate(true);
             if (text.Length > 0)
             {
-                textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay));
+                if (delay > 0)
+                {
+                    textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, delay, waitToFinish, onFinish));
+                }
+                else
+                {
+                    textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay, waitToFinish, onFinish));
+                }
+            }
+            else
+            {
+                onFinish?.Invoke(); // invoke immediately if there is no text.
             }
             commandLineInput.text = "";
-
-           commandLineInput.ActivateInputField();
-            
+            commandLineInput.ActivateInputField();
         }
 
-        public virtual void AddText(string text)
+        public virtual void AddText(string text, float delay = 0, bool waitToFinish = false, Action onFinish = null)
         {
             if (textResponseCoroutine != null)
             {
@@ -152,20 +161,35 @@ namespace CLI.FSM
                 AudioManager.StopAudio("TerminalTextLoop");
             }
 
+            int previousTextLength;
+            previousTextLength = commandLineText.textInfo.characterCount;
+
             commandLineText.text = commandLineText.text + "<BR><BR>" + text;
-            commandLineText.maxVisibleCharacters = 0;
+            commandLineText.maxVisibleCharacters = commandLineText.textInfo.characterCount;
             commandLineText.ForceMeshUpdate(true);
+
+            
+
             if (text.Length > 0)
             {
-                textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay));
+                if (delay > 0)
+                {
+                    textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, delay, waitToFinish, onFinish, previousTextLength));
+                }
+                else
+                {
+                    textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay, waitToFinish, onFinish, previousTextLength));
+                }
+            }
+            else
+            {
+                onFinish?.Invoke(); // invoke immediately if there is no text.
             }
             commandLineInput.text = "";
-
-           
             commandLineInput.ActivateInputField();
-           
+
         }
-        private IEnumerator RoutineDelayedText(TMP_Text textToDisplay, float timeDelay)
+        private IEnumerator RoutineDelayedText(TMP_Text textToDisplay, float timeDelay, bool waitToFinish, Action onFinish, int startFromCount = 0)
         {
             if (!textResponseCoroutineRunning && textToDisplay.text.Length > 0)
             {
@@ -177,22 +201,41 @@ namespace CLI.FSM
             }
 
             WaitForSecondsRealtime delay = new WaitForSecondsRealtime(timeDelay);
-            
 
-            for (int i = 0; i < textToDisplay.textInfo.characterCount; ++i)
+            if (textToDisplay.textInfo == null)
             {
-
-                textToDisplay.maxVisibleCharacters = i + 1;
-                //string delayedText = textToDisplay.Substring(0, i + 1);
-                // Do whatever you need to do with this string, e.g. set text on UI.
-                
-                yield return delay;
+                textResponseCoroutine = null;
+                textResponseCoroutineRunning = false; // Coroutine finished;
+                yield break;
             }
-            textResponseCoroutine = null;
-            textResponseCoroutineRunning = false; // Coroutine finished;
+            else
+            {
+                textToDisplay.ForceMeshUpdate(true);
+                int characterCount = textToDisplay.textInfo.characterCount;
+
+                if (characterCount > 0 && startFromCount < characterCount)
+                {
+                    for (int i = startFromCount; i < characterCount; ++i)
+                    {
+
+                        textToDisplay.maxVisibleCharacters = i + 1;
+                        //string delayedText = textToDisplay.Substring(0, i + 1);
+                        // Do whatever you need to do with this string, e.g. set text on UI.
+
+                        yield return delay;
+                    }
+                }
+                    textResponseCoroutine = null;
+                    textResponseCoroutineRunning = false; // Coroutine finished;
+
+                    if (waitToFinish)
+                    {
+                        onFinish?.Invoke();
+                    }
+            }
         }
 
-        private IEnumerator RoutineDelayedFlavourText(TMP_Text textToDisplay, float timeDelay)
+            private IEnumerator RoutineDelayedFlavourText(TMP_Text textToDisplay, float timeDelay, bool waitToFinish, Action onFinish)
         {
             if (!flavourTextCoroutineRunning && textToDisplay.text.Length > 0)
             {
@@ -215,9 +258,14 @@ namespace CLI.FSM
             }
             textResponseCoroutine = null;
             flavourTextCoroutineRunning = false; // Coroutine finished;
+
+            if (waitToFinish)
+            {
+                onFinish?.Invoke();
+            }
         }
 
-        public virtual void ChangeFlavourText(string text)
+        public virtual void ChangeFlavourText(string text, float delay = 0, bool waitToFinish = false, Action onFinish = null)
         {
             if (flavourTextCoroutine != null)
             {
@@ -230,7 +278,14 @@ namespace CLI.FSM
             flavourText.ForceMeshUpdate(true);
             if (text.Length > 0)
             {
-                flavourTextCoroutine = StartCoroutine(RoutineDelayedFlavourText(flavourText, textWriteDelay));
+                if (delay > 0)
+                {
+                    flavourTextCoroutine = StartCoroutine(RoutineDelayedFlavourText(flavourText, delay, waitToFinish, onFinish));
+                }
+                else
+                {
+                    flavourTextCoroutine = StartCoroutine(RoutineDelayedFlavourText(flavourText, textWriteDelay, waitToFinish, onFinish));
+                }
             }
         }
 

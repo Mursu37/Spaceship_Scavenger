@@ -90,7 +90,7 @@ namespace CLI.FSM
 
         protected virtual void CommandNotRecognised()
         {
-            stateController.ChangeText("Command not recognised. Try typing 'help' to see a list of available commands");
+            stateController.ChangeText("Command not recognised. Try typing 'help' to see a list of available commands or navigate commands with arrow keys. Press 'return' key to execute selected command.");
         }
     }
 }
