@@ -10,6 +10,7 @@ Shader "UI/MarkerArrow"
         Tags {"Queue"="Transparent" "RenderType"="Transparent"}
         Blend SrcAlpha OneMinusSrcAlpha
         LOD 100
+        ZTest Always
         Cull Off
 
         Pass
