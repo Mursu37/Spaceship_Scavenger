@@ -14,6 +14,7 @@ public class MarkerDirection : MonoBehaviour
 
     private void LateUpdate()
     {
+        currentMarker = GameObject.FindGameObjectWithTag("Marker");
         Vector3 markerPos = currentMarker.transform.position;
             
         float minX = -(Screen.width / 2) + markerArrow.GetPixelAdjustedRect().width / 2 + 30;
@@ -25,7 +26,6 @@ public class MarkerDirection : MonoBehaviour
         Vector2 pos = Camera.main.WorldToScreenPoint(markerPos);
         pos.x -= Screen.width / 2;
         pos.y -= Screen.height / 2;
-        Debug.Log(pos);
         Vector2 original = pos;
             
         if (Vector3.Dot((markerPos - Camera.main.transform.position).normalized, Camera.main.transform.forward) < 0)
