@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4086200568860152941}
+  - component: {fileID: 855418889098046313}
   - component: {fileID: 2754580211447688262}
   m_Layer: 0
   m_Name: AlarmSoundSource
-  m_TagString: Untagged
+  m_TagString: Audio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,6 +33,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &855418889098046313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6920254498838810714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd990798b2f97f24da3b1de2b7163965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &2754580211447688262
 AudioSource:
   m_ObjectHideFlags: 0
@@ -44,7 +57,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -8243696786034160914, guid: eca3bcb1198dfa444b1cd3b7a577c647,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: b4d72286b913f3a44b9515db7323d9d2, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1

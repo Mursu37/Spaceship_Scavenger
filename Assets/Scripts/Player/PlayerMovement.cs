@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Stabilize()
     {
-        if (Input.GetButtonDown("Stabilize"))
+        if (Input.GetButtonDown("Stabilize") && !PauseGame.isPaused)
         {
             if (isStabilized)
             {
@@ -116,14 +116,17 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // Get the inputs
-        verticalInput = Input.GetAxis("Vertical");
-        horizontalInput = Input.GetAxis("Horizontal");
-        ascendInput = Input.GetAxis("Ascend");
-        rollInput = Input.GetAxis("Roll");
-        stabilizeInput = Input.GetAxis("Break");
-        mouseInputX = Input.GetAxisRaw("Mouse X");
-        mouseInputY = Input.GetAxisRaw("Mouse Y");
+        if (!PauseGame.isPaused)
+        {
+            // Get the inputs
+            verticalInput = Input.GetAxis("Vertical");
+            horizontalInput = Input.GetAxis("Horizontal");
+            ascendInput = Input.GetAxis("Ascend");
+            rollInput = Input.GetAxis("Roll");
+            stabilizeInput = Input.GetAxis("Break");
+            mouseInputX = Input.GetAxisRaw("Mouse X");
+            mouseInputY = Input.GetAxisRaw("Mouse Y");
+        }
 
         Stabilize();
 

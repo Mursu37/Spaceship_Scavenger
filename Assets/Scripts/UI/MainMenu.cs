@@ -4,10 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private FadeIn fadeIn;
-
     [SerializeField] private GameObject settings;
-    [SerializeField] private GameObject blackPanel;
+    [SerializeField] private GameObject difficulty;
 
     private void Awake()
     {
@@ -16,13 +14,14 @@ public class MainMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
 
-        fadeIn = blackPanel.GetComponent<FadeIn>();
+        DifficultyManager.easyLevelSelected = false;
+        DifficultyManager.difficultLevelSelected = false;
     }
 
     public void Play()
     {
-        blackPanel.SetActive(true);
-        fadeIn.StartFadeIn();
+        difficulty.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     public void Settings()
@@ -36,17 +35,9 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-
     public void Back()
     {
         settings.SetActive(false);
         gameObject.SetActive(true);
-    }
-    private void Update()
-    {
-        if (fadeIn.allFadedIn)
-        {
-            SceneManager.LoadSceneAsync("IntroCutscene");
-        }
     }
 }

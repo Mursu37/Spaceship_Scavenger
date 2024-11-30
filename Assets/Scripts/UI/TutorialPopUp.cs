@@ -49,6 +49,11 @@ public class TutorialPopUp : MonoBehaviour
                 currentTutorial.SetActive(false);
                 instance.pauseMenu.enabled = true;
                 PauseGame.Resume();
+                if (currentTutorial == tutorialWindows[0])
+                {
+                    PauseGame.isPaused = true;
+                    instance.pauseMenu.enabled = false;
+                }
                 currentTutorial = null;
             }
         }
