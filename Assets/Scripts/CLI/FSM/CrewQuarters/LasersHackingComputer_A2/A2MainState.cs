@@ -8,13 +8,12 @@ namespace CLI.FSM
     {
         public A2MainState(StateController controller) : base(controller)
         {
-            directories.Add("a2_security", new A2SecurityState(controller));
+            directories.Add("laser_control", new A2SecurityState(controller));
+            directories.Add("logview", new A2LogState(controller));
         }
 
         public override void OnEnter()
         {
-
-            stateController.ChangeText("System directories:<BR><BR>--- a2_security");
             base.OnEnter();
         }
 
@@ -22,15 +21,13 @@ namespace CLI.FSM
         {
             if (command == "help")
             {
-                stateController.ChangeText("Available commands: <BR> cd [directory_name] --- change directory");
-
-            }
-            else
-            {
-                base.Interpret(command);
+                stateController.ChangeText("HELP - Available Commands: \r\n" +
+                    "Door_control - change directory to door_control. \r\n" +
+                    "logview - view personnel log entries."
+                    );
             }
 
-
+            base.Interpret(command);
         }
     }
 }

@@ -336,8 +336,13 @@ namespace CLI.FSM
                 if (!commandLineInput.isFocused) commandLineInput.ActivateInputField();
             }
 
-            
 
+
+        }
+
+        public virtual string GetCurrentStateDirectoryText()
+        {
+            return directoryText.text.ToString();
         }
 
         protected virtual void SelectedChange(bool up)

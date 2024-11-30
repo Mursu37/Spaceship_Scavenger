@@ -10,21 +10,35 @@ namespace CLI.FSM
     {
         public DoorState(StateController controller) : base(controller)
         {
-            commands.Insert(0, "open doors");
+            commands.Insert(0, "a12");
+            commands.Insert(1, "b07");
+            stateController.ChangeText("Door access control: select a door to access with [Door_ID]");
+            base.OnEnter();
         }
 
         public override void Interpret(string command)
         {
-
-
-            if (command == "open doors")
+            if (command == "a12")
             {
+                stateController.ChangeText("Door A12 in lockdown. Submit access credentials \r\n" +
+                    "<color=#3Ca8a8>[Module injecting false credentials...] [Success] \r\n" +
+                    "<color=#c8a519>Door A12 unlocked and opened via terminal access");
+
                 EventDispatcher dispatcher;
                 dispatcher = stateController.gameObject.GetComponent<EventDispatcher>();
                 dispatcher.TriggerEvent();
+            }
 
-                stateController.ChangeText("security doors have been opened.");
+            else if (command == "b07")
+            {
+                stateController.ChangeText("Door B-07 in lockdown. Submit access credentials \r\n" +
+                    "<color=#3Ca8a8>[Module injecting false credentials...] [Failure] \r\n" +
+                    "<color=#c8a519>Access connection to Door B-07 not available. Run system diagnostics to locate the point of failure.");
+            }
 
+            else if (command == "help")
+            {
+                stateController.ChangeText("HELP - Door access control: select a door to access by typing the door ID.");
             }
 
             /*  if (command == "opendoor")

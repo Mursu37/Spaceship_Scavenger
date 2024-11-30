@@ -8,13 +8,12 @@ namespace CLI.FSM
     {
         public SecurityShipmentMainState(StateController controller) : base(controller)
         {
-            directories.Add("security", new SecurityShipmentSecurityState(controller));
+            directories.Add("door_control", new SecurityShipmentSecurityState(controller));
+            directories.Add("logview", new SecurityShipmentLogState(controller));
         }
 
         public override void OnEnter()
         {
-
-            stateController.ChangeText("System directories:<BR><BR>--- security");
             base.OnEnter();
         }
 
@@ -22,20 +21,13 @@ namespace CLI.FSM
         {
             if (command == "help")
             {
-                stateController.ChangeText("Available commands: <BR> cd [directory_name] --- change directory");
-
-            }
-            else if (command == "ls")
-            {
-                stateController.ChangeText("Listing Directories:<BR> -- security");
-
-            }
-            else
-            {
-                base.Interpret(command);
+                stateController.ChangeText("HELP - Available Commands: \r\n" +
+                    "Door_control - change directory to door_control. \r\n" +
+                    "logview - view personnel log entries."
+                    );
             }
 
-
+            base.Interpret(command);
         }
     }
 }

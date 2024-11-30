@@ -80,7 +80,12 @@ namespace CLI.FSM
 
         public virtual void OnEnter()
         {
+            stateController.ChangeText("Changed Directory: " + stateController.GetCurrentStateDirectoryText());
+        }
 
+        public virtual string GetCurrentStateName()
+        {
+            return stateController.GetCurrentStateDirectoryText();
         }
 
         protected virtual void CommandNotRecognised()
