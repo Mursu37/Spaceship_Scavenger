@@ -1,5 +1,6 @@
 using Enviroment.MainTerminal;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MeltdownPhase : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class MeltdownPhase : MonoBehaviour
     [SerializeField] private ShipPowerOn shipPowerOn;
     [SerializeField] private GameObject meltdownTriggers;
     private CoreSounds coreSounds;
+    private AlarmSounds[] alarmSounds;
     private MeltdownMusic meltdownMusic;
     private LampSwitcherManager lampSwitcherManager;
 
@@ -36,12 +38,22 @@ public class MeltdownPhase : MonoBehaviour
             heatMeter.SetActive(true);
         }
 
-        // Enable the CoreSounds and MeltdownMusic scripts when MeltdownPhase starts
+        // Enable the CoreSounds, AlarmSounds and MeltdownMusic scripts when MeltdownPhase starts
         coreSounds = FindObjectOfType<CoreSounds>();
         if (coreSounds != null)
         {
             coreSounds.ActivateCoreSounds();
             Debug.Log("CoreSounds enabled");
+        }
+
+        alarmSounds = FindObjectsOfType<AlarmSounds>();
+        if (alarmSounds.Length > 0)
+        {
+            foreach (AlarmSounds sound in alarmSounds)
+            {
+                sound.ActivateAlarmSounds();
+                Debug.Log("Alarm sounds enabled");
+            }
         }
 
         meltdownMusic = FindObjectOfType<MeltdownMusic>();
