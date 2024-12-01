@@ -41,6 +41,7 @@ namespace CLI.FSM
 
         public virtual void Interpret(string command)
         {
+
             if (command == "back")
             {
                 MoveDirectory("..");

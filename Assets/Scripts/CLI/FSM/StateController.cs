@@ -23,6 +23,7 @@ namespace CLI.FSM
         
         [SerializeField] protected Color textColor;
         [SerializeField] protected Color highlightedColor;
+        [SerializeField] protected Color commandColor;
         [SerializeField] private float textWriteDelay = 0.001f;
 
         private bool textResponseCoroutineRunning = false;
@@ -37,7 +38,7 @@ namespace CLI.FSM
 
         [SerializeField] protected GameObject CLCommandPrefab;
         // tracks which command is currently selected. -1 = Input field, 0 - commandList.lenght = command at that index
-        protected int commandIndex = -1;
+        public int commandIndex = -1;
 
         protected State currentState;
         protected List<State> stateHistory = new();
@@ -152,6 +153,7 @@ namespace CLI.FSM
                 onFinish?.Invoke(); // invoke immediately if there is no text.
             }
             commandLineInput.text = "";
+            commandLineInput.interactable = true;
             commandLineInput.ActivateInputField();
         }
 
@@ -188,6 +190,7 @@ namespace CLI.FSM
                 onFinish?.Invoke(); // invoke immediately if there is no text.
             }
             commandLineInput.text = "";
+            commandLineInput.interactable = true;
             commandLineInput.ActivateInputField();
 
         }
@@ -297,7 +300,6 @@ namespace CLI.FSM
             // Lets the current state to define behaviours that happen based on it's individual properties
             string userInput = commandLineInput.text.ToLower();
             currentState.Interpret(userInput);
-
         }
 
         public virtual void ResetState()
@@ -314,6 +316,7 @@ namespace CLI.FSM
             }
             directoryText.text = dirName;
 
+            commandLineInput.interactable = true;
             commandLineInput.ActivateInputField();
         }
 
@@ -325,6 +328,7 @@ namespace CLI.FSM
             VisorChange.UpdateVisor(VisorChange.Visor.Hacking);
             ResetState();
             ChangeState(currentState);
+            commandLineInput.interactable = true;
             commandLineInput.ActivateInputField();
             currentState?.OnEnter();
         }
@@ -389,7 +393,12 @@ namespace CLI.FSM
 
             if (commandIndex == -1)
             {
-                if (!commandLineInput.isFocused) commandLineInput.ActivateInputField();
+                if (!commandLineInput.isFocused)
+                {
+                    commandLineInput.interactable = true;
+                    commandLineInput.ActivateInputField();
+                }
+
             }
 
 
@@ -401,7 +410,7 @@ namespace CLI.FSM
             return directoryText.text.ToString();
         }
 
-        protected virtual void SelectedChange(bool up)
+        public virtual void SelectedChange(bool up)
         {
             if (up)
             {
@@ -409,17 +418,19 @@ namespace CLI.FSM
                 commandIndex++;
                 AudioManager.PlayAudio("TerminalButtonHighlight", 1, 1, false, null, true);
                 commandLineInput.DeactivateInputField();
+                commandLineInput.interactable = false;
                 commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = highlightedColor;
                 if (commandIndex - 1 == -1) return;
-                commandList[commandIndex - 1].GetComponentInChildren<TMP_Text>().color = textColor;
+                commandList[commandIndex - 1].GetComponentInChildren<TMP_Text>().color = commandColor;
             }
             else if (commandIndex - 1 >= -1)
             {
-                commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = textColor;
+                commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = commandColor;
                 commandIndex--;
                 AudioManager.PlayAudio("TerminalButtonHighlight", 1, 1, false, null, true);
                 if (commandIndex == -1)
                 {
+                    commandLineInput.interactable = true;
                     commandLineInput.ActivateInputField();
                     return;
                 }

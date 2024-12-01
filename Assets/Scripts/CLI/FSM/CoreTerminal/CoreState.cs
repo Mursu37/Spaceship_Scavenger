@@ -42,14 +42,19 @@ namespace CLI.FSM
 
             query = false;
             stateController.ChangeFlavourText("DIRECTORY: /core_systems/disconnect_protocol/\r\n" +
-                "--------------------------------------------------------------------\r\n" +
-                "> CORE_EXTRACT_PROTOCOL.dll - Executable for core disconnection.\r\n" +
-                "> INTRUSION_ALERT.log - Log file tracking hacking attempts.\r\n" +
-                "   <color=#3Ca8a8>[ACCESS_POINT.exe - Establish injection point for system control.]\r\n" +
-                "   <color=#3Ca8a8>[DECRYPT_CODES.exe - Decrypt authorization keys for access.]\r\n" +
-                "   <color=#3Ca8a8>[SYSTEM_OVERRIDES.sys - Configure bypass of core safety protocols.]\r\n" +
-                "--------------------------------------------------------------------\r\n" +
-                "* WARNING: Unauthorized access detected.");
+                "<align=flush>--------------------------------------------------------------------</align>\r\n" +
+                "<align=left>> CORE_EXTRACT_PROTOCOL.dll<line-height=0>\r\n" +
+                "<align=right>- Executable for core disconnection.<line-height=1em>\r\n" +
+                "<align=left>> INTRUSION_ALERT.log<line-height=0>\r\n" +
+                "<align=right>- Log file tracking hacking attempts.<line-height=1em>\r\n" +
+                "   <align=left><color=#3Ca8a8>[ACCESS_POINT.exe<line-height=0>\r\n" +
+                "<align=right>- Establish injection point for system control.]<line-height=1em>\r\n" +
+                "   <align=left><color=#3Ca8a8>[DECRYPT_CODES.exe<line-height=0>\r\n" +
+                "<align=right>- Decrypt authorization keys for access.]<line-height=1em>\r\n" +
+                "   <align=left><color=#3Ca8a8>[SYSTEM_OVERRIDES.sys<line-height=0>\r\n" +
+                "<align=right>- Configure bypass of core safety protocols.]<line-height=1em>\r\n" +
+                "<align=flush><color=#0a6310>--------------------------------------------------------------------</align>\r\n" +
+                "<align=left><color=#0a6310>* WARNING: Unauthorized access detected.</align>");
 
             base.OnEnter();
         }
@@ -63,10 +68,10 @@ namespace CLI.FSM
                     stateController.ChangeText("");
                 }
 
-                stateController.ChangeText("<color=#c8a519>run [ACCESS_POINT.exe]</color>");
+                stateController.ChangeText("<color=#3Ca8a8>run [ACCESS_POINT.exe]</color>");
                 stateController.AddText("<line-height=0>========================================================", 0, true, () =>
                 {
-                    stateController.AddText("<color=#c8a519><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
+                    stateController.AddText("<color=#3Ca8a8><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
                     {
                         stateController.AddText("Injection point established.\r\n" +
                            "Temporary system control link activated.\r\n" +
@@ -111,14 +116,14 @@ namespace CLI.FSM
                     stateController.ChangeText("");
                 }
 
-                stateController.AddText("<color=#c8a519>run [DECRYPT_CODES.exe]:</color>");
+                stateController.AddText("<color=#3Ca8a8>run [DECRYPT_CODES.exe]:</color>");
                 stateController.AddText("<line-height=0>========================================================", 0, true, () =>
                 {
-                    stateController.AddText("<color=#c8a519><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
+                    stateController.AddText("<color=#3Ca8a8><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
                     {
-                        stateController.AddText("[Authorization keys successfully decrypted.\r\n" +
-                           "Access key: \"#43X-1924-AEGIS\" added to memory buffer.\r\n" +
-                           "Continue to safety override configuration.]", 0f, true, () =>
+                        stateController.AddText("<color=#3Ca8a8>[Authorization keys successfully decrypted.\r\n" +
+                           "<color=#3Ca8a8>[Access key: \"#43X-1924-AEGIS\" added to memory buffer.]\r\n" +
+                           "<color=#3Ca8a8>[Continue to safety override configuration.]", 0f, true, () =>
                            {
                                decryptedCodesDone = true;
 
@@ -140,10 +145,9 @@ namespace CLI.FSM
             }
             else
             {
-                stateController.AddText("[Authorization keys successfully decrypted.\r\n" +
-                "Access key: \"#43X-1924-AEGIS\" added to memory buffer.\r\n" +
-                "Proceed with decryption of access codes.\r\n" +
-                "Continue to safety override configuration.]");
+                stateController.AddText("<color=#3Ca8a8>[Authorization keys successfully decrypted.]\r\n" +
+                "<color=#3Ca8a8>[Access key: \"#43X-1924-AEGIS\" added to memory buffer.]\r\n" +
+                "<color=#3Ca8a8>[Continue to safety override configuration.]");
 
                 if (protocolIsRunning)
                 {
@@ -161,14 +165,14 @@ namespace CLI.FSM
                     stateController.ChangeText("");
                 }
 
-                stateController.AddText("<color=#c8a519>run [SYSTEM_OVERRIDES.sys]:</color>");
+                stateController.AddText("<color=#3Ca8a8>run [SYSTEM_OVERRIDES.sys]:</color>");
                 stateController.AddText("<line-height=0>========================================================", 0, true, () =>
                 {
-                    stateController.AddText("<color=#c8a519><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
+                    stateController.AddText("<color=#3Ca8a8><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
                     {
-                        stateController.AddText("[Core safety protocols bypassed.\r\n" +
-                           "Extraction measures enabled. Proceed with caution.\r\n" +
-                           "Execute CORE_EXTRACT_PROTOCOL to begin disconnection.]", 0f, true, () =>
+                        stateController.AddText("<color=#3Ca8a8>[Core safety protocols bypassed.]\r\n" +
+                           "<color=#3Ca8a8>[Extraction measures enabled. Proceed with caution.]\r\n" +
+                           "<color=#3Ca8a8>[Execute CORE_EXTRACT_PROTOCOL to begin disconnection.]", 0f, true, () =>
                            {
                                overrideSystemDone = true;
 
@@ -190,9 +194,9 @@ namespace CLI.FSM
             }
             else
             {
-                stateController.ChangeText("[SYSTEM_OVERRIDES.sys]:\r\n" +
-                "Override over Core safety protocols has already been established.\r\n" +
-                "Execute CORE_EXTRACT_PROTOCOL to begin disconnection.");
+                stateController.ChangeText("<color=#3Ca8a8>[SYSTEM_OVERRIDES.sys]:\r\n" +
+                "<color=#3Ca8a8>[Override over Core safety protocols has already been established.]\r\n" +
+                "<color=#3Ca8a8>[Execute CORE_EXTRACT_PROTOCOL to begin disconnection.]");
 
                 if (protocolIsRunning)
                 {
@@ -212,19 +216,19 @@ namespace CLI.FSM
                         stateController.ChangeText("");
                     }
 
-                    stateController.AddText("<color=#c8a519>run CORE_EXTRACT_PROTOCOL.dll:</color>");
+                    stateController.AddText("<color=#3Ca8a8>run CORE_EXTRACT_PROTOCOL.dll:</color>");
                     stateController.AddText("<line-height=0>========================================================", 0, true, () =>
                     {
-                        stateController.AddText("<color=#c8a519><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>" , 0.05f, true, () =>
+                        stateController.AddText("<color=#3Ca8a8><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
                         {
-                            stateController.AddText("Core disconnection initiated.\r\n" +
-                               "*[Using Injected Access point]\r\n" +
-                               "*Unauthorized access detected\r\n" +
-                               "[Submitting decryted access keys]\r\n" +
-                               "Activating security protocols\r\n" +
-                               "[Safety protocols bypassed]\r\n" +
-                               "[Manual extraction of core succesfully enabled.]\r\n" +
-                               "*Safety countermeasures blocked. Rebooting security systems..." +
+                            stateController.AddText("<align=left>Core disconnection initiated.<line-height=0>\r\n" +
+                               "<align=right><color=#3Ca8a8>[Using Injected Access point]<line-height=1em>\r\n" +
+                               "<align=left><color=#0a6310>*Unauthorized access detected<line-height=0>\r\n" +
+                               "<align=right><color=#3Ca8a8>[Submitting decryted access keys]<line-height=1em>\r\n" +
+                               "<align=left><color=#0a6310>Activating security protocols<line-height=0>\r\n" +
+                               "<align=right><color=#3Ca8a8>[Safety protocols bypassed]<line-height=1em>\r\n" +
+                               "<align=left><color=#3Ca8a8>[Manual extraction of core succesfully enabled.]\r\n" +
+                               "<align=left><color=#0a6310>*Safety countermeasures blocked. Rebooting security systems..." +
                                "", 0f, true, () =>
                                {
                                    protocolHasRun = true;
@@ -288,7 +292,7 @@ namespace CLI.FSM
             }
             else if (query == true && command == "cancel")
             {
-                stateController.ChangeText("Containment Core Extract Protocol execution aborted.");
+                stateController.ChangeText("<color=#3Ca8a8>[Containment Core Extract Protocol execution aborted.]");
 
                 query = false;
                 return;
@@ -322,8 +326,10 @@ namespace CLI.FSM
                 }
                 else
                 {
-                    stateController.ChangeText("<color=#3Ca8a8>[The protocol has been executed. Manual disconnection of core is enabled.]\r\n" +
-                        "[Manual disengage of the core is required. Warning: this activates the ship alarms and core overheating begins.]");
+                    stateController.ChangeText("<color=#3Ca8a8>[The protocol has been executed.]\r\n" +
+                        "[Manual disconnection of core is enabled.]\r\n" +
+                        "[Proceed with manual core disengagement. Disengagement switch ready for activation.]\r\n" +
+                        "<color=#53e09c>[Warning: Core extraction activates the ship alarms and triggers core meltdown sequence.]");
                 }
 
             }
@@ -331,9 +337,11 @@ namespace CLI.FSM
 
             else if (command == "module instructions")
             {
-                stateController.ChangeText("<color=#3Ca8a8>[Type 'CORE_EXTRACT_PROTOCOL' to initiate core retrieval." +
-                    "<color=#53e09c><b>Warning:</b></color> Core extraction will trigger shipwide alarms." +
-                    "<color=#53e09c>Emergency protocols and automated defenses may engage. Proceed with caution.<color=#3Ca8a8>]");
+                stateController.ChangeText("<color=#3Ca8a8>[Type 'CORE_EXTRACT_PROTOCOL' to initiate\r\n" +
+                    "automated core disconnection override.\r\n" +
+                    "<color=#53e09c><b>Warning:</b></color> Core extraction will trigger shipwide alarms.\r\n" +
+                    "<color=#53e09c>Emergency protocols and automated defenses may engage," +
+                    " Proceed with caution.<color=#3Ca8a8>]\r\n");
             }
 
             else if (command == "inject access_point")
@@ -360,12 +368,12 @@ namespace CLI.FSM
             }*/
             else if (command == "help")
             {
-                stateController.ChangeText("<color=red>VOIDHAUL_BREACHING_MODULE COMMANDS:</color>  " +
-                    "- decrypt AUTHORIZATION_CODES" +
-                    "- run EXECUTE_PROTOCOL" +
-                    "- override SYSTEM_OVERRIDES  " +
-                    "- logview CORE_STATUS  " +
-                    "- traceback INTRUSION_ALERT");
+                stateController.ChangeText("<color=#3Ca8a8>[VOIDHAUL_BREACHING_MODULE COMMANDS]</color>\r\n" +
+                    "<color=#3Ca8a8>[- module instructions - instructions of the hacking module]\r\n" +
+                    "<color=#3Ca8a8>[- run core_extract_protocol - run core extract protocol]\r\n" +
+                    "<color=#3Ca8a8>[- inject access_point] - establishes an access point for the module\r\n" +
+                    "<color=#3Ca8a8>[- decrypt keys] - decrypts access keys\r\n" +
+                    "<color=#3Ca8a8>[- run system_overrides - overrides safety protocols]");
             }
             else
             {
