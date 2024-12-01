@@ -231,6 +231,10 @@ namespace CLI.FSM
                                "<align=left><color=#0a6310>*Safety countermeasures blocked. Rebooting security systems..." +
                                "", 0f, true, () =>
                                {
+                                   EventDispatcher dispatcher;
+                                   dispatcher = stateController.gameObject.GetComponent<CoreEventDispatcher>();
+                                   dispatcher.TriggerEvent();
+                                   AudioManager.PlayAudio("InteractBeep2", 1, 1, false, null, true);
                                    protocolHasRun = true;
                                    protocolIsRunning = false;
                                });
@@ -307,9 +311,6 @@ namespace CLI.FSM
                 {
                     if (GameObject.Find("PowerOnSwitch").GetComponent<ShipPowerOn>().isPowerOn)
                     {
-                        EventDispatcher dispatcher;
-                        dispatcher = stateController.gameObject.GetComponent<CoreEventDispatcher>();
-                        dispatcher.TriggerEvent();
 
                         stateController.ChangeText("<color=#3Ca8a8>[WARNING: Executing this protocol will destabilize the core containment.\r\n" +
                         "<color=#3Ca8a8>Type 'confirm' to proceed or 'cancel' to abort.]");

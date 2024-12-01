@@ -14,6 +14,13 @@ namespace CLI.FSM
 
         public override void OnEnter()
         {
+            stateController.ChangeFlavourText("DIRECTORY: /maintenance/\r\n" +
+                "--------------------------------------------------------------------\r\n" +
+                "Welcome to Maintenance Terminal #045.\r\n" +
+                "Status: Active for system diagnostics and tools access.\r\n" +
+                "Ensure all safety protocols are followed when handling equipment.\r\n\r\n" +
+                "* Note: Security lasers are currently active. Exercise caution.");
+
             base.OnEnter();
         }
 

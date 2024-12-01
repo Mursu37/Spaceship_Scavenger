@@ -14,6 +14,13 @@ namespace CLI.FSM
 
         public override void OnEnter()
         {
+            stateController.ChangeFlavourText("DIRECTORY: /ship_customs/\r\n" +
+                "--------------------------------------------------------------------\r\n" +
+                "Welcome to Customs Entry Terminal.\r\n" +
+                "Status: Monitoring all personnel movement.\r\n\r\n" +
+                "* Scanning for unauthorized items.\r\n" +
+                "*Report anomalies to Security Command immediately.  ");
+
             base.OnEnter();
         }
 

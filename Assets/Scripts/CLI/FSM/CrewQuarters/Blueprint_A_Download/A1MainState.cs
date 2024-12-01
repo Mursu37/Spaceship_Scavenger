@@ -15,7 +15,12 @@ namespace CLI.FSM
 
         public override void OnEnter()
         {
-            stateController.ChangeFlavourText("CQ-12A Terminal Access Point Main Directory");
+            stateController.ChangeFlavourText("DIRECTORY: /crew_quarters/lounge/\r\n" +
+                "--------------------------------------------------------------------\r\n" +
+                "Welcome to CQ-12A Lounge Terminal.\r\n" +
+                "Status: Active for crew utilities.\r\n\r\n" +
+                "Ventilation Notice: Recent activity detected in shaft access.\r\n" +
+                "Report all unusual behavior to security immediately.");
 
             base.OnEnter();
         }

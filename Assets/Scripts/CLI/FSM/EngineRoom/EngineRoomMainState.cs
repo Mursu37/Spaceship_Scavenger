@@ -14,6 +14,13 @@ namespace CLI.FSM
 
         public override void OnEnter()
         {
+            stateController.ChangeFlavourText("DIRECTORY: /engine_room/\r\n" +
+                "--------------------------------------------------------------------\r\n" +
+                "Welcome to Engine Systems Terminal.\r\n" +
+                "Status: Systems stable.Auxiliary power routing active.\r\n\r\n" +
+                "* Reactor Operations: Restricted to authorized personnel.\r\n" +
+                "* Warning: Pressure anomalies detected in secondary piping.");
+
             base.OnEnter();
         }
 

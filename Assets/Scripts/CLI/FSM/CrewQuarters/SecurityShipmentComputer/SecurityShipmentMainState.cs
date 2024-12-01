@@ -15,7 +15,13 @@ namespace CLI.FSM
 
         public override void OnEnter()
         {
-            base.OnEnter();
+            stateController.ChangeFlavourText("DIRECTORY: /maintenance_shaft/\r\n" +
+                "--------------------------------------------------------------------\r\n" +
+                "Welcome to Shaft Access Terminal.\r\n" +
+                "Status: Blocked.Heavy security protocols in place.\r\n\r\n" +
+                "* Core Movement Restriction: Authorization required.\r\n" +
+                "* Maintenance teleporter offline for unauthorized access.");
+                base.OnEnter();
         }
 
         public override void Interpret(string command)

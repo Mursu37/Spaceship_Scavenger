@@ -14,6 +14,13 @@ namespace CLI.FSM
 
         public override void OnEnter()
         {
+            stateController.ChangeFlavourText("DIRECTORY: /storage_space/\r\n" +
+                "--------------------------------------------------------------------\r\n" +
+                "Welcome to Storage Access Terminal.\r\n" +
+                "Status: Limited Access.\r\n\r\n" +
+                "* Active Monitors: Security feed operational.\r\n" +
+                "* Storage Units: Sealed.Contact supervisor for access codes.");
+
             base.OnEnter();
         }
 
