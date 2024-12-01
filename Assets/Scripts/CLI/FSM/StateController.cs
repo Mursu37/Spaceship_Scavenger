@@ -12,6 +12,7 @@ namespace CLI.FSM
 {
     public abstract class StateController : MonoBehaviour
     {
+
         [SerializeField] private GameObject CLI;
 
         [SerializeField] protected TMP_Text commandLineText;
@@ -77,7 +78,8 @@ namespace CLI.FSM
             {
                 Destroy(command);
             }
-            commandList.Clear();   
+            commandList.Clear();
+            
         }
 
         // Adds commands from current state to CLI Canvas and commandList
@@ -164,7 +166,7 @@ namespace CLI.FSM
             int previousTextLength;
             previousTextLength = commandLineText.textInfo.characterCount;
 
-            commandLineText.text = commandLineText.text + "<BR><BR>" + text;
+            commandLineText.text = commandLineText.text + "\r\n" + text;
             commandLineText.maxVisibleCharacters = commandLineText.textInfo.characterCount;
             commandLineText.ForceMeshUpdate(true);
 
@@ -303,7 +305,6 @@ namespace CLI.FSM
             stateHistory.Clear();
             stateHistory.Add(defaultState);
             currentState = defaultState;
-            currentState.OnEnter();
 
             commandLineText.text = "";
             commandLineInput.text = "";

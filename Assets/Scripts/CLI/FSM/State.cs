@@ -7,6 +7,8 @@ namespace CLI.FSM
 {
     public abstract class State
     {
+        public static List<string> globalQueryCommands = new List<string> {"yes", "no", "y", "n", "confirm", "cancel"};
+
         protected Dictionary<string, State> directories = new Dictionary<string, State>();
         protected List<string> commands = new List<string>();
         
@@ -76,6 +78,7 @@ namespace CLI.FSM
 
         public virtual void OnExit()
         {
+
         }
 
         public virtual void OnEnter()
@@ -86,6 +89,13 @@ namespace CLI.FSM
         public virtual string GetCurrentStateName()
         {
             return stateController.GetCurrentStateDirectoryText();
+        }
+
+        public virtual void RemoveGlobalQueryCommands()
+        {
+            //Remove Query commands such as yes / no / y / n / confirm / cancel
+            commands.RemoveAll(command => globalQueryCommands.Contains(command));
+            stateController.UpdateCommands();
         }
 
         protected virtual void CommandNotRecognised()

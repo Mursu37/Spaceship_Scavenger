@@ -1,4 +1,4 @@
-using Enviroment.MainTerminal;
+﻿using Enviroment.MainTerminal;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,84 +6,358 @@ namespace CLI.FSM
 {
     public class CoreState : State
     {
+        public bool protocolHasRun = false;
+        private bool protocolIsRunning = false;
+        private bool decryptedCodesDone = false;
+        private bool overrideSystemDone = false;
+        private bool injectedCredentialsDone = false;
+        private bool query = false;
+
+        
+
         public CoreState(StateController controller) : base(controller)
         {
-            //directories.Add("instructions", new CoreDisconnectInstructionsState(controller));
-            commands.Insert(0, "run execute_protocol");
-            commands.Insert(1, "decrypt authorization_codes");
-            commands.Insert(2, "logview core_status");
-            commands.Insert(2, "override system_override");
-            commands.Insert(2, "reroute power_dispatch");
-            commands.Insert(2, "traceback intrustion_alert");
+            commands.Insert(0, "module instructions");
+            commands.Insert(1, "run core_extract_protocol");
+            if (!injectedCredentialsDone)
+            {
+                commands.Insert(2, "inject access_point");
+            }
+            if (!decryptedCodesDone)
+            {
+                commands.Insert(3, "decrypt keys");
+            }
+            if (!overrideSystemDone)
+            {
+                commands.Insert(4, "run system_overrides");
+            }
+            // commands.Insert(5, "traceback intrustion_alert");
         }
 
         public override void OnEnter()
         {
-            base.OnEnter();
+
+            //Remove Query Commands (This works for now but caused issues earlier when having a if-statement structure)
+            RemoveGlobalQueryCommands();
+
+            query = false;
             stateController.ChangeFlavourText("DIRECTORY: /core_systems/disconnect_protocol/\r\n" +
                 "--------------------------------------------------------------------\r\n" +
-                "> EXECUTE_PROTOCOL.dll - Executable for core disconnection.\r\n" +
-                "> AUTHORIZATION_CODES.dat - Encrypted file of access keys.\r\n" +
-                "> CORE_STATUS.log - Contains real - time core health data.\r\n" +
-                "> SYSTEM_OVERRIDES.sys - Configuration for bypassing core safety.\r\n" +
-                "> POWER_REDISPATCH.cfg - File for rerouting power post - disconnection.\r\n" +
+                "> CORE_EXTRACT_PROTOCOL.dll - Executable for core disconnection.\r\n" +
                 "> INTRUSION_ALERT.log - Log file tracking hacking attempts.\r\n" +
+                "   <color=#3Ca8a8>[ACCESS_POINT.exe - Establish injection point for system control.]\r\n" +
+                "   <color=#3Ca8a8>[DECRYPT_CODES.exe - Decrypt authorization keys for access.]\r\n" +
+                "   <color=#3Ca8a8>[SYSTEM_OVERRIDES.sys - Configure bypass of core safety protocols.]\r\n" +
                 "--------------------------------------------------------------------\r\n" +
-                "* WARNING: Unauthorized access detected.\r\n");
+                "* WARNING: Unauthorized access detected.");
 
+            base.OnEnter();
+        }
+
+        private void InjectFlavor()
+        {
+            if (!injectedCredentialsDone)
+            {
+                if (!protocolIsRunning)
+                {
+                    stateController.ChangeText("");
+                }
+
+                stateController.ChangeText("<color=#c8a519>run [ACCESS_POINT.exe]</color>");
+                stateController.AddText("<line-height=0>========================================================", 0, true, () =>
+                {
+                    stateController.AddText("<color=#c8a519><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
+                    {
+                        stateController.AddText("Injection point established.\r\n" +
+                           "Temporary system control link activated.\r\n" +
+                           "Proceed with decryption of access codes.", 0f, true, () =>
+                        {
+                            injectedCredentialsDone = true;
+
+                            if (commands.Contains("inject access_point"))
+                            {
+                                commands.Remove("inject access_point");
+                            }
+                            stateController.UpdateCommands();
+
+                            if (protocolIsRunning)
+                            {
+                                DecryptFlavor();
+                            }
+                        });
+
+                    });
+
+                });
+            }
+            else
+            {
+                stateController.AddText("Injection point already established.\r\n" +
+                           "Proceed with decryption of access codes.");
+
+                if (protocolIsRunning)
+                {
+                    DecryptFlavor();
+                }
+            }
+        }
+
+        private void DecryptFlavor()
+        {
+            if (!decryptedCodesDone)
+            {
+                if (!protocolIsRunning)
+                {
+                    stateController.ChangeText("");
+                }
+
+                stateController.AddText("<color=#c8a519>run [DECRYPT_CODES.exe]:</color>");
+                stateController.AddText("<line-height=0>========================================================", 0, true, () =>
+                {
+                    stateController.AddText("<color=#c8a519><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
+                    {
+                        stateController.AddText("[Authorization keys successfully decrypted.\r\n" +
+                           "Access key: \"#43X-1924-AEGIS\" added to memory buffer.\r\n" +
+                           "Continue to safety override configuration.]", 0f, true, () =>
+                           {
+                               decryptedCodesDone = true;
+
+                               if (commands.Contains("decrypt keys"))
+                               {
+                                   commands.Remove("decrypt keys");
+                               }
+                               stateController.UpdateCommands();
+
+                               if (protocolIsRunning)
+                               {
+                                   OverrideFlavor();
+                               }
+                           });
+
+                    });
+
+                });
+            }
+            else
+            {
+                stateController.AddText("[Authorization keys successfully decrypted.\r\n" +
+                "Access key: \"#43X-1924-AEGIS\" added to memory buffer.\r\n" +
+                "Proceed with decryption of access codes.\r\n" +
+                "Continue to safety override configuration.]");
+
+                if (protocolIsRunning)
+                {
+                    OverrideFlavor();
+                }
+            }
+        }
+
+        private void OverrideFlavor()
+        {
+            if (!overrideSystemDone)
+            {
+                if (!protocolIsRunning)
+                {
+                    stateController.ChangeText("");
+                }
+
+                stateController.AddText("<color=#c8a519>run [SYSTEM_OVERRIDES.sys]:</color>");
+                stateController.AddText("<line-height=0>========================================================", 0, true, () =>
+                {
+                    stateController.AddText("<color=#c8a519><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
+                    {
+                        stateController.AddText("[Core safety protocols bypassed.\r\n" +
+                           "Extraction measures enabled. Proceed with caution.\r\n" +
+                           "Execute CORE_EXTRACT_PROTOCOL to begin disconnection.]", 0f, true, () =>
+                           {
+                               overrideSystemDone = true;
+
+                               if (commands.Contains("run system_overrides"))
+                               {
+                                   commands.Remove("run system_overrides");
+                               }
+                               stateController.UpdateCommands();
+
+                               if (protocolIsRunning)
+                               {
+                                   Disconnect();
+                               }
+                           });
+
+                    });
+
+                });
+            }
+            else
+            {
+                stateController.ChangeText("[SYSTEM_OVERRIDES.sys]:\r\n" +
+                "Override over Core safety protocols has already been established.\r\n" +
+                "Execute CORE_EXTRACT_PROTOCOL to begin disconnection.");
+
+                if (protocolIsRunning)
+                {
+                    Disconnect();
+                }
+            }
+
+
+        }
+
+        private void Disconnect()
+        {
+            if (!protocolHasRun)
+                {
+                    if (!protocolIsRunning)
+                    {
+                        stateController.ChangeText("");
+                    }
+
+                    stateController.AddText("<color=#c8a519>run CORE_EXTRACT_PROTOCOL.dll:</color>");
+                    stateController.AddText("<line-height=0>========================================================", 0, true, () =>
+                    {
+                        stateController.AddText("<color=#c8a519><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>" , 0.05f, true, () =>
+                        {
+                            stateController.AddText("Core disconnection initiated.\r\n" +
+                               "*[Using Injected Access point]\r\n" +
+                               "*Unauthorized access detected\r\n" +
+                               "[Submitting decryted access keys]\r\n" +
+                               "Activating security protocols\r\n" +
+                               "[Safety protocols bypassed]\r\n" +
+                               "[Manual extraction of core succesfully enabled.]\r\n" +
+                               "*Safety countermeasures blocked. Rebooting security systems..." +
+                               "", 0f, true, () =>
+                               {
+                                   protocolHasRun = true;
+                                   protocolIsRunning = false;
+                               });
+
+                        });
+
+                    });
+                }
+        }
+
+        private void DisconnectFlavor()
+        {
+            protocolIsRunning = true;
+
+            if (!protocolHasRun)
+            {
+                InjectFlavor();
+            }
+        }
+
+        public override void OnExit()
+        {
+            /*
+            if (commands.Contains("yes"))
+            {
+                commands.Remove("yes");
+            }
+            if (commands.Contains("no"))
+            {
+                commands.Remove("no");
+            }
+            if (commands.Contains("confirm"))
+            {
+                commands.Remove("confirm");
+            }
+            if (commands.Contains("cancel"))
+            {
+                commands.Remove("cancel");
+            }
+            */
+         //   stateController.UpdateCommands();
+
+            query = false;
+
+            base.OnExit();
         }
 
         public override void Interpret(string command)
         {
-            if (command == "run execute_protocol")
-            {
-                if (GameObject.Find("PowerOnSwitch").GetComponent<ShipPowerOn>().isPowerOn)
-                {
-                    EventDispatcher dispatcher;
-                    dispatcher = stateController.gameObject.GetComponent<CoreEventDispatcher>();
-                    dispatcher.TriggerEvent();
 
-                    stateController.ChangeText("<color = red> WARNING:</ color > Executing this protocol will destabilize core containment.\r\n" +
-                        "Type < color = yellow > 'confirm' </ color > to proceed or < color = cyan > 'cancel' </ color > to abort.");
+            //Remove Query commands
+            RemoveGlobalQueryCommands();
+
+            if (query == true && command == "confirm")
+            {
+                DisconnectFlavor();
+                query = false;
+                return;
+            }
+            else if (query == true && command == "cancel")
+            {
+                stateController.ChangeText("Containment Core Extract Protocol execution aborted.");
+
+                query = false;
+                return;
+            }
+
+            query = false;
+
+
+            if (command == "run core_extract_protocol")
+            {
+                if (!protocolHasRun)
+                {
+                    if (GameObject.Find("PowerOnSwitch").GetComponent<ShipPowerOn>().isPowerOn)
+                    {
+                        EventDispatcher dispatcher;
+                        dispatcher = stateController.gameObject.GetComponent<CoreEventDispatcher>();
+                        dispatcher.TriggerEvent();
+
+                        stateController.ChangeText("<color=#3Ca8a8>[WARNING: Executing this protocol will destabilize the core containment.\r\n" +
+                        "<color=#3Ca8a8>Type 'confirm' to proceed or 'cancel' to abort.]");
+
+                        query = true;
+                        commands.Add("confirm");
+                        commands.Add("cancel");
+                        stateController.UpdateCommands();
+                    }
+                    else
+                    {
+                        stateController.ChangeText("This computer requires the main power coupling to be manually linked in order to disconnect the Containemnt Core");
+                    }
                 }
                 else
                 {
-                    stateController.ChangeText("This computer requires the main power coupling to be manually linked in order to disconnect the Containemnt Core");
+                    stateController.ChangeText("<color=#3Ca8a8>[The protocol has been executed. Manual disconnection of core is enabled.]\r\n" +
+                        "[Manual disengage of the core is required. Warning: this activates the ship alarms and core overheating begins.]");
                 }
-            }
-            else if (command == "decrypt authorization_codes")
-            {
-                stateController.ChangeText("<color=yellow>Decrypting AUTHORIZATION_CODES.dat...</color>\r\n" +
-                    "< color = green > Decryption successful.</ color >\r\n" +
-                    "Access Key: #43X-1924-AEGIS");
+
             }
 
-            else if (command == "logview CORE_STATUS")
+
+            else if (command == "module instructions")
             {
-                stateController.ChangeText("<color=cyan>Core Status:</color>\r\n" +
-                    "Containment Field: < color = orange > Weak </ color >\r\n" +
-                    "Power Load: < color = yellow > 70 %</ color >\r\n" +
-                    "External Intrusions: < color = red > Active(1 Source) </ color > ");
+                stateController.ChangeText("<color=#3Ca8a8>[Type 'CORE_EXTRACT_PROTOCOL' to initiate core retrieval." +
+                    "<color=#53e09c><b>Warning:</b></color> Core extraction will trigger shipwide alarms." +
+                    "<color=#53e09c>Emergency protocols and automated defenses may engage. Proceed with caution.<color=#3Ca8a8>]");
             }
-            else if (command == "logview CORE_STATUS")
+
+            else if (command == "inject access_point")
             {
-                stateController.ChangeText("<color=cyan>Core Status:</color>\r\n" +
-                    "Containment Field: < color = orange > Weak </ color >\r\n" +
-                    "Power Load: < color = yellow > 70 %</ color >\r\n" +
-                    "External Intrusions: < color = red > Active(1 Source) </ color >\r\n");
+                InjectFlavor();
             }
-            else if (command == "traceback intrustion_alert")
+
+            else if (command == "decrypt keys")
             {
-                stateController.ChangeText("<color=cyan>Intrusion Log:</color>\r\n" +
+                DecryptFlavor();
+            }
+
+            else if (command == "run system_overrides")
+            {
+                OverrideFlavor();
+            }
+
+          /*  else if (command == "traceback intrustion_alert")
+            {
+                stateController.ChangeText("Intrusion Log:\r\n" +
                     "> Unregistered access from terminal ID: 07XA9\r\n" +
                     "> Hacking tool detected: VOIDHAUL_BREACHING_MODULE\r\n" +
                     "> Countermeasures: Disabled");
-            }
-            else if (command == "reroute power_dispatch")
-            {
-                stateController.ChangeText("<color=yellow>Rerouting power to auxiliary systems...</color>\r\n" +
-                    "< color = green > Power successfully stabilized in non - critical systems.</ color > ");
-            }
+            }*/
             else if (command == "help")
             {
                 stateController.ChangeText("<color=red>VOIDHAUL_BREACHING_MODULE COMMANDS:</color>  " +
@@ -91,8 +365,7 @@ namespace CLI.FSM
                     "- run EXECUTE_PROTOCOL" +
                     "- override SYSTEM_OVERRIDES  " +
                     "- logview CORE_STATUS  " +
-                    "- traceback INTRUSION_ALERT  " +
-                    "- reroute POWER_REDISPATCH");
+                    "- traceback INTRUSION_ALERT");
             }
             else
             {

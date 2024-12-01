@@ -17,7 +17,6 @@ namespace CLI.FSM
 
         public override void OnEnter()
         {
-            base.OnEnter();
             stateController.ChangeFlavourText("<align=left>DIRECTORY: " + stateController.GetCurrentStateDirectoryText() + "\r\n" +
                 "<align=flush>-----------------------------------------------------------</align>\r\n" +
                 "<align=left>> ACCESS_CONTROL.dll<line-height=0>\r\n" + //left
@@ -27,11 +26,11 @@ namespace CLI.FSM
                 "<align=left>> EVENT_LOG.dat<line-height=0>\r\n" + //left
                 "<align=right>Activity log for door access events.<line-height=1em>\r\n" + //right
                 "<align=left>> SYSTEM_DIAGNOSTIC.exe<line-height=0>\r\n" + //left
-                "<align=right>Run a diagnostic of the door control system.<line-height=1em>\r\n" + //right
+                "<align=right>Run a diagnostic of the door control system.<line-height=1em>\r\n" + //right  
                 "<align=flush>-----------------------------------------------------------</align>\r\n" +
                 "<align=left>* Unauthorized access detected. <color=#3Ca8a8>[Emergency lockout lifted.]</color>");
 
-            //stateController.ChangeText("Changed directory: " + stateController.GetCurrentStateDirectoryText());
+            base.OnEnter();
 
         }
 
@@ -48,23 +47,6 @@ namespace CLI.FSM
 
             stateController.UpdateCommands();
 
-            /*   if (command == "access")
-               {
-                   stateController.ChangeText("> access DOOR_03A\r\n" +
-                       "<color=#0a6310>DOOR_03A unlocked. Proceed with caution.</color>");
-               }*/
-            /* else if (command == "lockdown")
-             {
-                 stateController.ChangeText("> lockdown\r\n" +
-                     "<color=#c8a519>All access points secured. Authorization required to lift lockdown.</color>");
-             } */
-            /*  else if (command == "override")
-              {
-                  stateController.ChangeText("> lockdown\r\n" +
-                      "<color=#c8a519>OVERRIDE_PROTOCOL initiated.\r\n" +
-                      "Access permissions bypassed.Manual control granted.\r\n" +
-                      "You may now execute restricted commands.</color>");
-              }*/
             if (command == "log")
             {
                 stateController.ChangeText("[DOOR USAGE LOG: MAINTENANCE SHAFT]\r\n" +
@@ -77,11 +59,6 @@ namespace CLI.FSM
                 stateController.ChangeText("SYSTEM_DIAGNOSTIC.exe executed.\r\n" +
                     "Analyzing door control system... 100 % complete. " + "Results:\r\n" +
                     "- Door A2: Operational..\r\n");
-
-             /*   query = true;
-                commands.Add("yes");
-                commands.Add("no");
-                stateController.UpdateCommands(); */
 
             }
             else if (command == "help")
