@@ -13,6 +13,7 @@ public class CoreTrigger : MonoBehaviour
 
         public void MissionCompleted()
     {
+        // AudioManager.PlayAudio("MissionComplete", 1, 1, false); // This should play on contract complete screen if/when there is one
         LoadMainMenuScene();
     }
 
