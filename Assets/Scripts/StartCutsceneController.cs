@@ -9,8 +9,11 @@ public class StartCutsceneController : MonoBehaviour
 
     private void Start()
     {
-        PauseGame.isPaused = true;
-        pauseMenu.enabled = false;
+        if (!CheckpointManager.checkpointReached)
+        {
+            PauseGame.isPaused = true;
+            pauseMenu.enabled = false;
+        }
 
         if (!CheckpointManager.checkpointReached)
         {
