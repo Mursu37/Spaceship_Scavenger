@@ -71,13 +71,17 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 8dfb2f63240141e41af270d3b9cf15f6, type: 3}
-        m_Scale: {x: 0.03, y: 0.58}
+        m_Texture: {fileID: 2800000, guid: 852e7b6870d48fb44a59838911ec0398, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 1, y: 1}
     - _MaskMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: 8dfb2f63240141e41af270d3b9cf15f6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 1, y: 1}
     - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -144,8 +148,8 @@ Material:
     - _AlphaSrcBlend: 1
     - _Anisotropy: 0
     - _BlendMode: 0
-    - _Blue: 0.12
-    - _ChangeRate: 1
+    - _Blue: 0
+    - _ChangeRate: 0.16
     - _CoatMask: 0
     - _CullMode: 2
     - _CullModeForward: 2
@@ -171,7 +175,7 @@ Material:
     - _EnableFogOnTransparent: 1
     - _EnableGeometricSpecularAA: 0
     - _EnergyConservingSpecularColor: 1
-    - _Green: 1
+    - _Green: 1.1
     - _HeightAmplitude: 0.02
     - _HeightCenter: 0.5
     - _HeightMapParametrization: 0
@@ -203,7 +207,7 @@ Material:
     - _RayTracing: 0
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
-    - _Red: 38
+    - _Red: 200
     - _RefractionModel: 0
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
