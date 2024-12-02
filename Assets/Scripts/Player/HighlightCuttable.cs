@@ -7,16 +7,17 @@ using UnityEngine;
 
 public class HighlightCuttable : MonoBehaviour
 {
+
+    public Collider currentlyCuttable;
+
     [SerializeField] private GameObject highlightObjectPrefab;
     [SerializeField] private int range;
     
     [SerializeField] private Cutting cutting;
     private float tolerance;
     private float distance;
-    private Collider currentlyCuttable;
-    
-    private List<Collider> currentlyInRange;
     private Dictionary<Collider, GameObject> highlights;
+    private List<Collider> currentlyInRange;
 
     private Camera mainCamera;
     private LayerMask layerMask;
@@ -30,7 +31,12 @@ public class HighlightCuttable : MonoBehaviour
         mainCamera = Camera.main;
         layerMask = LayerMask.GetMask("Player") | LayerMask.GetMask("CutThrough") | LayerMask.GetMask("FirstPersonView");
     }
-    
+
+    public bool AreObjectsInRange()
+    {
+        return highlights.Count > 0;
+    }
+
     private void Update()
     {
         
