@@ -16,6 +16,7 @@ public class CoreTeleporterEntrance : MonoBehaviour
     [SerializeField] private GameObject teleporterExit;
     [SerializeField] private Transform core;
     [SerializeField] private Transform coreHolder;
+    [SerializeField] private Animator coreAnimator;
     [SerializeField] private GameObject multitool;
     [SerializeField] private Checkpoint checkpoint;
     [SerializeField] private EventDispatcher dispatcher;
@@ -79,6 +80,7 @@ public class CoreTeleporterEntrance : MonoBehaviour
                         gravityGun.isAttracting = false;
                         core.GetComponent<Collider>().enabled = false;
                         Rigidbody coreRb = core.GetComponent<Rigidbody>();
+                        coreAnimator.SetBool("canClose", true);
                         if (coreRb != null)
                         {
                             coreRb.constraints = RigidbodyConstraints.FreezeAll;
@@ -102,6 +104,8 @@ public class CoreTeleporterEntrance : MonoBehaviour
                     animator.Play("TeleporterOpen");
                     currentState = TeleporterState.Idle;
                     canTeleport = false;
+                    coreAnimator.SetBool("canClose", false);
+                    coreAnimator.Play("Idle");
                     break;
             }
         }

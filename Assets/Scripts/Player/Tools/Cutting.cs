@@ -9,14 +9,13 @@ using TMPro;
 using UnityEngine.UIElements;
 using System.Drawing;
 using Unity.Mathematics;
+using Random = UnityEngine.Random;
 
 public class Cutting : MonoBehaviour
 {
     [SerializeField] private GameObject CuttingTrailPrefab;
-    private GameObject cuttingTrailRight;
-    private GameObject cuttingTrailLeft;
-    private Collider cuttingColliderRight;
-    private Collider cuttingColliderLeft;
+    [SerializeField] private GameObject trailParticlePrefab;
+    private bool isCutting = false;
 
     private LayerMask layerMask;
     private Transform cuttingPoint;
@@ -79,7 +78,7 @@ public class Cutting : MonoBehaviour
         switch(currentType)
         {
             case CuttableType.Normal:
-                if (cuttingPoint != null)
+                if (cuttingPoint != null && !isCutting)
                 {
                     beamSource.Play();
                     StartCoroutine(AnimateLasers(cuttingPoint, 1f));
@@ -199,6 +198,12 @@ public class Cutting : MonoBehaviour
 
     private IEnumerator AnimateLasers(Transform point, float duration)
     {
+        isCutting = true;
+        GameObject cuttingTrailRight = null;
+        GameObject cuttingTrailLeft = null;
+        Collider cuttingColliderRight = null;
+        Collider cuttingColliderLeft = null;
+        
         MeshFilter meshFilter = point.GetComponent<MeshFilter>();
         if (meshFilter != null)
         {
@@ -242,9 +247,11 @@ public class Cutting : MonoBehaviour
 
                     // Update the end position of the line renderer
                     Vector3 currentRightPoint = Vector3.Lerp(hitPoint, rightmostPoint, t);
+                    rightmostLaser.SetPosition(0, shootingPoint.position);
                     rightmostLaser.SetPosition(1, currentRightPoint);
 
                     Vector3 currentLeftPoint = Vector3.Lerp(hitPoint, leftmostPoint, t);
+                    leftmostLaser.SetPosition(0, shootingPoint.position);
                     leftmostLaser.SetPosition(1, currentLeftPoint);
 
                     // Cutting burn marks
@@ -281,6 +288,10 @@ public class Cutting : MonoBehaviour
                                 cuttingColliderRight = hit.collider;
                                 Destroy(cuttingTrailRight, 15);
                             }
+                            if (Random.Range(0, 5) > 3f)
+                            {
+                                Instantiate(trailParticlePrefab, hit.point, quaternion.identity, hit.transform);
+                            }
                         }
                         else if (cuttingTrailRight != null)
                         {
@@ -315,6 +326,11 @@ public class Cutting : MonoBehaviour
                                 cuttingColliderLeft = hit.collider;
                                 Destroy(cuttingTrailLeft, 15);
                             }
+
+                            if (Random.Range(0, 5) > 3f)
+                            {
+                                Instantiate(trailParticlePrefab, hit.point, quaternion.identity, hit.transform);
+                            }
                         }
                         else if (cuttingTrailLeft != null)
                         {
@@ -341,6 +357,8 @@ public class Cutting : MonoBehaviour
                 if (leftBeamEnd != null)
                     Destroy(leftBeamEnd.gameObject);
             }
+
+            isCutting = false;
         }
 
         // Disable the lasers after animation is complete
