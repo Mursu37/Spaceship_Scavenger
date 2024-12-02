@@ -71,9 +71,8 @@ Shader "Custom/NormalDepthExclusion"
                 // sample the texture
                 //fixed4 col = tex2D(_MainTex, i.uv);
                 float dist = distance(i.worldPosition, _WorldSpaceCameraPos);
-                float fadeRange = 0.2;
-                if (dist > _CheckDistance + fadeRange) return fixed4(0,0,0,0);
-                if (dist >= _CheckDistance - fadeRange)
+                if (dist > _CheckDistance) return fixed4(0,0,0,0);
+                if (dist >= _CheckDistance - 0.2)
                 {
                     return fixed4(0,0, 1, 1);
                 }

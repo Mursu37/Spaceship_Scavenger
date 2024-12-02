@@ -66,9 +66,9 @@ Shader "XRay/Outline2"
             float4 neighbour = SAMPLE_TEXTURE2D_X_LOD(_OutlineBuffer, s_linear_clamp_sampler, uvN, 0);
 
             
-            if (neighbour.b > 0.2)
+            if (neighbour.b > 0.1)
             {
-                continue;
+                break;
             }
             if (Luminance(float3(neighbour.rg, 0)) > threshold)
             {

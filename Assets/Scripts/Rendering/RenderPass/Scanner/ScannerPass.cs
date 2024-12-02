@@ -7,11 +7,14 @@ using UnityEngine.Experimental.Rendering;
 
 class ScannerPass : CustomPass
 {
-    public List<ScanSettings> scanSettingsList = new List<ScanSettings>();
-    public float range = 10;
+    [SerializeField]private List<ScanSettings> scanSettingsList = new List<ScanSettings>();
+    [SerializeField] private TogglexRay scanValues;
+    
     [Range(0, 10)] [SerializeField] private float threshold = 1;
     [SerializeField] private Material replacementMaterial;
     [SerializeField] private Shader outlineShader;
+
+    public float range;
     
     [SerializeField, HideInInspector]
     Material fullscreenOutline;
@@ -42,7 +45,7 @@ class ScannerPass : CustomPass
             new ShaderTagId("SRPDefaultUnlit"),
             new ShaderTagId("FirstPass"),
         };
-        
+        range = scanValues.GetRange();
         // Messy but easy way of doing this. Modifies camera settings for culling data. We set these back to normal below
         // TODO Edit cullingParameters instead of camera
         mask = Camera.main.cullingMask;
@@ -50,11 +53,12 @@ class ScannerPass : CustomPass
         Camera.main.cullingMask |= Physics.AllLayers;
         
         // makes sure we dont fuck up the camera settings
-        if (range < 1) range = 1;
-        Camera.main.farClipPlane = range + 10;
+        //if (range < 1) range = 1;
+        Camera.main.farClipPlane = range + 5;
         
         // Get culling data
         if (!Camera.main.TryGetCullingParameters(out var cullingParameters)) Debug.Log("err");
+        cullingParameters.cullingOptions = CullingOptions.None;
         CullingResults cullingResults = ctx.renderContext.Cull(ref cullingParameters);
         
         // Render settings
@@ -71,11 +75,12 @@ class ScannerPass : CustomPass
         };
         
         // Sets properties for outline
-        ctx.propertyBlock.SetFloat("_Threshold", threshold);
+        //ctx.propertyBlock.SetFloat("_Threshold", threshold);
         replacementMaterial.SetFloat("_CheckDistance", range);
         
         foreach (var scanSetting in scanSettingsList)
         {
+            ctx.propertyBlock.SetFloat("_Threshold", scanSetting.overrideThreshold ? scanSetting.threshold : threshold);
             // set scanSetting specific settings
             ctx.propertyBlock.SetColor("_OutlineColor", scanSetting.color);
             result.layerMask = scanSetting.layerMask;
