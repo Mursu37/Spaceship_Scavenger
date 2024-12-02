@@ -234,7 +234,7 @@ namespace CLI.FSM
                                    EventDispatcher dispatcher;
                                    dispatcher = stateController.gameObject.GetComponent<CoreEventDispatcher>();
                                    dispatcher.TriggerEvent();
-                                   AudioManager.PlayAudio("InteractBeep2", 1, 1, false, null, true);
+                                   AudioManager.PlayAudio("InteractBeep2", 0.4f, 1, false, null, true);
                                    protocolHasRun = true;
                                    protocolIsRunning = false;
                                });
