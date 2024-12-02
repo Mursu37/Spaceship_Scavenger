@@ -21,6 +21,12 @@ public class MarkerDirection : MonoBehaviour
     private void LateUpdate()
     {
         currentMarker = GameObject.FindGameObjectWithTag("Marker");
+        if (currentMarker == null)
+        {
+            markerArrow.enabled = false;
+            markerIcon.enabled = false;
+            distance.SetActive(false);
+        }
         Vector3 markerPos = currentMarker.transform.position;
             
         float minX = -(Screen.width / 2) + markerArrow.GetPixelAdjustedRect().width / 2 + 30;
