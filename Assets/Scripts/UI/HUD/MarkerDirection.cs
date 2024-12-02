@@ -1,20 +1,32 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MarkerDirection : MonoBehaviour
 {
     private GameObject currentMarker;
+    private GameObject player;
     private float cornerSize = 50f;
     
     [SerializeField] private Image markerArrow;
+    [SerializeField] private Image markerIcon;
+    [SerializeField] private GameObject distance;
+    [SerializeField] private TMP_Text distanceText;
     private void Start()
     {
         currentMarker = GameObject.FindGameObjectWithTag("Marker");
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void LateUpdate()
     {
         currentMarker = GameObject.FindGameObjectWithTag("Marker");
+        if (currentMarker == null)
+        {
+            markerArrow.enabled = false;
+            markerIcon.enabled = false;
+            distance.SetActive(false);
+        }
         Vector3 markerPos = currentMarker.transform.position;
             
         float minX = -(Screen.width / 2) + markerArrow.GetPixelAdjustedRect().width / 2 + 30;
@@ -51,8 +63,16 @@ public class MarkerDirection : MonoBehaviour
         if ((minX < pos.x && maxX > pos.x) && (minY < pos.y && maxY > pos.y))
         {
             markerArrow.enabled = false;
+            markerIcon.enabled = true;
+            distance.SetActive(true);
+            markerIcon.transform.localPosition = new Vector3(pos.x, pos.y + 30, 0);
+            markerIcon.transform.localEulerAngles = new Vector3(0, 0, -(player.transform.eulerAngles.z));
+            distanceText.text = (int)Vector3.Distance(Camera.main.transform.position, currentMarker.transform.position) + " m";
             return;
         }
+
+        markerIcon.enabled = false;
+        distance.SetActive(false);
         markerArrow.enabled = true;
         
         bool YEdge = minY + cornerSize > pos.y || maxY - cornerSize < pos.y;

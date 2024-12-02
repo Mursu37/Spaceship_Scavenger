@@ -1,9 +1,9 @@
-Shader "Unlit/CuttingBurnMark"
+Shader "Unlit/CuttingParticle"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _NoiseTex ("Noise tex", 2D) = "white" {}
+        [HDR] _Color ("Color", Color) = (1,1,1,1)
         _Red ("Red", Float) = 1
         _Green ("Green", Float) = 0.1
         _Blue ("Blue", Float) = 0.1
@@ -40,8 +40,7 @@ Shader "Unlit/CuttingBurnMark"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            sampler2D _NoiseTex;
-            float4 _NoiseTex_ST;
+            float4 _Color;
             float _ChangeRate;
             float _Green;
             float _Blue;
@@ -59,19 +58,8 @@ Shader "Unlit/CuttingBurnMark"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 colMask = tex2D(_NoiseTex, i.uv);
-
-                fixed4 noiseMask = tex2D(_NoiseTex, i.uv + frac(_Time));
-                fixed4 mainTex = tex2D(_MainTex, i.uv);
-                fixed4 additionMask = tex2D(_MainTex, lerp(i.uv, noiseMask.r, _ChangeRate));
-                
-                fixed4 col = fixed4(1, 0, 0, mainTex.r + additionMask.r);
-                col.r = col.r +(colMask.r * _Red);
-                col.b = col.b + (colMask.r * _Blue);
-                col.g = col.g + (colMask.r * _Green);
-                // apply fog
-                UNITY_APPLY_FOG(i.fogCoord, col);
-                return col;
+                fixed4 colMask = tex2D(_MainTex, i.uv);
+                return float4(_Color.rgb, colMask.a);
             }
             ENDCG
         }
