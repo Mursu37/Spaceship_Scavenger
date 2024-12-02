@@ -8,7 +8,7 @@ using UnityEngine;
 public class HighlightCuttable : MonoBehaviour
 {
 
-    public Collider currentlyCuttable;
+   
 
     [SerializeField] private GameObject highlightObjectPrefab;
     [SerializeField] private int range;
@@ -18,6 +18,7 @@ public class HighlightCuttable : MonoBehaviour
     private float distance;
     private Dictionary<Collider, GameObject> highlights;
     private List<Collider> currentlyInRange;
+    private Collider currentlyCuttable;
 
     private Camera mainCamera;
     private LayerMask layerMask;
@@ -35,6 +36,10 @@ public class HighlightCuttable : MonoBehaviour
     public bool AreObjectsInRange()
     {
         return highlights.Count > 0;
+    }
+    public bool IsCurrentlyCuttableDetected()
+    {
+        return currentlyCuttable;
     }
 
     private void Update()

@@ -73,7 +73,7 @@ public class Toolinfo : MonoBehaviour
                 string scanning = "";
 
 
-                if (cuttableHighlight.currentlyCuttable != null)
+                if (cuttableHighlight.IsCurrentlyCuttableDetected())
                 {
                     aligned = "YES/<color=#8b8b8b>NO</color>";
                 }

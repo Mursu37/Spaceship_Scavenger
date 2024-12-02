@@ -12,6 +12,9 @@ public class ModeSwitch : MonoBehaviour
     [SerializeField] private GameObject crosshair;
     [SerializeField] private GameObject cuttingCrosshairHorizontal;
     [SerializeField] private GameObject cuttingCrosshairVertical;
+    [SerializeField] private SkinnedMeshRenderer[] meshRenderers;
+    [SerializeField] private Material gravityMaterial;
+    [SerializeField] private Material cuttingMaterial;
     public int selectedMode;
 
     // Start is called before the first frame update
@@ -21,6 +24,7 @@ public class ModeSwitch : MonoBehaviour
         cutting = GetComponent<Cutting>();
         slicer = GetComponent<Slicer>();
         selectedMode = 0;
+
     }
 
     // Update is called once per frame
@@ -71,6 +75,16 @@ public class ModeSwitch : MonoBehaviour
                 crosshair.SetActive(true);
                 cuttingCrosshairHorizontal.SetActive(false);
                 cuttingCrosshairVertical.SetActive(false);
+
+                if (meshRenderers != null && meshRenderers.Length > 0)
+                {
+                    Material material = meshRenderers[0].sharedMaterial;
+                    material = gravityMaterial;
+                    for (int i = 0; i < meshRenderers.Length; i++)
+                    {
+                        meshRenderers[i].sharedMaterial = material;
+                    }
+                }
                 break;
             case 1:
                 slicerObject.SetActive(true);
@@ -80,6 +94,16 @@ public class ModeSwitch : MonoBehaviour
                 crosshair.SetActive(false);
                 cuttingCrosshairHorizontal.SetActive(true);
                 cuttingCrosshairVertical.SetActive(false);
+
+                if (meshRenderers != null && meshRenderers.Length > 0)
+                {
+                    Material material = meshRenderers[0].sharedMaterial;
+                    material = cuttingMaterial;
+                    for (int i = 0; i < meshRenderers.Length; i++)
+                    {
+                        meshRenderers[i].sharedMaterial = material;
+                    }
+                }
                 break;
         }
     }

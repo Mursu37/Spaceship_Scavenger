@@ -156,6 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aa54cfaf2db3284fa1e38709e4853af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CuttingTrailPrefab: {fileID: 0}
+  trailParticlePrefab: {fileID: 0}
   range: 2
   angleTolerance: 15
   animator: {fileID: 7670465059439358623}
@@ -199,6 +201,11 @@ MonoBehaviour:
   crosshair: {fileID: 0}
   cuttingCrosshairHorizontal: {fileID: 0}
   cuttingCrosshairVertical: {fileID: 0}
+  meshRenderers:
+  - {fileID: 787425520666806003}
+  - {fileID: 1498364103975482233}
+  gravityMaterial: {fileID: 2100000, guid: 2005216eef2aa074ab06e5d7903dc0a6, type: 2}
+  cuttingMaterial: {fileID: 2100000, guid: fbfaffec64f2d1642b00ca0440f47e5e, type: 2}
   selectedMode: 0
 --- !u!114 &7619085035995208659
 MonoBehaviour:
@@ -1430,6 +1437,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7670465059439358623}
   m_SourcePrefab: {fileID: 100100000, guid: b8a455dbaff4642419ac9f9ca465420a, type: 3}
+--- !u!137 &787425520666806003 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7773731088318660114, guid: b8a455dbaff4642419ac9f9ca465420a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6993149495370905825}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &1498364103975482233 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8487009707644373912, guid: b8a455dbaff4642419ac9f9ca465420a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6993149495370905825}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7387611030613237514 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b8a455dbaff4642419ac9f9ca465420a,

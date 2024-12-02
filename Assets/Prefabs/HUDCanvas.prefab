@@ -2046,8 +2046,8 @@ RectTransform:
   m_Children:
   - {fileID: 9181539271969729417}
   - {fileID: 6688518934998400164}
-  - {fileID: 1233815859777810531}
   - {fileID: 2958379151604343285}
+  - {fileID: 1233815859777810531}
   - {fileID: 8508259799639575510}
   m_Father: {fileID: 3779140804386572351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2072,9 +2072,15 @@ MonoBehaviour:
   delayedBar: {fileID: 3054290228308712375}
   stageText: {fileID: 5813267770824101764}
   coreObject: {fileID: 0}
-  lerpSpeed: 1.5
-  delayedBarLerpSpeed: 2
+  lerpSpeed: 10
+  delayedBarLerpSpeed: 1
   maxLagDistance: 0.1
+  fullDelayedBarColor: {r: 1, g: 0, b: 0.062675476, a: 1}
+  fullBarTransitionDuration: 1.75
+  waveColor: {r: 1, g: 1, b: 1, a: 1}
+  waveDuration: 0.25
+  waveThreshold: 0.02
+  delayDuration: 0.5
 --- !u!1 &1594585251771173844
 GameObject:
   m_ObjectHideFlags: 0
@@ -3409,6 +3415,7 @@ GameObject:
   - component: {fileID: 2958379151604343285}
   - component: {fileID: 7928211875262051291}
   - component: {fileID: 3054290228308712375}
+  - component: {fileID: 2155794005994875212}
   m_Layer: 0
   m_Name: DelayedMeter
   m_TagString: Untagged
@@ -3456,23 +3463,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.86738014, b: 0, a: 1}
+  m_Color: {r: 0.8490566, g: 0.29236382, b: 0.35461918, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 54e83b9bd99f8e6409c64cf9d34a901f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e99f113185dc184ab1c1b9b71886967, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0
+  m_FillAmount: 0.385
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!210 &2155794005994875212
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2975099148934253216}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_SortAtRoot: 0
 --- !u!1 &3052941188966518854
 GameObject:
   m_ObjectHideFlags: 0
@@ -3988,6 +4007,12 @@ MonoBehaviour:
   lerpSpeed: 0.02
   delayedBarLerpSpeed: 2
   maxLagDistance: 0.1
+  fullDelayedBarColor: {r: 0, g: 0, b: 0, a: 0}
+  fullBarTransitionDuration: 0.5
+  waveColor: {r: 0, g: 0, b: 0, a: 0}
+  waveDuration: 0.5
+  waveThreshold: 0.5
+  delayDuration: 0.5
 --- !u!1 &3679294260708978225
 GameObject:
   m_ObjectHideFlags: 0
@@ -5306,7 +5331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7258596262904966489
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6506,6 +6531,12 @@ MonoBehaviour:
   lerpSpeed: 0.02
   delayedBarLerpSpeed: 2
   maxLagDistance: 0.1
+  fullDelayedBarColor: {r: 0, g: 0, b: 0, a: 0}
+  fullBarTransitionDuration: 0.5
+  waveColor: {r: 0, g: 0, b: 0, a: 0}
+  waveDuration: 0.5
+  waveThreshold: 0.5
+  delayDuration: 0.5
 --- !u!114 &4841313492402956397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6565,6 +6596,7 @@ GameObject:
   - component: {fileID: 6688518934998400164}
   - component: {fileID: 8497773853588945804}
   - component: {fileID: 4322531747242951935}
+  - component: {fileID: 2903605870677717194}
   m_Layer: 0
   m_Name: Meter
   m_TagString: Untagged
@@ -6611,24 +6643,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 1, g: 0.8666667, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 54e83b9bd99f8e6409c64cf9d34a901f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e99f113185dc184ab1c1b9b71886967, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0.666
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!210 &2903605870677717194
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7643918091186249613}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &7645305452779482569
 GameObject:
   m_ObjectHideFlags: 0
