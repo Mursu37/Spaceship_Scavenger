@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7760991649355724591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6997171721557561918}
+  - component: {fileID: 6954975988690828640}
+  m_Layer: 0
+  m_Name: ScanningPass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6997171721557561918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760991649355724591}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -108.36764, y: -0.14325571, z: -0.67997885}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6954975988690828640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760991649355724591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d6499a6bd256e47b859377446493a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  fadeRadius: 0
+  priority: 0
+  customPasses:
+  - rid: 4306893757635100672
+  injectionPoint: 2
+  m_TargetCamera: {fileID: 0}
+  useTargetCamera: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4306893757635100672
+      type: {class: ScannerPass, ns: , asm: Assembly-CSharp}
+      data:
+        m_Name: Custom Pass
+        enabled: 1
+        targetColorBuffer: 0
+        targetDepthBuffer: 0
+        clearFlags: 0
+        passFoldout: 0
+        m_Version: 0
+        scanSettingsList:
+        - color: {r: 0.3019608, g: 0.4745098, b: 0.59607846, a: 0}
+          layerMask:
+            serializedVersion: 2
+            m_Bits: 256
+          overrideVisual: {fileID: 2100000, guid: dd1d70fc1b2eceb4cbff86f973a25970,
+            type: 2}
+          overrideThreshold: 0
+          threshold: 0
+        - color: {r: 0, g: 1.0592737, b: 0.069993876, a: 0}
+          layerMask:
+            serializedVersion: 2
+            m_Bits: 2097152
+          overrideVisual: {fileID: 2100000, guid: 48e9f961b8faeee4e81ebc2230420e4a,
+            type: 2}
+          overrideThreshold: 0
+          threshold: 0
+        - color: {r: 0, g: 3.3043249, b: 7.999999, a: 0}
+          layerMask:
+            serializedVersion: 2
+            m_Bits: 4096
+          overrideVisual: {fileID: 2100000, guid: 48e9f961b8faeee4e81ebc2230420e4a,
+            type: 2}
+          overrideThreshold: 0
+          threshold: 0
+        - color: {r: 7.999999, g: 1.228137, b: 0, a: 0}
+          layerMask:
+            serializedVersion: 2
+            m_Bits: 8192
+          overrideVisual: {fileID: 2100000, guid: 87b7e4c5c22383445ba21b905cf9786f,
+            type: 2}
+          overrideThreshold: 1
+          threshold: 3
+        - color: {r: 1, g: 0.9843137, b: 0, a: 0}
+          layerMask:
+            serializedVersion: 2
+            m_Bits: 16384
+          overrideVisual: {fileID: 2100000, guid: 5c4bbae014ffb7c428adec919145b163,
+            type: 2}
+          overrideThreshold: 1
+          threshold: 1
+        - color: {r: 1.1353015, g: 0, b: 0.03440575, a: 0}
+          layerMask:
+            serializedVersion: 2
+            m_Bits: 557056
+          overrideVisual: {fileID: 2100000, guid: f3b72ae133e7eb54b99a2c45a25e2c66,
+            type: 2}
+          overrideThreshold: 1
+          threshold: 3.33
+        - color: {r: 0, g: 3.3043249, b: 7.999999, a: 0}
+          layerMask:
+            serializedVersion: 2
+            m_Bits: 1088
+          overrideVisual: {fileID: 2100000, guid: ed04b50ec65f5734bb4e856d0114fcc3,
+            type: 2}
+          overrideThreshold: 1
+          threshold: 3
+        scanValues: {fileID: 0}
+        threshold: 0.18
+        replacementMaterial: {fileID: 2100000, guid: c01724b41324fd24691a4a2429423a8c,
+          type: 2}
+        outlineShader: {fileID: 4800000, guid: dab1ae183861fb949962e1f3e36563ad, type: 3}
+        range: 0
+        fullscreenOutline: {fileID: 0}

@@ -11,6 +11,9 @@ public class laser : MonoBehaviour
     private float damageCooldown;
     private float damageCooldownTimer;
 
+    private bool inCollision = false;
+    private Vector3 collisionForce = Vector3.zero;
+
     [SerializeField] private float damageAmount = 2f;
 
     private void Start()
@@ -39,9 +42,20 @@ public class laser : MonoBehaviour
                     float y = (currentVelocity.y < 0) ? scale : -scale;
                     float z = (currentVelocity.z < 0) ? scale : -scale;
                     //hit.rigidbody.AddExplosionForce(500, hit.point, 10);
-                    hit.rigidbody.AddForce(currentVelocity.x * -1.25f + x, currentVelocity.y * -1.25f + y, currentVelocity.z * -1.25f + z,
+                    if (inCollision)
+                    {
+                        Debug.Log("still in collision");
+                        collisionForce *= 1.1f;
+                    }
+                    else
+                    {
+                    collisionForce = new Vector3(currentVelocity.x * -1.25f + x, currentVelocity.y * -1.25f + y,
+                        currentVelocity.z * -1.25f + z);
+                    }
+                    hit.rigidbody.AddForce(collisionForce,
                         ForceMode.VelocityChange);
                     damageCooldownTimer = damageCooldown;
+                    inCollision = true;
                 }
 
                 if (hit.rigidbody.CompareTag("Explosive"))
@@ -63,6 +77,10 @@ public class laser : MonoBehaviour
         if (damageCooldownTimer > 0)
         {
             damageCooldownTimer -= Time.deltaTime;
+        }
+        else
+        {
+            inCollision = false;
         }
     }
 }
