@@ -8,13 +8,19 @@ namespace CLI.FSM
     {
         public A2MainState(StateController controller) : base(controller)
         {
-            directories.Add("a2_security", new A2SecurityState(controller));
+            directories.Add("laser_control", new A2SecurityState(controller));
+            directories.Add("logview", new A2LogState(controller));
         }
 
         public override void OnEnter()
         {
+            stateController.ChangeFlavourText("DIRECTORY: /maintenance/\r\n" +
+                "--------------------------------------------------------------------\r\n" +
+                "Welcome to Maintenance Terminal #045.\r\n" +
+                "Status: Active for system diagnostics and tools access.\r\n" +
+                "Ensure all safety protocols are followed when handling equipment.\r\n\r\n" +
+                "* Note: Security lasers are currently active. Exercise caution.");
 
-            stateController.ChangeText("System directories:<BR><BR>--- a2_security");
             base.OnEnter();
         }
 
@@ -22,15 +28,13 @@ namespace CLI.FSM
         {
             if (command == "help")
             {
-                stateController.ChangeText("Available commands: <BR> cd [directory_name] --- change directory");
-
-            }
-            else
-            {
-                base.Interpret(command);
+                stateController.ChangeText("HELP - Available Commands: \r\n" +
+                    "Door_control - change directory to door_control. \r\n" +
+                    "logview - view personnel log entries."
+                    );
             }
 
-
+            base.Interpret(command);
         }
     }
 }

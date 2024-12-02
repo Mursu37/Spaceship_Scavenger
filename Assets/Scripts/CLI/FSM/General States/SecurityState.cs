@@ -8,13 +8,11 @@ namespace CLI.FSM
     {
         public SecurityState(StateController controller) : base(controller)
         {
-            directories.Add("doors", new DoorState(controller));
+            directories.Add("door_control", new SecurityState_D(controller));
         }
 
         public override void OnEnter()
         {
-
-            stateController.ChangeText("security systems:<BR><BR>- doors");
             base.OnEnter();
         }
 

@@ -2980,40 +2980,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8073905884217861755, guid: 6ba3c19fc2ccf454480716012eacb0f5,
         type: 3}
-      propertyPath: textColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8073905884217861755, guid: 6ba3c19fc2ccf454480716012eacb0f5,
-        type: 3}
-      propertyPath: textColor.g
-      value: 0.5019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 8073905884217861755, guid: 6ba3c19fc2ccf454480716012eacb0f5,
-        type: 3}
-      propertyPath: textWriteDelay
-      value: 0.025
-      objectReference: {fileID: 0}
-    - target: {fileID: 8073905884217861755, guid: 6ba3c19fc2ccf454480716012eacb0f5,
-        type: 3}
       propertyPath: CLCommandPrefab
       value: 
       objectReference: {fileID: 3871985432989491793, guid: cb5d05830b72afc40af3db48dd7467e2,
         type: 3}
-    - target: {fileID: 8073905884217861755, guid: 6ba3c19fc2ccf454480716012eacb0f5,
-        type: 3}
-      propertyPath: highlightedColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8073905884217861755, guid: 6ba3c19fc2ccf454480716012eacb0f5,
-        type: 3}
-      propertyPath: highlightedColor.g
-      value: 0.8745098
-      objectReference: {fileID: 0}
-    - target: {fileID: 8073905884217861755, guid: 6ba3c19fc2ccf454480716012eacb0f5,
-        type: 3}
-      propertyPath: highlightedColor.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8171933448315297351, guid: 6ba3c19fc2ccf454480716012eacb0f5,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -3094,12 +3064,14 @@ MonoBehaviour:
   commandLineInput: {fileID: 0}
   directoryText: {fileID: 0}
   flavourText: {fileID: 0}
-  textColor: {r: 0, g: 0.5019608, b: 0, a: 1}
-  highlightedColor: {r: 1, g: 0.8745098, b: 0, a: 1}
-  textWriteDelay: 0.025
+  textColor: {r: 0.039215688, g: 0.3882353, b: 0.0627451, a: 1}
+  highlightedColor: {r: 0.3254902, g: 0.8784314, b: 0.6117647, a: 1}
+  commandColor: {r: 0.23529412, g: 0.65882355, b: 0.65882355, a: 1}
+  textWriteDelay: 0.005
   CLCommandsListObj: {fileID: 0}
   CLCommandPrefab: {fileID: 3871985432989491793, guid: cb5d05830b72afc40af3db48dd7467e2,
     type: 3}
+  commandIndex: -1
 --- !u!1 &5744003142025525029 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7459743251604453739, guid: 6ba3c19fc2ccf454480716012eacb0f5,
@@ -5015,11 +4987,6 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 928376638950518091, guid: c297a6bd165d4a347949e36238a51ea4,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 1073101993949446677, guid: c297a6bd165d4a347949e36238a51ea4,
         type: 3}
       propertyPath: m_Layer
@@ -5185,17 +5152,7 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2069488824933269626, guid: c297a6bd165d4a347949e36238a51ea4,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 2129885356683764921, guid: c297a6bd165d4a347949e36238a51ea4,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2149126283277258961, guid: c297a6bd165d4a347949e36238a51ea4,
         type: 3}
       propertyPath: m_Layer
       value: 15
@@ -5380,11 +5337,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 3661986623236239782, guid: c297a6bd165d4a347949e36238a51ea4,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 3698022248995395467, guid: c297a6bd165d4a347949e36238a51ea4,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -5424,11 +5376,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4370332675415811458, guid: c297a6bd165d4a347949e36238a51ea4,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4563059515653147874, guid: c297a6bd165d4a347949e36238a51ea4,
         type: 3}
@@ -5500,11 +5447,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 5551027276814196224, guid: c297a6bd165d4a347949e36238a51ea4,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 5570217357075583534, guid: c297a6bd165d4a347949e36238a51ea4,
         type: 3}
       propertyPath: m_Layer
@@ -5546,11 +5488,6 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5994228920578069108, guid: c297a6bd165d4a347949e36238a51ea4,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6045607637417276208, guid: c297a6bd165d4a347949e36238a51ea4,
         type: 3}
       propertyPath: m_Layer
       value: 15
@@ -5660,11 +5597,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 7066782441884600113, guid: c297a6bd165d4a347949e36238a51ea4,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 7070879775382186560, guid: c297a6bd165d4a347949e36238a51ea4,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -5689,11 +5621,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7540929560284069247, guid: c297a6bd165d4a347949e36238a51ea4,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7654171966594312501, guid: c297a6bd165d4a347949e36238a51ea4,
         type: 3}

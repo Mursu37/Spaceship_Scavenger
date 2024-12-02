@@ -4259,9 +4259,10 @@ MonoBehaviour:
   commandLineInput: {fileID: 0}
   directoryText: {fileID: 0}
   flavourText: {fileID: 0}
-  textColor: {r: 0, g: 0.5019608, b: 0, a: 1}
-  highlightedColor: {r: 1, g: 0.8745098, b: 0, a: 1}
-  textWriteDelay: 0.025
+  textColor: {r: 0.039215688, g: 0.3882353, b: 0.0627451, a: 1}
+  highlightedColor: {r: 0.3254902, g: 0.8784314, b: 0.6117647, a: 1}
+  commandColor: {r: 0.23529412, g: 0.65882355, b: 0.65882355, a: 1}
+  textWriteDelay: 0.005
   CLCommandsListObj: {fileID: 0}
   CLCommandPrefab: {fileID: 3871985432989491793, guid: cb5d05830b72afc40af3db48dd7467e2,
     type: 3}
@@ -4359,6 +4360,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: AddGroupToXray, Assembly-CSharp
         m_MethodName: SetGroupToLayer
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 12
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TogglexRay, Assembly-CSharp
+        m_MethodName: ActivateXraypulse
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

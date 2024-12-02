@@ -17,6 +17,8 @@ public class Sound
     public bool bypassEffects = false;
     public bool shouldLoop = true;
 
+   // [Range(0f, 1f)] public float volume = 1f;
+
     public GameObject sourceObject;
 
     [HideInInspector]

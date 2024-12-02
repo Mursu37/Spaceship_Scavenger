@@ -1,87 +1,285 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Enviroment.MainTerminal;
 
 namespace CLI.FSM
 {
     public class MainCoreState : State
     {
+        private bool isPowerOn = false;
+        private bool query = false;
+        private bool coreQuery = false;
+        private bool downloaded = false;
+        private bool breached = false;
+        private StateController m_controller;
+
+        private CoreState coreState;
+        
         public MainCoreState(StateController controller) : base(controller)
         {
-            directories.Add("core", new CoreState(controller));
-            //directories.Add("downloads", new DownloadState(controller));
+            coreState = new CoreState(controller);
+            m_controller = controller; 
+            directories.Add("core", coreState);
             commands.Insert(0, "status");
-            commands.Insert(0, "download");
-            commands.Insert(0, "diagnose");
-            commands.Insert(0, "initialize");
-            commands.Insert(0, "logs");
+            commands.Insert(1, "logs");
+            commands.Insert(2, "diagnose");
+            commands.Insert(3, "download");
         }
+
 
         public override void OnEnter()
         {
-            base.OnEnter();
-            stateController.ChangeFlavourText("<color=green>Core Systems Directory</color>\r\n" +
-                "<color=red>Alert:</color> The spaceship is operating on <color=orange>low auxiliary power.</color>  \r\n" +
-                "Critical systems are offline.  \r\n" +
-                "To access the <color=#00ff00>Containment Core Control Panel</color>, reconnect power to the main reactor.  \r\n" +
-                "<BR><BR><b>Instructions:</b>  \r\n" +
-                "1. Manually link the main power coupling below the reactor station.  \r\n" +
-                "2. Ensure primary systems are routed through the main reactor.  \r\n" +
-                "Type <color=yellow>'download'</color> to retrieve the <color=#00ff00>power routing schematics.</color>");
+            isPowerOn = GameObject.FindObjectOfType<ShipPowerOn>().isPowerOn;
+            query = false;
 
+            //Remove Query Commands (This works for now but caused issues earlier when having a if-statement structure)
+           RemoveGlobalQueryCommands();
+
+            if (!isPowerOn)
+            {
+                stateController.ChangeFlavourText("Core Systems Directory\r\n" +
+                "<color=#c8a519>Alert:</color> The spaceship is operating on low auxiliary power.  \r\n" +
+                "Critical systems are offline.  \r\n" +
+                "To access the Containment Core Control Panel, reconnect power to the main reactor.  \r\n\r\n" +
+                "<color=#c8a519><b>Instructions:</b>  \r\n" +
+                "1. Manually link the main power coupling below the reactor station.  \r\n" +
+                "2. Ensure primary systems are routed through the main reactor.  \r\n\r\n" +
+                "Type 'download' to retrieve the power routing schematics.</color>\r\n");
+            }
+            else
+            {
+                stateController.ChangeFlavourText("Core Systems Directory\r\n" +
+                "< color =#0a6310>Notice:</color> Main reactor power is online.\r\n" +
+                "All critical systems are fully operational.\r\n" +
+                "Containment Core Control Panel is now accessible.\r\n" +
+                "<color=#c8a519><b>System Update:</b>\r\n" +
+                "1.Power coupling successfully linked to the main reactor.\r\n" +
+                "2.Primary systems are stabilized and routed.\r\n" +
+                "Type 'access' to enter Containment Core Control Panel.\r\n" +
+                "Type 'logs' to review power restoration logs.</color>");
+            }
+
+
+            stateController.ChangeText("Type Your Command");
+            
+            base.OnEnter();
+        }
+
+        public override void OnExit()
+        {
+            /*
+            if (commands.Contains("yes"))
+            {
+                commands.Remove("yes");
+            }
+            if (commands.Contains("no"))
+            {
+                commands.Remove("no");
+            }
+            if (commands.Contains("confirm"))
+            {
+                commands.Remove("confirm");
+            }
+            if (commands.Contains("cancel"))
+            {
+                commands.Remove("cancel");
+            }
+*/
+          //  stateController.UpdateCommands();
+
+            coreQuery = false;
+            query = false;
+
+            base.OnExit();
         }
 
         public override void Interpret(string command)
         {
-            if (command == "help")
+            //Remove Query commands
+            RemoveGlobalQueryCommands();
+
+            if (query == true && command == "no" || query == true && command == "n")
             {
-                stateController.ChangeText("<color=cyan>Terminal Help Menu:</color>  \r\n" +
-                    "- `status` - View system status.  \r\n" +
-                    "- `download` - Download blueprints or schematics.  \r\n" +
-                    "- `diagnose` - Run a system diagnostic.  \r\n" +
-                    "- `initialize` - Reconnect power systems.  \r\n" +
-                    "- `logs` - View previous event logs.  \r\n" +
-                    "- `reroute` - Reroute power to critical systems.  \r\n" +
-                    "- `help` - Display this menu.  ");
+                stateController.ChangeText("Power routing schematics download aborted.");
+                query = false;
+                return;
+            }
+
+            else if (query == true && command == "yes" || query == true && command == "y")
+            {
+                stateController.ChangeText("<color=#c8a519>Downloading power routing schematics...</color>");
+                stateController.AddText("<line-height=0>========================================================", 0, true, () =>
+                {
+                    stateController.AddText("<color=#c8a519><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
+                    {
+                        stateController.AddText("Download Complete: Main Power Coupling Schematics saved to scanner device.", 0f, true, () =>
+                        {
+                            EventDispatcher dispatcher;
+                            dispatcher = stateController.gameObject.GetComponent<DownloadEventDispatcher>();
+                            dispatcher.TriggerEvent();
+
+                            downloaded = true;
+
+                        });
+
+                    });
+
+                });
+
+                query = false;
+                return;
+            }
+
+
+            query = false;
+
+
+
+            if (coreQuery == true && command == "cancel" && isPowerOn)
+            {
+                stateController.ChangeText("Power routing schematics download aborted.");
+                coreQuery = false;
+                return;
+            }
+
+            else if (coreQuery == true && command == "confirm" && isPowerOn)
+            {
+                stateController.ChangeText("<color=#3Ca8a8>[Module: Breaching Core Control Directory...]</color>");
+                stateController.AddText("<line-height=0>========================================================", 0, true, () =>
+                {
+                    stateController.AddText("<color=#3Ca8a8><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
+                    {
+                        breached = true;
+                        stateController.ChangeDeeper(coreState, "core");
+                    });
+
+                });
+
+                coreQuery = false;
+                return;
+            }
+
+            if (command == "core" && isPowerOn)
+            {
+                if (!breached)
+                {
+                    stateController.ChangeText("Restricted directory, standing by for access codes input.." +
+                        "<color=#3Ca8a8>[Module: Breach core control directory?</color><color=#53e09c> Confirm / Cancel?]");
+                    coreQuery = true;
+                    commands.Add("confirm");
+                    commands.Add("cancel");
+                    stateController.UpdateCommands();
+                }
+                else
+                {
+                    stateController.ChangeDeeper(coreState, "core");
+                }
+            }
+
+            else if (command == "core" && !isPowerOn)
+            {
+                stateController.ChangeText("<color=#3Ca8a8>[Module: Cannot access containment core utilities while the system is running on auxiliary power mode.\r\n" +
+                    "Reroute the power to main power in order to breach core system directory.]");
+                coreQuery = false;
+                
+
+            }
+
+            else if (command == "help")
+            {
+                stateController.ChangeText("- help - show available commands:\r\n" +
+                    "- status - View system status.  \r\n" +
+                    "- download - Download system diagnostic schematics.  \r\n" +
+                    "- diagnose - Run a system diagnostic.  \r\n" +
+                    "- logs - View previous event logs.");
+
             }
 
             else if (command == "status")
             {
-                stateController.ChangeText("<color=green>System Status:</color>  \r\n" +
-                    "Auxiliary Power: <color=orange>Active</color>  \r\n" +
-                    "Main Reactor: <color=red>Offline</color>  \r\n" +
-                    "Containment Core: <color=yellow>Restricted Access</color>  \r\n" +
-                    "Power Routing: <color=red>Unlinked</color>");
+                if (!isPowerOn)
+                {
+                    stateController.ChangeText("System Status:  \r\n" +
+                    "Auxiliary Power: <color=#c8a519>Active</color>  \r\n" +
+                    "Main Reactor: <color=#c8a519>Offline</color>  \r\n" +
+                    "Containment Core: <color=#c8a519>Restricted Access</color>  \r\n" +
+                    "Power Routing: <color=#c8a519>Unlinked</color>");
+                }
+                else
+                {
+                    stateController.ChangeText("System Status:\r\n" +
+                    "Auxiliary Power: Inactive\r\n" +
+                    "Main Reactor: <color=#c8a519>Online</color>\r\n" +
+                    "Containment Core: <color=#c8a519>Restricted Access</color>\r\n" +
+                    "Power Routing: <color=#c8a519>Linked</color>\r\n");
+                }
             }
 
             else if (command == "download")
             {
-                stateController.ChangeText("<color=yellow>Downloading...</color>  \r\n" +
-                    "<color=green>Download Complete:</color> Main Power Coupling Schematics saved to device.");
+                if (!downloaded)
+                {
+                    stateController.ChangeText("Download Power Routing Schematics? Yes/No");
+
+                    query = true;
+                    commands.Add("yes");
+                    commands.Add("no");
+                    stateController.UpdateCommands();
+                }
+                else
+                {
+                    stateController.ChangeText("Power routing schematics already downloaded.\r\n" +
+                        "<color=#3Ca8a8>[Module: Activate your visor scanner off terminal with pressing 'X' Key.]");
+                }
             }
 
             else if (command == "diagnose")
             {
-                stateController.ChangeText("<color=green>Diagnostic Results:</color>  \r\n" +
-                    "Main Power Coupling: <color=red>Disconnected</color>  \r\n" +
-                    "Auxiliary Power Level: <color=orange>32%</color>  \r\n" +
+                if (!isPowerOn)
+                {
+                    stateController.ChangeText("Diagnostic Results:  \r\n" +
+                    "Main Power Coupling: <color=#c8a519>Disconnected</color>  \r\n" +
+                    "Auxiliary Power Level: <color=#c8a519>32%</color>  \r\n" +
                     "Reactor Room Pressure: Stable  \r\n" +
-                    "Manual Override: Required");
+                    "Manual Override: <color=#c8a519>Required</color>");
+                }
+                else
+                {
+                    stateController.ChangeText("Diagnostic Results:\r\n" +
+                    "Main Power Coupling: <color=#c8a519>Connected</color>\r\n" +
+                    "Auxiliary Power Level: Idle\r\n" +
+                    "Reactor Room Pressure: Stable\r\n" +
+                    "Manual Override: Not Required\r\n");
+                }
             }
-
+            /*
             else if (command == "initialize")
             {
                 stateController.ChangeText("<color=yellow>Initializing main reactor power...</color>  \r\n" +
                     "<color=green>Success:</color> Main Power Restored. ");
             }
-
+            */
             else if (command == "logs")
             {
-                stateController.ChangeText("<color=green>Accessing Logs:</color>  \r\n" +
-                    "[ERROR: Containment Breach Detected]  \r\n" +
+                if (!isPowerOn)
+                {
+                    stateController.ChangeText("Accessing Logs:\r\n" +
+                    "[ERROR: Containment Breach Detected]\r\n" +
                     "[WARNING: Power Fluctuations in Reactor Core]  \r\n" +
-                    "[INFO: Auxiliary Systems Engaged - Low Power Mode Active]");
+                    "[INFO: Auxiliary Systems Engaged - Low Power Mode Active] \r\n" +
+                    "[INFO: Containment Breach Sealed - Reactor Stable]");
+                }
+                else
+                {
+                    stateController.ChangeText("Accessing Logs:\r\n" +
+                        "[INFO: Containment Breach Sealed - Reactor Stable]\r\n" +
+                        "[INFO: Power Fluctuations Resolved - Core Online]\r\n" +
+                        "[INFO: Main Power Restored - Normal Mode Active]\r\n");
+                }
             }
+
+
 
             else
             {
@@ -90,6 +288,7 @@ namespace CLI.FSM
 
 
         }
+    
     }
 }
 

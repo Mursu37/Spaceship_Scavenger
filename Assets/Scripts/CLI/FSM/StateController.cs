@@ -12,6 +12,7 @@ namespace CLI.FSM
 {
     public abstract class StateController : MonoBehaviour
     {
+
         [SerializeField] private GameObject CLI;
 
         [SerializeField] protected TMP_Text commandLineText;
@@ -22,6 +23,7 @@ namespace CLI.FSM
         
         [SerializeField] protected Color textColor;
         [SerializeField] protected Color highlightedColor;
+        [SerializeField] protected Color commandColor;
         [SerializeField] private float textWriteDelay = 0.001f;
 
         private bool textResponseCoroutineRunning = false;
@@ -36,7 +38,7 @@ namespace CLI.FSM
 
         [SerializeField] protected GameObject CLCommandPrefab;
         // tracks which command is currently selected. -1 = Input field, 0 - commandList.lenght = command at that index
-        protected int commandIndex = -1;
+        public int commandIndex = -1;
 
         protected State currentState;
         protected List<State> stateHistory = new();
@@ -50,16 +52,17 @@ namespace CLI.FSM
         {
             ResetState();
             ChangeState(currentState);
+            currentState?.OnEnter();
         }
 
         public virtual void ChangeState(State newState)
         {
             currentState?.OnExit();
             currentState = newState;
-            currentState.OnEnter();
             UpdateCommands();
             commandIndex = -1;
             ChangeText("");
+            currentState.OnEnter();
         }
 
         // Removes current commands in list and adds the current states commands to it
@@ -76,7 +79,8 @@ namespace CLI.FSM
             {
                 Destroy(command);
             }
-            commandList.Clear();   
+            commandList.Clear();
+            
         }
 
         // Adds commands from current state to CLI Canvas and commandList
@@ -122,7 +126,7 @@ namespace CLI.FSM
             ChangeState(newState);
         }
 
-        public virtual void ChangeText(string text)
+        public virtual void ChangeText(string text, float delay = 0, bool waitToFinish = false, Action onFinish = null)
         {
             if (textResponseCoroutine != null)
             {
@@ -132,12 +136,28 @@ namespace CLI.FSM
 
             commandLineText.text = text;
             commandLineText.maxVisibleCharacters = 0;
-            textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay));
+            commandLineText.ForceMeshUpdate(true);
+            if (text.Length > 0)
+            {
+                if (delay > 0)
+                {
+                    textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, delay, waitToFinish, onFinish));
+                }
+                else
+                {
+                    textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay, waitToFinish, onFinish));
+                }
+            }
+            else
+            {
+                onFinish?.Invoke(); // invoke immediately if there is no text.
+            }
             commandLineInput.text = "";
+            commandLineInput.interactable = true;
             commandLineInput.ActivateInputField();
         }
 
-        public virtual void AddText(string text)
+        public virtual void AddText(string text, float delay = 0, bool waitToFinish = false, Action onFinish = null)
         {
             if (textResponseCoroutine != null)
             {
@@ -145,16 +165,38 @@ namespace CLI.FSM
                 AudioManager.StopAudio("TerminalTextLoop");
             }
 
-            commandLineText.text = commandLineText.text + "<BR><BR>" + text;
-            commandLineText.maxVisibleCharacters = 0;
-            textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay));
-            commandLineInput.text = "";
+            int previousTextLength;
+            previousTextLength = commandLineText.textInfo.characterCount;
 
+            commandLineText.text = commandLineText.text + "\r\n" + text;
+            commandLineText.maxVisibleCharacters = commandLineText.textInfo.characterCount;
+            commandLineText.ForceMeshUpdate(true);
+
+            
+
+            if (text.Length > 0)
+            {
+                if (delay > 0)
+                {
+                    textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, delay, waitToFinish, onFinish, previousTextLength));
+                }
+                else
+                {
+                    textResponseCoroutine = StartCoroutine(RoutineDelayedText(commandLineText, textWriteDelay, waitToFinish, onFinish, previousTextLength));
+                }
+            }
+            else
+            {
+                onFinish?.Invoke(); // invoke immediately if there is no text.
+            }
+            commandLineInput.text = "";
+            commandLineInput.interactable = true;
             commandLineInput.ActivateInputField();
+
         }
-        private IEnumerator RoutineDelayedText(TMP_Text textToDisplay, float timeDelay)
+        private IEnumerator RoutineDelayedText(TMP_Text textToDisplay, float timeDelay, bool waitToFinish, Action onFinish, int startFromCount = 0)
         {
-            if (!textResponseCoroutineRunning)
+            if (!textResponseCoroutineRunning && textToDisplay.text.Length > 0)
             {
                 textResponseCoroutineRunning = true;
             }
@@ -165,24 +207,42 @@ namespace CLI.FSM
 
             WaitForSecondsRealtime delay = new WaitForSecondsRealtime(timeDelay);
 
-            
-
-            for (int i = 0; i < textToDisplay.textInfo.characterCount; ++i)
+            if (textToDisplay.textInfo == null)
             {
-
-                textToDisplay.maxVisibleCharacters = i + 1;
-                //string delayedText = textToDisplay.Substring(0, i + 1);
-                // Do whatever you need to do with this string, e.g. set text on UI.
-                
-                yield return delay;
+                textResponseCoroutine = null;
+                textResponseCoroutineRunning = false; // Coroutine finished;
+                yield break;
             }
-            textResponseCoroutine = null;
-            textResponseCoroutineRunning = false; // Coroutine finished;
+            else
+            {
+                textToDisplay.ForceMeshUpdate(true);
+                int characterCount = textToDisplay.textInfo.characterCount;
+
+                if (characterCount > 0 && startFromCount < characterCount)
+                {
+                    for (int i = startFromCount; i < characterCount; ++i)
+                    {
+
+                        textToDisplay.maxVisibleCharacters = i + 1;
+                        //string delayedText = textToDisplay.Substring(0, i + 1);
+                        // Do whatever you need to do with this string, e.g. set text on UI.
+
+                        yield return delay;
+                    }
+                }
+                    textResponseCoroutine = null;
+                    textResponseCoroutineRunning = false; // Coroutine finished;
+
+                    if (waitToFinish)
+                    {
+                        onFinish?.Invoke();
+                    }
+            }
         }
 
-        private IEnumerator RoutineDelayedFlavourText(TMP_Text textToDisplay, float timeDelay)
+            private IEnumerator RoutineDelayedFlavourText(TMP_Text textToDisplay, float timeDelay, bool waitToFinish, Action onFinish)
         {
-            if (!flavourTextCoroutineRunning)
+            if (!flavourTextCoroutineRunning && textToDisplay.text.Length > 0)
             {
                 flavourTextCoroutineRunning = true;
             }
@@ -192,11 +252,6 @@ namespace CLI.FSM
             }
 
             WaitForSecondsRealtime delay = new WaitForSecondsRealtime(timeDelay);
-
-            if (!AudioManager.IsPlaying("TerminalTextLoop"))
-            {
-                AudioManager.PlayAudio("TerminalTextLoop", 1, 1, true, null, true);
-            }
 
             for (int i = 0; i < textToDisplay.textInfo.characterCount; ++i)
             {
@@ -208,19 +263,35 @@ namespace CLI.FSM
             }
             textResponseCoroutine = null;
             flavourTextCoroutineRunning = false; // Coroutine finished;
+
+            if (waitToFinish)
+            {
+                onFinish?.Invoke();
+            }
         }
 
-        public virtual void ChangeFlavourText(string text)
+        public virtual void ChangeFlavourText(string text, float delay = 0, bool waitToFinish = false, Action onFinish = null)
         {
             if (flavourTextCoroutine != null)
             {
                 StopCoroutine(flavourTextCoroutine);
+                AudioManager.StopAudio("TerminalTextLoop");
             }
 
             flavourText.text = text;
             flavourText.maxVisibleCharacters = 0;
-            flavourTextCoroutine = StartCoroutine(RoutineDelayedFlavourText(flavourText, textWriteDelay));
-
+            flavourText.ForceMeshUpdate(true);
+            if (text.Length > 0)
+            {
+                if (delay > 0)
+                {
+                    flavourTextCoroutine = StartCoroutine(RoutineDelayedFlavourText(flavourText, delay, waitToFinish, onFinish));
+                }
+                else
+                {
+                    flavourTextCoroutine = StartCoroutine(RoutineDelayedFlavourText(flavourText, textWriteDelay, waitToFinish, onFinish));
+                }
+            }
         }
 
         private void OnInput()
@@ -229,7 +300,6 @@ namespace CLI.FSM
             // Lets the current state to define behaviours that happen based on it's individual properties
             string userInput = commandLineInput.text.ToLower();
             currentState.Interpret(userInput);
-
         }
 
         public virtual void ResetState()
@@ -237,7 +307,6 @@ namespace CLI.FSM
             stateHistory.Clear();
             stateHistory.Add(defaultState);
             currentState = defaultState;
-            currentState.OnEnter();
 
             commandLineText.text = "";
             commandLineInput.text = "";
@@ -247,6 +316,7 @@ namespace CLI.FSM
             }
             directoryText.text = dirName;
 
+            commandLineInput.interactable = true;
             commandLineInput.ActivateInputField();
         }
 
@@ -258,15 +328,13 @@ namespace CLI.FSM
             VisorChange.UpdateVisor(VisorChange.Visor.Hacking);
             ResetState();
             ChangeState(currentState);
+            commandLineInput.interactable = true;
             commandLineInput.ActivateInputField();
             currentState?.OnEnter();
         }
 
         private void OnDisable()
         {
-            textResponseCoroutineRunning = false;
-            flavourTextCoroutineRunning = false;
-
             PauseGame.Resume(PauseGame.TransitionType.NormalMusic);
             FindObjectOfType<PauseMenu>().enabled = true;
             VisorChange.UpdateVisor(VisorChange.currentDamageState);
@@ -286,14 +354,14 @@ namespace CLI.FSM
 
         void Update()
         {
-            if (textResponseCoroutineRunning || flavourTextCoroutineRunning)
+            if (textResponseCoroutineRunning | flavourTextCoroutineRunning)
             {
                 if (!AudioManager.IsPlaying("TerminalTextLoop"))
                 {
                     AudioManager.PlayAudio("TerminalTextLoop", 1, 1, true, null, true);
                 }
             }
-            else
+            else if (!textResponseCoroutineRunning && !flavourTextCoroutineRunning)
             {
                 if (AudioManager.IsPlaying("TerminalTextLoop"))
                 {
@@ -325,14 +393,24 @@ namespace CLI.FSM
 
             if (commandIndex == -1)
             {
-                if (!commandLineInput.isFocused) commandLineInput.ActivateInputField();
+                if (!commandLineInput.isFocused)
+                {
+                    commandLineInput.interactable = true;
+                    commandLineInput.ActivateInputField();
+                }
+
             }
 
-            
+
 
         }
 
-        protected virtual void SelectedChange(bool up)
+        public virtual string GetCurrentStateDirectoryText()
+        {
+            return directoryText.text.ToString();
+        }
+
+        public virtual void SelectedChange(bool up)
         {
             if (up)
             {
@@ -340,17 +418,19 @@ namespace CLI.FSM
                 commandIndex++;
                 AudioManager.PlayAudio("TerminalButtonHighlight", 1, 1, false, null, true);
                 commandLineInput.DeactivateInputField();
+                commandLineInput.interactable = false;
                 commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = highlightedColor;
                 if (commandIndex - 1 == -1) return;
-                commandList[commandIndex - 1].GetComponentInChildren<TMP_Text>().color = textColor;
+                commandList[commandIndex - 1].GetComponentInChildren<TMP_Text>().color = commandColor;
             }
             else if (commandIndex - 1 >= -1)
             {
-                commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = textColor;
+                commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = commandColor;
                 commandIndex--;
                 AudioManager.PlayAudio("TerminalButtonHighlight", 1, 1, false, null, true);
                 if (commandIndex == -1)
                 {
+                    commandLineInput.interactable = true;
                     commandLineInput.ActivateInputField();
                     return;
                 }

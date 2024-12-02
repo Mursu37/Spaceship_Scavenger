@@ -3,6 +3,7 @@ Shader "Unlit/CuttingBurnMark"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _NoiseTex ("Noise tex", 2D) = "white" {}
         _Red ("Red", Float) = 1
         _Green ("Green", Float) = 0.1
         _Blue ("Blue", Float) = 0.1
@@ -11,6 +12,7 @@ Shader "Unlit/CuttingBurnMark"
     SubShader
     {
         Tags { "RenderType"="Opaque" }
+        Blend SrcAlpha OneMinusSrcAlpha
         LOD 100
 
         Pass
@@ -38,6 +40,8 @@ Shader "Unlit/CuttingBurnMark"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            sampler2D _NoiseTex;
+            float4 _NoiseTex_ST;
             float _ChangeRate;
             float _Green;
             float _Blue;
@@ -46,7 +50,8 @@ Shader "Unlit/CuttingBurnMark"
             v2f vert (appdata v)
             {
                 v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
+                float3 vert = v.vertex;
+                o.vertex = UnityObjectToClipPos(vert);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
@@ -54,8 +59,13 @@ Shader "Unlit/CuttingBurnMark"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 colMask = tex2D(_MainTex, i.uv);
-                fixed4 col = fixed4(1, 0, 0, 1);
+                fixed4 colMask = tex2D(_NoiseTex, i.uv);
+
+                fixed4 noiseMask = tex2D(_NoiseTex, i.uv + frac(_Time));
+                fixed4 mainTex = tex2D(_MainTex, i.uv);
+                fixed4 additionMask = tex2D(_MainTex, lerp(i.uv, noiseMask.r, _ChangeRate));
+                
+                fixed4 col = fixed4(1, 0, 0, mainTex.r + additionMask.r);
                 col.r = col.r +(colMask.r * _Red);
                 col.b = col.b + (colMask.r * _Blue);
                 col.g = col.g + (colMask.r * _Green);
