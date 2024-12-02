@@ -9,9 +9,9 @@ namespace CLI.FSM
     {
         private void Awake()
         {
-            defaultState = new SecurityState(this);
+            defaultState = new CanteenMainState(this);
             stateHistory = new List<State> { defaultState };
-            defaultDirName = "Canteen_Terminal_Access";
+            defaultDirName = "Ship_Customs_Terminal";
             currentState = defaultState;
         }
     }

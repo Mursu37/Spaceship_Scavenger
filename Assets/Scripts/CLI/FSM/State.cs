@@ -7,6 +7,8 @@ namespace CLI.FSM
 {
     public abstract class State
     {
+        public static List<string> globalQueryCommands = new List<string> {"yes", "no", "y", "n", "confirm", "cancel"};
+
         protected Dictionary<string, State> directories = new Dictionary<string, State>();
         protected List<string> commands = new List<string>();
         
@@ -39,6 +41,7 @@ namespace CLI.FSM
 
         public virtual void Interpret(string command)
         {
+
             if (command == "back")
             {
                 MoveDirectory("..");
@@ -76,16 +79,29 @@ namespace CLI.FSM
 
         public virtual void OnExit()
         {
+
         }
 
         public virtual void OnEnter()
         {
+            stateController.ChangeText("Changed Directory: " + stateController.GetCurrentStateDirectoryText());
+        }
 
+        public virtual string GetCurrentStateName()
+        {
+            return stateController.GetCurrentStateDirectoryText();
+        }
+
+        public virtual void RemoveGlobalQueryCommands()
+        {
+            //Remove Query commands such as yes / no / y / n / confirm / cancel
+            commands.RemoveAll(command => globalQueryCommands.Contains(command));
+            stateController.UpdateCommands();
         }
 
         protected virtual void CommandNotRecognised()
         {
-            stateController.ChangeText("Command not recognised. Try typing 'help' to see a list of available commands");
+            stateController.ChangeText("Command not recognised. Try typing 'help' to see a list of available commands or navigate commands with arrow keys. Press 'return' key to execute selected command.");
         }
     }
 }

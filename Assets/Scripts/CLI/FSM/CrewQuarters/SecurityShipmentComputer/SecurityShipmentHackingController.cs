@@ -9,7 +9,7 @@ namespace CLI.FSM
     {
         private void Awake()
         {
-            defaultState = new SecurityState(this);
+            defaultState = new SecurityShipmentMainState(this);
             stateHistory = new List<State> { defaultState };
             defaultDirName = "Security_Shipments_Operations";
             currentState = defaultState;

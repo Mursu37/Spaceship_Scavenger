@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace CLI.FSM
 {
-    public class BPADownloadState : State
+    public class A1DownloadState : State
     {
-        public BPADownloadState(StateController controller) : base(controller)
+        public A1DownloadState(StateController controller) : base(controller)
         {
             
         }

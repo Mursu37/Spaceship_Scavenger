@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204694216559638400}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0000001165452, y: 0.00000020165508, z: -0.38268346, w: 0.9238796}
-  m_LocalPosition: {x: 0.13931656, y: 0.6229999, z: 0}
-  m_LocalScale: {x: 1, y: 0.13020997, z: 0.12538427}
+  m_LocalRotation: {x: -0.000000089406946, y: 0.000000014901158, z: -0.9019401, w: 0.431861}
+  m_LocalPosition: {x: 0.106, y: 0.786, z: 0}
+  m_LocalScale: {x: 0.68901, y: 0.13020997, z: 0.12538427}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2459836948770215161}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -128.829}
 --- !u!33 &4365847351276833325
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -147,7 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7797084228716994657}
   - component: {fileID: 5892383654503583205}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,13 +218,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722580568853762373}
   serializedVersion: 2
-  m_LocalRotation: {x: -1, y: -0.000000021073435, z: -0.000000021073411, w: -0.000000104308114}
-  m_LocalPosition: {x: -0.058683395, y: 1.3999999, z: 0}
-  m_LocalScale: {x: 1.5670685, y: 0.11282805, z: 0.12732242}
+  m_LocalRotation: {x: -0.7071067, y: -0.7071068, z: 0.000000029802322, w: -0.000000059604645}
+  m_LocalPosition: {x: 0.276, y: 1.353, z: -0}
+  m_LocalScale: {x: 0.8069306, y: 0.11282805, z: 0.12732242}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2459836948770215161}
-  m_LocalEulerAnglesHint: {x: -180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -180, y: 0, z: -90}
 --- !u!33 &6140308375894306037
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -306,7 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2202263697866599314}
   - component: {fileID: 3344615666560030938}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,8 +378,8 @@ Transform:
   m_GameObject: {fileID: 9219716617873243200}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071065, y: -0.7071071, z: 0.00000041062145, w: 0.0000002913214}
-  m_LocalPosition: {x: 0.23, y: 2.0129998, z: -0.001}
-  m_LocalScale: {x: 1, y: 0.14227998, z: 0.12396088}
+  m_LocalPosition: {x: -0.006, y: 2.153, z: -0.001}
+  m_LocalScale: {x: 0.80019, y: 0.14227998, z: 0.12396088}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2459836948770215161}
@@ -631,6 +631,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c60daa4bbdbff5c45b077255afaab058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
+  doorOpened: 0
 --- !u!95 &8102700748590664344
 Animator:
   serializedVersion: 5

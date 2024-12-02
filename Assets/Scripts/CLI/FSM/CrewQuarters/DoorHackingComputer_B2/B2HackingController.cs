@@ -9,7 +9,7 @@ namespace CLI.FSM
     {
         private void Awake()
         {
-            defaultState = new SecurityState(this);
+            defaultState = new B2MainState(this);
             stateHistory = new List<State> { defaultState };
             currentState = defaultState;
         }
