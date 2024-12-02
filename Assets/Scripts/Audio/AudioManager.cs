@@ -40,6 +40,7 @@ public class AudioManager : MonoBehaviour
 
             s.source.playOnAwake = false;
             s.source.loop = s.shouldLoop;
+            //s.source.volume = s.volume;
         }
     }
 

@@ -247,9 +247,11 @@ public class Cutting : MonoBehaviour
 
                     // Update the end position of the line renderer
                     Vector3 currentRightPoint = Vector3.Lerp(hitPoint, rightmostPoint, t);
+                    rightmostLaser.SetPosition(0, shootingPoint.position);
                     rightmostLaser.SetPosition(1, currentRightPoint);
 
                     Vector3 currentLeftPoint = Vector3.Lerp(hitPoint, leftmostPoint, t);
+                    leftmostLaser.SetPosition(0, shootingPoint.position);
                     leftmostLaser.SetPosition(1, currentLeftPoint);
 
                     // Cutting burn marks

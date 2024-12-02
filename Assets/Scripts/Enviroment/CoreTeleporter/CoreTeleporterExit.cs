@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,9 +8,11 @@ public class CoreTeleporterExit : MonoBehaviour
     private Animator animator;
     [SerializeField] private Transform player;
     [SerializeField] private GameObject core;
+    [SerializeField] private Animator coreAnimator;
     public Transform coreHolder;
     private Vector3 targetPosition;
     private bool canMove = false;
+    private bool isClosingAudioPlayed = false;
 
     private MixerController mixerController;
 
@@ -86,20 +89,12 @@ public class CoreTeleporterExit : MonoBehaviour
 
             case TeleporterState.Closing:
                 animator.Play("DoorClose");
-                if (!AudioManager.IsPlaying("TeleporterClose"))
+                if (!AudioManager.IsPlaying("TeleporterClose") && !isClosingAudioPlayed)
                 {
                     AudioManager.PlayModifiedClipAtPoint("TeleporterClose", transform.position, 1, 1, 1, 1000);
+                    isClosingAudioPlayed = true;
                 }
-                core.GetComponent<Collider>().enabled = true;
-                Rigidbody coreRbFinal = core.GetComponent<Rigidbody>();
-                if (coreRbFinal != null)
-                {
-                    coreRbFinal.constraints = RigidbodyConstraints.None;
-                }
-
-                core.GetComponent<EnergyCore>().heatIncreaseTime = 8f;
-
-                currentState = TeleporterState.Idle;
+                StartCoroutine(Close());
                 break;
 
             default:
@@ -125,6 +120,22 @@ public class CoreTeleporterExit : MonoBehaviour
         {
             core.transform.position = Vector3.Lerp(core.transform.position, targetPosition, 2f * Time.fixedDeltaTime);
         }
+    }
+
+    private IEnumerator Close()
+    {
+        coreAnimator.Play("Open");
+        yield return new WaitForSeconds(1f);
+        coreAnimator.Play("Rotate");
+        core.GetComponent<Collider>().enabled = true;
+        Rigidbody coreRbFinal = core.GetComponent<Rigidbody>();
+        if (coreRbFinal != null)
+        {
+            coreRbFinal.constraints = RigidbodyConstraints.None;
+        }
+
+        core.GetComponent<EnergyCore>().heatIncreaseTime = 8f;
+        currentState = TeleporterState.Idle;
     }
 
     public void StartTeleportation()
