@@ -9,7 +9,7 @@ namespace CLI.FSM
     {
         private void Awake()
         {
-            defaultState = new EngineRoomMainState(this);
+            defaultState = new CaptainsRoomMainState(this);
             stateHistory = new List<State> { defaultState };
             defaultDirName = "Captains_Quarters_Terminal";
             currentState = defaultState;

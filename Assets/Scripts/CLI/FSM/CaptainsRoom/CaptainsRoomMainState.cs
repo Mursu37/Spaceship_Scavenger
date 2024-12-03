@@ -26,6 +26,8 @@ namespace CLI.FSM
 
         public override void OnEnter()
         {
+            stateController.UpdateCommands();
+
             stateController.ChangeFlavourText("DIRECTORY: /captains_quarters/\r\n" +
                 "--------------------------------------------------------------------\r\n" +
                 "Captain’s Command Terminal.\r\n" +
@@ -44,20 +46,25 @@ namespace CLI.FSM
                     );
             }
 
-            if (!breached && command == "breach" || command == "[breach]")
+            else if (!breached && command == "[breach]" || !breached && command == "breach")
             {
-                stateController.AddText("<color=#3Ca8a8>run [VOIDHAUL_MODULE_BREACH.exe]:</color>");
+                stateController.ChangeText("<color=#3Ca8a8>run [VOIDHAUL_MODULE_BREACH.exe]:</color>");
                 stateController.AddText("<line-height=0>========================================================", 0, true, () =>
                 {
                     stateController.AddText("<color=#3Ca8a8><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
                     {
+                        directories.Remove("[breach]");
+                        directories.Add("personal_logs", securityState);
+                        stateController.UpdateCommands();
                         stateController.ChangeDeeper(securityState, "personal_logs");
                         breached = true;
                     });
                 });
             }
-
-            base.Interpret(command);
+            else
+            {
+                base.Interpret(command);
+            }
         }
     }
 }

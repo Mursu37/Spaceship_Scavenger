@@ -36,7 +36,7 @@ public class TutorialPopUp : MonoBehaviour
 
     private IEnumerator ShowFirstTutorial()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(15f);
         ShowTutorial(tutorialWindows[0]);
     }
 
