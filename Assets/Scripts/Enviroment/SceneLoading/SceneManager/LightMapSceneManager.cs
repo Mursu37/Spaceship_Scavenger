@@ -24,7 +24,8 @@ public class LightMapSceneManager : MonoBehaviour
     {
         instance = this;
 
-        if (startScene != null)
+
+        if (startScene != null && !CheckpointManager.checkpointReached)
         {
             LoadSceneFromPool(startScene);
         }

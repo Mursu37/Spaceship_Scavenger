@@ -19,7 +19,8 @@ public class TurnMeltdownPhaseOn : MonoBehaviour
     {
         if (!isTurnedOn)
         {
-            Invoke("TurnOn", 0.1f);
+            TurnOn();
+            //Invoke("TurnOn", 0.1f);
         }
     }
 
