@@ -9,7 +9,6 @@ public class MeltdownPhase : MonoBehaviour
     [SerializeField] private GameObject lightManager;
     [SerializeField] private GameObject objectiveMarker;
     [SerializeField] private ShipPowerOn shipPowerOn;
-    [SerializeField] private GameObject meltdownTriggers;
     private CoreSounds coreSounds;
     private AlarmSounds[] alarmSounds;
     private MeltdownMusic meltdownMusic;
@@ -67,11 +66,6 @@ public class MeltdownPhase : MonoBehaviour
         if (ambientMusic != null)
         {
             ambientMusic.StopAmbientMusic();
-        }
-
-        if (meltdownTriggers != null)
-        {
-            meltdownTriggers.SetActive(true);
         }
         
         if (objectiveMarker != null && !CheckpointManager.checkpointReached) objectiveMarker.SetActive(true);

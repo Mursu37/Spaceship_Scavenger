@@ -9,6 +9,7 @@ public class CoreDisconnect : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Animator coreAnimator;
     [SerializeField] private GameObject core;
+    [SerializeField] private GameObject tutorial;
 
     private enum State
     {
@@ -75,6 +76,8 @@ public class CoreDisconnect : MonoBehaviour
         coreAnimator.Play("Rotate");
         core.GetComponent<Collider>().enabled = true;
         currentState = State.Idle;
+
+        TutorialPopUp.ShowTutorial(tutorial);
     }
 
     public void Diconnect()

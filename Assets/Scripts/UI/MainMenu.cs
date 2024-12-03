@@ -6,6 +6,9 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject settings;
     [SerializeField] private GameObject difficulty;
+    [SerializeField] private GameObject credits;
+
+    private FadeIn fadeIn;
 
     private void Awake()
     {
@@ -16,12 +19,20 @@ public class MainMenu : MonoBehaviour
 
         DifficultyManager.easyLevelSelected = false;
         DifficultyManager.difficultLevelSelected = false;
+
+        fadeIn = credits.GetComponent<FadeIn>();
     }
 
     public void Play()
     {
         difficulty.SetActive(true);
         gameObject.SetActive(false);
+    }
+
+    public void Credits()
+    {
+        credits.SetActive(true);
+        fadeIn.StartFadeIn();
     }
 
     public void Settings()
