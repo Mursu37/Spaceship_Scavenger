@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] private Sound[] sounds;
 
     public static AudioManager instance;
+
+    private static List<GameObject> tempAudioObjects = new List<GameObject>();
 
     private void Awake()
     {
@@ -105,6 +108,7 @@ public class AudioManager : MonoBehaviour
 
         // Position the GameObject at the desired location and play
         tempAudioObject.transform.position = position;
+        tempAudioObjects.Add(tempAudioObject);
 
         tempAudioSource.Play();
 
@@ -129,6 +133,7 @@ public class AudioManager : MonoBehaviour
         // Create a temporary GameObject for the audio and set its parent
         GameObject tempAudioObject = new GameObject("TempAudio_" + clipName);
         tempAudioObject.transform.SetParent(parentObject.transform);
+        tempAudioObjects.Add(tempAudioObject);
     
         tempAudioObject.transform.localPosition = Vector3.zero;
 
@@ -185,5 +190,32 @@ public class AudioManager : MonoBehaviour
     public static Sound GetSound(string name)
     {
         return Array.Find(instance.sounds, sound => sound.name == name);
+    }
+
+
+    public static void StopAllAudio()
+    {
+        if (instance == null)
+        {
+            Debug.LogWarning("AudioManager instance is not set!");
+            return;
+        }
+
+        foreach (Sound s in instance.sounds)
+        {
+            if (s.source != null && s.source.isPlaying)
+            {
+                s.source.Stop();
+            }
+        }
+
+        foreach (var tempObj in tempAudioObjects)
+        {
+            if (tempObj != null)
+            {
+                Destroy(tempObj);
+            }
+        }
+        tempAudioObjects.Clear();
     }
 }
