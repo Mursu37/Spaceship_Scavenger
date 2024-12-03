@@ -170,8 +170,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -35.229492, y: 20.8478}
-  m_SizeDelta: {x: -90.459, y: -277.9099}
+  m_AnchoredPosition: {x: 0, y: 20.8478}
+  m_SizeDelta: {x: -20.000008, y: -277.9099}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4615540109151889927
 CanvasRenderer:
@@ -2114,6 +2114,7 @@ RectTransform:
   - {fileID: 733284066117063696}
   - {fileID: 1699095453396166917}
   - {fileID: 7896720850487920296}
+  - {fileID: 4975020897347567303}
   m_Father: {fileID: 8812218945296335769}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2348,7 +2349,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1202889148873016049}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: Quit
+        m_MethodName: QuitToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2788,7 +2789,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8850187167222314767}
-  - {fileID: 4975020897347567303}
   - {fileID: 7783687112216030101}
   - {fileID: 6650914286776712232}
   m_Father: {fileID: 3779140804386572351}
@@ -4043,7 +4043,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8812218945296335769}
+  m_Father: {fileID: 8850187167222314767}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8077585394477638026
 MonoBehaviour:
@@ -4062,7 +4062,7 @@ MonoBehaviour:
   priority: 0
   customPasses:
   - rid: 5527843438012923904
-  injectionPoint: 1
+  injectionPoint: 2
   m_TargetCamera: {fileID: 0}
   useTargetCamera: 1
   references:
@@ -4566,8 +4566,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 2109141123346932977}
   pauseMenu: {fileID: 1594585251771173844}
-  settings: {fileID: 465880202828275016}
-  controls: {fileID: 3052941188966518854}
+  settingsPanel: {fileID: 465880202828275016}
+  controlsPanel: {fileID: 3052941188966518854}
 --- !u!114 &8077365635556907013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8081,9 +8081,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8077365635556907013}
-        m_TargetAssemblyTypeName: MouseSensitivity, Assembly-CSharp
-        m_MethodName: Back
+      - m_Target: {fileID: 1202889148873016049}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: BackToPauseMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8334,6 +8334,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1202889148873016049}
+    - target: {fileID: 2590415809984299564, guid: fce9ddbba8942804187c0fc7a330592d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToPauseMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 4282062070282599492, guid: fce9ddbba8942804187c0fc7a330592d,
         type: 3}
       propertyPath: m_AnchorMax.x

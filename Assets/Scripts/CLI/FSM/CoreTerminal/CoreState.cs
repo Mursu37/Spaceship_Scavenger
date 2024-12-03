@@ -71,6 +71,7 @@ namespace CLI.FSM
                 stateController.ChangeText("<color=#3Ca8a8>run [ACCESS_POINT.exe]</color>");
                 stateController.AddText("<line-height=0>========================================================", 0, true, () =>
                 {
+                    LightMapSceneManager.instance.PreLoadScene(LightMapSceneManager.instance.pool.sceneNames[2]);
                     stateController.AddText("<color=#3Ca8a8><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
                     {
                         stateController.AddText("Injection point established.\r\n" +

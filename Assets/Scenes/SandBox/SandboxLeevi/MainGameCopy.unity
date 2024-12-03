@@ -4497,30 +4497,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 376692481}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &380311325 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7176125593628902271, guid: 511d9c0e059aa454cb0548ac579580e2,
-    type: 3}
-  m_PrefabInstance: {fileID: 2425140372000166922}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &380311326 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1626719469017684936, guid: 511d9c0e059aa454cb0548ac579580e2,
-    type: 3}
-  m_PrefabInstance: {fileID: 2425140372000166922}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &380311327 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3230828051309633039, guid: 511d9c0e059aa454cb0548ac579580e2,
-    type: 3}
-  m_PrefabInstance: {fileID: 2425140372000166922}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &380311328 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1620438237841322410, guid: 511d9c0e059aa454cb0548ac579580e2,
-    type: 3}
-  m_PrefabInstance: {fileID: 2425140372000166922}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &392916411
 Mesh:
   m_ObjectHideFlags: 0
@@ -5082,9 +5058,11 @@ MonoBehaviour:
   flavourText: {fileID: 0}
   textColor: {r: 0, g: 0, b: 0, a: 0}
   highlightedColor: {r: 0, g: 0, b: 0, a: 0}
+  commandColor: {r: 0, g: 0, b: 0, a: 0}
   textWriteDelay: 0.001
   CLCommandsListObj: {fileID: 0}
   CLCommandPrefab: {fileID: 0}
+  commandIndex: -1
 --- !u!114 &459091157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8838,51 +8816,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 660902983}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &580892348 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3025736116468583944, guid: 511d9c0e059aa454cb0548ac579580e2,
-    type: 3}
-  m_PrefabInstance: {fileID: 2425140372000166922}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &580892358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 580892348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 834ea610912f8f146b47bcafdcb65dce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEventTriggered:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1239203612}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1819395634}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!1001 &581223426
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9352,9 +9285,11 @@ MonoBehaviour:
   flavourText: {fileID: 0}
   textColor: {r: 0, g: 0, b: 0, a: 0}
   highlightedColor: {r: 0, g: 0, b: 0, a: 0}
+  commandColor: {r: 0, g: 0, b: 0, a: 0}
   textWriteDelay: 0.001
   CLCommandsListObj: {fileID: 0}
   CLCommandPrefab: {fileID: 0}
+  commandIndex: -1
 --- !u!114 &632902635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12386,9 +12321,11 @@ MonoBehaviour:
   flavourText: {fileID: 0}
   textColor: {r: 0, g: 0, b: 0, a: 0}
   highlightedColor: {r: 0, g: 0, b: 0, a: 0}
+  commandColor: {r: 0, g: 0, b: 0, a: 0}
   textWriteDelay: 0.001
   CLCommandsListObj: {fileID: 0}
   CLCommandPrefab: {fileID: 0}
+  commandIndex: -1
 --- !u!114 &1055717598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28189,12 +28126,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1239203612 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9035695733386478031, guid: 6cf17b92891f38f4d8d06a52db8668bc,
-    type: 3}
-  m_PrefabInstance: {fileID: 5039897312376492942}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1251565062 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7009073573384029336, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
@@ -29147,9 +29078,11 @@ MonoBehaviour:
   flavourText: {fileID: 0}
   textColor: {r: 0, g: 0, b: 0, a: 0}
   highlightedColor: {r: 0, g: 0, b: 0, a: 0}
+  commandColor: {r: 0, g: 0, b: 0, a: 0}
   textWriteDelay: 0.001
   CLCommandsListObj: {fileID: 0}
   CLCommandPrefab: {fileID: 0}
+  commandIndex: -1
 --- !u!1001 &1389780027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30688,10 +30621,12 @@ MonoBehaviour:
   flavourText: {fileID: 1090603765}
   textColor: {r: 0, g: 0.5019608, b: 0, a: 1}
   highlightedColor: {r: 1, g: 0.8745098, b: 0, a: 1}
+  commandColor: {r: 0, g: 0, b: 0, a: 0}
   textWriteDelay: 0.025
   CLCommandsListObj: {fileID: 1090603763}
   CLCommandPrefab: {fileID: 3871985432989491793, guid: cb5d05830b72afc40af3db48dd7467e2,
     type: 3}
+  commandIndex: -1
 --- !u!4 &1593095683 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1370454671112404828, guid: 6f0ce38420e378b469338a6e06c8d779,
@@ -34838,9 +34773,11 @@ MonoBehaviour:
   flavourText: {fileID: 0}
   textColor: {r: 0, g: 0, b: 0, a: 0}
   highlightedColor: {r: 0, g: 0, b: 0, a: 0}
+  commandColor: {r: 0, g: 0, b: 0, a: 0}
   textWriteDelay: 0.001
   CLCommandsListObj: {fileID: 0}
   CLCommandPrefab: {fileID: 0}
+  commandIndex: -1
 --- !u!1001 &1767858440
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34998,12 +34935,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84867af06ffc96746a148457e558796c, type: 3}
---- !u!1 &1819395634 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6019402306928935866, guid: 9d55a669677e0ff468a08aee69002323,
-    type: 3}
-  m_PrefabInstance: {fileID: 2906054346703629722}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1819395635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3231225439166501158, guid: 9d55a669677e0ff468a08aee69002323,
@@ -37799,7 +37730,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dispatcher
       value: 
-      objectReference: {fileID: 580892358}
+      objectReference: {fileID: 0}
     - target: {fileID: 7419075235528216595, guid: 511d9c0e059aa454cb0548ac579580e2,
         type: 3}
       propertyPath: lightManager
@@ -38404,10 +38335,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1976791758}
-    - targetCorrespondingSourceObject: {fileID: 3025736116468583944, guid: 511d9c0e059aa454cb0548ac579580e2,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 580892358}
   m_SourcePrefab: {fileID: 100100000, guid: 511d9c0e059aa454cb0548ac579580e2, type: 3}
 --- !u!1001 &2906054346703629722
 PrefabInstance:
@@ -38581,7 +38508,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gasLeaks
       value: 
-      objectReference: {fileID: 380311325}
+      objectReference: {fileID: 0}
     - target: {fileID: 891282062117255739, guid: 9d55a669677e0ff468a08aee69002323,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -39321,7 +39248,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gasLeaks
       value: 
-      objectReference: {fileID: 380311326}
+      objectReference: {fileID: 0}
     - target: {fileID: 4824229361824291223, guid: 9d55a669677e0ff468a08aee69002323,
         type: 3}
       propertyPath: onEventTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -39431,7 +39358,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gasLeaks
       value: 
-      objectReference: {fileID: 380311328}
+      objectReference: {fileID: 0}
     - target: {fileID: 6085218813978503560, guid: 9d55a669677e0ff468a08aee69002323,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -39867,7 +39794,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gasLeaks
       value: 
-      objectReference: {fileID: 380311327}
+      objectReference: {fileID: 0}
     - target: {fileID: 8614519066632791152, guid: 9d55a669677e0ff468a08aee69002323,
         type: 3}
       propertyPath: m_Layer
@@ -40147,7 +40074,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 2906054346703629722}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1630957513}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d3ea451f6f0e0344b64279b8f7d1d2e, type: 3}
   m_Name: 

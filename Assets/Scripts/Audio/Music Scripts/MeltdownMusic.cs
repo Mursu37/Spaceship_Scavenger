@@ -8,6 +8,7 @@ public class MeltdownMusic : MonoBehaviour
     [SerializeField] private string AlarmMusicLayer1;
     [SerializeField] private string AlarmMusicLayer2;
     [SerializeField] private string AlarmMusicLayer3;
+    [SerializeField] private string AlarmMusicEnd;
 
     private EnergyCore core;
 
@@ -22,6 +23,8 @@ public class MeltdownMusic : MonoBehaviour
 
     private float fadeDuration = 2f;
 
+    private ElevatorTerminal elevatorTerminal;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -30,6 +33,16 @@ public class MeltdownMusic : MonoBehaviour
 
         secondsPerBeat = 60.0 / bpm;
         introLength = secondsPerBeat * 4 * barsInIntro;
+
+        ElevatorTerminal elevatorTerminal = FindObjectOfType<ElevatorTerminal>();
+        if (elevatorTerminal != null)
+        {
+            elevatorTerminal.interactEvent.AddListener(EndMeltdownMusic);
+        }
+        else
+        {
+            Debug.LogWarning("ElevatorTerminal reference is not assigned!");
+        }
     }
 
     private void OnEnable()
@@ -122,6 +135,51 @@ public class MeltdownMusic : MonoBehaviour
         AudioManager.StopAudio(AlarmMusicLayer1);
         AudioManager.StopAudio(AlarmMusicLayer2);
         AudioManager.StopAudio(AlarmMusicLayer3);
+    }
+
+    public void EndMeltdownMusic()
+    {
+        double dspTime = AudioSettings.dspTime;
+        double nextBeatTime = dspTime + secondsPerBeat - (dspTime % secondsPerBeat);
+        AudioManager.PlayAudio(AlarmMusicEnd, 1, 1, false, nextBeatTime, true);
+        
+        StartCoroutine(FadeOutLayer(AlarmMusicIntro, fadeDuration));
+        StartCoroutine(FadeOutLayer(AlarmMusicLayer1, fadeDuration));
+        StartCoroutine(FadeOutLayer(AlarmMusicLayer2, fadeDuration));
+        StartCoroutine(FadeOutLayer(AlarmMusicLayer3, fadeDuration));
+    }
+
+    private IEnumerator FadeOutLayer(string layerName, float fadeDuration)
+    {
+        Sound sound = AudioManager.GetSound(layerName);
+        if (sound == null || sound.source == null)
+        {
+            Debug.LogWarning("Sound: " + layerName + " not found or AudioSource is null!");
+            yield break;
+        }
+
+        AudioSource layerSource = sound.source;
+        float startVolume = layerSource.volume;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float newVolume = Mathf.Lerp(startVolume, 0f, elapsedTime / fadeDuration);
+            AudioManager.SetVolume(layerName, newVolume);
+            yield return null;
+        }
+
+        AudioManager.SetVolume(layerName, 0f);
+        AudioManager.StopAudio(layerName); 
+    }
+
+    private void OnDestroy()
+    {
+        if (elevatorTerminal != null)
+        {
+            elevatorTerminal.interactEvent.RemoveListener(EndMeltdownMusic);
+        }
     }
 }
 
