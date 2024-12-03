@@ -7,9 +7,14 @@ public class DispenserController : MonoBehaviour, IInteractable
     
     private GameObject newCanister;
     private bool canDispense;
+    [SerializeField]
+    private MeshRenderer meterRenderer;
+    private Material meterMaterial;
+    private Coroutine meterCoroutine;
 
     public bool isOpen;
 
+    [SerializeField] private float meterUpdateSpeed;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject canister;
     [SerializeField] private Transform holder;
@@ -25,9 +30,16 @@ public class DispenserController : MonoBehaviour, IInteractable
 
     private void Start()
     {
+
         currentState = DispenserState.Idle;
         canDispense = true;
         isOpen = false;
+
+        if (meterRenderer != null)
+        {
+            meterMaterial = meterRenderer.material;
+        }
+
     }
 
     public void Interact()
@@ -59,6 +71,11 @@ public class DispenserController : MonoBehaviour, IInteractable
 
         AudioManager.PlayModifiedClipAtPoint("DispenserOpen", transform.position, 1, 1, 1, 1000, false);
         animator.Play("Eject");
+        if (meterCoroutine != null)
+        {
+            StopCoroutine(meterCoroutine);
+        }
+        meterCoroutine = StartCoroutine(UpdateMeter(0f));
         yield return new WaitForSeconds(1f);
 
         newCanister.transform.SetParent(null);
@@ -69,6 +86,7 @@ public class DispenserController : MonoBehaviour, IInteractable
 
         currentState = DispenserState.Dispensing;
         isOpen = true;
+
     }
 
     private IEnumerator ReloadDispenser()
@@ -84,9 +102,45 @@ public class DispenserController : MonoBehaviour, IInteractable
         animator.Play("Reload");
         yield return new WaitForSeconds(3f);
 
+        if (meterCoroutine != null)
+        {
+            StopCoroutine(meterCoroutine);
+        }
+        meterCoroutine = StartCoroutine(UpdateMeter(1f));
         currentState = DispenserState.Idle;
         canDispense = true;
         newCanister = null;
+    }
+
+    private IEnumerator UpdateMeter(float targetFloat)
+    {
+        if (meterMaterial == null)
+        {
+            yield break; // Exit if no material is assigned
+        }
+
+        // Get the current value
+        float currentFillAmount = meterMaterial.GetFloat("_FillAmount");
+
+        // Loop until the value is close enough to the target
+        while (!Mathf.Approximately(currentFillAmount, targetFloat))
+        {
+            // Gradually move towards the target
+            currentFillAmount = Mathf.Lerp(
+            currentFillAmount,
+            targetFloat,
+            meterUpdateSpeed * Time.deltaTime
+            );
+
+            // Update the material property
+            meterMaterial.SetFloat("_FillAmount", currentFillAmount);
+
+            // Wait for the next frame
+            yield return null;
+        }
+
+        // Ensure the target value is set exactly at the end
+        meterMaterial.SetFloat("_FillAmount", targetFloat);
     }
 
     private void Update()
