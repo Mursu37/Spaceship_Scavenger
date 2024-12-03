@@ -14,8 +14,11 @@ public class TurnSway : MonoBehaviour
 
     private void Update()
     {
-        mouseX = Input.GetAxisRaw("Mouse X") * swayMultiplier;
-        mouseY = Input.GetAxisRaw("Mouse Y") * swayMultiplier;
+        if (!PauseGame.isPaused)
+        {
+            mouseX = Input.GetAxisRaw("Mouse X") * swayMultiplier;
+            mouseY = Input.GetAxisRaw("Mouse Y") * swayMultiplier;
+        }
 
         mouseX = Mathf.Clamp(mouseX, -maxSwayAngleX, maxSwayAngleX);
         mouseY = Mathf.Clamp(mouseY, -maxSwayAngleY, maxSwayAngleY);
