@@ -50,13 +50,13 @@ namespace CLI.FSM
             else
             {
                 stateController.ChangeFlavourText("Core Systems Directory\r\n" +
-                "< color =#0a6310>Notice:</color> Main reactor power is online.\r\n" +
+                "<color=#c8a519>Notice:</color> Main reactor power is online.\r\n" +
                 "All critical systems are fully operational.\r\n" +
                 "Containment Core Control Panel is now accessible.\r\n" +
                 "<color=#c8a519><b>System Update:</b>\r\n" +
-                "1.Power coupling successfully linked to the main reactor.\r\n" +
-                "2.Primary systems are stabilized and routed.\r\n" +
-                "Type 'access' to enter Containment Core Control Panel.\r\n" +
+                "1. Power coupling successfully linked to the main reactor.\r\n" +
+                "2. Primary systems are stabilized and routed.\r\n" +
+                "Type 'core' to access Containment Core Control Panel.\r\n" +
                 "Type 'logs' to review power restoration logs.</color>");
             }
 

@@ -34,6 +34,7 @@ public class DoorController : CuttingPointManager
             }
 
             doorOpened = true;
+            gameObject.GetComponent<AddArrayToXray>().SetGroupToLayer(0);
             DestroyCuttingPoints();
         }
     }
@@ -51,6 +52,7 @@ public class DoorController : CuttingPointManager
                 }
             }
 
+            gameObject.GetComponent<AddArrayToXray>().SetGroupToLayer(0);
             doorOpened = true;
         }
     }
