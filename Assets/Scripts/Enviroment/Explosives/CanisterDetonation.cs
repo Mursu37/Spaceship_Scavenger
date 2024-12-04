@@ -18,19 +18,20 @@ public class CanisterDetonation : MonoBehaviour, IInteractable
     public void Interact()
     {
         Debug.Log("Detonate");
-        StartCoroutine(Detonate());
+        if (canDetonate)
+        {
+            canDetonate = false;
+            StartCoroutine(Detonate());
+        }
     }
 
     private IEnumerator Detonate()
     {
-        while (true)
-        {
-            canisterAudio = FindObjectOfType<CanisterAudio>();
-            canisterAudio.PlayFuzeSound(gameObject);
-            steam.Play();
-            yield return new WaitForSeconds(4f);
-            explosives.Explode();
-        }
+        canisterAudio = FindObjectOfType<CanisterAudio>();
+        canisterAudio.PlayFuzeSound(gameObject);
+        steam.Play();
+        yield return new WaitForSeconds(4f);
+        explosives.Explode();
     }
 
     private void OnCollisionEnter(Collision collision)
