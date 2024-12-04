@@ -68,7 +68,7 @@ public class MarkerDirection : MonoBehaviour
             distance.SetActive(true);
             markerIcon.transform.localPosition = new Vector3(pos.x, pos.y + 30, 0);
             markerIcon.transform.localEulerAngles = new Vector3(0, 0, -(player.transform.eulerAngles.z));
-            distanceText.text = (int)Vector3.Distance(Camera.main.transform.position, currentMarker.transform.position) + " m";
+            distanceText.text = (int)Vector3.Distance(Camera.main.transform.position, currentMarker.transform.position) + "m";
             return;
         }
 
