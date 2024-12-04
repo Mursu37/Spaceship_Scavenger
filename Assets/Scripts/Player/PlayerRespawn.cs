@@ -8,14 +8,9 @@ public class PlayerRespawn : MonoBehaviour
     {
         if (!playerRespawned)
         {
-            if (CheckpointManager.checkpointReached)
+            if (CheckpointManager.checkpointReached || CheckpointManager.engineRoomReached)
             {
                 transform.position = CheckpointManager.lastCheckpointPosition;
-                Debug.Log($"Player respawned at {CheckpointManager.lastCheckpointPosition}");
-            }
-            else
-            {
-                Debug.Log("No checkpoint reached. Respawning at default position.");
             }
 
             playerRespawned = true;

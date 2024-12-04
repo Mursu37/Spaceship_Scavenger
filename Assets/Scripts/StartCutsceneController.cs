@@ -9,13 +9,13 @@ public class StartCutsceneController : MonoBehaviour
 
     private void Start()
     {
-        if (!CheckpointManager.checkpointReached)
+        if (!CheckpointManager.checkpointReached && !CheckpointManager.engineRoomReached)
         {
             PauseGame.isPaused = true;
             pauseMenu.enabled = false;
         }
 
-        if (!CheckpointManager.checkpointReached)
+        if (!CheckpointManager.checkpointReached && !CheckpointManager.engineRoomReached)
         {
             playableDirector1.Play();
             playableDirector2.Play();
