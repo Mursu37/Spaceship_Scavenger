@@ -1342,7 +1342,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1459
+  m_VersionIndex: 1468
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3501,6 +3501,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room_08
       objectReference: {fileID: 0}
+    - target: {fileID: 2655138384540871788, guid: ec564fda3fdb4324c96073785dce9cf9,
+        type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2655138384540871788, guid: ec564fda3fdb4324c96073785dce9cf9,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2655138384540871788, guid: ec564fda3fdb4324c96073785dce9cf9,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8413311884029572915, guid: ec564fda3fdb4324c96073785dce9cf9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3551,11 +3566,44 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7626636529720777198, guid: ec564fda3fdb4324c96073785dce9cf9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2254536120524263070, guid: ec564fda3fdb4324c96073785dce9cf9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5851568223185046013}
   m_SourcePrefab: {fileID: 100100000, guid: ec564fda3fdb4324c96073785dce9cf9, type: 3}
+--- !u!1 &1430854506499631436 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2254536120524263070, guid: ec564fda3fdb4324c96073785dce9cf9,
+    type: 3}
+  m_PrefabInstance: {fileID: 906017645966370770}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &5851568223185046013
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430854506499631436}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -436127598804963069, guid: 5812f109fa94c584f930ec01e5dc2c63, type: 3}
 --- !u!4 &8669645519597342945 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8413311884029572915, guid: ec564fda3fdb4324c96073785dce9cf9,

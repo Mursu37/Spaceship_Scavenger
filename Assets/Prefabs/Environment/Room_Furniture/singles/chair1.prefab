@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3953353011298954646
 Transform:
@@ -93,7 +93,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: b7082920a4b76314aa48389467ff1ec9,
         type: 3}
       propertyPath: m_StaticShadowCaster
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: b7082920a4b76314aa48389467ff1ec9,
         type: 3}
@@ -118,13 +118,23 @@ PrefabInstance:
     - target: {fileID: -5223150989427591288, guid: b7082920a4b76314aa48389467ff1ec9,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4699887495479274676, guid: b7082920a4b76314aa48389467ff1ec9,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2590470702234203892, guid: b7082920a4b76314aa48389467ff1ec9,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f40599a5defa925418ad04e324a573ef, type: 2}
+    - target: {fileID: -2437728646649493971, guid: b7082920a4b76314aa48389467ff1ec9,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b7082920a4b76314aa48389467ff1ec9,
         type: 3}
       propertyPath: m_Name
@@ -133,22 +143,42 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b7082920a4b76314aa48389467ff1ec9,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1249632052097237994, guid: b7082920a4b76314aa48389467ff1ec9,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694830415896321312, guid: b7082920a4b76314aa48389467ff1ec9,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451118302482216456, guid: b7082920a4b76314aa48389467ff1ec9,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451118302482216456, guid: b7082920a4b76314aa48389467ff1ec9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4297431924017028536, guid: b7082920a4b76314aa48389467ff1ec9,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5835637125387952682, guid: b7082920a4b76314aa48389467ff1ec9,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8893959814161935414, guid: b7082920a4b76314aa48389467ff1ec9,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -189,9 +219,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!4 &786730048823811617 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b7082920a4b76314aa48389467ff1ec9,

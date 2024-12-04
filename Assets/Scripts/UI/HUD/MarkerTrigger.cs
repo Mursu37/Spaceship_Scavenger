@@ -11,7 +11,7 @@ namespace UI.HUD
 
         private void Start()
         {
-            if (CheckpointManager.checkpointReached)
+            if (CheckpointManager.checkpointReached || CheckpointManager.engineRoomReached)
             {
                 if (CheckpointManager.currentActiveMarkerId != id)
                 {
