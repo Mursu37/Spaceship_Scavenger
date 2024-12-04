@@ -12,10 +12,13 @@ public class MarkerDirection : MonoBehaviour
     [SerializeField] private Image markerIcon;
     [SerializeField] private GameObject distance;
     [SerializeField] private TMP_Text distanceText;
+
+    private Camera mainCamera;
     private void Start()
     {
         currentMarker = GameObject.FindGameObjectWithTag("Marker");
         player = GameObject.FindGameObjectWithTag("Player");
+        mainCamera = Camera.main;
     }
 
     private void LateUpdate()
@@ -41,7 +44,7 @@ public class MarkerDirection : MonoBehaviour
         pos.y -= Screen.height / 2;
         Vector2 original = pos;
             
-        if (Vector3.Dot((markerPos - Camera.main.transform.position).normalized, Camera.main.transform.forward) < 0)
+        if (Vector3.Dot((markerPos - mainCamera.transform.position).normalized, mainCamera.transform.forward) < 0)
         {
             if (pos.x < Screen.width / 2)
             {
@@ -68,7 +71,7 @@ public class MarkerDirection : MonoBehaviour
             distance.SetActive(true);
             markerIcon.transform.localPosition = new Vector3(pos.x, pos.y + 30, 0);
             markerIcon.transform.localEulerAngles = new Vector3(0, 0, -(player.transform.eulerAngles.z));
-            distanceText.text = (int)Vector3.Distance(Camera.main.transform.position, currentMarker.transform.position) + "m";
+            distanceText.text = (int)Vector3.Distance(mainCamera.transform.position, currentMarker.transform.position) + "m";
             return;
         }
 
@@ -89,9 +92,10 @@ public class MarkerDirection : MonoBehaviour
             
         pos.x = Mathf.Clamp(pos.x, minX, maxX);
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
-            
-        markerArrow.transform.localPosition = new Vector3(pos.x, pos.y, 0);
-        markerArrow.transform.up =  (original - pos).normalized;
-        markerArrow.transform.localEulerAngles = new Vector3(0, 0, markerArrow.transform.localEulerAngles.z);
+
+        var transform1 = markerArrow.transform;
+        transform1.localPosition = new Vector3(pos.x, pos.y, 0);
+        transform1.up =  (original - pos).normalized;
+        transform1.localEulerAngles = new Vector3(0, 0, transform1.localEulerAngles.z);
     }
 }
