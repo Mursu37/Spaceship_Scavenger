@@ -11,6 +11,7 @@ namespace CLI.FSM
         {
             defaultState = new A2MainState(this);
             stateHistory = new List<State> { defaultState };
+            defaultDirName = "Maintenance_Area_Terminal";
             currentState = defaultState;
         }
     }

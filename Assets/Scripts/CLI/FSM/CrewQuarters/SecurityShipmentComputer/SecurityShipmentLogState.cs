@@ -8,7 +8,7 @@ namespace CLI.FSM
     {
         public SecurityShipmentLogState(StateController controller) : base(controller)
         {
-            commands.Insert(0, "er-05");
+            commands.Insert(0, "mc-05");
         }
 
         public override void OnEnter()
@@ -20,7 +20,7 @@ namespace CLI.FSM
 
         public override void Interpret(string command)
         {
-            if (command == "er-05")
+            if (command == "mc-05")
             {
                 stateController.ChangeFlavourText("[Log Entry 5: 14:50 - SHIPTIME] \r\n" +
                     "The security lock is in place. Nobody’s teleporting the core out without my clearance. Not after what happened in Bay 3. If anyone tries, the alarms will fry their ears. \r\n" +

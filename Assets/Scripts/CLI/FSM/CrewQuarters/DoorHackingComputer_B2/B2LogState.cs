@@ -8,7 +8,7 @@ namespace CLI.FSM
     {
         public B2LogState(StateController controller) : base(controller)
         {
-            commands.Insert(0, "er");
+            commands.Insert(0, "sb-10");
         }
 
         public override void OnEnter()
@@ -20,7 +20,7 @@ namespace CLI.FSM
 
         public override void Interpret(string command)
         {
-            if (command == "er")
+            if (command == "sb-10")
             {
                 stateController.ChangeFlavourText("[Log Entry 10: 16:05 - SHIPTIME]\r\n" +
                     "Storage monitors are looping footage.Can't tell if it's real or not.Someone—or something—is moving in the aisles.Avoid opening crates without scanning first.\r\n" +

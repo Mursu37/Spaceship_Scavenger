@@ -6,10 +6,14 @@ namespace CLI.FSM
 {
     public class A1MainState : State
     {
+        private A1DownloadState downloadState;
+
         public A1MainState(StateController controller) : base(controller)
         {
+            downloadState = new A1DownloadState(controller);
+
             directories.Add("door_control", new A1SecurityState(controller));
-            directories.Add("Schematics", new A1DownloadState(controller));
+            directories.Add("schematics", downloadState);
             directories.Add("logview", new A1LogState(controller));
         }
 

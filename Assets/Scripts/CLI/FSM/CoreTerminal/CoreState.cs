@@ -339,7 +339,7 @@ namespace CLI.FSM
 
             else if (command == "module instructions")
             {
-                stateController.ChangeText("<color=#3Ca8a8>[Type 'CORE_EXTRACT_PROTOCOL' to initiate\r\n" +
+                stateController.ChangeText("<color=#3Ca8a8>[Type 'RUN CORE_EXTRACT_PROTOCOL' to initiate\r\n" +
                     "automated core disconnection override.\r\n" +
                     "<color=#53e09c><b>Warning:</b></color> Core extraction will trigger shipwide alarms.\r\n" +
                     "<color=#53e09c>Emergency protocols and automated defenses may engage," +
