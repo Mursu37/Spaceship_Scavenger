@@ -76,7 +76,9 @@ namespace CLI.FSM
             {
                 stateController.ChangeText("SYSTEM_DIAGNOSTIC.exe executed.\r\n" +
                     "Analyzing lasergrid control system... 100 % complete. " + "Results:\r\n" +
-                    "- Lasergrid A1L: Operational..\r\n");
+                    "- Lasergrid A1L: Operational..\r\n"+
+                    "- Lasergrid A2L: Operational..\r\n" +
+                    "- Lasergrid A3L: Security Level: Heightened | Operational..");
 
                 /*   query = true;
                    commands.Add("yes");

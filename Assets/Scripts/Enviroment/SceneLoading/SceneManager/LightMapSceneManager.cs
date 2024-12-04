@@ -115,7 +115,7 @@ public class LightMapSceneManager : MonoBehaviour
                 currentScene = newScene;
             }
 
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(newScene));
+            //SceneManager.SetActiveScene(SceneManager.GetSceneByName(newScene));
 
         }
     }

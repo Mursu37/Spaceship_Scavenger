@@ -26,6 +26,11 @@ namespace UI.HUD
 
         private void OnTriggerEnter(Collider other)
         {
+            NextMarker();
+        }
+
+        public void NextMarker()
+        {
             if (nextMarker != null) nextMarker.SetActive(true);
             transform.gameObject.SetActive(false);
         }

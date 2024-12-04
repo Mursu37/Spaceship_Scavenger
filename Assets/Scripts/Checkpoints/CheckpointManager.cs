@@ -20,6 +20,8 @@ public static class CheckpointManager
 
     public static List<string> tutorialsShowed = new List<string>(); // Tracks which tutorials have been showed
 
+    public static bool captainsCredentialsGained = false; // Tracks if player has visited Captain's quarters and downloaded keys
+
     public static float coreHealth; // Assigns health value for core each respawn
 
     // Saves the most recent checkpoint
@@ -33,6 +35,7 @@ public static class CheckpointManager
     public static void ResetCheckpoints()
     {
         checkpointReached = false;
+        captainsCredentialsGained = false;
         lastCheckpointPosition = Vector3.zero;
         lastTeleportId = 0;
         currentActiveMarkerId = 0;
