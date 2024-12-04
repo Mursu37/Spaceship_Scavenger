@@ -52,7 +52,7 @@ public class LightMapSceneManager : MonoBehaviour
             //Check if the scene has been loaded but not activated
             if (asyncOperation.progress >= 0.9f && !isSceneReady)
             {
-                Debug.Log("Scene is preloaded and ready to activate.");
+                // Debug.Log("Scene is preloaded and ready to activate.");
                 loadedSceneInBuffer = sceneName;
                 isSceneReady = true;
             }
@@ -68,18 +68,18 @@ public class LightMapSceneManager : MonoBehaviour
 
         if (unloadOperation == null)
         {
-            Debug.LogWarning($"Scene '{sceneName}' is not loaded or cannot be unloaded.");
+            // Debug.LogWarning($"Scene '{sceneName}' is not loaded or cannot be unloaded.");
             yield break;
         }
 
         while (!unloadOperation.isDone)
         {
-            Debug.Log($"Unloading scene '{sceneName}'... Progress: {unloadOperation.progress * 100}%");
+            //Debug.Log($"Unloading scene '{sceneName}'... Progress: {unloadOperation.progress * 100}%");
             yield return null; // Wait for the next frame
         }
 
         ClearLightmaps();
-        Debug.Log($"Scene '{sceneName}' has been successfully unloaded.");
+        // Debug.Log($"Scene '{sceneName}' has been successfully unloaded.");
     }
 
     public void LoadSceneFromPool(string newScene)
@@ -90,7 +90,7 @@ public class LightMapSceneManager : MonoBehaviour
             if (sceneName != newScene && SceneManager.GetSceneByName(sceneName).isLoaded)
             {
                 UnloadScene(sceneName);
-                Debug.Log(sceneName + " " + "- started asynchronous unload.");
+                // Debug.Log(sceneName + " " + "- started asynchronous unload.");
             }
         }
 
@@ -106,7 +106,7 @@ public class LightMapSceneManager : MonoBehaviour
         {
             if (isSceneReady && loadedSceneInBuffer == newScene)
             {
-                Debug.Log("Activating buffered scene...");
+                // Debug.Log("Activating buffered scene...");
                 asyncOperation.allowSceneActivation = true;
             }
             else

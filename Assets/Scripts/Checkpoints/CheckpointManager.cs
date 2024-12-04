@@ -14,7 +14,7 @@ public static class CheckpointManager
 
     public static List<int> doorsOpened = new List<int>(); // Keeps track of which doors are opened
 
-    public static List<int> teleportersUsed = new List<int>(); // Keeps track of which doors are opened
+    public static List<int> teleportersUsed = new List<int>(); // Keeps track of which teleports were used
 
     public static List<int> switchesTurnedOn = new List<int>(); // Tracks which switches were turned on
 
@@ -42,5 +42,7 @@ public static class CheckpointManager
         doorsOpened.Clear();
         switchesTurnedOn.Clear();
         coreHealth = 0;
+        tutorialsShowed.Clear();
+        teleportersUsed.Clear();
     }
 }

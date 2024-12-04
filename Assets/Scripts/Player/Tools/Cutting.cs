@@ -106,7 +106,6 @@ public class Cutting : MonoBehaviour
             if (Physics.Raycast(ray, out hit, range, ~layerMask))
             {
                 Transform hitTransform = hit.transform;
-                Debug.Log(hitTransform.name);
 
                 if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, angleTolerance))
                 {
@@ -267,8 +266,7 @@ public class Cutting : MonoBehaviour
                                 rightSpark.transform.position = hit.point; // Move the particle system
                             if (rightBeamEnd != null)
                                 rightBeamEnd.transform.position = hit.point;
-
-                            Debug.Log(LayerMask.LayerToName(hit.transform.gameObject.layer));
+                            
                             if (cuttingTrailRight == null) 
                             { 
                                 cuttingTrailRight = Instantiate(CuttingTrailPrefab,
