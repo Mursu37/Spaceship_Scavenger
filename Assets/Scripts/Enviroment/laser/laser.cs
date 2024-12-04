@@ -14,6 +14,9 @@ public class laser : MonoBehaviour
     private bool inCollision = false;
     private Vector3 collisionForce = Vector3.zero;
 
+    // Ignore tool and cutting colliders
+    [SerializeField] private LayerMask layerMask = Physics.AllLayers;
+
     [SerializeField] private float damageAmount = 2f;
 
     private void Start()
@@ -25,7 +28,7 @@ public class laser : MonoBehaviour
 
     private void Update()
     {
-        if (Physics.Raycast(new Ray(transform.position, transform.forward), out RaycastHit hit))
+        if (Physics.Raycast(new Ray(transform.position, transform.forward), out RaycastHit hit, 100f, layerMask))
         {
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, hit.point);

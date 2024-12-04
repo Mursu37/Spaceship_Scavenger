@@ -26,6 +26,7 @@ public class MarkerDirection : MonoBehaviour
             markerArrow.enabled = false;
             markerIcon.enabled = false;
             distance.SetActive(false);
+            return;
         }
         Vector3 markerPos = currentMarker.transform.position;
             

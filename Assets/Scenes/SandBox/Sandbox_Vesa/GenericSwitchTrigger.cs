@@ -22,12 +22,22 @@ public class GenericSwitchTrigger : Switch
         ActivateSwitch();
     }
 
+    public override void Interact()
+    {
+        if (!turnedOn)
+        {
+            StartCoroutine(SwitchAction());
+        }
+    }
+
     private void ActivateSwitch()
     {
         if (switchAnimator.enabled == false)
         {
             return;
         }
+
+        turnedOn = true;
 
         int layerIndex = 0;
         string stateName = "TurnOn";
