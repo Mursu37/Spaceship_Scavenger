@@ -34,7 +34,11 @@ public class Explosives : MonoBehaviour
             {
                 Destroy(collider.gameObject);
             }
-                
+
+            if (collider.CompareTag("Explosive"))
+            {
+                collider.GetComponent<Explosives>().Explode();
+            }
 
             if (collider.transform.parent != null && collider.transform.parent.CompareTag("Player"))
             {
