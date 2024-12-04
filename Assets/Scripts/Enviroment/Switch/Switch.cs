@@ -19,7 +19,7 @@ public abstract class Switch : MonoBehaviour, IInteractable
         }
     }
 
-    public void Interact()
+    public virtual void Interact()
     {
         if (!turnedOn)
         {
