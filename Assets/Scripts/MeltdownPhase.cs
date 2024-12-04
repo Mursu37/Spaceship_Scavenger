@@ -42,7 +42,7 @@ public class MeltdownPhase : MonoBehaviour
         if (coreSounds != null)
         {
             coreSounds.ActivateCoreSounds();
-            Debug.Log("CoreSounds enabled");
+            // Debug.Log("CoreSounds enabled");
         }
 
         alarmSounds = FindObjectsOfType<AlarmSounds>();
@@ -51,7 +51,7 @@ public class MeltdownPhase : MonoBehaviour
             foreach (AlarmSounds sound in alarmSounds)
             {
                 sound.ActivateAlarmSounds();
-                Debug.Log("Alarm sounds enabled");
+                // Debug.Log("Alarm sounds enabled");
             }
         }
 
@@ -59,7 +59,7 @@ public class MeltdownPhase : MonoBehaviour
         if (meltdownMusic != null)
         {
             meltdownMusic.ActivateMeltdownMusic();
-            Debug.Log("Meltdown music enabled");
+            // Debug.Log("Meltdown music enabled");
         }
 
         ambientMusic = FindObjectOfType<AmbientMusic>();

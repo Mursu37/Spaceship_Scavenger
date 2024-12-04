@@ -39,15 +39,12 @@ public class laser : MonoBehaviour
                 {
                     hit.rigidbody.GetComponent<IHealth>().Damage(damageAmount);
                     Vector3 currentVelocity = hit.rigidbody.velocity;
-                    Debug.Log(currentVelocity);
                     float scale = 0.75f;
                     float x = (currentVelocity.x < 0) ? scale : -scale;
                     float y = (currentVelocity.y < 0) ? scale : -scale;
                     float z = (currentVelocity.z < 0) ? scale : -scale;
-                    //hit.rigidbody.AddExplosionForce(500, hit.point, 10);
                     if (inCollision)
                     {
-                        Debug.Log("still in collision");
                         collisionForce *= 1.1f;
                     }
                     else

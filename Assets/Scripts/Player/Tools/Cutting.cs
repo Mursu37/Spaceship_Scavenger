@@ -267,8 +267,7 @@ public class Cutting : MonoBehaviour
                                 rightSpark.transform.position = hit.point; // Move the particle system
                             if (rightBeamEnd != null)
                                 rightBeamEnd.transform.position = hit.point;
-
-                            Debug.Log(LayerMask.LayerToName(hit.transform.gameObject.layer));
+                            
                             if (cuttingTrailRight == null) 
                             { 
                                 cuttingTrailRight = Instantiate(CuttingTrailPrefab,
