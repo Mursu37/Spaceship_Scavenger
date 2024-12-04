@@ -30,7 +30,10 @@ public class MeltdownPhase : MonoBehaviour
 
         lampSwitcherManager.SetAlarmOn();
 
-        coreObject.SetActive(true);
+        if (coreObject != null)
+        {
+            coreObject.GetComponent<EnergyCore>().StartHeating();
+        }
 
         if (heatMeter != null)
         {

@@ -12,6 +12,7 @@ public class EnergyCore : MonoBehaviour, IHealth
     private AmbientMusic ambientMusic;
     private MeltdownMusic meltdownMusic;
     private AmbienceManager ambienceManager;
+    private bool heatingStarted = false;
 
     private CoreSounds coreSounds;
 
@@ -21,19 +22,18 @@ public class EnergyCore : MonoBehaviour, IHealth
 
     [SerializeField] private ParticleSystem waveExplosion;
 
-    private void OnEnable()
+    public void StartHeating()
     {
-        StartCoroutine(HeatIncrease());
+        if (!heatingStarted)
+        {
+            heatingStarted = true;
+            StartCoroutine(HeatIncrease());
+        }
     }
 
     private void Start()
     {
         coreSounds = GetComponentInChildren<CoreSounds>();
-
-        if (!CheckpointManager.checkpointReached)
-        {
-            gameObject.SetActive(false);
-        }
     }
 
     private void Update()
