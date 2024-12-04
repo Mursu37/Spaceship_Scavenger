@@ -48,21 +48,22 @@ class ScannerPass : CustomPass
         range = scanValues.GetRange();
         // Messy but easy way of doing this. Modifies camera settings for culling data. We set these back to normal below
         // TODO Edit cullingParameters instead of camera
-        mask = Camera.main.cullingMask;
-        float distance = Camera.main.farClipPlane;
-        Camera.main.cullingMask |= Physics.AllLayers;
+        var main = Camera.main;
+        mask = main.cullingMask;
+        float distance = main.farClipPlane;
+        main.cullingMask |= Physics.AllLayers;
         
         // makes sure we dont fuck up the camera settings
         //if (range < 1) range = 1;
-        Camera.main.farClipPlane = range + 5;
+        main.farClipPlane = range + 5;
         
         // Get culling data
-        if (!Camera.main.TryGetCullingParameters(out var cullingParameters)) Debug.Log("err");
+        if (!main.TryGetCullingParameters(out var cullingParameters)) Debug.Log("err");
         cullingParameters.cullingOptions = CullingOptions.None;
         CullingResults cullingResults = ctx.renderContext.Cull(ref cullingParameters);
         
         // Render settings
-        var result = new UnityEngine.Rendering.RendererUtils.RendererListDesc(shaderTags, cullingResults, Camera.main)
+        var result = new UnityEngine.Rendering.RendererUtils.RendererListDesc(shaderTags, cullingResults, main)
         {
             rendererConfiguration = PerObjectData.None,
             renderQueueRange = RenderQueueRange.all,
@@ -107,8 +108,8 @@ class ScannerPass : CustomPass
         }
         
         // set camera settings back to normal 
-        Camera.main.cullingMask = mask;
-        Camera.main.farClipPlane = distance;
+        main.cullingMask = mask;
+        main.farClipPlane = distance;
     }
 
     protected override void Cleanup()
