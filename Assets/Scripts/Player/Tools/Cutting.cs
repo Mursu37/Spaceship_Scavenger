@@ -106,7 +106,6 @@ public class Cutting : MonoBehaviour
             if (Physics.Raycast(ray, out hit, range, ~layerMask))
             {
                 Transform hitTransform = hit.transform;
-                Debug.Log(hitTransform.name);
 
                 if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, angleTolerance))
                 {
