@@ -3506,6 +3506,16 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2655138384540871788, guid: ec564fda3fdb4324c96073785dce9cf9,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2655138384540871788, guid: ec564fda3fdb4324c96073785dce9cf9,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8413311884029572915, guid: ec564fda3fdb4324c96073785dce9cf9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3591,7 +3601,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -436127598804963069, guid: 5812f109fa94c584f930ec01e5dc2c63, type: 3}
 --- !u!4 &8669645519597342945 stripped
