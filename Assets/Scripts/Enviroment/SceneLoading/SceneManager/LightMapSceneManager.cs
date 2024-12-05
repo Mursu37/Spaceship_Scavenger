@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEditor;
+using System;
 
 public class LightMapSceneManager : MonoBehaviour
 {
@@ -45,6 +46,7 @@ public class LightMapSceneManager : MonoBehaviour
     {
         //Start loading the scene
         asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        asyncOperation.completed += OnSceneLoad;
         asyncOperation.allowSceneActivation = false;
 
         while (!asyncOperation.isDone)
@@ -78,7 +80,7 @@ public class LightMapSceneManager : MonoBehaviour
             yield return null; // Wait for the next frame
         }
 
-        ClearLightmaps();
+        // ClearLightmaps();
         // Debug.Log($"Scene '{sceneName}' has been successfully unloaded.");
     }
 
@@ -94,7 +96,7 @@ public class LightMapSceneManager : MonoBehaviour
             }
         }
 
-        StartCoroutine(LoadNewSceneWithDelay(newScene, 0.5f));
+        StartCoroutine(LoadNewSceneWithDelay(newScene, 0.1f));
 
     }
 
@@ -124,6 +126,12 @@ public class LightMapSceneManager : MonoBehaviour
     {
         LightmapSettings.lightmaps = new LightmapData[0];
         RenderSettings.skybox = null; // Optional: Clear skybox to avoid visual inconsistencies
+    }
+
+
+    private void OnSceneLoad(AsyncOperation asyncAction)
+    {
+        LightProbes.TetrahedralizeAsync();
     }
 
 }

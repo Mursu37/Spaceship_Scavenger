@@ -11,6 +11,7 @@ namespace CLI.FSM
         {
             defaultState = new B2MainState(this);
             stateHistory = new List<State> { defaultState };
+            defaultDirName = "Storage_Bay_Terminal";
             currentState = defaultState;
         }
     }

@@ -8,7 +8,7 @@ namespace CLI.FSM
     {
         public A2LogState(StateController controller) : base(controller)
         {
-            commands.Insert(0, "er-12");
+            commands.Insert(0, "ma-12");
         }
 
         public override void OnEnter()
@@ -20,7 +20,7 @@ namespace CLI.FSM
 
         public override void Interpret(string command)
         {
-            if (command == "er-12")
+            if (command == "ma-12")
             {
                 stateController.ChangeFlavourText("[Log Entry 12: 08:10 - SHIPTIME] \r\n" +
                     "Security lasers activated after the last breach attempt. Someone keeps tampering with the access points. Whoever it is, they're skilled. Or desperate. Either way, don’t cross alone.\r\n" +

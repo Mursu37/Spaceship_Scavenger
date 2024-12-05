@@ -11,7 +11,7 @@ namespace CLI.FSM
         {
             defaultState = new SecurityShipmentMainState(this);
             stateHistory = new List<State> { defaultState };
-            defaultDirName = "Security_Shipments_Operations";
+            defaultDirName = "Maintenance_checkpoint_terminal";
             currentState = defaultState;
         }
     }

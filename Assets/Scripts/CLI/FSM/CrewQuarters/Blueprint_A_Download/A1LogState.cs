@@ -8,7 +8,7 @@ namespace CLI.FSM
     {
         public A1LogState(StateController controller) : base(controller)
         {
-            commands.Insert(0, "er-14");
+            commands.Insert(0, "cql-14");
         }
 
         public override void OnEnter()
@@ -20,7 +20,7 @@ namespace CLI.FSM
 
         public override void Interpret(string command)
         {
-            if (command == "er-14")
+            if (command == "cql-14")
             {
                 stateController.ChangeFlavourText("[Log Entry 14: 20:12 - SHIPTIME] \r\n" +
                     "The vents might be our last option, but something’s wrong. There’s this... smell. Like cheese. It's getting stronger every hour. If you’re heading into the shafts, brace yourself — it’s not just the smell that’s unsettling.\r\n" +
