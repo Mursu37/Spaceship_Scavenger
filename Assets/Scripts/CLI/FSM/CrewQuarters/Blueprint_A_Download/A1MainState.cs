@@ -12,7 +12,7 @@ namespace CLI.FSM
         {
             downloadState = new A1DownloadState(controller);
 
-            directories.Add("door_control", new A1SecurityState(controller));
+            //directories.Add("door_control", new A1SecurityState(controller));
             directories.Add("schematics", downloadState);
             directories.Add("logview", new A1LogState(controller));
         }

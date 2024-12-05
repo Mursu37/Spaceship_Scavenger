@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GasLeakManager : MonoBehaviour
 {
-    private ParticleSystem gasParticle;
+    private ParticleSystem[] gasParticles;
     private GasTrigger gasTrigger;
     private LeakState currentState;
     private LeakState previousState;
@@ -63,20 +63,25 @@ public class GasLeakManager : MonoBehaviour
                 if (leak != null)
                 {
                     gasTrigger = leak.GetComponent<GasTrigger>();
-                    gasParticle = leak.transform.GetChild(0).GetComponent<ParticleSystem>();
-                    if (gasTrigger != null && gasParticle != null)
+                    gasParticles = leak.transform.GetComponentsInChildren<ParticleSystem>();
+                    
+                    for (int j = 0; j < gasParticles.Length; j++)
                     {
-                        if (currentState == LeakState.Disabled)
+                        if (gasTrigger != null && gasParticles[j] != null)
                         {
-                            gasParticle.Stop();
-                            gasTrigger.enabled = false;
-                        }
-                        else if (currentState == LeakState.Enabled)
-                        {
-                            gasParticle.Play();
-                            gasTrigger.enabled = true;
+                            if (currentState == LeakState.Disabled)
+                            {
+                                gasParticles[j].Stop();
+                                gasTrigger.enabled = false;
+                            }
+                            else if (currentState == LeakState.Enabled)
+                            {
+                                gasParticles[j].Play();
+                                gasTrigger.enabled = true;
+                            }
                         }
                     }
+
                 }
             }
         }

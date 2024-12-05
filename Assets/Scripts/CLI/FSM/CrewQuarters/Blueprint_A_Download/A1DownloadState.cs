@@ -34,7 +34,7 @@ namespace CLI.FSM
                         stateController.AddText("<color=#3Ca8a8>[Ventilation Schematics succesfully downloaded.]", 0f, true, () =>
                         {
                             EventDispatcher dispatcher;
-                            dispatcher = stateController.gameObject.GetComponent<EventDispatcher>();
+                            dispatcher = stateController.gameObject.GetComponent<DownloadEventDispatcher>();
                             dispatcher.TriggerEvent();
                             ventDownloaded = true;
 
