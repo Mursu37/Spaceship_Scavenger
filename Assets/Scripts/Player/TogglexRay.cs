@@ -14,6 +14,9 @@ public class TogglexRay : MonoBehaviour
     private float timer;
     private float range;
 
+    [SerializeField] private GameObject lowPolyPrefab;
+    private List<GameObject> lowPolyObjects = new List<GameObject>();
+
     private void Start()
     {
         xRayActive = false;
@@ -34,18 +37,27 @@ public class TogglexRay : MonoBehaviour
             xRayActive = true;
             customPassVolume.enabled = true;
             AudioManager.PlayAudio("XrayOn", 1, 1, false);
+            LowPolyLayer(LayerMask.GetMask("Dynamic"));
         }
     }
 
     private void LowPolyLayer(LayerMask mask)
     {
+        if (lowPolyPrefab == null) return;
         Collider[] colliders = FindObjectsByType<Collider>(FindObjectsSortMode.None);
+        lowPolyObjects.Clear();
 
         foreach (var collider in colliders)
         {
             if ((mask & (1 << collider.gameObject.layer)) != 0)
             {
-                
+                var lowPolyObject = Instantiate(lowPolyPrefab, collider.transform);
+                Debug.Log(collider.bounds.size);
+                lowPolyObject.transform.localScale = collider.bounds.size;
+                lowPolyObject.transform.localPosition =
+                    collider.transform.InverseTransformPoint(collider.bounds.center);
+                Debug.Log(lowPolyObject.transform.lossyScale);
+                lowPolyObjects.Add(lowPolyObject);
             }
         }
     }
@@ -73,6 +85,11 @@ public class TogglexRay : MonoBehaviour
 
     public void XRayEnded()
     {
+        foreach (var obj in lowPolyObjects)
+        {
+            Destroy(obj);
+        }
+        lowPolyObjects.Clear();
         xRayActive = false;
         timer = 0;
         range = 0;
