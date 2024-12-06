@@ -354,6 +354,7 @@ namespace CLI.FSM
 
         void Update()
         {
+            commandLineInput.onFocusSelectAll = true;
             if (textResponseCoroutineRunning | flavourTextCoroutineRunning)
             {
                 if (!AudioManager.IsPlaying("TerminalTextLoop"))
@@ -376,6 +377,10 @@ namespace CLI.FSM
             }
             if (Input.GetKeyDown(KeyCode.UpArrow)) SelectedChange(true);
             else if (Input.GetKeyDown(KeyCode.DownArrow)) SelectedChange(false);
+            else if (Input.anyKeyDown && commandIndex != -1 && !Input.GetKeyDown(KeyCode.Return) && !Input.GetKeyDown(KeyCode.Backspace))
+            {
+                SelectedChangeInputField();
+            }
 
             if (Input.GetKeyDown(KeyCode.Return))
             {
@@ -408,6 +413,18 @@ namespace CLI.FSM
         public virtual string GetCurrentStateDirectoryText()
         {
             return directoryText.text.ToString();
+        }
+
+        public virtual void SelectedChangeInputField()
+        {
+            if (commandIndex != -1) commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = commandColor;
+            AudioManager.PlayAudio("TerminalButtonHighlight", 1, 1, false, null, true);
+            commandIndex = -1;
+            commandLineInput.ActivateInputField();
+            commandLineInput.interactable = true;
+            commandLineInput.onFocusSelectAll = false;
+            commandLineInput.text = Input.inputString;
+            commandLineInput.MoveToEndOfLine(false,false);
         }
 
         public virtual void SelectedChange(bool up)
