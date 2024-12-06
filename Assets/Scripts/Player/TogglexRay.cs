@@ -37,6 +37,19 @@ public class TogglexRay : MonoBehaviour
         }
     }
 
+    private void LowPolyLayer(LayerMask mask)
+    {
+        Collider[] colliders = FindObjectsByType<Collider>(FindObjectsSortMode.None);
+
+        foreach (var collider in colliders)
+        {
+            if ((mask & (1 << collider.gameObject.layer)) != 0)
+            {
+                
+            }
+        }
+    }
+
     public void ActivateXraypulse()
     {
         xRayActive = true;
