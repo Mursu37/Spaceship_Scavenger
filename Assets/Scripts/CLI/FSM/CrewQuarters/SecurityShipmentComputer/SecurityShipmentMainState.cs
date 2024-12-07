@@ -10,7 +10,6 @@ namespace CLI.FSM
         {
             directories.Add("door_control", new SecurityShipmentSecurityState(controller));
             directories.Add("logview", new SecurityShipmentLogState(controller));
-            commands.Insert(0, "that");
         }
 
         public override void OnEnter()
