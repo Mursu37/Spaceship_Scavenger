@@ -31,13 +31,16 @@ public class MarkerDirection : MonoBehaviour
             distance.SetActive(false);
             return;
         }
+        float widthMultiplier = Screen.width / 1920f;
+        float heightMultiplier = Screen.height / 1080f;
         Vector3 markerPos = currentMarker.transform.position;
-            
-        float minX = -(Screen.width / 2) + markerArrow.GetPixelAdjustedRect().width / 2 + 30;
-        float maxX = (Screen.width / 2) - markerArrow.GetPixelAdjustedRect().width / 2 - 30;
+        float widthOffset = widthMultiplier * 30;
+        float heightOffset = heightMultiplier * 5;
+        float minX = -(Screen.width / 2) + markerArrow.GetPixelAdjustedRect().width * widthMultiplier / 2 + widthOffset;
+        float maxX = (Screen.width / 2) - markerArrow.GetPixelAdjustedRect().width * widthMultiplier / 2 - widthOffset;
     
-        float minY = -(Screen.height / 2) + markerArrow.GetPixelAdjustedRect().height / 2 + 5;
-        float maxY = (Screen.height / 2) - markerArrow.GetPixelAdjustedRect().height / 2 - 5;
+        float minY = -(Screen.height / 2) + markerArrow.GetPixelAdjustedRect().height * heightMultiplier / 2 + heightOffset;
+        float maxY = (Screen.height / 2) - markerArrow.GetPixelAdjustedRect().height * heightMultiplier / 2 - heightOffset;
     
         Vector2 pos = Camera.main.WorldToScreenPoint(markerPos);
         pos.x -= Screen.width / 2;
@@ -72,6 +75,7 @@ public class MarkerDirection : MonoBehaviour
             markerIcon.transform.localPosition = new Vector3(pos.x, pos.y + 30, 0);
             markerIcon.transform.localEulerAngles = new Vector3(0, 0, -(player.transform.eulerAngles.z));
             distanceText.text = (int)Vector3.Distance(mainCamera.transform.position, currentMarker.transform.position) + "m";
+            markerIcon.transform.localScale = new Vector3(1 * widthMultiplier, 1 * heightMultiplier, 1);
             return;
         }
 
@@ -84,10 +88,10 @@ public class MarkerDirection : MonoBehaviour
 
         if (YEdge && XEdge)
         {
-            minX += 50;
-            maxX -= 50;
-            minY += 50;
-            maxY -= 50;
+            minX += 50 * widthMultiplier;
+            maxX -= 50 * widthMultiplier;
+            minY += 50 * heightMultiplier;
+            maxY -= 50 * heightMultiplier;
         }
             
         pos.x = Mathf.Clamp(pos.x, minX, maxX);
@@ -97,5 +101,6 @@ public class MarkerDirection : MonoBehaviour
         transform1.localPosition = new Vector3(pos.x, pos.y, 0);
         transform1.up =  (original - pos).normalized;
         transform1.localEulerAngles = new Vector3(0, 0, transform1.localEulerAngles.z);
+        transform1.localScale = new Vector3(1 * widthMultiplier, 1 * heightMultiplier, 1);
     }
 }
