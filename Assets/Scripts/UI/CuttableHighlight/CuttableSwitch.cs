@@ -31,7 +31,7 @@ public class CuttableSwitch : MonoBehaviour
     {
         var matList = new List<Material>();
         float distance = 1f;
-        if (Physics.Raycast(new Ray(transform.position, transform.position - mainCamera.transform.position),
+        if (Physics.Raycast(new Ray(transform.position, mainCamera.transform.position - transform.position),
                 out RaycastHit hit, distance,
                 layerMask))
         {
