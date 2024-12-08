@@ -34,6 +34,8 @@ public class VentilationHatchController : CuttingPointManager
             rbody.angularDrag = 0.05f;
             rbody.isKinematic = false;
             rbody.useGravity = false;
+            rbody.interpolation = RigidbodyInterpolation.Interpolate;
+            rbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
             doorOpened = true;
             rbody.AddRelativeForce(new Vector3(ForceOnRelease, 0f, 0f), ForceMode.Impulse);
