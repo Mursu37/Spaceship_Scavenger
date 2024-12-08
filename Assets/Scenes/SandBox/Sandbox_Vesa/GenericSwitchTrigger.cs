@@ -19,17 +19,19 @@ public class GenericSwitchTrigger : Switch
     protected override IEnumerator SwitchAction()
     {
         yield return new WaitForSeconds(0.5f);
-        ActivateSwitch();
+        dispatcher.TriggerEvent();
+        //ActivateSwitch();
     }
 
-    public override void Interact()
-    {
-        if (!turnedOn)
-        {
-            StartCoroutine(SwitchAction());
-        }
-    }
+    //public override void Interact()
+    //{
+    //    if (!turnedOn)
+    //    {
+    //        StartCoroutine(SwitchAction());
+    //    }
+    //}
 
+    // Why does this exist? It's just repeating the same stuff that the Switch class already does.
     private void ActivateSwitch()
     {
         if (switchAnimator.enabled == false)

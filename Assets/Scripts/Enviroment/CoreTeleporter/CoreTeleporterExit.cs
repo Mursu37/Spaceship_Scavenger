@@ -17,7 +17,7 @@ public class CoreTeleporterExit : MonoBehaviour
     private MixerController mixerController;
 
     [SerializeField]
-    private Animator switchAnimator;
+    private GameObject switchObj;
 
     public enum TeleporterState
     {
@@ -41,16 +41,16 @@ public class CoreTeleporterExit : MonoBehaviour
     {
         if (currentState != TeleporterState.Idle)
         {
-            if (switchAnimator != null)
+            if (switchObj != null)
             {
-                switchAnimator.enabled = true;
+                switchObj.layer = LayerMask.NameToLayer("Interactable");
             }
         }
         else
         {
-            if (switchAnimator != null)
+            if (switchObj != null)
             {
-                switchAnimator.enabled = false;
+                switchObj.layer = LayerMask.NameToLayer("Default");
             }
         }
 
