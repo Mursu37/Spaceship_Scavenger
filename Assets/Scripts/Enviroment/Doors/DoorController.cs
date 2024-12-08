@@ -57,6 +57,11 @@ public class DoorController : CuttingPointManager
         }
     }
 
+    public void ForceOpen()
+    {
+        DestroyCuttingPoints();
+    }
+
     private void Update()
     {
         OpenDoor();
