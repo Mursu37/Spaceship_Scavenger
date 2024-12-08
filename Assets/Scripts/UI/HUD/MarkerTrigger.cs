@@ -26,7 +26,10 @@ namespace UI.HUD
 
         private void OnTriggerEnter(Collider other)
         {
-            NextMarker();
+            if (other.CompareTag("Player"))
+            {
+                NextMarker();
+            }
         }
 
         public void NextMarker()
