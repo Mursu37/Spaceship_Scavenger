@@ -69,6 +69,25 @@ namespace Octrees
             return pathList[index].octreeNode;
         }
 
+        public List<OctreeNode> GetNeighbors(OctreeNode node)
+        {
+            Node graphNode = FindNode(node);
+            if (graphNode == null)
+            {
+                UnityEngine.Debug.LogError("Specified node not found in the graph.");
+                return null;
+            }
+
+            List<OctreeNode> neighbors = new();
+            foreach (Edge edge in graphNode.edges)
+            {
+                Node neighbor = edge.a == graphNode ? edge.b : edge.a;
+                neighbors.Add(neighbor.octreeNode);
+            }
+
+            return neighbors;
+        }
+
         private const int maxIterations = 10000;
 
         public bool AStar(OctreeNode startNode, OctreeNode endNode)
@@ -117,7 +136,7 @@ namespace Octrees
                     ReconstructPath(current);
 
                     sw.Stop();
-                    UnityEngine.Debug.Log($"Path found: {sw.ElapsedMilliseconds} ms");
+                    UnityEngine.Debug.Log($"Path found in {sw.ElapsedMilliseconds} ms.");
 
                     return true;
                 }
@@ -138,10 +157,7 @@ namespace Octrees
                         neighbor.h = Heuristic(neighbor, end);
                         neighbor.f = neighbor.g + neighbor.h;
                         neighbor.from = current;
-                        if (!openSet.Contains(neighbor))
-                        {
-                            openSet.Add(neighbor);
-                        }
+                        openSet.Add(neighbor);
                     }
                 }
             }

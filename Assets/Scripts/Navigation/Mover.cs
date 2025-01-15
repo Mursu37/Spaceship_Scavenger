@@ -1,30 +1,41 @@
 using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Octrees
 {
     public class Mover: MonoBehaviour
     {
-        [SerializeField] private float speed = 5f;
+        [SerializeField] private float acceleration = 0.05f;
         [SerializeField] private float accuracy = 1f;
+        [SerializeField] private float turnAcceleration = 5f;
         [SerializeField] private float turnSpeed = 5f;
         [SerializeField] private Transform targetDestination;
 
         private int currentWaypoint;
-        private OctreeNode currentNode;
+        private OctreeNode targetNode;
         private Vector3 destination;
         private OctreeNode currentTargetNode;
+        private OctreeNode currentNode;
 
         [SerializeField] private OctreeGenerator octreeGenerator;
         private Graph graph;
 
         Vector3 direction;
         private bool canMove = false;
+        private bool isOutOfBounds = false;
+
+        private Rigidbody rb;
+        private OctreeNode previousNode;
 
         private void Start()
         {
+            rb = GetComponent<Rigidbody>();
+
             graph = octreeGenerator.waypoints;
-            currentNode = GetClosestNode(transform.position);
+            targetNode = GetClosestNode(transform.position);
+            currentNode = targetNode;
+            previousNode = currentNode;
             currentTargetNode = GetClosestNode(targetDestination.position);
 
             if (targetDestination != null)
@@ -35,16 +46,18 @@ namespace Octrees
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.H))
+            if (currentTargetNode != GetClosestNode(targetDestination.position))
             {
+                previousNode = currentNode;
+                currentTargetNode = GetClosestNode(targetDestination.position);
                 GetDestination(targetDestination.position);
             }
 
-            if (currentTargetNode != GetClosestNode(targetDestination.position))
+            if (currentNode != GetClosestNode(transform.position) && targetNode != GetClosestNode(transform.position))
             {
-                Debug.Log("Target destination changed.");
-
-                currentTargetNode = GetClosestNode(targetDestination.position);
+                previousNode = currentNode;
+                currentNode = GetClosestNode(transform.position);
+                targetNode = GetClosestNode(transform.position);
                 GetDestination(targetDestination.position);
             }
 
@@ -52,27 +65,29 @@ namespace Octrees
 
             if (graph.GetPathLength() == 0 || currentWaypoint >= graph.GetPathLength())
             {
-                //GetRandomDestination();
+                GetRandomNeighbor();
                 return;
             }
 
             if (Vector3.Distance(graph.GetPathNode(currentWaypoint).bounds.center, transform.position) < accuracy)
             {
                 currentWaypoint++;
+                currentNode = GetClosestNode(transform.position);
                 Debug.Log($"Waypoint {currentWaypoint} reached.");
             }
 
             if (currentWaypoint < graph.GetPathLength())
             {
-                currentNode = graph.GetPathNode(currentWaypoint);
-                destination = currentNode.bounds.center;
+                targetNode = graph.GetPathNode(currentWaypoint);
+                destination = targetNode.bounds.center;
 
                 direction = destination - transform.position;
                 direction.Normalize();
 
+                
+                canMove = true;
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), turnSpeed * Time.deltaTime);
-                //canMove = true;
-                transform.Translate(0, 0, speed * Time.deltaTime);
+                //transform.Translate(0, 0, speed * Time.deltaTime);
             }
             else
             {
@@ -84,7 +99,19 @@ namespace Octrees
         {
             if (canMove)
             {
-                GetComponent<Rigidbody>().AddForce(direction * speed);
+                Vector3 desiredDirection = direction.normalized;
+                Vector3 currentForward = transform.forward;
+
+                Vector3 rotationDirection = Vector3.Cross(currentForward, desiredDirection);
+
+                //rb.AddTorque(rotationDirection * turnAcceleration, ForceMode.VelocityChange);
+
+                rb.AddForce(currentForward * acceleration, ForceMode.VelocityChange);
+            }
+
+            if (!graph.nodes.ContainsKey(targetNode))
+            {
+                rb.AddForce(previousNode.bounds.center * acceleration, ForceMode.VelocityChange);
             }
         }
 
@@ -95,25 +122,33 @@ namespace Octrees
 
         private void GetDestination(Vector3 destination)
         {
+            Debug.Log("Finding new path.");
+
             OctreeNode destinationNode = octreeGenerator.octree.FindClosestNode(destination);
 
-            if (graph.AStar(currentNode, destinationNode))
+            if (graph.AStar(targetNode, destinationNode))
             {
                 currentWaypoint = 0;
             }
+            else
+            {
+                if (!graph.nodes.ContainsKey(destinationNode))
+                {
+                    GetRandomNeighbor();
+                }
+            }
         }
 
-        private void GetRandomDestination()
+        private void GetRandomNeighbor()
         {
-            OctreeNode destinationNode;
+            List<OctreeNode> neighbors = graph.GetNeighbors(targetNode);
 
-            do
+            OctreeNode destinationNode = neighbors[Random.Range(0, neighbors.Count)];
+
+            if (graph.AStar(targetNode, destinationNode))
             {
-                destinationNode = graph.nodes.ElementAt(Random.Range(0, graph.nodes.Count)).Key;
+                currentWaypoint = 0;
             }
-            while (!graph.AStar(currentNode, destinationNode));
-
-            currentWaypoint = 0;
         }
 
         private void OnDrawGizmos()
