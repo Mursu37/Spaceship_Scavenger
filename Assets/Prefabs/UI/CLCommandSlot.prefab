@@ -303,6 +303,7 @@ GameObject:
   - component: {fileID: 7606778511371382121}
   - component: {fileID: 4524569519562398211}
   - component: {fileID: 4490393750546546450}
+  - component: {fileID: 8281278135502026856}
   m_Layer: 0
   m_Name: CLCommandSlot
   m_TagString: Untagged
@@ -420,4 +421,28 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1069113094877184062}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8281278135502026856}
+        m_TargetAssemblyTypeName: CommandButtonSounds, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8281278135502026856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3871985432989491793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0b3fd4f1ca7c34f929b005fa84afca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
