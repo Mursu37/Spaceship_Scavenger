@@ -285,10 +285,7 @@ namespace CLI.FSM
             {
                 base.Interpret(command);
             }
-
-
         }
-    
     }
 }
 

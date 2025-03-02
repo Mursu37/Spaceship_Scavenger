@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 //using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace CLI.FSM
 {
@@ -92,6 +93,8 @@ namespace CLI.FSM
                 var commandObj = Instantiate(CLCommandPrefab, CLCommandsListObj.transform);
                 commandObj.GetComponentInChildren<TMP_Text>().text = command.ToUpper();
                 commandList.Insert(0, commandObj);
+                var commandButton = commandObj.GetComponent<Button>();
+                commandButton.onClick.AddListener(() => currentState.Interpret(command));
             }
         }
 
