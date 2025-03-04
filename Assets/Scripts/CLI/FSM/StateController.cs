@@ -1,3 +1,4 @@
+using Enviroment.MainTerminal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace CLI.FSM
         [SerializeField] protected Color textColor;
         [SerializeField] protected Color highlightedColor;
         [SerializeField] protected Color commandColor;
+        [SerializeField] protected Color coreCommandColor;
         [SerializeField] private float textWriteDelay = 0.001f;
 
         private bool textResponseCoroutineRunning = false;
@@ -38,6 +40,7 @@ namespace CLI.FSM
         [SerializeField] protected GameObject CLCommandsListObj;
 
         [SerializeField] protected GameObject CLCommandPrefab;
+        [SerializeField] protected GameObject CoreCLCommandPrefab;
         // tracks which command is currently selected. -1 = Input field, 0 - commandList.lenght = command at that index
         public int commandIndex = -1;
 
@@ -48,6 +51,9 @@ namespace CLI.FSM
         protected string defaultDirName;
 
         protected bool GUIBlock = false;
+
+        [SerializeField] private bool powerTextEnabled = false;
+        [SerializeField] private GameObject powerSlot;
 
         private void Start()
         {
@@ -90,7 +96,23 @@ namespace CLI.FSM
             var commands = currentState.GetCommands();
             foreach (var command in commands)
             {
-                var commandObj = Instantiate(CLCommandPrefab, CLCommandsListObj.transform);
+                GameObject commandObj;
+                if (command == "core" || command == "run core_extract_protocol")
+                {
+                    commandObj = Instantiate(CoreCLCommandPrefab, CLCommandsListObj.transform);
+                    if (!GameObject.FindObjectOfType<ShipPowerOn>().isPowerOn)
+                    {
+                        commandObj.GetComponentInChildren<TMP_Text>().alpha = 0.10f;
+                    }
+                    else
+                    {
+                        commandObj.GetComponentInChildren<TMP_Text>().alpha = 1f;
+                    }
+                }
+                else
+                {
+                    commandObj = Instantiate(CLCommandPrefab, CLCommandsListObj.transform);
+                }
                 commandObj.GetComponentInChildren<TMP_Text>().text = command.ToUpper();
                 commandList.Insert(0, commandObj);
                 var commandButton = commandObj.GetComponent<Button>();
@@ -334,6 +356,10 @@ namespace CLI.FSM
             commandLineInput.interactable = true;
             commandLineInput.ActivateInputField();
             currentState?.OnEnter();
+            if (powerTextEnabled)
+            {
+                powerSlot.SetActive(true);
+            }
         }
 
         private void OnDisable()
@@ -353,6 +379,11 @@ namespace CLI.FSM
                 AudioManager.PlayAudio("TerminalExit", 1, 1, false, null, true);
             }
             CLI.SetActive(false);
+
+            if (powerTextEnabled)
+            {
+                powerSlot.SetActive(false);
+            }
         }
 
         void Update()
@@ -408,9 +439,6 @@ namespace CLI.FSM
                 }
 
             }
-
-
-
         }
 
         public virtual string GetCurrentStateDirectoryText()
@@ -441,11 +469,43 @@ namespace CLI.FSM
                 commandLineInput.interactable = false;
                 commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = highlightedColor;
                 if (commandIndex - 1 == -1) return;
-                commandList[commandIndex - 1].GetComponentInChildren<TMP_Text>().color = commandColor;
+                if (commandList[commandIndex - 1].GetComponentInChildren<TMP_Text>().text != "CORE"
+                    && commandList[commandIndex - 1].GetComponentInChildren<TMP_Text>().text != "RUN CORE_EXTRACT_PROTOCOL")
+                {
+                    commandList[commandIndex - 1].GetComponentInChildren<TMP_Text>().color = commandColor;
+                }
+                else
+                {
+                    commandList[commandIndex - 1].GetComponentInChildren<TMP_Text>().color = coreCommandColor;
+                    if (!GameObject.FindObjectOfType<ShipPowerOn>().isPowerOn)
+                    {
+                        commandList[commandIndex - 1].GetComponentInChildren<TMP_Text>().alpha = 0.10f;
+                    }
+                    else
+                    {
+                        commandList[commandIndex - 1].GetComponentInChildren<TMP_Text>().alpha = 1f;
+                    }
+                }
             }
             else if (commandIndex - 1 >= -1)
             {
-                commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = commandColor;
+                if (commandList[commandIndex].GetComponentInChildren<TMP_Text>().text != "CORE"
+                    && commandList[commandIndex].GetComponentInChildren<TMP_Text>().text != "RUN CORE_EXTRACT_PROTOCOL")
+                {
+                    commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = commandColor;
+                }
+                else
+                {
+                    commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = coreCommandColor;
+                    if (!GameObject.FindObjectOfType<ShipPowerOn>().isPowerOn)
+                    {
+                        commandList[commandIndex].GetComponentInChildren<TMP_Text>().alpha = 0.10f;
+                    }
+                    else
+                    {
+                        commandList[commandIndex].GetComponentInChildren<TMP_Text>().alpha = 1f;
+                    }
+                }
                 commandIndex--;
                 AudioManager.PlayAudio("TerminalButtonHighlight", 1, 1, false, null, true);
                 if (commandIndex == -1)

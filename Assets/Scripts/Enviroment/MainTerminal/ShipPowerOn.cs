@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 namespace Enviroment.MainTerminal
@@ -10,6 +11,7 @@ namespace Enviroment.MainTerminal
         [SerializeField] private GameObject lightManager;
         [SerializeField] private Animator doorAnimator;
         [SerializeField] private EventDispatcher dispatcher;
+        [SerializeField] private TMP_Text powerText;
 
         public bool isPowerOn = false;
 
@@ -29,6 +31,8 @@ namespace Enviroment.MainTerminal
             //doorAnimator.Play("Closing");
             isPowerOn = true;
             AudioManager.PlayAudio("ShipPowerOn", 1, 1, false);
+            powerText.text = "MAIN POWER ON";
+            powerText.color = Color.green;
         }
 
         public void turnShipOnNoSound()
