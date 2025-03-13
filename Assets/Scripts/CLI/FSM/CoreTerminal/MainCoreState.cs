@@ -15,11 +15,11 @@ namespace CLI.FSM
         private StateController m_controller;
 
         private CoreState coreState;
-        
+
         public MainCoreState(StateController controller) : base(controller)
         {
             coreState = new CoreState(controller);
-            m_controller = controller; 
+            m_controller = controller;
             directories.Add("core", coreState);
             commands.Insert(0, "status");
             commands.Insert(1, "logs");
@@ -34,7 +34,7 @@ namespace CLI.FSM
             query = false;
 
             //Remove Query Commands (This works for now but caused issues earlier when having a if-statement structure)
-           RemoveGlobalQueryCommands();
+            RemoveGlobalQueryCommands();
 
             if (!isPowerOn)
             {
@@ -62,7 +62,7 @@ namespace CLI.FSM
 
 
             stateController.ChangeText("Type Your Command");
-            
+
             base.OnEnter();
         }
 
@@ -86,7 +86,7 @@ namespace CLI.FSM
                 commands.Remove("cancel");
             }
 */
-          //  stateController.UpdateCommands();
+            //  stateController.UpdateCommands();
 
             coreQuery = false;
             query = false;
@@ -182,7 +182,7 @@ namespace CLI.FSM
                 stateController.ChangeText("<color=#3Ca8a8>[Module: Cannot access containment core utilities while the system is running on auxiliary power mode.\r\n" +
                     "Reroute the power to main power in order to breach core system directory.]");
                 coreQuery = false;
-                
+
 
             }
 
@@ -285,7 +285,9 @@ namespace CLI.FSM
             {
                 base.Interpret(command);
             }
+
+
         }
+
     }
 }
-
