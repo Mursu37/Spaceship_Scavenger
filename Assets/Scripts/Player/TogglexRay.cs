@@ -52,11 +52,9 @@ public class TogglexRay : MonoBehaviour
             if ((mask & (1 << collider.gameObject.layer)) != 0)
             {
                 var lowPolyObject = Instantiate(lowPolyPrefab, collider.transform);
-                Debug.Log(collider.bounds.size);
                 lowPolyObject.transform.localScale = collider.bounds.size;
                 lowPolyObject.transform.localPosition =
                     collider.transform.InverseTransformPoint(collider.bounds.center);
-                Debug.Log(lowPolyObject.transform.lossyScale);
                 lowPolyObjects.Add(lowPolyObject);
             }
         }

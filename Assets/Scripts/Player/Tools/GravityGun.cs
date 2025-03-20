@@ -21,6 +21,7 @@ public class GravityGun : MonoBehaviour
     private Quaternion targetInitialRotation;
     private Quaternion playerInitialRotation;
     private Vector3 localHitOffset;
+    private ParticleSystem beamEndObj;
    
     public bool IsGrabbingValidObject()
     {
@@ -182,8 +183,12 @@ public class GravityGun : MonoBehaviour
     // Releases the object
     private void Release()
     {
-        
-        
+        if (!isAttracting && beamEndObj != null)
+        {
+            Destroy(beamEndObj.gameObject);
+            beamEndObj = null;
+        }
+
         if (target == null)
         {
             targetRb = null;
@@ -262,13 +267,15 @@ public class GravityGun : MonoBehaviour
         {
             animator.SetBool("IsGrabbling", true);
             beamSource.Play();
-            beamEnd.Play();
+            if (beamEndObj == null)
+            {
+                beamEndObj = Instantiate(beamEnd, transform.position, Quaternion.identity);
+            }
         }
         else
         {
             modeSwitch.enabled = true;
             beamSource.Stop();
-            beamEnd.Stop();
         }
 
         // Draws a line between the gun and the object
@@ -277,14 +284,20 @@ public class GravityGun : MonoBehaviour
             lineRenderer.enabled = true;
             p1.position = shootingPoint.position + cam.transform.forward * 4f;
             Vector3 grapplePointWorldPosition = target.transform.TransformPoint(localHitOffset);
-            beamEnd.transform.position = grapplePointWorldPosition;
+            if (beamEndObj != null)
+            {
+                beamEndObj.transform.position = grapplePointWorldPosition;
+            }
             DrawQuadraticBezierCurve(shootingPoint.position, p1.position, grapplePointWorldPosition);
         }
         else if (isAttracting && target != null && targetRb == null)
         {
             lineRenderer.enabled = true;
             p1.position = shootingPoint.position + cam.transform.forward;
-            beamEnd.transform.position = hitPosition;
+            if (beamEndObj != null)
+            {
+                beamEndObj.transform.position = hitPosition;
+            }
             DrawQuadraticBezierCurve(shootingPoint.position, p1.position, hitPosition);
         }
         else

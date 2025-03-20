@@ -14,6 +14,13 @@ public class Flashlight : MonoBehaviour
         FlashlightToggle.gameObject.SetActive(false);
     }
 
+    public void ToggleFlashLightOff()
+    {
+        FlashlightToggle.gameObject.SetActive(false);
+        FlashlightActive = false;
+        AudioManager.PlayModifiedClipAtPoint("FlashLightOff", transform.position, 1, 1, 1, 500);
+    }
+
     // Update is called once per frame
     void Update()
     {
