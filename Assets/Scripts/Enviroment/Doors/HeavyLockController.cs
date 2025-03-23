@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class HeavyLockController : MonoBehaviour
 {
-    [SerializeField] GameObject[] locks;
+    private List<GameObject> locks;
     [SerializeField] DoorController doorController;
 
     private bool canCheck = false;
+
+    private void Start()
+    {
+        AddDescendantsWithTag(transform, "Lock", locks);
+    }
 
     // Update is called once per frame
     private void Update()
@@ -16,6 +21,18 @@ public class HeavyLockController : MonoBehaviour
         {
             doorController.ForceOpen();
             canCheck = true;
+        }
+    }
+
+    private void AddDescendantsWithTag(Transform parent, string tag, List<GameObject> list)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.gameObject.tag == tag)
+            {
+                list.Add(child.gameObject);
+            }
+            AddDescendantsWithTag(child, tag, list);
         }
     }
 

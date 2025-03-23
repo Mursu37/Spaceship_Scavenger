@@ -28,6 +28,7 @@ public class VisorChange : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        currentDamageState = Visor.Default;
     }
 
     public static void UpdateVisor(Visor visor)
