@@ -21,6 +21,7 @@ public class EnergyCore : MonoBehaviour, IHealth
     public float heatIncreaseTime = 8f;
 
     [SerializeField] private ParticleSystem waveExplosion;
+    [SerializeField] private CoreDamageIcons damageIcons;
 
     public void StartHeating()
     {
@@ -55,9 +56,6 @@ public class EnergyCore : MonoBehaviour, IHealth
             {
                 meltdownMusic.StopMeltdownMusic();
             }
-
-            //Scene scene = SceneManager.GetActiveScene();
-            //SceneManager.LoadScene(scene.name);
         }
     }
 
@@ -67,7 +65,6 @@ public class EnergyCore : MonoBehaviour, IHealth
         {
             yield return new WaitForSeconds(heatIncreaseTime);
             heatAmount += 1f;
-            //coreSounds?.PlayRandomDamageSound();
         }
     }
 
@@ -82,6 +79,7 @@ public class EnergyCore : MonoBehaviour, IHealth
         if (collisionForce > 2)
         {
             heatAmount += collisionForce * 2f;
+            damageIcons.ShowIcons();
             coreSounds?.PlayRandomDamageSound();
         }
     }
