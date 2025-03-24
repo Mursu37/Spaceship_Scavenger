@@ -15,16 +15,14 @@ namespace CLI.FSM
         private StateController m_controller;
 
         private CoreState coreState;
-        
+
         public MainCoreState(StateController controller) : base(controller)
         {
             coreState = new CoreState(controller);
-            m_controller = controller; 
+            m_controller = controller;
             directories.Add("core", coreState);
-            commands.Insert(0, "status");
-            commands.Insert(1, "logs");
-            commands.Insert(2, "diagnose");
-            commands.Insert(3, "download");
+            commands.Insert(0, "logs");
+            commands.Insert(1, "download information");
         }
 
 
@@ -34,7 +32,7 @@ namespace CLI.FSM
             query = false;
 
             //Remove Query Commands (This works for now but caused issues earlier when having a if-statement structure)
-           RemoveGlobalQueryCommands();
+            RemoveGlobalQueryCommands();
 
             if (!isPowerOn)
             {
@@ -45,7 +43,7 @@ namespace CLI.FSM
                 "<color=#c8a519><b>Instructions:</b>  \r\n" +
                 "1. Manually link the main power coupling below the reactor station.  \r\n" +
                 "2. Ensure primary systems are routed through the main reactor.  \r\n\r\n" +
-                "Type 'download' to retrieve the power routing schematics.</color>\r\n");
+                "Type 'download' to retrieve the power routing blueprints.</color>\r\n");
             }
             else
             {
@@ -62,7 +60,7 @@ namespace CLI.FSM
 
 
             stateController.ChangeText("Type Your Command");
-            
+
             base.OnEnter();
         }
 
@@ -86,7 +84,7 @@ namespace CLI.FSM
                 commands.Remove("cancel");
             }
 */
-          //  stateController.UpdateCommands();
+            //  stateController.UpdateCommands();
 
             coreQuery = false;
             query = false;
@@ -101,19 +99,19 @@ namespace CLI.FSM
 
             if (query == true && command == "no" || query == true && command == "n")
             {
-                stateController.ChangeText("Power routing schematics download aborted.");
+                stateController.ChangeText("Power routing blueprints download aborted.");
                 query = false;
                 return;
             }
 
             else if (query == true && command == "yes" || query == true && command == "y")
             {
-                stateController.ChangeText("<color=#c8a519>Downloading power routing schematics...</color>");
+                stateController.ChangeText("<color=#c8a519>Downloading power routing blueprints...</color>");
                 stateController.AddText("<line-height=0>========================================================", 0, true, () =>
                 {
                     stateController.AddText("<color=#c8a519><line-height=2em>■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</line-height>", 0.05f, true, () =>
                     {
-                        stateController.AddText("Download Complete: Main Power Coupling Schematics saved to scanner device.", 0f, true, () =>
+                        stateController.AddText("Download Complete: Main Power Coupling Blueprints saved to scanner device.", 0f, true, () =>
                         {
                             EventDispatcher dispatcher;
                             dispatcher = stateController.gameObject.GetComponent<DownloadEventDispatcher>();
@@ -138,7 +136,7 @@ namespace CLI.FSM
 
             if (coreQuery == true && command == "cancel" && isPowerOn)
             {
-                stateController.ChangeText("Power routing schematics download aborted.");
+                stateController.ChangeText("Power routing blueprints download aborted.");
                 coreQuery = false;
                 return;
             }
@@ -182,45 +180,23 @@ namespace CLI.FSM
                 stateController.ChangeText("<color=#3Ca8a8>[Module: Cannot access containment core utilities while the system is running on auxiliary power mode.\r\n" +
                     "Reroute the power to main power in order to breach core system directory.]");
                 coreQuery = false;
-                
+
 
             }
 
             else if (command == "help")
             {
                 stateController.ChangeText("- help - show available commands:\r\n" +
-                    "- status - View system status.  \r\n" +
-                    "- download - Download system diagnostic schematics.  \r\n" +
-                    "- diagnose - Run a system diagnostic.  \r\n" +
+                    "- download - Download system diagnostic blueprints.  \r\n" +
                     "- logs - View previous event logs.");
 
             }
 
-            else if (command == "status")
-            {
-                if (!isPowerOn)
-                {
-                    stateController.ChangeText("System Status:  \r\n" +
-                    "Auxiliary Power: <color=#c8a519>Active</color>  \r\n" +
-                    "Main Reactor: <color=#c8a519>Offline</color>  \r\n" +
-                    "Containment Core: <color=#c8a519>Restricted Access</color>  \r\n" +
-                    "Power Routing: <color=#c8a519>Unlinked</color>");
-                }
-                else
-                {
-                    stateController.ChangeText("System Status:\r\n" +
-                    "Auxiliary Power: Inactive\r\n" +
-                    "Main Reactor: <color=#c8a519>Online</color>\r\n" +
-                    "Containment Core: <color=#c8a519>Restricted Access</color>\r\n" +
-                    "Power Routing: <color=#c8a519>Linked</color>\r\n");
-                }
-            }
-
-            else if (command == "download")
+            else if (command == "download" || command == "download information")
             {
                 if (!downloaded)
                 {
-                    stateController.ChangeText("Download Power Routing Schematics? Yes/No");
+                    stateController.ChangeText("Download Power Routing Blueprints? Yes/No");
 
                     query = true;
                     commands.Add("yes");
@@ -229,30 +205,11 @@ namespace CLI.FSM
                 }
                 else
                 {
-                    stateController.ChangeText("Power routing schematics already downloaded.\r\n" +
+                    stateController.ChangeText("Power routing blueprints already downloaded.\r\n" +
                         "<color=#3Ca8a8>[Module: Activate your visor scanner off terminal with pressing 'X' Key.]");
                 }
             }
 
-            else if (command == "diagnose")
-            {
-                if (!isPowerOn)
-                {
-                    stateController.ChangeText("Diagnostic Results:  \r\n" +
-                    "Main Power Coupling: <color=#c8a519>Disconnected</color>  \r\n" +
-                    "Auxiliary Power Level: <color=#c8a519>32%</color>  \r\n" +
-                    "Reactor Room Pressure: Stable  \r\n" +
-                    "Manual Override: <color=#c8a519>Required</color>");
-                }
-                else
-                {
-                    stateController.ChangeText("Diagnostic Results:\r\n" +
-                    "Main Power Coupling: <color=#c8a519>Connected</color>\r\n" +
-                    "Auxiliary Power Level: Idle\r\n" +
-                    "Reactor Room Pressure: Stable\r\n" +
-                    "Manual Override: Not Required\r\n");
-                }
-            }
             /*
             else if (command == "initialize")
             {
@@ -288,7 +245,6 @@ namespace CLI.FSM
 
 
         }
-    
+
     }
 }
-
