@@ -6354,6 +6354,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 795387337}
   m_CullTransparentMesh: 1
+--- !u!114 &814332546 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3054290228308712375, guid: 31836cb65f2cdcf42af5c814b65ea0d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1090603759}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &831527068 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6939654685147173352, guid: f7706f79e4135f44b84335d3ff8c3212,
@@ -23266,12 +23278,6 @@ LightingSettings:
   m_PVRTiledBaking: 0
   m_NumRaysToShootPerTexel: -1
   m_RespectSceneVisibilityWhenBakingGI: 0
---- !u!1 &1107904726 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5387862802928006524, guid: 511d9c0e059aa454cb0548ac579580e2,
-    type: 3}
-  m_PrefabInstance: {fileID: 2425140372000166922}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1108580151 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5123552454172632932, guid: 511d9c0e059aa454cb0548ac579580e2,
@@ -23887,31 +23893,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2425140372000166922}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1152657260 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5225890315187392458, guid: 511d9c0e059aa454cb0548ac579580e2,
-    type: 3}
-  m_PrefabInstance: {fileID: 2425140372000166922}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1107904726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c60daa4bbdbff5c45b077255afaab058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1152657261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1107904726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59a5c3735937d7b4ba2882c63a66b131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorController: {fileID: 1152657260}
 --- !u!1001 &1154758030
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32885,9 +32866,59 @@ PrefabInstance:
       objectReference: {fileID: 1407842758}
     - target: {fileID: 1739969245802843076, guid: 511d9c0e059aa454cb0548ac579580e2,
         type: 3}
+      propertyPath: meltdownMeter
+      value: 
+      objectReference: {fileID: 814332546}
+    - target: {fileID: 1739969245802843076, guid: 511d9c0e059aa454cb0548ac579580e2,
+        type: 3}
       propertyPath: switchTrigger
       value: 
       objectReference: {fileID: 695102800}
+    - target: {fileID: 1739969245802843076, guid: 511d9c0e059aa454cb0548ac579580e2,
+        type: 3}
+      propertyPath: teleportIcons
+      value: 
+      objectReference: {fileID: 765606014}
+    - target: {fileID: 1739969245802843076, guid: 511d9c0e059aa454cb0548ac579580e2,
+        type: 3}
+      propertyPath: newMeterColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739969245802843076, guid: 511d9c0e059aa454cb0548ac579580e2,
+        type: 3}
+      propertyPath: newMeterColor.b
+      value: 0.94509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739969245802843076, guid: 511d9c0e059aa454cb0548ac579580e2,
+        type: 3}
+      propertyPath: newMeterColor.g
+      value: 0.8039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739969245802843076, guid: 511d9c0e059aa454cb0548ac579580e2,
+        type: 3}
+      propertyPath: newMeterColor.r
+      value: 0.36862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739969245802843076, guid: 511d9c0e059aa454cb0548ac579580e2,
+        type: 3}
+      propertyPath: originalMeterColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739969245802843076, guid: 511d9c0e059aa454cb0548ac579580e2,
+        type: 3}
+      propertyPath: originalMeterColor.b
+      value: 0.3529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739969245802843076, guid: 511d9c0e059aa454cb0548ac579580e2,
+        type: 3}
+      propertyPath: originalMeterColor.g
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739969245802843076, guid: 511d9c0e059aa454cb0548ac579580e2,
+        type: 3}
+      propertyPath: originalMeterColor.r
+      value: 0.8509804
+      objectReference: {fileID: 0}
     - target: {fileID: 1851821359718521016, guid: 511d9c0e059aa454cb0548ac579580e2,
         type: 3}
       propertyPath: m_Layer
@@ -34831,10 +34862,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2425140372000166925}
-    - targetCorrespondingSourceObject: {fileID: 5387862802928006524, guid: 511d9c0e059aa454cb0548ac579580e2,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1152657261}
     - targetCorrespondingSourceObject: {fileID: 5359841919962148066, guid: 511d9c0e059aa454cb0548ac579580e2,
         type: 3}
       insertIndex: 2
@@ -34951,6 +34978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a5c3735937d7b4ba2882c63a66b131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  locks: []
   doorController: {fileID: 1980565459}
 --- !u!1001 &3517178231499821788
 PrefabInstance:

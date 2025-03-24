@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CoreTeleporterExit : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class CoreTeleporterExit : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private GameObject core;
     [SerializeField] private Animator coreAnimator;
+    [SerializeField] private GameObject teleportIcons;
+    [SerializeField] private Image meltdownMeter;
+    [SerializeField] private Color originalMeterColor;
+    [SerializeField] private Color newMeterColor;
     public Transform coreHolder;
     private Vector3 targetPosition;
     private bool canMove = false;
@@ -135,6 +140,8 @@ public class CoreTeleporterExit : MonoBehaviour
         }
 
         core.GetComponent<EnergyCore>().heatIncreaseTime = 8f;
+        teleportIcons.SetActive(false);
+        meltdownMeter.color = originalMeterColor;
         currentState = TeleporterState.Idle;
     }
 
@@ -151,6 +158,9 @@ public class CoreTeleporterExit : MonoBehaviour
 
                 currentState = TeleporterState.Teleporting;
                 core.GetComponent<EnergyCore>().heatIncreaseTime = 16f;
+
+                teleportIcons.SetActive(true);
+                meltdownMeter.color = newMeterColor;
             }
             else
             {
