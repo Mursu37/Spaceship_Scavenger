@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Rendering;
@@ -13,6 +14,9 @@ class ScannerPass : CustomPass
     [Range(0, 10)] [SerializeField] private float threshold = 1;
     [SerializeField] private Material replacementMaterial;
     [SerializeField] private Shader outlineShader;
+
+    [SerializeField] private LayerMask lineRenderers;
+    [SerializeField] private Material draw;
 
     public float range;
     
@@ -106,6 +110,13 @@ class ScannerPass : CustomPass
             CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);
             CoreUtils.DrawFullScreen(ctx.cmd, fullscreenOutline, ctx.propertyBlock, shaderPassId: 0);
         }
+        //CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);
+        //CustomPassUtils.DrawRenderers(ctx, lineRenderers);
+        
+        result.overrideMaterial = null;
+        result.layerMask = lineRenderers;
+        CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);
+        CoreUtils.DrawRendererList(ctx.renderContext, ctx.cmd, ctx.renderContext.CreateRendererList(result));
         
         // set camera settings back to normal 
         main.cullingMask = mask;
