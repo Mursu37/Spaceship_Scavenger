@@ -142,6 +142,7 @@ Transform:
   - {fileID: 6192490997909507238}
   - {fileID: 8880693835723800479}
   - {fileID: 2494384932138042306}
+  - {fileID: 5419303068277365743}
   m_Father: {fileID: 6510633447340659429}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &923137080864444757
@@ -2707,6 +2708,10 @@ MonoBehaviour:
   player: {fileID: 0}
   core: {fileID: 0}
   coreAnimator: {fileID: 0}
+  teleportIcons: {fileID: 0}
+  meltdownMeter: {fileID: 0}
+  originalMeterColor: {r: 0, g: 0, b: 0, a: 0}
+  newMeterColor: {r: 0, g: 0, b: 0, a: 0}
   coreHolder: {fileID: 5077512076870385695}
   switchObj: {fileID: 0}
   currentState: 0
@@ -4676,6 +4681,80 @@ MonoBehaviour:
   gasLeaks: {fileID: 8248542952724234033}
   dispensers:
   - {fileID: 7580201903869590561}
+--- !u!1001 &4714991905214093172
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3618441026749388118}
+    m_Modifications:
+    - target: {fileID: 745978256418376859, guid: 2e8961dcb2561104cb8af48b097a7e3c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -143.067
+      objectReference: {fileID: 0}
+    - target: {fileID: 745978256418376859, guid: 2e8961dcb2561104cb8af48b097a7e3c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.94179344
+      objectReference: {fileID: 0}
+    - target: {fileID: 745978256418376859, guid: 2e8961dcb2561104cb8af48b097a7e3c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.361
+      objectReference: {fileID: 0}
+    - target: {fileID: 745978256418376859, guid: 2e8961dcb2561104cb8af48b097a7e3c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6845747
+      objectReference: {fileID: 0}
+    - target: {fileID: 745978256418376859, guid: 2e8961dcb2561104cb8af48b097a7e3c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.17708048
+      objectReference: {fileID: 0}
+    - target: {fileID: 745978256418376859, guid: 2e8961dcb2561104cb8af48b097a7e3c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.68457466
+      objectReference: {fileID: 0}
+    - target: {fileID: 745978256418376859, guid: 2e8961dcb2561104cb8af48b097a7e3c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.17708044
+      objectReference: {fileID: 0}
+    - target: {fileID: 745978256418376859, guid: 2e8961dcb2561104cb8af48b097a7e3c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 29.006
+      objectReference: {fileID: 0}
+    - target: {fileID: 745978256418376859, guid: 2e8961dcb2561104cb8af48b097a7e3c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 745978256418376859, guid: 2e8961dcb2561104cb8af48b097a7e3c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088055486382384486, guid: 2e8961dcb2561104cb8af48b097a7e3c,
+        type: 3}
+      propertyPath: m_Name
+      value: Switch_PlasticCovered
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2e8961dcb2561104cb8af48b097a7e3c, type: 3}
+--- !u!4 &5419303068277365743 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 745978256418376859, guid: 2e8961dcb2561104cb8af48b097a7e3c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4714991905214093172}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4997425823876591867
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7316,6 +7395,10 @@ MonoBehaviour:
   player: {fileID: 0}
   core: {fileID: 0}
   coreAnimator: {fileID: 0}
+  teleportIcons: {fileID: 0}
+  meltdownMeter: {fileID: 0}
+  originalMeterColor: {r: 0, g: 0, b: 0, a: 0}
+  newMeterColor: {r: 0, g: 0, b: 0, a: 0}
   coreHolder: {fileID: 3015764445992982218}
   switchObj: {fileID: 0}
   currentState: 0
