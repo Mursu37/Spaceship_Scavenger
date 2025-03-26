@@ -47,6 +47,7 @@ Shader "Unlit/connectionFlow"
                 float2 uv : TEXCOORD0;
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
+                float4 worldPosition : TEXCOORD2;
             };
 
             sampler2D _MainTex;
@@ -56,12 +57,14 @@ Shader "Unlit/connectionFlow"
             float2 _AnimateXY;
             float _Speed;
             float _VerticalCulling;
+            float _CheckDistance;
 
             v2f vert (appdata v)
             {
                 _AnimateXY = float2(_Speed, 0);
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
+                o.worldPosition = mul(unity_ObjectToWorld, v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.uv += frac(_AnimateXY * _Time.yy);
                 return o;
@@ -70,6 +73,8 @@ Shader "Unlit/connectionFlow"
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
+                float dist = distance(i.worldPosition, _WorldSpaceCameraPos);
+                if (dist > _CheckDistance) return fixed4(0,0,0,0);
                 fixed4 col = tex2D(_MainTex, i.uv);
                 fixed4 col2 = tex2D(_SecondMask, i.uv);
                 float reduction;

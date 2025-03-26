@@ -16,8 +16,9 @@ class ScannerPass : CustomPass
     [SerializeField] private Shader outlineShader;
 
     [SerializeField] private LayerMask lineRenderers;
-    [SerializeField] private Material draw;
 
+    [SerializeField] private List<Material> flowMaterials = new List<Material>();
+    
     public float range;
     
     [SerializeField, HideInInspector]
@@ -112,7 +113,11 @@ class ScannerPass : CustomPass
         }
         //CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);
         //CustomPassUtils.DrawRenderers(ctx, lineRenderers);
-        
+
+        foreach (var mat in flowMaterials)
+        {
+            mat.SetFloat("_CheckDistance", range);
+        }
         result.overrideMaterial = null;
         result.layerMask = lineRenderers;
         CoreUtils.SetRenderTarget(ctx.cmd, ctx.cameraColorBuffer, ClearFlag.None);

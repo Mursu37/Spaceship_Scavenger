@@ -19,6 +19,7 @@ public class DispenserController : MonoBehaviour, IInteractable
     [SerializeField] private GameObject canister;
     [SerializeField] private Transform holder;
 
+    [SerializeField] private GameObject gasLine;
     private enum DispenserState
     {
         Idle,
@@ -55,6 +56,7 @@ public class DispenserController : MonoBehaviour, IInteractable
     {
         canDispense = false;
         newCanister = Instantiate(canister, holder.position, holder.rotation, holder);
+        if(gasLine != null) gasLine.SetActive(false);
 
         if (newCanister.transform.GetChild(0).TryGetComponent<Rigidbody>(out var rb))
         {
@@ -110,6 +112,7 @@ public class DispenserController : MonoBehaviour, IInteractable
         currentState = DispenserState.Idle;
         canDispense = true;
         newCanister = null;
+        if (gasLine != null) gasLine.SetActive(true);
     }
 
     private IEnumerator UpdateMeter(float targetFloat)
