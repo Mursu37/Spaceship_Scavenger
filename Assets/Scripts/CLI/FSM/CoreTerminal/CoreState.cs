@@ -310,7 +310,7 @@ namespace CLI.FSM
             {
                 if (!protocolHasRun)
                 {
-                    if (GameObject.Find("PowerOnSwitch").GetComponent<ShipPowerOn>().isPowerOn)
+                    if (GameObject.Find("PowerOnSwitch").GetComponentInChildren<ShipPowerOn>().isPowerOn)
                     {
 
                         stateController.ChangeText("<color=#3Ca8a8>[WARNING: Executing this protocol will destabilize the core containment.\r\n" +
