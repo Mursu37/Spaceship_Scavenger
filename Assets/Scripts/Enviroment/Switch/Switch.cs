@@ -15,6 +15,11 @@ public abstract class Switch : MonoBehaviour, IInteractable
         if (CheckpointManager.switchesTurnedOn.Contains(id))
         {
             turnedOn = true;
+            if (gameObject.GetComponent<SwitchLampColorChange>() != null)
+            {
+                gameObject.GetComponent<SwitchLampColorChange>().ChangeLightColor(2);
+                animator.Play("OpenCover", 1, 1);
+            }
             animator.Play("TurnOn", 0, 1);
         }
     }

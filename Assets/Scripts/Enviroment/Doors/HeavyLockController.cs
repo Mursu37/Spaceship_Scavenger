@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HeavyLockController : MonoBehaviour
 {
-    private List<GameObject> locks;
+    [SerializeField] private List<GameObject> locks;
     [SerializeField] DoorController doorController;
 
     private bool canCheck = false;

@@ -9,7 +9,6 @@ namespace Enviroment.MainTerminal
         private LampSwitcherManager lampSwitcherManager;
 
         [SerializeField] private GameObject lightManager;
-        [SerializeField] private Animator doorAnimator;
         [SerializeField] private EventDispatcher dispatcher;
         [SerializeField] private TMP_Text powerText;
 
@@ -28,7 +27,6 @@ namespace Enviroment.MainTerminal
         {
             lampSwitcherManager.ToggleLamps(true);
             dispatcher.TriggerEvent();
-            //doorAnimator.Play("Closing");
             isPowerOn = true;
             AudioManager.PlayAudio("ShipPowerOn", 1, 1, false);
             powerText.text = "MAIN POWER ON";
@@ -38,7 +36,6 @@ namespace Enviroment.MainTerminal
         public void turnShipOnNoSound()
         {
             lampSwitcherManager.ToggleLamps(true);
-            //doorAnimator.Play("Closing");
             dispatcher.TriggerEvent();
             isPowerOn = true;
         }
