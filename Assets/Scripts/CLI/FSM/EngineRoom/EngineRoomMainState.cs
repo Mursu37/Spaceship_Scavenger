@@ -32,6 +32,7 @@ namespace CLI.FSM
                     "Door_control - change directory to door_control. \r\n" +
                     "logview - view personnel log entries."
                     );
+                return;
             }
 
             base.Interpret(command);

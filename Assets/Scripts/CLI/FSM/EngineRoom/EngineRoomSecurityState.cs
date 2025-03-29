@@ -97,11 +97,11 @@ namespace CLI.FSM
                     "RUN DIAGNOSTICS - Run a system diagnostic.\r\n");
                 //  "* Unauthorized access detected.Emergency lockout lifted.\r\n");
             }
-            else if (query == true && command == "yes")
+            else if (query == true && (command == "yes" | command == "y"))
             {
                 stateController.ChangeText("Downloading system diagnostics report schematics.");
             }
-            else if (query == true && command == "no")
+            else if (query == true && (command == "no" | command == "n"))
             {
                 stateController.ChangeText("Systems diagnostics report download aborted.");
             }
