@@ -161,9 +161,6 @@ public class CoreTeleporterExit : MonoBehaviour
 
                 teleportIcons.SetActive(true);
                 meltdownMeter.color = newMeterColor;
-
-                switchObj.GetComponent<Animator>().Play("OpenCover");
-                switchObj.GetComponent<SwitchLampColorChange>().ChangeLightColor(1);
             }
             else
             {
