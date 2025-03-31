@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FadeOut : MonoBehaviour
 {
-    [SerializeField] private bool canFadeOut = false;
+    public bool canFadeOut = false;
     [SerializeField] private float fadeTime = 1f;
     [SerializeField] CanvasGroup[] groups;
     public bool allFadedOut = false;
