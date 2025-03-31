@@ -47,6 +47,8 @@ public class Cutting : MonoBehaviour
     private bool hasPlayedBlockedSound = false;
     private bool isSoundCoroutineRunning = false;
 
+    public bool isAligned = false;
+
     //Arina UI 
     public bool IsObjectDetected()
     {
@@ -109,6 +111,7 @@ public class Cutting : MonoBehaviour
 
                 if (hitTransform.CompareTag("Cuttable") && AreAnglesClose(transform, hitTransform, angleTolerance))
                 {
+                    isAligned = true;
                     cuttingPoint = hitTransform;
                     hitPoint = hit.point;
                     currentType = CuttableType.Normal;
@@ -143,6 +146,10 @@ public class Cutting : MonoBehaviour
                 // If the raycast does not hit anything
                 PlayActionBlockedSound();
             }
+        }
+        else
+        {
+            isAligned = false;
         }
 
         if (Input.GetButtonDown("Fire2") && !PauseGame.isPaused)
