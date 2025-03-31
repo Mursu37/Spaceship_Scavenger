@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FadeIn : MonoBehaviour
 {
-    [SerializeField] private bool canFadeIn = false;
+    public bool canFadeIn = false;
     [SerializeField] private float fadeTime = 1f;
     [SerializeField] CanvasGroup[] groups;
     public bool allFadedIn = false;
