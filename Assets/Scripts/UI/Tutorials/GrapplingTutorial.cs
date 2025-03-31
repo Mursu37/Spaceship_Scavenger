@@ -17,7 +17,7 @@ public class GrapplingTutorial : MonoBehaviour
         {
             if (!gravityText.GetComponent<SmoothTextHighlight>().canHighlight)
             {
-                gravityText.GetComponent<SmoothTextHighlight>().StartHiglight();
+                gravityText.GetComponent<SmoothTextHighlight>().StartHighlight();
             }
         }
 
@@ -25,7 +25,7 @@ public class GrapplingTutorial : MonoBehaviour
         {
             if (!grabbleText.GetComponent<SmoothTextHighlight>().canHighlight)
             {
-                grabbleText.GetComponent<SmoothTextHighlight>().StartHiglight();
+                grabbleText.GetComponent<SmoothTextHighlight>().StartHighlight();
             }
         }
 
@@ -33,7 +33,7 @@ public class GrapplingTutorial : MonoBehaviour
         {
             if (!distanceText.GetComponent<SmoothTextHighlight>().canHighlight)
             {
-                distanceText.GetComponent<SmoothTextHighlight>().StartHiglight();
+                distanceText.GetComponent<SmoothTextHighlight>().StartHighlight();
             }
         }
     }

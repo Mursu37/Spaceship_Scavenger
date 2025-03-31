@@ -17,7 +17,7 @@ public class CuttingTutorial : MonoBehaviour
         {
             if (!cuttingText.GetComponent<SmoothTextHighlight>().canHighlight)
             {
-                cuttingText.GetComponent<SmoothTextHighlight>().StartHiglight();
+                cuttingText.GetComponent<SmoothTextHighlight>().StartHighlight();
             }
         }
 
@@ -25,7 +25,7 @@ public class CuttingTutorial : MonoBehaviour
         {
             if (!cutText.GetComponent<SmoothTextHighlight>().canHighlight)
             {
-                cutText.GetComponent<SmoothTextHighlight>().StartHiglight();
+                cutText.GetComponent<SmoothTextHighlight>().StartHighlight();
             }
         }
 
@@ -33,7 +33,7 @@ public class CuttingTutorial : MonoBehaviour
         {
             if (!angleText.GetComponent<SmoothTextHighlight>().canHighlight)
             {
-                angleText.GetComponent<SmoothTextHighlight>().StartHiglight();
+                angleText.GetComponent<SmoothTextHighlight>().StartHighlight();
             }
         }
     }

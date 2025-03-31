@@ -6,31 +6,33 @@ public class SmoothTextHighlight : MonoBehaviour
     public bool canHighlight = false;
     [SerializeField] private float fadeTime = 1f;
     [SerializeField] private TextMeshProUGUI textMeshPro;
-    private Material mat;
-    private float glowPower = 0f;
+    [SerializeField] private Color highlightedColor;
+    private Color originalColor;
+    private float t = 0f;
     private bool highlighted = false;
 
-    public void StartHiglight()
+    private void Start()
+    {
+        if (textMeshPro != null)
+        {
+            originalColor = textMeshPro.color;
+        }
+    }
+
+    public void StartHighlight()
     {
         canHighlight = true;
-
-        mat = new Material(textMeshPro.fontSharedMaterial);
-        textMeshPro.fontMaterial = mat;
-
-        mat.EnableKeyword("GLOW_ON");
-        mat.SetFloat("_GlowPower", 0f);
+        t = 0f;
     }
 
     private void Update()
     {
         if (canHighlight && !highlighted)
         {
-            glowPower += fadeTime * Time.deltaTime;
-            glowPower = Mathf.Clamp(glowPower, 0f, 1f);
+            t += Time.deltaTime / fadeTime;
+            textMeshPro.color = Color.Lerp(originalColor, highlightedColor, t);
 
-            mat.SetFloat("_GlowPower", glowPower);
-
-            if (glowPower >= 1f)
+            if (t >= 1f)
             {
                 highlighted = true;
                 canHighlight = false;
