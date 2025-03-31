@@ -42,7 +42,7 @@ public class TutorialPopUp : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButtonDown("Submit"))
+        if(Input.GetButtonDown("Submit") || Input.GetButtonDown("Cancel"))
         {
             if (currentTutorial != null)
             {
