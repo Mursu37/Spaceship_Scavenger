@@ -53,7 +53,7 @@ public class PauseMenu : MonoBehaviour
 
         isPaused = true;
         pausePanel.SetActive(true);
-        PauseGame.Pause(PauseGame.TransitionType.PauseMixer);
+        PauseGame.Pause();
         ShowPanel(pauseMenu);
         OnPause?.Invoke();
     }
@@ -64,7 +64,7 @@ public class PauseMenu : MonoBehaviour
 
         isPaused = false;
         pausePanel.SetActive(false);
-        PauseGame.Resume(PauseGame.TransitionType.UnpauseMixer);
+        PauseGame.Resume();
         onResume?.Invoke();
     }
 
@@ -113,7 +113,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1; // ensure the game is unpaused
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
-        PauseGame.Resume(PauseGame.TransitionType.UnpauseMixer);
+        PauseGame.Resume();
     }
 
     public void QuitToMainMenu()
@@ -121,7 +121,7 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadSceneAsync("MainMenu");
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
-        PauseGame.Resume(PauseGame.TransitionType.UnpauseMixer);
+        PauseGame.Resume();
     }
 
 }

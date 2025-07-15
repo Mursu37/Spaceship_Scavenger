@@ -17,7 +17,7 @@ public class CoreTeleporterExit : MonoBehaviour
     public Transform coreHolder;
     private Vector3 targetPosition;
     private bool canMove = false;
-    private bool isClosingAudioPlayed = false;
+
 
     private MixerController mixerController;
 
@@ -39,7 +39,6 @@ public class CoreTeleporterExit : MonoBehaviour
     {
         animator = transform.GetChild(0).GetComponent<Animator>();
 
-        mixerController = FindObjectOfType<MixerController>(); //For changing audio mixer snapshots
     }
 
     private void Update()
@@ -94,11 +93,6 @@ public class CoreTeleporterExit : MonoBehaviour
 
             case TeleporterState.Closing:
                 animator.Play("DoorClose");
-                if (!AudioManager.IsPlaying("TeleporterClose") && !isClosingAudioPlayed)
-                {
-                    AudioManager.PlayModifiedClipAtPoint("TeleporterClose", transform.position, 1, 1, 1, 1000);
-                    isClosingAudioPlayed = true;
-                }
                 StartCoroutine(Close());
                 break;
 
@@ -111,10 +105,6 @@ public class CoreTeleporterExit : MonoBehaviour
     public void TeleporterRelease()
     {
         animator.Play("TeleporterOpen");
-        if (!AudioManager.IsPlaying("TeleporterOpen"))
-        {
-            AudioManager.PlayModifiedClipAtPoint("TeleporterOpen", transform.position, 1, 1, 1, 1000);
-        }
         targetPosition = core.transform.position + core.transform.right * -2f;
         currentState = TeleporterState.CoreMoving;
     }

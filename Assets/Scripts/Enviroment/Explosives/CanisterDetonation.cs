@@ -5,7 +5,6 @@ using UnityEngine;
 public class CanisterDetonation : MonoBehaviour, IInteractable
 {
     private Explosives explosives;
-    private CanisterAudio canisterAudio;
     private bool canDetonate = true;
     [SerializeField] private ParticleSystem steam;
 
@@ -27,8 +26,6 @@ public class CanisterDetonation : MonoBehaviour, IInteractable
 
     private IEnumerator Detonate()
     {
-        canisterAudio = FindObjectOfType<CanisterAudio>();
-        canisterAudio.PlayFuzeSound(gameObject);
         steam.Play();
         yield return new WaitForSeconds(4f);
         explosives.Explode();

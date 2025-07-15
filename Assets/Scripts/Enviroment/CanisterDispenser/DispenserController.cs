@@ -47,7 +47,6 @@ public class DispenserController : MonoBehaviour, IInteractable
     {
         if (currentState == DispenserState.Idle && canDispense)
         {
-            AudioManager.PlayAudio("InteractBeep", 1, 1, false);
             StartDispense();
         }
     }
@@ -71,7 +70,6 @@ public class DispenserController : MonoBehaviour, IInteractable
     {
         yield return new WaitForSeconds(0.3f);
 
-        AudioManager.PlayModifiedClipAtPoint("DispenserOpen", transform.position, 1, 1, 1, 1000, false);
         animator.Play("Eject");
         if (meterCoroutine != null)
         {
@@ -95,12 +93,10 @@ public class DispenserController : MonoBehaviour, IInteractable
     {
         currentState = DispenserState.Reloading;
 
-        AudioManager.PlayModifiedClipAtPoint("DispenserClose", transform.position, 1, 1, 1, 1000, false);
         animator.Play("Shut");
         yield return new WaitForSeconds(1f);
 
         isOpen = false;
-        AudioManager.PlayModifiedClipAtPoint("DispenserReload", transform.position, 1, 1, 1, 1000, false);
         animator.Play("Reload");
         yield return new WaitForSeconds(3f);
 

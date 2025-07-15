@@ -35,8 +35,6 @@ public class CoreTeleporterEntrance : MonoBehaviour
     {
         animator = transform.GetChild(0).GetComponent<Animator>();
 
-        mixerController = FindObjectOfType<MixerController>(); //For changing audio mixer snapshots
-
         if (multitool != null)
         {
             gravityGun = multitool.GetComponent<GravityGun>();
@@ -66,10 +64,6 @@ public class CoreTeleporterEntrance : MonoBehaviour
                     {
                         animator.Play("DoorOpen");
                         currentState = TeleporterState.Opening;
-                        if (!AudioManager.IsPlaying("TeleporterOpen"))
-                        {
-                            AudioManager.PlayModifiedClipAtPoint("TeleporterOpen", transform.position, 1, 1, 1, 1000);
-                        }
                     }
                     break;
 
@@ -123,11 +117,6 @@ public class CoreTeleporterEntrance : MonoBehaviour
     {
         core.position = Vector3.Lerp(core.position, coreHolder.position, 2f * Time.fixedDeltaTime);
         core.rotation = Quaternion.Lerp(core.rotation, coreHolder.rotation, 5f * Time.fixedDeltaTime);
-        if (!AudioManager.IsPlaying("TeleporterCoreIn") && !coreInSoundPlayed)
-        {
-            AudioManager.PlayModifiedClipAtPoint("TeleporterCoreIn", transform.position, 1, 1, 1, 1000);
-            coreInSoundPlayed = true;
-        }
     }
 
     private bool HasCoreReachedTarget()
@@ -139,10 +128,6 @@ public class CoreTeleporterEntrance : MonoBehaviour
     private IEnumerator TeleportCoreCoroutine()
     {
 
-        if (!AudioManager.IsPlaying("TeleporterClose"))
-        {
-            AudioManager.PlayModifiedClipAtPoint("TeleporterClose", transform.position, 1, 1, 1, 1000);
-        }
         yield return new WaitForSeconds(1f);
 
         animator.Play("DoorClose");
@@ -153,10 +138,6 @@ public class CoreTeleporterEntrance : MonoBehaviour
             dispatcher.TriggerEvent();
         }
 
-        if (!AudioManager.IsPlaying("TeleporterActiveHum"))
-        {
-            AudioManager.PlayModifiedClipAtPoint("TeleporterActiveHum", transform.position, 1, 1, 1, 1000);
-        }
 
         // Save data
         checkpoint?.SaveCheckpointState(id);

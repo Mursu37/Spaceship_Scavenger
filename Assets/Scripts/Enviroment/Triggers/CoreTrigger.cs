@@ -6,7 +6,6 @@ using static UnityEngine.Rendering.DebugUI;
 public class CoreTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject victoryScreen;
-    [SerializeField] AudioMixer audioMixer;
 
     private FadeIn fadeIn;
 
@@ -25,12 +24,8 @@ public class CoreTrigger : MonoBehaviour
 
     public void MissionCompleted()
     {
-        AudioManager.PlayAudio("MissionComplete", 1, 1, false); // This should play on contract complete screen if/when there is one
         victoryScreen.SetActive(true);
         fadeIn.StartFadeIn();
-        audioMixer.SetFloat("Music", -80);
-        audioMixer.SetFloat("Ambience", -80);
-        audioMixer.SetFloat("Sound", -80);
     }
 
     private void Update()

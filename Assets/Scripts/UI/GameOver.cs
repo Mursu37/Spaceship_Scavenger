@@ -40,7 +40,6 @@ public class GameOver : MonoBehaviour
         if (fadeOut.allFadedOut && !hasFadedOut)
         {
             PauseGame.Resume();
-            AudioManager.StopAllAudio();
             hasFadedOut = true;
 
             if (currentAction == GameOverAction.Retry)

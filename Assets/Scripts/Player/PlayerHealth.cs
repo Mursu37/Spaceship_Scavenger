@@ -29,10 +29,6 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
     public void Damage(float amount, float shakeAmount = 0.04f)
     {
-        if (!AudioManager.IsPlaying("PlayerDamageAlarm"))
-        {
-            AudioManager.PlayAudio("PlayerDamageAlarm", 1, 1, false);
-        }
         currentHealth -= amount;
         Camera.main.GetComponent<CameraShake>().shakeDuration = 0.2f;
         Camera.main.GetComponent<CameraShake>().shakeAmount = shakeAmount;
@@ -42,7 +38,6 @@ public class PlayerHealth : MonoBehaviour, IHealth
     {
         currentHealth += amount;
         if (currentHealth > maxHealth) currentHealth = maxHealth;
-        AudioManager.PlayAudio("PlayerHealing", 0.5f, 1, false);
     }
 
     private void Update()
@@ -52,30 +47,10 @@ public class PlayerHealth : MonoBehaviour, IHealth
         {
             if (!hasDied)
             {
-                AudioManager.PlayAudio("GameOverSound", 1, 1, false, null, true);
-                AudioListener.pause = true;
                 PauseGame.isPaused = true;
                 GetComponent<PlayerMovement>().enabled = false;
                 gameOver.SetActive(true);
                 fadeIn.StartFadeIn();
-
-                ambientMusic = FindObjectOfType<AmbientMusic>();
-                if (ambientMusic != null)
-                {
-                    ambientMusic.StopAmbientMusic();
-                }
-
-                meltdownMusic = FindObjectOfType<MeltdownMusic>();
-                if (meltdownMusic != null)
-                {
-                    meltdownMusic.StopMeltdownMusic();
-                }
-
-                ambienceManager = FindObjectOfType<AmbienceManager>();
-                if (ambienceManager != null)
-                {
-                    ambienceManager.StopAmbience();
-                }
 
                 hasDied = true;
             }

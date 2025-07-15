@@ -177,7 +177,6 @@ public class Cutting : MonoBehaviour
     {
         if (!hasPlayedBlockedSound)
         {
-            AudioManager.PlayAudio("MultitoolActionBlocked", 1, 1, false);
             hasPlayedBlockedSound = true;
         }
             if (!isSoundCoroutineRunning)

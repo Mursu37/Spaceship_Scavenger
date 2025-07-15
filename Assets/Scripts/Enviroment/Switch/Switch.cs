@@ -29,7 +29,6 @@ public abstract class Switch : MonoBehaviour, IInteractable
         if (!turnedOn)
         {
             animator.Play("TurnOn");
-            AudioManager.PlayModifiedClipAtPoint("LeverPull", transform.position, 1, 1, 1, 1000);
             StartCoroutine(SwitchAction());
             turnedOn = true;
         }

@@ -83,9 +83,5 @@ public class CoreDisconnect : MonoBehaviour
     public void Diconnect()
     {
         currentState = State.Open;
-        if (!AudioManager.IsPlaying("TeleporterOpen"))
-        {
-            AudioManager.PlayModifiedClipAtPoint("TeleporterOpen", transform.position, 1, 1, 1, 1000);
-        }
     }
 }

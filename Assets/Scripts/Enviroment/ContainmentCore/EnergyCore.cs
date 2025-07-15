@@ -9,12 +9,8 @@ public class EnergyCore : MonoBehaviour, IHealth
     private Vector3 relativeVelocity;
     private float collisionForce;
     private bool hasExploded = false;
-    private AmbientMusic ambientMusic;
-    private MeltdownMusic meltdownMusic;
-    private AmbienceManager ambienceManager;
     private bool heatingStarted = false;
 
-    private CoreSounds coreSounds;
 
     public float heatAmount;
     public float maxHeat;
@@ -34,7 +30,7 @@ public class EnergyCore : MonoBehaviour, IHealth
 
     private void Start()
     {
-        coreSounds = GetComponentInChildren<CoreSounds>();
+
     }
 
     private void Update()
@@ -43,19 +39,6 @@ public class EnergyCore : MonoBehaviour, IHealth
         {
             hasExploded = true;
             waveExplosion.Play();
-            coreSounds.PlayExplosionSounds(GameObject.Find("CoreAudio"));
-
-            ambientMusic = FindObjectOfType<AmbientMusic>();
-            if (ambientMusic != null)
-            {
-                ambientMusic.StopAmbientMusic();
-            }
-
-            meltdownMusic = FindObjectOfType<MeltdownMusic>();
-            if (meltdownMusic != null)
-            {
-                meltdownMusic.StopMeltdownMusic();
-            }
         }
     }
 
@@ -80,14 +63,12 @@ public class EnergyCore : MonoBehaviour, IHealth
         {
             heatAmount += collisionForce * 2f;
             damageIcons.ShowIcons();
-            coreSounds?.PlayRandomDamageSound();
         }
     }
 
     public void Damage(float amount, float shakeAmount)
     {
         heatAmount += amount;
-        coreSounds?.PlayRandomDamageSound();
     }
 
     public void Heal(float amount)

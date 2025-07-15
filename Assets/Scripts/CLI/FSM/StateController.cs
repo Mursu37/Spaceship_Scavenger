@@ -156,7 +156,6 @@ namespace CLI.FSM
             if (textResponseCoroutine != null)
             {
                 StopCoroutine(textResponseCoroutine);
-                AudioManager.StopAudio("TerminalTextLoop");
             }
 
             commandLineText.text = text;
@@ -187,7 +186,6 @@ namespace CLI.FSM
             if (textResponseCoroutine != null)
             {
                 StopCoroutine(textResponseCoroutine);
-                AudioManager.StopAudio("TerminalTextLoop");
             }
 
             int previousTextLength;
@@ -300,7 +298,6 @@ namespace CLI.FSM
             if (flavourTextCoroutine != null)
             {
                 StopCoroutine(flavourTextCoroutine);
-                AudioManager.StopAudio("TerminalTextLoop");
             }
 
             flavourText.text = text;
@@ -348,7 +345,7 @@ namespace CLI.FSM
 
         protected void OnEnable()
         {
-            PauseGame.Pause(PauseGame.TransitionType.LowPassMusic);
+            PauseGame.Pause();
             FindObjectOfType<PauseMenu>().enabled = false;
             VisorChange.UpdateVisor(VisorChange.Visor.Hacking);
             ResetState();
@@ -364,20 +361,12 @@ namespace CLI.FSM
 
         private void OnDisable()
         {
-            PauseGame.Resume(PauseGame.TransitionType.NormalMusic);
+            PauseGame.Resume();
             FindObjectOfType<PauseMenu>().enabled = true;
             VisorChange.UpdateVisor(VisorChange.currentDamageState);
             ClearCommands();
             ResetState();
-            if (AudioManager.IsPlaying("TerminalTextLoop"))
-            {
-                AudioManager.StopAudio("TerminalTextLoop");
-            }
 
-            if (!AudioManager.IsPlaying("TerminalExit"))
-            {
-                AudioManager.PlayAudio("TerminalExit", 1, 1, false, null, true);
-            }
             CLI.SetActive(false);
 
             if (powerTextEnabled)
@@ -391,17 +380,11 @@ namespace CLI.FSM
             commandLineInput.onFocusSelectAll = true;
             if (textResponseCoroutineRunning | flavourTextCoroutineRunning)
             {
-                if (!AudioManager.IsPlaying("TerminalTextLoop"))
-                {
-                    AudioManager.PlayAudio("TerminalTextLoop", 1, 1, true, null, true);
-                }
+               
             }
             else if (!textResponseCoroutineRunning && !flavourTextCoroutineRunning)
             {
-                if (AudioManager.IsPlaying("TerminalTextLoop"))
-                {
-                    AudioManager.StopAudio("TerminalTextLoop");
-                }
+                
             }
 
             if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape))
@@ -421,12 +404,10 @@ namespace CLI.FSM
                 if (commandIndex > -1)
                 {
                     currentState.Interpret(commandList[commandIndex].GetComponentInChildren<TMP_Text>().text.ToLower());
-                    AudioManager.PlayAudio("TerminalSelect", 1, 1, false, null, true);
                 }
                 else if (commandLineInput.text != "")
                 {
                     OnInput();
-                    AudioManager.PlayAudio("TerminalSelect", 1, 1, false, null, true);
                 }
             }
 
@@ -449,7 +430,6 @@ namespace CLI.FSM
         public virtual void SelectedChangeInputField()
         {
             if (commandIndex != -1) commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = commandColor;
-            AudioManager.PlayAudio("TerminalButtonHighlight", 1, 1, false, null, true);
             commandIndex = -1;
             commandLineInput.ActivateInputField();
             commandLineInput.interactable = true;
@@ -464,7 +444,6 @@ namespace CLI.FSM
             {
                 if (commandIndex + 1 > commandList.Count - 1) return;
                 commandIndex++;
-                AudioManager.PlayAudio("TerminalButtonHighlight", 1, 1, false, null, true);
                 commandLineInput.DeactivateInputField();
                 commandLineInput.interactable = false;
                 commandList[commandIndex].GetComponentInChildren<TMP_Text>().color = highlightedColor;
@@ -507,7 +486,6 @@ namespace CLI.FSM
                     }
                 }
                 commandIndex--;
-                AudioManager.PlayAudio("TerminalButtonHighlight", 1, 1, false, null, true);
                 if (commandIndex == -1)
                 {
                     commandLineInput.interactable = true;

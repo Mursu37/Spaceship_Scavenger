@@ -28,7 +28,6 @@ namespace Enviroment.MainTerminal
             lampSwitcherManager.ToggleLamps(true);
             dispatcher.TriggerEvent();
             isPowerOn = true;
-            AudioManager.PlayAudio("ShipPowerOn", 1, 1, false);
             powerText.text = "MAIN POWER ON";
             powerText.color = Color.green;
         }

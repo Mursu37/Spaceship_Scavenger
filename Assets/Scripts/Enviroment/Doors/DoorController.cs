@@ -28,10 +28,6 @@ public class DoorController : CuttingPointManager
         if (animator != null)
         {
             animator.Play("DoorOpening");
-            if (!AudioManager.IsPlaying("DoorOpen"))
-            {
-                AudioManager.PlayModifiedClipAtPoint("DoorOpen", transform.position, 1, 1, 1, 500);
-            }
 
             doorOpened = true;
             gameObject.GetComponent<AddArrayToXray>().SetGroupToLayer(0);
@@ -46,10 +42,6 @@ public class DoorController : CuttingPointManager
             if (animator != null)
             {
                 animator.Play("DoorOpening");
-                if (!AudioManager.IsPlaying("DoorOpen"))
-                {
-                    AudioManager.PlayModifiedClipAtPoint("DoorOpen", transform.position, 1, 1, 1, 500);
-                }
             }
 
             gameObject.GetComponent<AddArrayToXray>().SetGroupToLayer(0);
