@@ -11,7 +11,7 @@ public class StartCutsceneController : MonoBehaviour
     {
         if (!CheckpointManager.checkpointReached && !CheckpointManager.engineRoomReached)
         {
-            PauseGame.isPaused = true;
+            GameManager.isPaused = true;
             pauseMenu.enabled = false;
         }
 
@@ -26,7 +26,7 @@ public class StartCutsceneController : MonoBehaviour
 
     private void ReleasePlayer()
     {
-        PauseGame.isPaused = false;
+        GameManager.isPaused = false;
         pauseMenu.enabled = true;
     }
 }

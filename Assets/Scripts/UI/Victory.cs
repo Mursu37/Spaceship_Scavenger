@@ -32,7 +32,7 @@ public class Victory : MonoBehaviour
     {
         if (fadeOut.allFadedOut && !hasFadedOut)
         {
-            PauseGame.Resume();
+            GameManager.Resume();
             hasFadedOut = true;
             SceneManager.LoadSceneAsync("MainMenu");
         }

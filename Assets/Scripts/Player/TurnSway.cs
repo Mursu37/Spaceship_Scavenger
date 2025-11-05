@@ -14,7 +14,7 @@ public class TurnSway : MonoBehaviour
 
     private void Update()
     {
-        if (!PauseGame.isPaused)
+        if (!GameManager.isPaused)
         {
             mouseX = Input.GetAxisRaw("Mouse X") * swayMultiplier;
             mouseY = Input.GetAxisRaw("Mouse Y") * swayMultiplier;

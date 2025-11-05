@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Stabilize()
     {
-        if (Input.GetButtonDown("Stabilize") && !PauseGame.isPaused)
+        if (Input.GetButtonDown("Stabilize") && !GameManager.isPaused)
         {
             if (isStabilized)
             {
@@ -116,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (!PauseGame.isPaused)
+        if (!GameManager.isPaused)
         {
             // Get the inputs
             verticalInput = Input.GetAxis("Vertical");

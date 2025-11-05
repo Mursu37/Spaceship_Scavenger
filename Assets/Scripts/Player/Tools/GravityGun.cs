@@ -243,22 +243,22 @@ public class GravityGun : MonoBehaviour
 
         Vector3 floatPointPos = floatPoint.localPosition;
 
-        if (scrollWheelInput > 0f && !PauseGame.isPaused)
+        if (scrollWheelInput > 0f && !GameManager.isPaused)
         {
             floatPointPos.z += 4f * scrollWheelInput;
         }
-        else if (scrollWheelInput < 0f && Vector3.Distance(floatPoint.position, playerRb.position) > 2f && !PauseGame.isPaused)
+        else if (scrollWheelInput < 0f && Vector3.Distance(floatPoint.position, playerRb.position) > 2f && !GameManager.isPaused)
         {
             floatPointPos.z += 4f * scrollWheelInput;
         }
 
         floatPoint.localPosition = floatPointPos;
 
-        if (Input.GetButtonDown("Fire1") && !PauseGame.isPaused)
+        if (Input.GetButtonDown("Fire1") && !GameManager.isPaused)
         {
             isAttracting = true;
         }
-        else if (Input.GetButtonUp("Fire1") && !PauseGame.isPaused)
+        else if (Input.GetButtonUp("Fire1") && !GameManager.isPaused)
         {
             isAttracting = false;
         }

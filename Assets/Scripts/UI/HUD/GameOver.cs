@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
+    private FadeIn fadeIn;
+    private bool hasFadeIn = false;
     private FadeOut fadeOut;
     private bool hasFadedOut = false;
     private GameOverAction currentAction = GameOverAction.None;
@@ -18,7 +20,26 @@ public class GameOver : MonoBehaviour
 
     private void Awake()
     {
+        fadeIn = GetComponent<FadeIn>();
         fadeOut = GetComponent<FadeOut>();
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnGameStateChanged += OnGameStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameStateChanged -= OnGameStateChanged;
+    }
+
+    private void OnGameStateChanged(GameState gameState)
+    {
+        if (gameState == GameState.GameOver)
+        {
+            fadeIn.StartFadeIn();
+        }
     }
 
     public void Retry()
@@ -37,9 +58,15 @@ public class GameOver : MonoBehaviour
 
     private void Update()
     {
+        if (fadeIn.allFadedIn && !hasFadeIn)
+        {
+            GameManager.Pause();
+            hasFadeIn = true;
+        }
+
         if (fadeOut.allFadedOut && !hasFadedOut)
         {
-            PauseGame.Resume();
+            GameManager.Resume();
             hasFadedOut = true;
 
             if (currentAction == GameOverAction.Retry)

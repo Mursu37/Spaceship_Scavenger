@@ -345,7 +345,7 @@ namespace CLI.FSM
 
         protected void OnEnable()
         {
-            PauseGame.Pause();
+            GameManager.Pause();
             FindObjectOfType<PauseMenu>().enabled = false;
             VisorChange.UpdateVisor(VisorChange.Visor.Hacking);
             ResetState();
@@ -361,7 +361,7 @@ namespace CLI.FSM
 
         private void OnDisable()
         {
-            PauseGame.Resume();
+            GameManager.Resume();
             FindObjectOfType<PauseMenu>().enabled = true;
             VisorChange.UpdateVisor(VisorChange.currentDamageState);
             ClearCommands();

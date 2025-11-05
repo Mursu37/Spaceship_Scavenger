@@ -53,7 +53,7 @@ public class PauseMenu : MonoBehaviour
 
         isPaused = true;
         pausePanel.SetActive(true);
-        PauseGame.Pause();
+        GameManager.instance.UpdateGameState(GameState.PauseMenu);
         ShowPanel(pauseMenu);
         OnPause?.Invoke();
     }
@@ -64,7 +64,7 @@ public class PauseMenu : MonoBehaviour
 
         isPaused = false;
         pausePanel.SetActive(false);
-        PauseGame.Resume();
+        GameManager.instance.UpdateGameState(GameState.Gameplay);
         onResume?.Invoke();
     }
 
@@ -121,7 +121,7 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadSceneAsync("MainMenu");
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
-        PauseGame.Resume();
+        GameManager.Resume();
     }
 
 }

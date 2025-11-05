@@ -27,7 +27,7 @@ public class TutorialPopUp : MonoBehaviour
             {
                 tutorial.SetActive(true);
                 instance.pauseMenu.enabled = false;
-                PauseGame.Pause();
+                GameManager.Pause();
                 instance.currentTutorial = tutorial;
                 CheckpointManager.tutorialsShowed.Add(tutorial.name);
             }
@@ -48,10 +48,10 @@ public class TutorialPopUp : MonoBehaviour
             {
                 currentTutorial.SetActive(false);
                 instance.pauseMenu.enabled = true;
-                PauseGame.Resume();
+                GameManager.Resume();
                 if (currentTutorial == tutorialWindows[0])
                 {
-                    PauseGame.isPaused = true;
+                    GameManager.isPaused = true;
                     instance.pauseMenu.enabled = false;
                 }
                 currentTutorial = null;

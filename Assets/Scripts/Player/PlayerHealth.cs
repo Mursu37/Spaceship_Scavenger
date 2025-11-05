@@ -1,30 +1,19 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour, IHealth
 {
-    private FadeIn fadeIn;
     private float previousHealth;
-    private bool hasDied = false;
-    private bool hasFadeIn = false;
 
     public float currentHealth;
     [SerializeField] private float maxHealth = 5f;
-    [SerializeField] private GameObject gameOver;
 
     public static event Action<float> OnHealthChanged;
 
     private void Awake()
     {
         currentHealth = maxHealth;
-        OnHealthChanged?.Invoke(currentHealth);
         previousHealth = currentHealth;
-
-        fadeIn = gameOver.GetComponent<FadeIn>();
     }
 
     public void Damage(float amount, float shakeAmount = 0.04f)
@@ -32,8 +21,16 @@ public class PlayerHealth : MonoBehaviour, IHealth
         currentHealth -= amount;
         OnHealthChanged?.Invoke(currentHealth);
 
-        Camera.main.GetComponent<CameraShake>().shakeDuration = 0.2f;
-        Camera.main.GetComponent<CameraShake>().shakeAmount = shakeAmount;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+
+        if (Camera.main.TryGetComponent<CameraShake>(out CameraShake cameraShake))
+        {
+            cameraShake.shakeDuration = 0.2f;
+            cameraShake.shakeAmount = shakeAmount;
+        }
     }
 
     public void Heal(float amount)
@@ -42,28 +39,13 @@ public class PlayerHealth : MonoBehaviour, IHealth
         if (currentHealth > maxHealth) currentHealth = maxHealth;
     }
 
-    private void Update()
+    private void Die()
     {
-        // Reload the scene when health goes zero or below
-        if (currentHealth <= 0)
-        {
-            if (!hasDied)
-            {
-                PauseGame.isPaused = true;
-                GetComponent<PlayerMovement>().enabled = false;
-                gameOver.SetActive(true);
-                fadeIn.StartFadeIn();
+        GameManager.instance.UpdateGameState(GameState.GameOver);
+    }
 
-                hasDied = true;
-            }
-
-            if (fadeIn.allFadedIn && !hasFadeIn)
-            {
-                PauseGame.Pause();
-                hasFadeIn = true;
-            }
-        }
-        
+    private void Update()
+    {        
         if (previousHealth != currentHealth)
         {
             UpdateHealthUI();

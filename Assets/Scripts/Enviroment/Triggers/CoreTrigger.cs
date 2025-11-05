@@ -18,7 +18,7 @@ public class CoreTrigger : MonoBehaviour
 
     public void DisableInputs()
     {
-        PauseGame.isPaused = true;
+        GameManager.isPaused = true;
         FindObjectOfType<PauseMenu>().enabled = false;
     }
 
@@ -32,7 +32,7 @@ public class CoreTrigger : MonoBehaviour
     {
         if (fadeIn.allFadedIn && !hasFadeIn)
         {
-            PauseGame.Pause();
+            GameManager.Pause();
 
             hasFadeIn = true;
         }

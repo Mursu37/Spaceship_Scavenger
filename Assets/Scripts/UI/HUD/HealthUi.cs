@@ -4,11 +4,17 @@ using UnityEngine.UI;
 public class HealthUi : MonoBehaviour
 {
     private PlayerHealth playerHealth;
-    private float healthCount = 100f; // Assuming max health is 100
+    private float maxValue = 100f;
+    private float healthCount;
 
     [SerializeField] private Image currentHealthMeter;
     [SerializeField] private Image delayedHealthMeter;
     [SerializeField] private float lerpSpeed = 5f;
+
+    private void Awake()
+    {
+        healthCount = maxValue;
+    }
 
     private void OnEnable()
     {
@@ -27,7 +33,7 @@ public class HealthUi : MonoBehaviour
 
     private void Update()
     {
-        float targetFillAmount = healthCount / 100f;
+        float targetFillAmount = healthCount / maxValue;
 
         currentHealthMeter.fillAmount = Mathf.Lerp(
             currentHealthMeter.fillAmount,

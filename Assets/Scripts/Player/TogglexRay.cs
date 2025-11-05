@@ -27,7 +27,7 @@ public class TogglexRay : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Scan") && !PauseGame.isPaused)
+        if (Input.GetButtonDown("Scan") && !GameManager.isPaused)
         {
             if (xRayActive)
             {

@@ -95,7 +95,7 @@ public class Cutting : MonoBehaviour
         }
 
         //Modified order to accomodate sound playback
-        if (Input.GetButtonDown("Fire1") && !PauseGame.isPaused)
+        if (Input.GetButtonDown("Fire1") && !GameManager.isPaused)
         {
             // Cast a ray forward from the camera's position
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
@@ -151,7 +151,7 @@ public class Cutting : MonoBehaviour
             isAligned = false;
         }
 
-        if (Input.GetButtonDown("Fire2") && !PauseGame.isPaused)
+        if (Input.GetButtonDown("Fire2") && !GameManager.isPaused)
         {
             isVerticalCut = !isVerticalCut;
         }
