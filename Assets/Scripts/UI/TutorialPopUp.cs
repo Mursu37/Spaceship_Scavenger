@@ -12,7 +12,7 @@ public class TutorialPopUp : MonoBehaviour
     private GameObject currentTutorial;
     private PauseMenu pauseMenu;
 
-    private void Awake()
+    private void Start()
     {
         instance = this;
         pauseMenu = FindObjectOfType<PauseMenu>();

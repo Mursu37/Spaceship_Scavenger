@@ -8,9 +8,6 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour, IHealth
 {
     private FadeIn fadeIn;
-    private AmbientMusic ambientMusic;
-    private MeltdownMusic meltdownMusic;
-    private AmbienceManager ambienceManager;
     private float previousHealth;
     private bool hasDied = false;
     private bool hasFadeIn = false;
@@ -19,9 +16,12 @@ public class PlayerHealth : MonoBehaviour, IHealth
     [SerializeField] private float maxHealth = 5f;
     [SerializeField] private GameObject gameOver;
 
+    public static event Action<float> OnHealthChanged;
+
     private void Awake()
     {
         currentHealth = maxHealth;
+        OnHealthChanged?.Invoke(currentHealth);
         previousHealth = currentHealth;
 
         fadeIn = gameOver.GetComponent<FadeIn>();
@@ -30,6 +30,8 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public void Damage(float amount, float shakeAmount = 0.04f)
     {
         currentHealth -= amount;
+        OnHealthChanged?.Invoke(currentHealth);
+
         Camera.main.GetComponent<CameraShake>().shakeDuration = 0.2f;
         Camera.main.GetComponent<CameraShake>().shakeAmount = shakeAmount;
     }

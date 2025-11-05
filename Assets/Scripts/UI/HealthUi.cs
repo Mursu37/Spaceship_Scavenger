@@ -4,26 +4,29 @@ using UnityEngine.UI;
 public class HealthUi : MonoBehaviour
 {
     private PlayerHealth playerHealth;
-    private float healthCount;
+    private float healthCount = 100f; // Assuming max health is 100
 
     [SerializeField] private Image currentHealthMeter;
     [SerializeField] private Image delayedHealthMeter;
-    [SerializeField] private GameObject playerObject;
-    [SerializeField] private float lerpSpeed = 5f; 
+    [SerializeField] private float lerpSpeed = 5f;
 
-    private void Awake()
+    private void OnEnable()
     {
-        if (playerObject != null)
-        {
-            playerHealth = playerObject.GetComponent<PlayerHealth>();
-        }
+        PlayerHealth.OnHealthChanged += UpdateHealthBar;
+    }
+
+    private void OnDisable()
+    {
+        PlayerHealth.OnHealthChanged -= UpdateHealthBar;
+    }
+
+    private void UpdateHealthBar(float newHealth)
+    {
+        healthCount = newHealth;
     }
 
     private void Update()
     {
-        if (playerHealth == null) return;
-
-        healthCount = playerHealth.currentHealth;
         float targetFillAmount = healthCount / 100f;
 
         currentHealthMeter.fillAmount = Mathf.Lerp(
