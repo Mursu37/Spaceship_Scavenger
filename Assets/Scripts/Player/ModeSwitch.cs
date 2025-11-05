@@ -6,7 +6,6 @@ public class ModeSwitch : MonoBehaviour
 {
     private GravityGun gravityGun;
     private Cutting cutting;
-    private Slicer slicer;
 
     [SerializeField] private GameObject slicerObject;
     [SerializeField] private GameObject crosshair;
@@ -22,7 +21,6 @@ public class ModeSwitch : MonoBehaviour
     {
         gravityGun = GetComponent<GravityGun>();
         cutting = GetComponent<Cutting>();
-        slicer = GetComponent<Slicer>();
         selectedMode = 0;
 
     }
@@ -71,7 +69,6 @@ public class ModeSwitch : MonoBehaviour
                 slicerObject.SetActive(false);
                 gravityGun.enabled = true;
                 cutting.enabled = false;
-                slicer.enabled = false;
                 crosshair.SetActive(true);
                 cuttingCrosshairHorizontal.SetActive(false);
                 cuttingCrosshairVertical.SetActive(false);
@@ -90,7 +87,6 @@ public class ModeSwitch : MonoBehaviour
                 slicerObject.SetActive(true);
                 gravityGun.enabled = false;
                 cutting.enabled = true;
-                slicer.enabled = true;
                 crosshair.SetActive(false);
                 cuttingCrosshairHorizontal.SetActive(true);
                 cuttingCrosshairVertical.SetActive(false);
