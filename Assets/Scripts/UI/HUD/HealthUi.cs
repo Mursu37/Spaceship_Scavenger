@@ -3,8 +3,7 @@ using UnityEngine.UI;
 
 public class HealthUi : MonoBehaviour
 {
-    private PlayerHealth playerHealth;
-    private float maxValue = 100f;
+    private float maxValue = 100f; // Assumed default max value
     private float healthCount;
 
     [SerializeField] private Image currentHealthMeter;
@@ -26,9 +25,10 @@ public class HealthUi : MonoBehaviour
         PlayerHealth.OnHealthChanged -= UpdateHealthBar;
     }
 
-    private void UpdateHealthBar(float newHealth)
+    private void UpdateHealthBar(float newHealth, float maxHealth)
     {
         healthCount = newHealth;
+        maxValue = maxHealth;
     }
 
     private void Update()

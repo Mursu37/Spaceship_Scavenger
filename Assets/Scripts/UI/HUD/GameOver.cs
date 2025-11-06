@@ -38,7 +38,14 @@ public class GameOver : MonoBehaviour
     {
         if (gameState == GameState.GameOver)
         {
-            fadeIn.StartFadeIn();
+            if (GameManager.instance != null && GameManager.instance.instantGameOverRequested)
+            {
+
+            }
+            else
+            {
+                fadeIn.StartFadeIn();
+            }
         }
     }
 

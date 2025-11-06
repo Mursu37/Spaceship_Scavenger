@@ -347,7 +347,8 @@ namespace CLI.FSM
         {
             GameManager.Pause();
             FindObjectOfType<PauseMenu>().enabled = false;
-            VisorChange.UpdateVisor(VisorChange.Visor.Hacking);
+            GameManager.instance.UpdateGameState(GameState.Hacking);
+            //VisorChange.UpdateVisor_(VisorChange.Visor.Hacking);
             ResetState();
             ChangeState(currentState);
             commandLineInput.interactable = true;
@@ -363,7 +364,8 @@ namespace CLI.FSM
         {
             GameManager.Resume();
             FindObjectOfType<PauseMenu>().enabled = true;
-            VisorChange.UpdateVisor(VisorChange.currentDamageState);
+            GameManager.instance.UpdateGameState(GameState.Gameplay);
+            //VisorChange.UpdateVisor_(VisorChange.currentDamageState);
             ClearCommands();
             ResetState();
 

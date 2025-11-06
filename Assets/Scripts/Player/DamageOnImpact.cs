@@ -44,8 +44,9 @@ public class DamageOnImpact : MonoBehaviour
     {
         if (other.CompareTag("Wave"))
         {
-            playerHealth.currentHealth = 0f;
-            blackScreen.SetActive(true);
+            //playerHealth.currentHealth = 0f;
+            //blackScreen.SetActive(true);
+            GameManager.instance.KillPlayer(true);
         }
     }
 }

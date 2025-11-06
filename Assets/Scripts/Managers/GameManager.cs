@@ -5,6 +5,7 @@ public enum GameState
 {
     MainMenu,
     Gameplay,
+    Hacking,
     PauseMenu,
     Cutscene,
     GameOver
@@ -20,15 +21,15 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [SerializeField] private GameState gameState;
-    [SerializeField] private Phase phase;
+    public GameState gameState;
+    public Phase phase;
 
     public static event Action<GameState> OnGameStateChanged;
     public static event Action<Phase> OnPhaseChanged;
 
-    [HideInInspector] public GameObject player;
-
     public static bool isPaused;
+
+    [HideInInspector] public bool instantGameOverRequested = false;
 
     private void Awake()
     {
@@ -36,8 +37,6 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-
-        player = GameObject.FindWithTag("Player");
     }
 
     private void Start()
@@ -56,6 +55,9 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Gameplay:
                 if (isPaused) Resume();
+                break;
+            case GameState.Hacking:
+                Pause();
                 break;
             case GameState.PauseMenu:
                 Pause();
@@ -104,5 +106,12 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         isPaused = false;
+    }
+
+    public void KillPlayer(bool instant = false)
+    {
+        instantGameOverRequested = instant;
+        UpdateGameState(GameState.GameOver);
+        instantGameOverRequested = false;
     }
 }

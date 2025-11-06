@@ -6,9 +6,9 @@ public class PlayerHealth : MonoBehaviour, IHealth
     private float previousHealth;
 
     public float currentHealth;
-    [SerializeField] private float maxHealth = 5f;
+    [SerializeField] private float maxHealth = 100f;
 
-    public static event Action<float> OnHealthChanged;
+    public static event Action<float, float> OnHealthChanged;
 
     private void Awake()
     {
@@ -19,7 +19,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public void Damage(float amount, float shakeAmount = 0.04f)
     {
         currentHealth -= amount;
-        OnHealthChanged?.Invoke(currentHealth);
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
 
         if (currentHealth <= 0)
         {
@@ -41,32 +41,6 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
     private void Die()
     {
-        GameManager.instance.UpdateGameState(GameState.GameOver);
-    }
-
-    private void Update()
-    {        
-        if (previousHealth != currentHealth)
-        {
-            UpdateHealthUI();
-            previousHealth = currentHealth;
-        }
-    }
-
-    private void UpdateHealthUI()
-    {
-        // Showing the appropriate health UI images based on the current health
-        if (currentHealth <= maxHealth * 0.25f)
-        {
-            VisorChange.UpdateVisor(VisorChange.Visor.BadlyDamaged);
-        }
-        else if (currentHealth <= maxHealth * 0.50f)
-        {
-            VisorChange.UpdateVisor(VisorChange.Visor.MildlyDamaged);
-        }
-        else
-        {
-            VisorChange.UpdateVisor(VisorChange.Visor.Default);
-        }
+        GameManager.instance.KillPlayer();
     }
 }
