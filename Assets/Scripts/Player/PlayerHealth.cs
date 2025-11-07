@@ -41,6 +41,6 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
     private void Die()
     {
-        GameManager.instance.KillPlayer();
+        GameManager.instance.TriggerGameOver();
     }
 }

@@ -4,6 +4,23 @@ using UnityEngine;
 
 public class AlarmSounds : MonoBehaviour
 {
+    private void OnEnable()
+    {
+        GameManager.OnPhaseChanged += OnPhaseChanged;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnPhaseChanged -= OnPhaseChanged;
+    }
+
+    private void OnPhaseChanged(Phase newPhase)
+    {
+        if (newPhase == Phase.Meltdown)
+        {
+            ActivateAlarmSounds();
+        }
+    }
 
     public void ActivateAlarmSounds()
     {

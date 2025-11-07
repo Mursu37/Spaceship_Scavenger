@@ -19,6 +19,24 @@ public class EnergyCore : MonoBehaviour, IHealth
     [SerializeField] private ParticleSystem waveExplosion;
     [SerializeField] private CoreDamageIcons damageIcons;
 
+    private void OnEnable()
+    {
+        GameManager.OnPhaseChanged += OnGameChanged;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnPhaseChanged -= OnGameChanged;
+    }
+
+    private void OnGameChanged(Phase newPhase)
+    {
+        if (newPhase == Phase.Meltdown)
+        {
+            StartHeating();
+        }
+    }
+
     public void StartHeating()
     {
         if (!heatingStarted)
@@ -26,11 +44,6 @@ public class EnergyCore : MonoBehaviour, IHealth
             heatingStarted = true;
             StartCoroutine(HeatIncrease());
         }
-    }
-
-    private void Start()
-    {
-
     }
 
     private void Update()

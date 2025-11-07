@@ -36,6 +36,8 @@ public class ProgressBar : MonoBehaviour
     private float lastTargetFillAmount = 0f; // Tracks the last target fill amount
 
 
+    [SerializeField] private GameObject meltdownTimer;
+
     private void Start()
     {
         UpdateStageText();
@@ -43,6 +45,24 @@ public class ProgressBar : MonoBehaviour
         if (coreObject != null)
         {
             core = coreObject.GetComponent<EnergyCore>();
+        }
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnPhaseChanged += OnGameChanged;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnPhaseChanged -= OnGameChanged;
+    }
+
+    private void OnGameChanged(Phase newPhase)
+    {
+        if (newPhase == Phase.Meltdown)
+        {
+            meltdownTimer.SetActive(true);
         }
     }
 

@@ -19,17 +19,17 @@ public enum Phase
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager instance { get; private set; }
 
-    public GameState gameState;
-    public Phase phase;
+    public GameState gameState { get; private set; }
+    public Phase phase { get; private set; }
 
     public static event Action<GameState> OnGameStateChanged;
     public static event Action<Phase> OnPhaseChanged;
 
     public static bool isPaused;
 
-    [HideInInspector] public bool instantGameOverRequested = false;
+    [HideInInspector] public bool instantGameOverRequested { get; private set; } = false;
 
     private void Awake()
     {
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
         isPaused = false;
     }
 
-    public void KillPlayer(bool instant = false)
+    public void TriggerGameOver(bool instant = false)
     {
         instantGameOverRequested = instant;
         UpdateGameState(GameState.GameOver);

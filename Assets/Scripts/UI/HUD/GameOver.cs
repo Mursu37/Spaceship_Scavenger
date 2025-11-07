@@ -11,6 +11,8 @@ public class GameOver : MonoBehaviour
     private bool hasFadedOut = false;
     private GameOverAction currentAction = GameOverAction.None;
 
+    [SerializeField] private GameObject blackPanel;
+
     private enum GameOverAction
     {
         None,
@@ -40,7 +42,8 @@ public class GameOver : MonoBehaviour
         {
             if (GameManager.instance != null && GameManager.instance.instantGameOverRequested)
             {
-
+                blackPanel.SetActive(true);
+                fadeIn.StartFadeIn();
             }
             else
             {

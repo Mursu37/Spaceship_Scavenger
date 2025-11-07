@@ -23,6 +23,23 @@ public class CoreSounds : MonoBehaviour
   
     }
 
+    private void OnEnable()
+    {
+        GameManager.OnPhaseChanged += OnGameChanged;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnPhaseChanged -= OnGameChanged;
+    }
+
+    private void OnGameChanged(Phase newPhase)
+    {
+        if (newPhase == Phase.Meltdown)
+        {
+            ActivateCoreSounds();
+        }
+    }
 
     private void Update()
     {

@@ -47,9 +47,22 @@ public class MeltdownMusic : MonoBehaviour
 
     private void OnEnable()
     {
+        GameManager.OnPhaseChanged += OnPhaseChanged;
         AssignCoreReference();
     }
 
+    private void OnDisable()
+    {
+        GameManager.OnPhaseChanged -= OnPhaseChanged;
+    }
+
+    private void OnPhaseChanged(Phase newPhase)
+    {
+        if (newPhase == Phase.Meltdown)
+        {
+            ActivateMeltdownMusic();
+        }
+    }
 
     private void AssignCoreReference()
     {

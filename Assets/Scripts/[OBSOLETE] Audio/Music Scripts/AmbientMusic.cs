@@ -26,6 +26,24 @@ public class AmbientMusic : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        GameManager.OnPhaseChanged += OnPhaseChanged;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnPhaseChanged -= OnPhaseChanged;
+    }
+
+    private void OnPhaseChanged(Phase newPhase)
+    {
+        if (newPhase == Phase.Meltdown)
+        {
+            StopAmbientMusic();
+        }
+    }
+
     private void PlayAmbientMusic()
     {
         if (ambientMusicTracks.Length > 0)

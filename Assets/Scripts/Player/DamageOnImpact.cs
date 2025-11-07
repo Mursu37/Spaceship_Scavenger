@@ -7,15 +7,11 @@ public class DamageOnImpact : MonoBehaviour
     private Rigidbody rb;
     private Rigidbody otherRb;
     private Vector3 relativeVelocity;
-    private PlayerHealth playerHealth;
     private float collisionForce;
-
-    [SerializeField] private GameObject blackScreen;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        playerHealth = GetComponent<PlayerHealth>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -44,9 +40,7 @@ public class DamageOnImpact : MonoBehaviour
     {
         if (other.CompareTag("Wave"))
         {
-            //playerHealth.currentHealth = 0f;
-            //blackScreen.SetActive(true);
-            GameManager.instance.KillPlayer(true);
+            GameManager.instance.TriggerGameOver(true);
         }
     }
 }

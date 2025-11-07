@@ -22,10 +22,22 @@ public class LampSwitcherManager : MonoBehaviour
     [SerializeField]
     private int poolIndex_alarm;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
+        GameManager.OnPhaseChanged += OnGameChanged;
+    }
 
+    private void OnDisable()
+    {
+        GameManager.OnPhaseChanged -= OnGameChanged;
+    }
+
+    private void OnGameChanged(Phase newPhase)
+    {
+        if (newPhase == Phase.Meltdown)
+        {
+            SetAlarmOn();
+        }
     }
 
     public void SetAlarmState(bool _bool)
@@ -48,7 +60,6 @@ public class LampSwitcherManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     public void ToggleLamps(bool _bool)
     {
         for (int i = 0; i < lights.Length; i++)
